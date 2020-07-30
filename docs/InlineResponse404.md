@@ -7,7 +7,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **error** | [**ErrorEnum**](#ErrorEnum) | Error description |  [optional]
-**status** | **String** | HTTP Error code |  [optional]
+**status** | **Integer** | HTTP Error code |  [optional]
 
 
 

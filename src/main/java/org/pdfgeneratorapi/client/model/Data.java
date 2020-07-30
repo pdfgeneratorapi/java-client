@@ -23,18 +23,12 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionDataSettings;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionEditor;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionNewLayout;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionNewPages;
 
 /**
- * TemplateDefinition
+ * Data
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2020-07-30T07:15:50.107161Z[Etc/UTC]")
-public class TemplateDefinition {
+public class Data {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
   private Integer id;
@@ -43,43 +37,19 @@ public class TemplateDefinition {
   @SerializedName(SERIALIZED_NAME_NAME)
   private String name;
 
-  public static final String SERIALIZED_NAME_TAGS = "tags";
-  @SerializedName(SERIALIZED_NAME_TAGS)
-  private List<String> tags = null;
 
-  public static final String SERIALIZED_NAME_IS_DRAFT = "isDraft";
-  @SerializedName(SERIALIZED_NAME_IS_DRAFT)
-  private Boolean isDraft;
-
-  public static final String SERIALIZED_NAME_LAYOUT = "layout";
-  @SerializedName(SERIALIZED_NAME_LAYOUT)
-  private TemplateDefinitionNewLayout layout;
-
-  public static final String SERIALIZED_NAME_PAGES = "pages";
-  @SerializedName(SERIALIZED_NAME_PAGES)
-  private List<TemplateDefinitionNewPages> pages = null;
-
-  public static final String SERIALIZED_NAME_DATA_SETTINGS = "dataSettings";
-  @SerializedName(SERIALIZED_NAME_DATA_SETTINGS)
-  private TemplateDefinitionDataSettings dataSettings;
-
-  public static final String SERIALIZED_NAME_EDITOR = "editor";
-  @SerializedName(SERIALIZED_NAME_EDITOR)
-  private TemplateDefinitionEditor editor;
-
-
-  public TemplateDefinition id(Integer id) {
+  public Data id(Integer id) {
     
     this.id = id;
     return this;
   }
 
    /**
-   * Unique identifier
+   * Get id
    * @return id
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "24382", value = "Unique identifier")
+  @ApiModelProperty(example = "12312", value = "")
 
   public Integer getId() {
     return id;
@@ -91,18 +61,18 @@ public class TemplateDefinition {
   }
 
 
-  public TemplateDefinition name(String name) {
+  public Data name(String name) {
     
     this.name = name;
     return this;
   }
 
    /**
-   * Template name
+   * Get name
    * @return name
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "Invoice template", value = "Template name")
+  @ApiModelProperty(example = "Sample Data", value = "")
 
   public String getName() {
     return name;
@@ -114,160 +84,6 @@ public class TemplateDefinition {
   }
 
 
-  public TemplateDefinition tags(List<String> tags) {
-    
-    this.tags = tags;
-    return this;
-  }
-
-  public TemplateDefinition addTagsItem(String tagsItem) {
-    if (this.tags == null) {
-      this.tags = new ArrayList<String>();
-    }
-    this.tags.add(tagsItem);
-    return this;
-  }
-
-   /**
-   * A list of tags assigned to a template
-   * @return tags
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "[\"invoice\",\"orders\"]", value = "A list of tags assigned to a template")
-
-  public List<String> getTags() {
-    return tags;
-  }
-
-
-  public void setTags(List<String> tags) {
-    this.tags = tags;
-  }
-
-
-  public TemplateDefinition isDraft(Boolean isDraft) {
-    
-    this.isDraft = isDraft;
-    return this;
-  }
-
-   /**
-   * Indicates if the template is a draft or published.
-   * @return isDraft
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Indicates if the template is a draft or published.")
-
-  public Boolean getIsDraft() {
-    return isDraft;
-  }
-
-
-  public void setIsDraft(Boolean isDraft) {
-    this.isDraft = isDraft;
-  }
-
-
-  public TemplateDefinition layout(TemplateDefinitionNewLayout layout) {
-    
-    this.layout = layout;
-    return this;
-  }
-
-   /**
-   * Get layout
-   * @return layout
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public TemplateDefinitionNewLayout getLayout() {
-    return layout;
-  }
-
-
-  public void setLayout(TemplateDefinitionNewLayout layout) {
-    this.layout = layout;
-  }
-
-
-  public TemplateDefinition pages(List<TemplateDefinitionNewPages> pages) {
-    
-    this.pages = pages;
-    return this;
-  }
-
-  public TemplateDefinition addPagesItem(TemplateDefinitionNewPages pagesItem) {
-    if (this.pages == null) {
-      this.pages = new ArrayList<TemplateDefinitionNewPages>();
-    }
-    this.pages.add(pagesItem);
-    return this;
-  }
-
-   /**
-   * Defines page or label size, margins and components on page or label
-   * @return pages
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Defines page or label size, margins and components on page or label")
-
-  public List<TemplateDefinitionNewPages> getPages() {
-    return pages;
-  }
-
-
-  public void setPages(List<TemplateDefinitionNewPages> pages) {
-    this.pages = pages;
-  }
-
-
-  public TemplateDefinition dataSettings(TemplateDefinitionDataSettings dataSettings) {
-    
-    this.dataSettings = dataSettings;
-    return this;
-  }
-
-   /**
-   * Get dataSettings
-   * @return dataSettings
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public TemplateDefinitionDataSettings getDataSettings() {
-    return dataSettings;
-  }
-
-
-  public void setDataSettings(TemplateDefinitionDataSettings dataSettings) {
-    this.dataSettings = dataSettings;
-  }
-
-
-  public TemplateDefinition editor(TemplateDefinitionEditor editor) {
-    
-    this.editor = editor;
-    return this;
-  }
-
-   /**
-   * Get editor
-   * @return editor
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public TemplateDefinitionEditor getEditor() {
-    return editor;
-  }
-
-
-  public void setEditor(TemplateDefinitionEditor editor) {
-    this.editor = editor;
-  }
-
-
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -276,35 +92,23 @@ public class TemplateDefinition {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TemplateDefinition templateDefinition = (TemplateDefinition) o;
-    return Objects.equals(this.id, templateDefinition.id) &&
-        Objects.equals(this.name, templateDefinition.name) &&
-        Objects.equals(this.tags, templateDefinition.tags) &&
-        Objects.equals(this.isDraft, templateDefinition.isDraft) &&
-        Objects.equals(this.layout, templateDefinition.layout) &&
-        Objects.equals(this.pages, templateDefinition.pages) &&
-        Objects.equals(this.dataSettings, templateDefinition.dataSettings) &&
-        Objects.equals(this.editor, templateDefinition.editor);
+    Data data = (Data) o;
+    return Objects.equals(this.id, data.id) &&
+        Objects.equals(this.name, data.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, tags, isDraft, layout, pages, dataSettings, editor);
+    return Objects.hash(id, name);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TemplateDefinition {\n");
+    sb.append("class Data {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-    sb.append("    isDraft: ").append(toIndentedString(isDraft)).append("\n");
-    sb.append("    layout: ").append(toIndentedString(layout)).append("\n");
-    sb.append("    pages: ").append(toIndentedString(pages)).append("\n");
-    sb.append("    dataSettings: ").append(toIndentedString(dataSettings)).append("\n");
-    sb.append("    editor: ").append(toIndentedString(editor)).append("\n");
     sb.append("}");
     return sb.toString();
   }

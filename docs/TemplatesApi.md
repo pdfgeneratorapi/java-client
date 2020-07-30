@@ -451,7 +451,7 @@ This endpoint does not need any parameter.
 
 <a name="mergeTemplate"></a>
 # **mergeTemplate**
-> InlineResponse2004 mergeTemplate(templateId, body, name, format, output)
+> InlineResponse2004 mergeTemplate(templateId, data, name, format, output)
 
 Merge template
 
@@ -478,12 +478,12 @@ public class Example {
 
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     Integer templateId = 19375; // Integer | Template unique identifier
-    Object body = null; // Object | Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file.
+    Data data = new Data(); // Data | Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file.
     String name = My document; // String | Document name, returned in the meta data.
     String format = pdf; // String | Document format. The zip option will return a ZIP file with PDF files.
     String output = base64; // String | Response format.
     try {
-      InlineResponse2004 result = apiInstance.mergeTemplate(templateId, body, name, format, output);
+      InlineResponse2004 result = apiInstance.mergeTemplate(templateId, data, name, format, output);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#mergeTemplate");
@@ -501,7 +501,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **templateId** | **Integer**| Template unique identifier |
- **body** | **Object**| Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file. |
+ **data** | [**Data**](Data.md)| Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file. |
  **name** | **String**| Document name, returned in the meta data. | [optional]
  **format** | **String**| Document format. The zip option will return a ZIP file with PDF files. | [optional] [default to pdf] [enum: pdf, html, zip, xlsx]
  **output** | **String**| Response format. | [optional] [default to base64] [enum: base64, url, I]

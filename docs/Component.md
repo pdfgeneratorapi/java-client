@@ -8,6 +8,7 @@ Template component definition
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **cls** | [**ClsEnum**](#ClsEnum) | Defines component class/type |  [optional]
+**id** | **String** | Component id |  [optional]
 **width** | [**BigDecimal**](BigDecimal.md) | Width in units |  [optional]
 **height** | [**BigDecimal**](BigDecimal.md) | Height in units |  [optional]
 **top** | [**BigDecimal**](BigDecimal.md) | Position from the page top in units |  [optional]
@@ -22,6 +23,7 @@ Name | Type | Description | Notes
 
 Name | Value
 ---- | -----
+LABELCOMPONENT | &quot;labelComponent&quot;
 NUMBERCOMPONENT | &quot;numberComponent&quot;
 TEXTCOMPONENT | &quot;textComponent&quot;
 IMAGECOMPONENT | &quot;imageComponent&quot;
