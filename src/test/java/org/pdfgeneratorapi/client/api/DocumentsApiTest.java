@@ -11,103 +11,70 @@
  */
 
 
-package org.pdfgeneratorapi.client.model;
+package org.pdfgeneratorapi.client.api;
 
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionDataSettings;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionEditor;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionLayout;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionNewPages;
-import org.junit.Assert;
-import org.junit.Ignore;
+import org.pdfgeneratorapi.client.ApiException;
+import org.pdfgeneratorapi.client.model.Data;
+import org.pdfgeneratorapi.client.model.InlineResponse2004;
+import org.pdfgeneratorapi.client.model.InlineResponse401;
+import org.pdfgeneratorapi.client.model.InlineResponse403;
+import org.pdfgeneratorapi.client.model.InlineResponse404;
+import org.pdfgeneratorapi.client.model.InlineResponse422;
+import org.pdfgeneratorapi.client.model.InlineResponse500;
 import org.junit.Test;
+import org.junit.Ignore;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * Model tests for TemplateDefinition
+ * API tests for DocumentsApi
  */
-public class TemplateDefinitionTest {
-    private final TemplateDefinition model = new TemplateDefinition();
+@Ignore
+public class DocumentsApiTest {
 
+    private final DocumentsApi api = new DocumentsApi();
+
+    
     /**
-     * Model tests for TemplateDefinition
+     * Generate document
+     *
+     * Merges template with data and returns base64 encoded document or a public URL to a document. You can send json encoded data in request body or a public URL to your json file as the data parameter. NB! When the public URL option is used, the document is stored for 30 days and automatically deleted.
+     *
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
-    public void testTemplateDefinition() {
-        // TODO: test TemplateDefinition
-    }
+    public void mergeTemplateTest() throws ApiException {
+        Integer templateId = null;
+        Data data = null;
+        String name = null;
+        String format = null;
+        String output = null;
+        InlineResponse2004 response = api.mergeTemplate(templateId, data, name, format, output);
 
+        // TODO: test validations
+    }
+    
     /**
-     * Test the property 'id'
+     * Generate document (multiple templates)
+     *
+     * Allows to merge multiples template with data and returns base64 encoded document or public URL to a document. NB! When the public URL option is used, the document is stored for 30 days and automatically deleted.
+     *
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
-    public void idTest() {
-        // TODO: test id
-    }
+    public void mergeTemplatesTest() throws ApiException {
+        List<Object> requestBody = null;
+        String name = null;
+        String format = null;
+        String output = null;
+        InlineResponse2004 response = api.mergeTemplates(requestBody, name, format, output);
 
-    /**
-     * Test the property 'name'
-     */
-    @Test
-    public void nameTest() {
-        // TODO: test name
+        // TODO: test validations
     }
-
-    /**
-     * Test the property 'tags'
-     */
-    @Test
-    public void tagsTest() {
-        // TODO: test tags
-    }
-
-    /**
-     * Test the property 'isDraft'
-     */
-    @Test
-    public void isDraftTest() {
-        // TODO: test isDraft
-    }
-
-    /**
-     * Test the property 'layout'
-     */
-    @Test
-    public void layoutTest() {
-        // TODO: test layout
-    }
-
-    /**
-     * Test the property 'pages'
-     */
-    @Test
-    public void pagesTest() {
-        // TODO: test pages
-    }
-
-    /**
-     * Test the property 'dataSettings'
-     */
-    @Test
-    public void dataSettingsTest() {
-        // TODO: test dataSettings
-    }
-
-    /**
-     * Test the property 'editor'
-     */
-    @Test
-    public void editorTest() {
-        // TODO: test editor
-    }
-
+    
 }

@@ -3,6 +3,7 @@
 # TemplateDefinitionNew
 
 Template configuration
+
 ## Properties
 
 Name | Type | Description | Notes

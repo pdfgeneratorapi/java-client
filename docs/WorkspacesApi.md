@@ -4,8 +4,8 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteWorkspace**](WorkspacesApi.md#deleteWorkspace) | **DELETE** /workspaces/{workspaceId} | Delete workspace
-[**getWorkspace**](WorkspacesApi.md#getWorkspace) | **GET** /workspaces/{workspaceId} | Get workspace
+[**deleteWorkspace**](WorkspacesApi.md#deleteWorkspace) | **DELETE** /workspaces/workspaceId | Delete workspace
+[**getWorkspace**](WorkspacesApi.md#getWorkspace) | **GET** /workspaces/workspaceId | Get workspace
 
 
 <a name="deleteWorkspace"></a>
@@ -36,7 +36,7 @@ public class Example {
     JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
     WorkspacesApi apiInstance = new WorkspacesApi(defaultClient);
-    String workspaceId = demo.example@actualreports.com; // String | Workspace identifier
+    String workspaceId = "demo.example@actualreports.com"; // String | Workspace identifier
     try {
       InlineResponse2002 result = apiInstance.deleteWorkspace(workspaceId);
       System.out.println(result);
@@ -108,7 +108,7 @@ public class Example {
     JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
     WorkspacesApi apiInstance = new WorkspacesApi(defaultClient);
-    String workspaceId = demo.example@actualreports.com; // String | Workspace identifier
+    String workspaceId = "demo.example@actualreports.com"; // String | Workspace identifier
     try {
       InlineResponse2005 result = apiInstance.getWorkspace(workspaceId);
       System.out.println(result);

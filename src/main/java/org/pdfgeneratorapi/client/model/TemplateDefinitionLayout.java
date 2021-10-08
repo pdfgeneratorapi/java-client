@@ -24,55 +24,30 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.math.BigDecimal;
+import org.openapitools.jackson.nullable.JsonNullable;
+import org.pdfgeneratorapi.client.model.TemplateDefinitionNewLayoutMargins;
+import org.pdfgeneratorapi.client.model.TemplateDefinitionNewLayoutRepeatLayout;
 
 /**
- * Template component definition
+ * Defines template layout (e.g page format, margins).
  */
-@ApiModel(description = "Template component definition")
+@ApiModel(description = "Defines template layout (e.g page format, margins).")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-10-08T09:52:30.707288Z[Etc/UTC]")
-public class Component {
+public class TemplateDefinitionLayout {
   /**
-   * Defines component class/type
+   * Defines template page size
    */
-  @JsonAdapter(ClsEnum.Adapter.class)
-  public enum ClsEnum {
-    LABELCOMPONENT("labelComponent"),
+  @JsonAdapter(FormatEnum.Adapter.class)
+  public enum FormatEnum {
+    A4("A4"),
     
-    NUMBERCOMPONENT("numberComponent"),
+    LETTER("letter"),
     
-    TEXTCOMPONENT("textComponent"),
-    
-    IMAGECOMPONENT("imageComponent"),
-    
-    DATECOMPONENT("dateComponent"),
-    
-    HLINECOMPONENT("hlineComponent"),
-    
-    VLINECOMPONENT("vlineComponent"),
-    
-    TABLECOMPONENT("tableComponent"),
-    
-    COMPOSITECOMPONENT("compositeComponent"),
-    
-    BARCODECOMPONENT("barcodeComponent"),
-    
-    QRCODECOMPONENT("qrcodeComponent"),
-    
-    CHARTCOMPONENT("chartComponent"),
-    
-    RECTANGLECOMPONENT("rectangleComponent"),
-    
-    HEADERCOMPONENT("headerComponent"),
-    
-    FOOTERCOMPONENT("footerComponent"),
-    
-    CHECKBOXCOMPONENT("checkboxComponent"),
-    
-    RADIOCOMPONENT("radioComponent");
+    CUSTOM("custom");
 
     private String value;
 
-    ClsEnum(String value) {
+    FormatEnum(String value) {
       this.value = value;
     }
 
@@ -85,8 +60,8 @@ public class Component {
       return String.valueOf(value);
     }
 
-    public static ClsEnum fromValue(String value) {
-      for (ClsEnum b : ClsEnum.values()) {
+    public static FormatEnum fromValue(String value) {
+      for (FormatEnum b : FormatEnum.values()) {
         if (b.value.equals(value)) {
           return b;
         }
@@ -94,27 +69,23 @@ public class Component {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
 
-    public static class Adapter extends TypeAdapter<ClsEnum> {
+    public static class Adapter extends TypeAdapter<FormatEnum> {
       @Override
-      public void write(final JsonWriter jsonWriter, final ClsEnum enumeration) throws IOException {
+      public void write(final JsonWriter jsonWriter, final FormatEnum enumeration) throws IOException {
         jsonWriter.value(enumeration.getValue());
       }
 
       @Override
-      public ClsEnum read(final JsonReader jsonReader) throws IOException {
+      public FormatEnum read(final JsonReader jsonReader) throws IOException {
         String value =  jsonReader.nextString();
-        return ClsEnum.fromValue(value);
+        return FormatEnum.fromValue(value);
       }
     }
   }
 
-  public static final String SERIALIZED_NAME_CLS = "cls";
-  @SerializedName(SERIALIZED_NAME_CLS)
-  private ClsEnum cls;
-
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
-  private String id;
+  public static final String SERIALIZED_NAME_FORMAT = "format";
+  @SerializedName(SERIALIZED_NAME_FORMAT)
+  private FormatEnum format;
 
   public static final String SERIALIZED_NAME_WIDTH = "width";
   @SerializedName(SERIALIZED_NAME_WIDTH)
@@ -124,85 +95,211 @@ public class Component {
   @SerializedName(SERIALIZED_NAME_HEIGHT)
   private BigDecimal height;
 
-  public static final String SERIALIZED_NAME_TOP = "top";
-  @SerializedName(SERIALIZED_NAME_TOP)
-  private BigDecimal top;
-
-  public static final String SERIALIZED_NAME_LEFT = "left";
-  @SerializedName(SERIALIZED_NAME_LEFT)
-  private BigDecimal left;
-
-  public static final String SERIALIZED_NAME_ZINDEX = "zindex";
-  @SerializedName(SERIALIZED_NAME_ZINDEX)
-  private Integer zindex;
-
-  public static final String SERIALIZED_NAME_VALUE = "value";
-  @SerializedName(SERIALIZED_NAME_VALUE)
-  private String value;
-
-  public static final String SERIALIZED_NAME_DATA_INDEX = "dataIndex";
-  @SerializedName(SERIALIZED_NAME_DATA_INDEX)
-  private String dataIndex;
-
-
-  public Component cls(ClsEnum cls) {
+  /**
+   * Measure unit
+   */
+  @JsonAdapter(UnitEnum.Adapter.class)
+  public enum UnitEnum {
+    CM("cm"),
     
-    this.cls = cls;
+    IN("in");
+
+    private String value;
+
+    UnitEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static UnitEnum fromValue(String value) {
+      for (UnitEnum b : UnitEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<UnitEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final UnitEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public UnitEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return UnitEnum.fromValue(value);
+      }
+    }
+  }
+
+  public static final String SERIALIZED_NAME_UNIT = "unit";
+  @SerializedName(SERIALIZED_NAME_UNIT)
+  private UnitEnum unit;
+
+  /**
+   * Page orientation
+   */
+  @JsonAdapter(OrientationEnum.Adapter.class)
+  public enum OrientationEnum {
+    PORTRAIT("portrait"),
+    
+    LANDSCAPE("landscape");
+
+    private String value;
+
+    OrientationEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static OrientationEnum fromValue(String value) {
+      for (OrientationEnum b : OrientationEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<OrientationEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final OrientationEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public OrientationEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return OrientationEnum.fromValue(value);
+      }
+    }
+  }
+
+  public static final String SERIALIZED_NAME_ORIENTATION = "orientation";
+  @SerializedName(SERIALIZED_NAME_ORIENTATION)
+  private OrientationEnum orientation;
+
+  /**
+   * Page rotation in degrees
+   */
+  @JsonAdapter(RotationEnum.Adapter.class)
+  public enum RotationEnum {
+    NUMBER_0(0),
+    
+    NUMBER_90(90),
+    
+    NUMBER_180(180),
+    
+    NUMBER_270(270);
+
+    private Integer value;
+
+    RotationEnum(Integer value) {
+      this.value = value;
+    }
+
+    public Integer getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static RotationEnum fromValue(Integer value) {
+      for (RotationEnum b : RotationEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<RotationEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final RotationEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public RotationEnum read(final JsonReader jsonReader) throws IOException {
+        Integer value =  jsonReader.nextInt();
+        return RotationEnum.fromValue(value);
+      }
+    }
+  }
+
+  public static final String SERIALIZED_NAME_ROTATION = "rotation";
+  @SerializedName(SERIALIZED_NAME_ROTATION)
+  private RotationEnum rotation;
+
+  public static final String SERIALIZED_NAME_MARGINS = "margins";
+  @SerializedName(SERIALIZED_NAME_MARGINS)
+  private TemplateDefinitionNewLayoutMargins margins;
+
+  public static final String SERIALIZED_NAME_REPEAT_LAYOUT = "repeatLayout";
+  @SerializedName(SERIALIZED_NAME_REPEAT_LAYOUT)
+  private TemplateDefinitionNewLayoutRepeatLayout repeatLayout;
+
+  public static final String SERIALIZED_NAME_EMPTY_LABELS = "emptyLabels";
+  @SerializedName(SERIALIZED_NAME_EMPTY_LABELS)
+  private Integer emptyLabels;
+
+
+  public TemplateDefinitionLayout format(FormatEnum format) {
+    
+    this.format = format;
     return this;
   }
 
    /**
-   * Defines component class/type
-   * @return cls
+   * Defines template page size
+   * @return format
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "labelComponent", value = "Defines component class/type")
+  @ApiModelProperty(example = "A4", value = "Defines template page size")
 
-  public ClsEnum getCls() {
-    return cls;
+  public FormatEnum getFormat() {
+    return format;
   }
 
 
-  public void setCls(ClsEnum cls) {
-    this.cls = cls;
+  public void setFormat(FormatEnum format) {
+    this.format = format;
   }
 
 
-  public Component id(String id) {
-    
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Component id
-   * @return id
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "component-12313", value = "Component id")
-
-  public String getId() {
-    return id;
-  }
-
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public Component width(BigDecimal width) {
+  public TemplateDefinitionLayout width(BigDecimal width) {
     
     this.width = width;
     return this;
   }
 
    /**
-   * Width in units
+   * Page width in units
    * @return width
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "3.5", value = "Width in units")
+  @ApiModelProperty(example = "21", value = "Page width in units")
 
   public BigDecimal getWidth() {
     return width;
@@ -214,18 +311,18 @@ public class Component {
   }
 
 
-  public Component height(BigDecimal height) {
+  public TemplateDefinitionLayout height(BigDecimal height) {
     
     this.height = height;
     return this;
   }
 
    /**
-   * Height in units
+   * Page height in units
    * @return height
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "1", value = "Height in units")
+  @ApiModelProperty(example = "29.7", value = "Page height in units")
 
   public BigDecimal getHeight() {
     return height;
@@ -237,118 +334,141 @@ public class Component {
   }
 
 
-  public Component top(BigDecimal top) {
+  public TemplateDefinitionLayout unit(UnitEnum unit) {
     
-    this.top = top;
+    this.unit = unit;
     return this;
   }
 
    /**
-   * Position from the page top in units
-   * @return top
+   * Measure unit
+   * @return unit
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "4.2", value = "Position from the page top in units")
+  @ApiModelProperty(example = "cm", value = "Measure unit")
 
-  public BigDecimal getTop() {
-    return top;
+  public UnitEnum getUnit() {
+    return unit;
   }
 
 
-  public void setTop(BigDecimal top) {
-    this.top = top;
+  public void setUnit(UnitEnum unit) {
+    this.unit = unit;
   }
 
 
-  public Component left(BigDecimal left) {
+  public TemplateDefinitionLayout orientation(OrientationEnum orientation) {
     
-    this.left = left;
+    this.orientation = orientation;
     return this;
   }
 
    /**
-   * Position from the page left in units
-   * @return left
+   * Page orientation
+   * @return orientation
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "2.5", value = "Position from the page left in units")
+  @ApiModelProperty(example = "portrait", value = "Page orientation")
 
-  public BigDecimal getLeft() {
-    return left;
+  public OrientationEnum getOrientation() {
+    return orientation;
   }
 
 
-  public void setLeft(BigDecimal left) {
-    this.left = left;
+  public void setOrientation(OrientationEnum orientation) {
+    this.orientation = orientation;
   }
 
 
-  public Component zindex(Integer zindex) {
+  public TemplateDefinitionLayout rotation(RotationEnum rotation) {
     
-    this.zindex = zindex;
+    this.rotation = rotation;
     return this;
   }
 
    /**
-   * Defines the rendering order on page. Components with smaller zindex are rendered before
-   * @return zindex
+   * Page rotation in degrees
+   * @return rotation
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "102", value = "Defines the rendering order on page. Components with smaller zindex are rendered before")
+  @ApiModelProperty(example = "0", value = "Page rotation in degrees")
 
-  public Integer getZindex() {
-    return zindex;
+  public RotationEnum getRotation() {
+    return rotation;
   }
 
 
-  public void setZindex(Integer zindex) {
-    this.zindex = zindex;
+  public void setRotation(RotationEnum rotation) {
+    this.rotation = rotation;
   }
 
 
-  public Component value(String value) {
+  public TemplateDefinitionLayout margins(TemplateDefinitionNewLayoutMargins margins) {
     
-    this.value = value;
+    this.margins = margins;
     return this;
   }
 
    /**
-   * Component value
-   * @return value
+   * Get margins
+   * @return margins
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "${price}", value = "Component value")
+  @ApiModelProperty(value = "")
 
-  public String getValue() {
-    return value;
+  public TemplateDefinitionNewLayoutMargins getMargins() {
+    return margins;
   }
 
 
-  public void setValue(String value) {
-    this.value = value;
+  public void setMargins(TemplateDefinitionNewLayoutMargins margins) {
+    this.margins = margins;
   }
 
 
-  public Component dataIndex(String dataIndex) {
+  public TemplateDefinitionLayout repeatLayout(TemplateDefinitionNewLayoutRepeatLayout repeatLayout) {
     
-    this.dataIndex = dataIndex;
+    this.repeatLayout = repeatLayout;
     return this;
   }
 
    /**
-   * Defines data field for Table and Container components which are used to iterate over list of items
-   * @return dataIndex
+   * Get repeatLayout
+   * @return repeatLayout
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "line_items", value = "Defines data field for Table and Container components which are used to iterate over list of items")
+  @ApiModelProperty(value = "")
 
-  public String getDataIndex() {
-    return dataIndex;
+  public TemplateDefinitionNewLayoutRepeatLayout getRepeatLayout() {
+    return repeatLayout;
   }
 
 
-  public void setDataIndex(String dataIndex) {
-    this.dataIndex = dataIndex;
+  public void setRepeatLayout(TemplateDefinitionNewLayoutRepeatLayout repeatLayout) {
+    this.repeatLayout = repeatLayout;
+  }
+
+
+  public TemplateDefinitionLayout emptyLabels(Integer emptyLabels) {
+    
+    this.emptyLabels = emptyLabels;
+    return this;
+  }
+
+   /**
+   * Defines how many pages or labels should be empty
+   * @return emptyLabels
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "0", value = "Defines how many pages or labels should be empty")
+
+  public Integer getEmptyLabels() {
+    return emptyLabels;
+  }
+
+
+  public void setEmptyLabels(Integer emptyLabels) {
+    this.emptyLabels = emptyLabels;
   }
 
 
@@ -360,36 +480,49 @@ public class Component {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Component component = (Component) o;
-    return Objects.equals(this.cls, component.cls) &&
-        Objects.equals(this.id, component.id) &&
-        Objects.equals(this.width, component.width) &&
-        Objects.equals(this.height, component.height) &&
-        Objects.equals(this.top, component.top) &&
-        Objects.equals(this.left, component.left) &&
-        Objects.equals(this.zindex, component.zindex) &&
-        Objects.equals(this.value, component.value) &&
-        Objects.equals(this.dataIndex, component.dataIndex);
+    TemplateDefinitionLayout templateDefinitionLayout = (TemplateDefinitionLayout) o;
+    return Objects.equals(this.format, templateDefinitionLayout.format) &&
+        Objects.equals(this.width, templateDefinitionLayout.width) &&
+        Objects.equals(this.height, templateDefinitionLayout.height) &&
+        Objects.equals(this.unit, templateDefinitionLayout.unit) &&
+        Objects.equals(this.orientation, templateDefinitionLayout.orientation) &&
+        Objects.equals(this.rotation, templateDefinitionLayout.rotation) &&
+        Objects.equals(this.margins, templateDefinitionLayout.margins) &&
+        Objects.equals(this.repeatLayout, templateDefinitionLayout.repeatLayout) &&
+        Objects.equals(this.emptyLabels, templateDefinitionLayout.emptyLabels);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && a.get().getClass().isArray() ? Arrays.equals((T[])a.get(), (T[])b.get()) : Objects.equals(a.get(), b.get()));
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cls, id, width, height, top, left, zindex, value, dataIndex);
+    return Objects.hash(format, width, height, unit, orientation, rotation, margins, repeatLayout, emptyLabels);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent()
+      ? (a.get().getClass().isArray() ? Arrays.hashCode((T[])a.get()) : Objects.hashCode(a.get()))
+      : 31;
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Component {\n");
-    sb.append("    cls: ").append(toIndentedString(cls)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("class TemplateDefinitionLayout {\n");
+    sb.append("    format: ").append(toIndentedString(format)).append("\n");
     sb.append("    width: ").append(toIndentedString(width)).append("\n");
     sb.append("    height: ").append(toIndentedString(height)).append("\n");
-    sb.append("    top: ").append(toIndentedString(top)).append("\n");
-    sb.append("    left: ").append(toIndentedString(left)).append("\n");
-    sb.append("    zindex: ").append(toIndentedString(zindex)).append("\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    dataIndex: ").append(toIndentedString(dataIndex)).append("\n");
+    sb.append("    unit: ").append(toIndentedString(unit)).append("\n");
+    sb.append("    orientation: ").append(toIndentedString(orientation)).append("\n");
+    sb.append("    rotation: ").append(toIndentedString(rotation)).append("\n");
+    sb.append("    margins: ").append(toIndentedString(margins)).append("\n");
+    sb.append("    repeatLayout: ").append(toIndentedString(repeatLayout)).append("\n");
+    sb.append("    emptyLabels: ").append(toIndentedString(emptyLabels)).append("\n");
     sb.append("}");
     return sb.toString();
   }

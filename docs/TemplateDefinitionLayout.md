@@ -1,6 +1,6 @@
 
 
-# TemplateDefinitionNewLayout
+# TemplateDefinitionLayout
 
 Defines template layout (e.g page format, margins).
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **height** | **BigDecimal** | Page height in units |  [optional]
 **unit** | [**UnitEnum**](#UnitEnum) | Measure unit |  [optional]
 **orientation** | [**OrientationEnum**](#OrientationEnum) | Page orientation |  [optional]
-**rotaion** | [**RotaionEnum**](#RotaionEnum) | Page rotation in degrees |  [optional]
+**rotation** | [**RotationEnum**](#RotationEnum) | Page rotation in degrees |  [optional]
 **margins** | [**TemplateDefinitionNewLayoutMargins**](TemplateDefinitionNewLayoutMargins.md) |  |  [optional]
 **repeatLayout** | [**TemplateDefinitionNewLayoutRepeatLayout**](TemplateDefinitionNewLayoutRepeatLayout.md) |  |  [optional]
 **emptyLabels** | **Integer** | Defines how many pages or labels should be empty |  [optional]
@@ -48,7 +48,7 @@ LANDSCAPE | &quot;landscape&quot;
 
 
 
-## Enum: RotaionEnum
+## Enum: RotationEnum
 
 Name | Value
 ---- | -----

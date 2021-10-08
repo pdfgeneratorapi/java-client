@@ -4,15 +4,13 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**copyTemplate**](TemplatesApi.md#copyTemplate) | **POST** /templates/{templateId}/copy | Copy template
+[**copyTemplate**](TemplatesApi.md#copyTemplate) | **POST** /templates/templateId/copy | Copy template
 [**createTemplate**](TemplatesApi.md#createTemplate) | **POST** /templates | Create template
-[**deleteTemplate**](TemplatesApi.md#deleteTemplate) | **DELETE** /templates/{templateId} | Delete template
-[**getEditorUrl**](TemplatesApi.md#getEditorUrl) | **POST** /templates/{templateId}/editor | Open editor
-[**getTemplate**](TemplatesApi.md#getTemplate) | **GET** /templates/{templateId} | Get template
+[**deleteTemplate**](TemplatesApi.md#deleteTemplate) | **DELETE** /templates/templateId | Delete template
+[**getEditorUrl**](TemplatesApi.md#getEditorUrl) | **POST** /templates/templateId/editor | Open editor
+[**getTemplate**](TemplatesApi.md#getTemplate) | **GET** /templates/templateId | Get template
 [**getTemplates**](TemplatesApi.md#getTemplates) | **GET** /templates | Get templates
-[**mergeTemplate**](TemplatesApi.md#mergeTemplate) | **POST** /templates/{templateId}/output | Merge template
-[**mergeTemplates**](TemplatesApi.md#mergeTemplates) | **POST** /templates/output | Merge multiple templates
-[**updateTemplate**](TemplatesApi.md#updateTemplate) | **PUT** /templates/{templateId} | Update template
+[**updateTemplate**](TemplatesApi.md#updateTemplate) | **PUT** /templates/templateId | Update template
 
 
 <a name="copyTemplate"></a>
@@ -44,7 +42,7 @@ public class Example {
 
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     Integer templateId = 19375; // Integer | Template unique identifier
-    String name = My copied template; // String | Name for the copied template. If name is not specified then the original name is used.
+    String name = "My copied template"; // String | Name for the copied template. If name is not specified then the original name is used.
     try {
       InlineResponse2001 result = apiInstance.copyTemplate(templateId, name);
       System.out.println(result);
@@ -239,7 +237,7 @@ Name | Type | Description  | Notes
 
 Open editor
 
-Returns an unique URL which you can use to redirect your user to the editor form your application or use the generated URL as iframe source to show the editor within your application. 
+Returns an unique URL which you can use to redirect your user to the editor from your application or use the generated URL as iframe source to show the editor within your application. 
 
 ### Example
 ```java
@@ -263,7 +261,7 @@ public class Example {
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     Integer templateId = 19375; // Integer | Template unique identifier
     Object body = null; // Object | Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file.
-    String language = en; // String | Specify the editor UI language. Defaults to organization editor language.
+    String language = "en"; // String | Specify the editor UI language. Defaults to organization editor language.
     try {
       InlineResponse2003 result = apiInstance.getEditorUrl(templateId, body, language);
       System.out.println(result);
@@ -443,164 +441,6 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | An array of template objects |  -  |
-**401** | Unauthorized |  -  |
-**403** | Forbidden |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Entity |  -  |
-**500** | Internal Server Error |  -  |
-
-<a name="mergeTemplate"></a>
-# **mergeTemplate**
-> InlineResponse2004 mergeTemplate(templateId, data, name, format, output)
-
-Merge template
-
-Merges template with data and returns base64 encoded document or a public URL to a document. You can send json encoded data in request body or a public URL to your json file as the data parameter.
-
-### Example
-```java
-// Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.TemplatesApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v3");
-    
-    // Configure HTTP bearer authorization: JSONWebTokenAuth
-    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
-    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
-
-    TemplatesApi apiInstance = new TemplatesApi(defaultClient);
-    Integer templateId = 19375; // Integer | Template unique identifier
-    Data data = new Data(); // Data | Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file.
-    String name = My document; // String | Document name, returned in the meta data.
-    String format = pdf; // String | Document format. The zip option will return a ZIP file with PDF files.
-    String output = base64; // String | Response format.
-    try {
-      InlineResponse2004 result = apiInstance.mergeTemplate(templateId, data, name, format, output);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling TemplatesApi#mergeTemplate");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **templateId** | **Integer**| Template unique identifier |
- **data** | [**Data**](Data.md)| Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file. |
- **name** | **String**| Document name, returned in the meta data. | [optional]
- **format** | **String**| Document format. The zip option will return a ZIP file with PDF files. | [optional] [default to pdf] [enum: pdf, html, zip, xlsx]
- **output** | **String**| Response format. | [optional] [default to base64] [enum: base64, url, I]
-
-### Return type
-
-[**InlineResponse2004**](InlineResponse2004.md)
-
-### Authorization
-
-[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Document data |  -  |
-**401** | Unauthorized |  -  |
-**403** | Forbidden |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Entity |  -  |
-**500** | Internal Server Error |  -  |
-
-<a name="mergeTemplates"></a>
-# **mergeTemplates**
-> InlineResponse2004 mergeTemplates(requestBody, name, format, output)
-
-Merge multiple templates
-
-Allows to merge multiples template with data and returns base64 encoded document or public url to a document.
-
-### Example
-```java
-// Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.TemplatesApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v3");
-    
-    // Configure HTTP bearer authorization: JSONWebTokenAuth
-    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
-    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
-
-    TemplatesApi apiInstance = new TemplatesApi(defaultClient);
-    List<Object> requestBody = null; // List<Object> | Data used to specify templates and data objects which are used to merge the template
-    String name = My document; // String | Document name, returned in the meta data.
-    String format = pdf; // String | Document format. The zip option will return a ZIP file with PDF files.
-    String output = base64; // String | Response format.
-    try {
-      InlineResponse2004 result = apiInstance.mergeTemplates(requestBody, name, format, output);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling TemplatesApi#mergeTemplates");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **requestBody** | [**List&lt;Object&gt;**](Object.md)| Data used to specify templates and data objects which are used to merge the template |
- **name** | **String**| Document name, returned in the meta data. | [optional]
- **format** | **String**| Document format. The zip option will return a ZIP file with PDF files. | [optional] [default to pdf] [enum: pdf, html, zip, xlsx]
- **output** | **String**| Response format. | [optional] [default to base64] [enum: base64, url, I]
-
-### Return type
-
-[**InlineResponse2004**](InlineResponse2004.md)
-
-### Authorization
-
-[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Document data |  -  |
 **401** | Unauthorized |  -  |
 **403** | Forbidden |  -  |
 **404** | Not Found |  -  |

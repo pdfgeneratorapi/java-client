@@ -1,17 +1,69 @@
 # pdf-genrator-api
 
 PDF Generator API
-- API version: 3.1.0
-  - Build date: 2020-04-10T13:44:20.920154Z[Etc/UTC]
+- API version: 3.1.1
+  - Build date: 2021-10-08T09:52:30.707288Z[Etc/UTC]
 
 # Introduction
 PDF Generator API allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.
 
 The PDF Generator API features a web API architecture, allowing you to code in the language of your choice. This API supports the JSON media type, and uses UTF-8 character encoding.
 
+You can find our previous API documentation page with references to Simple and Signature authentication [here](https://docs.pdfgeneratorapi.com/legacy).
+
+## Base URL
+The base URL for all the API endpoints is `https://us1.pdfgeneratorapi.com/api/v3`
+
+For example
+* `https://us1.pdfgeneratorapi.com/api/v3/templates`
+* `https://us1.pdfgeneratorapi.com/api/v3/workspaces`
+* `https://us1.pdfgeneratorapi.com/api/v3/templates/123123`
+
+## Editor
+PDF Generator API comes with a powerful drag & drop editor that allows to create any kind of document templates, from barcode labels to invoices, quotes and reports. You can find tutorials and videos from our [Support Portal](https://support.pdfgeneratorapi.com).
+* [Component specification](https://support.pdfgeneratorapi.com/en/category/components-1ffseaj/)
+* [Expression Language documentation](https://support.pdfgeneratorapi.com/en/category/expression-language-q203pa/)
+* [Frequently asked questions and answers](https://support.pdfgeneratorapi.com/en/category/qanda-1ov519d/)
+
+## Definitions
+
+### Organization
+Organization is a group of workspaces owned by your account.
+
+### Workspace
+Workspace contains templates. Each workspace has access to their own templates and organization default templates.
+
+### Master Workspace
+Master Workspace is the main/default workspace of your Organization. The Master Workspace identifier is the email you signed up with.
+
+### Default Template
+Default template is a template that is available for all workspaces by default. You can set the template access type under Page Setup. If template has "Organization" access then your users can use them from the "New" menu in the Editor.
+
+### Data Field
+Data Field is a placeholder for the specific data in your JSON data set. In this example JSON you can access the buyer name using Data Field `{paymentDetails::buyerName}`. The separator between depth levels is :: (two colons). When designing the template you don’t have to know every Data Field, our editor automatically extracts all the available fields from your data set and provides an easy way to insert them into the template.
+```
+{
+    "documentNumber": 1,
+    "paymentDetails": {
+        "method": "Credit Card",
+        "buyerName": "John Smith"
+    },
+    "items": [
+        {
+            "id": 1,
+            "name": "Item one"
+        }
+    ]
+}
+```
+
+*  *  *  *  *
 # Authentication
 The PDF Generator API uses __JSON Web Tokens (JWT)__ to authenticate all API requests. These tokens offer a method to establish secure server-to-server authentication by transferring a compact JSON object with a signed payload of your account’s API Key and Secret.
 When authenticating to the PDF Generator API, a JWT should be generated uniquely by a __server-side application__ and included as a __Bearer Token__ in the header of each request.
+
+## Legacy Simple and Signature authentication
+You can find our legacy documentation for Simple and Signature authentication [here](https://docs.pdfgeneratorapi.com/legacy).
 
 <SecurityDefinitions />
 
@@ -43,8 +95,7 @@ The second part of the token is the payload, which contains the claims  or the p
 It is mandatory to specify the following claims:
 * issuer (`iss`): Your API key
 * subject (`sub`): Workspace identifier
-
-You can also specify the token expiration time (`exp`) which is timestamp in seconds since Epoch (unix epoch time). It is highly recommended to set the exp timestamp for a short period, i.e. a matter of seconds. This way, if a token is intercepted or shared, the token will only be valid for a short period of time.
+* expiration time (`exp`): Timestamp (unix epoch time) until the token is valid. It is highly recommended to set the exp timestamp for a short period, i.e. a matter of seconds. This way, if a token is intercepted or shared, the token will only be valid for a short period of time.
 
 ```
 {
@@ -76,12 +127,69 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhZDU0YWFmZjg5ZmZkZmVmZjE3OGJiOGE
 ## Testing with JWTs
 You can create a temporary token in [Account Settings](https://pdfgeneratorapi.com/account/organization) page after you login to PDF Generator API. The generated token uses your email address as the subject (`sub`) value and is valid for __5 minutes__.
 You can also use [jwt.io](https://jwt.io/) to generate test tokens for your API calls. These test tokens should never be used in production applications.
+*  *  *  *  *
 
 # Libraries and SDKs
 ## Postman Collection
-We have created a [Postman](https://www.postman.com) Collection so you can easily test all the API endpoints wihtout developing and code. You can download the collection [here](https://app.getpostman.com/run-collection/8f99146f64819f3e6db5) or just click the button below.
+We have created a [Postman](https://www.postman.com) Collection so you can easily test all the API endpoints wihtout developing and code. You can download the collection [here](https://app.getpostman.com/run-collection/329f09618ec8a957dbc4) or just click the button below.
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/8f99146f64819f3e6db5)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/329f09618ec8a957dbc4)
+
+## Client Libraries
+All our Client Libraries are auto-generated using [OpenAPI Generator](https://openapi-generator.tech/) which uses the OpenAPI v3 specification to automatically generate a client library in specific programming language.
+
+* [PHP Client](https://github.com/pdfgeneratorapi/php-client)
+* [Java Client](https://github.com/pdfgeneratorapi/java-client)
+* [Ruby Client](https://github.com/pdfgeneratorapi/ruby-client)
+* [Python Client](https://github.com/pdfgeneratorapi/python-client)
+* [Javascript Client](https://github.com/pdfgeneratorapi/javascript-client)
+
+We have validated the generated libraries, but let us know if you find any anomalies in the client code.
+*  *  *  *  *
+
+# Error codes
+
+| Code   | Description                    |
+|--------|--------------------------------|
+| 401    | Unauthorized                   |
+| 403    | Forbidden                      |
+| 404    | Not Found                      |
+| 422    | Unprocessable Entity           |
+| 500    | Internal Server Error          |
+
+## 401 Unauthorized
+| Description                                                             |
+|-------------------------------------------------------------------------|
+| Authentication failed: request expired                                  |
+| Authentication failed: workspace missing                                |
+| Authentication failed: key missing                                      |
+| Authentication failed: property 'iss' (issuer) missing in JWT           |
+| Authentication failed: property 'sub' (subject) missing in JWT          |
+| Authentication failed: property 'exp' (expiration time) missing in JWT  |
+| Authentication failed: incorrect signature                              |
+
+## 403 Forbidden
+| Description                                                             |
+|-------------------------------------------------------------------------|
+| Your account has exceeded the monthly document generation limit.        |
+| Access not granted: You cannot delete master workspace via API          |
+| Access not granted: Template is not accessible by this organization     |
+| Your session has expired, please close and reopen the editor.           |
+
+## 404 Entity not found
+| Description                                                             |
+|-------------------------------------------------------------------------|
+| Entity not found                                                        |
+| Resource not found                                                      |
+| None of the templates is available for the workspace.                   |
+
+## 422 Unprocessable Entity
+| Description                                                             |
+|-------------------------------------------------------------------------|
+| Unable to parse JSON, please check formatting                           |
+| Required parameter missing                                              |
+| Required parameter missing: template definition not defined             |
+| Required parameter missing: template not defined                        |
 
 
   For more information, please visit [https://support.pdfgeneratorapi.com](https://support.pdfgeneratorapi.com)
@@ -119,7 +227,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.pdfgeneratorapi</groupId>
   <artifactId>pdf-genrator-api</artifactId>
-  <version>3.1.0</version>
+  <version>3.1.1</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -129,7 +237,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "org.pdfgeneratorapi:pdf-genrator-api:3.1.0"
+compile "org.pdfgeneratorapi:pdf-genrator-api:3.1.1"
 ```
 
 ### Others
@@ -142,7 +250,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pdf-genrator-api-3.1.0.jar`
+* `target/pdf-genrator-api-3.1.1.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -157,7 +265,7 @@ import org.pdfgeneratorapi.client.ApiException;
 import org.pdfgeneratorapi.client.Configuration;
 import org.pdfgeneratorapi.client.auth.*;
 import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.TemplatesApi;
+import org.pdfgeneratorapi.client.api.DocumentsApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -168,14 +276,17 @@ public class Example {
     HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
     JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
-    TemplatesApi apiInstance = new TemplatesApi(defaultClient);
+    DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     Integer templateId = 19375; // Integer | Template unique identifier
-    String name = My copied template; // String | Name for the copied template. If name is not specified then the original name is used.
+    Data data = new Data(); // Data | Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file.
+    String name = "My document"; // String | Document name, returned in the meta data.
+    String format = "pdf"; // String | Document format. The zip option will return a ZIP file with PDF files.
+    String output = "base64"; // String | Response format. With the url option, the document is stored for 30 days and automatically deleted.
     try {
-      InlineResponse2001 result = apiInstance.copyTemplate(templateId, name);
+      InlineResponse2004 result = apiInstance.mergeTemplate(templateId, data, name, format, output);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling TemplatesApi#copyTemplate");
+      System.err.println("Exception when calling DocumentsApi#mergeTemplate");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -192,22 +303,23 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v3*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*TemplatesApi* | [**copyTemplate**](docs/TemplatesApi.md#copyTemplate) | **POST** /templates/{templateId}/copy | Copy template
+*DocumentsApi* | [**mergeTemplate**](docs/DocumentsApi.md#mergeTemplate) | **POST** /templates/templateId/output | Generate document
+*DocumentsApi* | [**mergeTemplates**](docs/DocumentsApi.md#mergeTemplates) | **POST** /templates/output | Generate document (multiple templates)
+*TemplatesApi* | [**copyTemplate**](docs/TemplatesApi.md#copyTemplate) | **POST** /templates/templateId/copy | Copy template
 *TemplatesApi* | [**createTemplate**](docs/TemplatesApi.md#createTemplate) | **POST** /templates | Create template
-*TemplatesApi* | [**deleteTemplate**](docs/TemplatesApi.md#deleteTemplate) | **DELETE** /templates/{templateId} | Delete template
-*TemplatesApi* | [**getEditorUrl**](docs/TemplatesApi.md#getEditorUrl) | **POST** /templates/{templateId}/editor | Open editor
-*TemplatesApi* | [**getTemplate**](docs/TemplatesApi.md#getTemplate) | **GET** /templates/{templateId} | Get template
+*TemplatesApi* | [**deleteTemplate**](docs/TemplatesApi.md#deleteTemplate) | **DELETE** /templates/templateId | Delete template
+*TemplatesApi* | [**getEditorUrl**](docs/TemplatesApi.md#getEditorUrl) | **POST** /templates/templateId/editor | Open editor
+*TemplatesApi* | [**getTemplate**](docs/TemplatesApi.md#getTemplate) | **GET** /templates/templateId | Get template
 *TemplatesApi* | [**getTemplates**](docs/TemplatesApi.md#getTemplates) | **GET** /templates | Get templates
-*TemplatesApi* | [**mergeTemplate**](docs/TemplatesApi.md#mergeTemplate) | **POST** /templates/{templateId}/output | Merge template
-*TemplatesApi* | [**mergeTemplates**](docs/TemplatesApi.md#mergeTemplates) | **POST** /templates/output | Merge multiple templates
-*TemplatesApi* | [**updateTemplate**](docs/TemplatesApi.md#updateTemplate) | **PUT** /templates/{templateId} | Update template
-*WorkspacesApi* | [**deleteWorkspace**](docs/WorkspacesApi.md#deleteWorkspace) | **DELETE** /workspaces/{workspaceId} | Delete workspace
-*WorkspacesApi* | [**getWorkspace**](docs/WorkspacesApi.md#getWorkspace) | **GET** /workspaces/{workspaceId} | Get workspace
+*TemplatesApi* | [**updateTemplate**](docs/TemplatesApi.md#updateTemplate) | **PUT** /templates/templateId | Update template
+*WorkspacesApi* | [**deleteWorkspace**](docs/WorkspacesApi.md#deleteWorkspace) | **DELETE** /workspaces/workspaceId | Delete workspace
+*WorkspacesApi* | [**getWorkspace**](docs/WorkspacesApi.md#getWorkspace) | **GET** /workspaces/workspaceId | Get workspace
 
 
 ## Documentation for Models
 
  - [Component](docs/Component.md)
+ - [Data](docs/Data.md)
  - [InlineResponse200](docs/InlineResponse200.md)
  - [InlineResponse2001](docs/InlineResponse2001.md)
  - [InlineResponse2002](docs/InlineResponse2002.md)
@@ -225,6 +337,7 @@ Class | Method | HTTP request | Description
  - [TemplateDefinition](docs/TemplateDefinition.md)
  - [TemplateDefinitionDataSettings](docs/TemplateDefinitionDataSettings.md)
  - [TemplateDefinitionEditor](docs/TemplateDefinitionEditor.md)
+ - [TemplateDefinitionLayout](docs/TemplateDefinitionLayout.md)
  - [TemplateDefinitionNew](docs/TemplateDefinitionNew.md)
  - [TemplateDefinitionNewLayout](docs/TemplateDefinitionNewLayout.md)
  - [TemplateDefinitionNewLayoutMargins](docs/TemplateDefinitionNewLayoutMargins.md)

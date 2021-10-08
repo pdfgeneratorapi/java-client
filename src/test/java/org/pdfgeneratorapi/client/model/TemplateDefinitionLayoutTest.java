@@ -21,93 +21,99 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionDataSettings;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionEditor;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionLayout;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionNewPages;
+import java.math.BigDecimal;
+import org.openapitools.jackson.nullable.JsonNullable;
+import org.pdfgeneratorapi.client.model.TemplateDefinitionNewLayoutMargins;
+import org.pdfgeneratorapi.client.model.TemplateDefinitionNewLayoutRepeatLayout;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
 
 /**
- * Model tests for TemplateDefinition
+ * Model tests for TemplateDefinitionLayout
  */
-public class TemplateDefinitionTest {
-    private final TemplateDefinition model = new TemplateDefinition();
+public class TemplateDefinitionLayoutTest {
+    private final TemplateDefinitionLayout model = new TemplateDefinitionLayout();
 
     /**
-     * Model tests for TemplateDefinition
+     * Model tests for TemplateDefinitionLayout
      */
     @Test
-    public void testTemplateDefinition() {
-        // TODO: test TemplateDefinition
+    public void testTemplateDefinitionLayout() {
+        // TODO: test TemplateDefinitionLayout
     }
 
     /**
-     * Test the property 'id'
+     * Test the property 'format'
      */
     @Test
-    public void idTest() {
-        // TODO: test id
+    public void formatTest() {
+        // TODO: test format
     }
 
     /**
-     * Test the property 'name'
+     * Test the property 'width'
      */
     @Test
-    public void nameTest() {
-        // TODO: test name
+    public void widthTest() {
+        // TODO: test width
     }
 
     /**
-     * Test the property 'tags'
+     * Test the property 'height'
      */
     @Test
-    public void tagsTest() {
-        // TODO: test tags
+    public void heightTest() {
+        // TODO: test height
     }
 
     /**
-     * Test the property 'isDraft'
+     * Test the property 'unit'
      */
     @Test
-    public void isDraftTest() {
-        // TODO: test isDraft
+    public void unitTest() {
+        // TODO: test unit
     }
 
     /**
-     * Test the property 'layout'
+     * Test the property 'orientation'
      */
     @Test
-    public void layoutTest() {
-        // TODO: test layout
+    public void orientationTest() {
+        // TODO: test orientation
     }
 
     /**
-     * Test the property 'pages'
+     * Test the property 'rotation'
      */
     @Test
-    public void pagesTest() {
-        // TODO: test pages
+    public void rotationTest() {
+        // TODO: test rotation
     }
 
     /**
-     * Test the property 'dataSettings'
+     * Test the property 'margins'
      */
     @Test
-    public void dataSettingsTest() {
-        // TODO: test dataSettings
+    public void marginsTest() {
+        // TODO: test margins
     }
 
     /**
-     * Test the property 'editor'
+     * Test the property 'repeatLayout'
      */
     @Test
-    public void editorTest() {
-        // TODO: test editor
+    public void repeatLayoutTest() {
+        // TODO: test repeatLayout
+    }
+
+    /**
+     * Test the property 'emptyLabels'
+     */
+    @Test
+    public void emptyLabelsTest() {
+        // TODO: test emptyLabels
     }
 
 }

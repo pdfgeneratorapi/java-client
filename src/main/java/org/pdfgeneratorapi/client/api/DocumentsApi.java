@@ -27,8 +27,8 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 
-import org.pdfgeneratorapi.client.model.InlineResponse2002;
-import org.pdfgeneratorapi.client.model.InlineResponse2005;
+import org.pdfgeneratorapi.client.model.Data;
+import org.pdfgeneratorapi.client.model.InlineResponse2004;
 import org.pdfgeneratorapi.client.model.InlineResponse401;
 import org.pdfgeneratorapi.client.model.InlineResponse403;
 import org.pdfgeneratorapi.client.model.InlineResponse404;
@@ -41,14 +41,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class WorkspacesApi {
+public class DocumentsApi {
     private ApiClient localVarApiClient;
 
-    public WorkspacesApi() {
+    public DocumentsApi() {
         this(Configuration.getDefaultApiClient());
     }
 
-    public WorkspacesApi(ApiClient apiClient) {
+    public DocumentsApi(ApiClient apiClient) {
         this.localVarApiClient = apiClient;
     }
 
@@ -61,15 +61,19 @@ public class WorkspacesApi {
     }
 
     /**
-     * Build call for deleteWorkspace
-     * @param workspaceId Workspace identifier (required)
+     * Build call for mergeTemplate
+     * @param templateId Template unique identifier (required)
+     * @param data Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file. (required)
+     * @param name Document name, returned in the meta data. (optional)
+     * @param format Document format. The zip option will return a ZIP file with PDF files. (optional, default to pdf)
+     * @param output Response format. With the url option, the document is stored for 30 days and automatically deleted. (optional, default to base64)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> The request was successfully executed. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Document data </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
@@ -77,18 +81,30 @@ public class WorkspacesApi {
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteWorkspaceCall(String workspaceId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
+    public okhttp3.Call mergeTemplateCall(Integer templateId, Data data, String name, String format, String output, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = data;
 
         // create path and map variables
-        String localVarPath = "/workspaces/workspaceId"
-            .replaceAll("\\{" + "workspaceId" + "\\}", localVarApiClient.escapeString(workspaceId.toString()));
+        String localVarPath = "/templates/templateId/output"
+            .replaceAll("\\{" + "templateId" + "\\}", localVarApiClient.escapeString(templateId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (name != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("name", name));
+        }
+
+        if (format != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("format", format));
+        }
+
+        if (output != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("output", output));
+        }
 
         final String[] localVarAccepts = {
             "application/json"
@@ -99,39 +115,48 @@ public class WorkspacesApi {
         }
 
         final String[] localVarContentTypes = {
-            
+            "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
         String[] localVarAuthNames = new String[] { "JSONWebTokenAuth" };
-        return localVarApiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deleteWorkspaceValidateBeforeCall(String workspaceId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call mergeTemplateValidateBeforeCall(Integer templateId, Data data, String name, String format, String output, final ApiCallback _callback) throws ApiException {
         
-        // verify the required parameter 'workspaceId' is set
-        if (workspaceId == null) {
-            throw new ApiException("Missing the required parameter 'workspaceId' when calling deleteWorkspace(Async)");
+        // verify the required parameter 'templateId' is set
+        if (templateId == null) {
+            throw new ApiException("Missing the required parameter 'templateId' when calling mergeTemplate(Async)");
+        }
+        
+        // verify the required parameter 'data' is set
+        if (data == null) {
+            throw new ApiException("Missing the required parameter 'data' when calling mergeTemplate(Async)");
         }
         
 
-        okhttp3.Call localVarCall = deleteWorkspaceCall(workspaceId, _callback);
+        okhttp3.Call localVarCall = mergeTemplateCall(templateId, data, name, format, output, _callback);
         return localVarCall;
 
     }
 
     /**
-     * Delete workspace
-     * Deletes the workspace
-     * @param workspaceId Workspace identifier (required)
-     * @return InlineResponse2002
+     * Generate document
+     * Merges template with data and returns base64 encoded document or a public URL to a document. You can send json encoded data in request body or a public URL to your json file as the data parameter. NB! When the public URL option is used, the document is stored for 30 days and automatically deleted.
+     * @param templateId Template unique identifier (required)
+     * @param data Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file. (required)
+     * @param name Document name, returned in the meta data. (optional)
+     * @param format Document format. The zip option will return a ZIP file with PDF files. (optional, default to pdf)
+     * @param output Response format. With the url option, the document is stored for 30 days and automatically deleted. (optional, default to base64)
+     * @return InlineResponse2004
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> The request was successfully executed. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Document data </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
@@ -139,21 +164,25 @@ public class WorkspacesApi {
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public InlineResponse2002 deleteWorkspace(String workspaceId) throws ApiException {
-        ApiResponse<InlineResponse2002> localVarResp = deleteWorkspaceWithHttpInfo(workspaceId);
+    public InlineResponse2004 mergeTemplate(Integer templateId, Data data, String name, String format, String output) throws ApiException {
+        ApiResponse<InlineResponse2004> localVarResp = mergeTemplateWithHttpInfo(templateId, data, name, format, output);
         return localVarResp.getData();
     }
 
     /**
-     * Delete workspace
-     * Deletes the workspace
-     * @param workspaceId Workspace identifier (required)
-     * @return ApiResponse&lt;InlineResponse2002&gt;
+     * Generate document
+     * Merges template with data and returns base64 encoded document or a public URL to a document. You can send json encoded data in request body or a public URL to your json file as the data parameter. NB! When the public URL option is used, the document is stored for 30 days and automatically deleted.
+     * @param templateId Template unique identifier (required)
+     * @param data Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file. (required)
+     * @param name Document name, returned in the meta data. (optional)
+     * @param format Document format. The zip option will return a ZIP file with PDF files. (optional, default to pdf)
+     * @param output Response format. With the url option, the document is stored for 30 days and automatically deleted. (optional, default to base64)
+     * @return ApiResponse&lt;InlineResponse2004&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> The request was successfully executed. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Document data </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
@@ -161,23 +190,27 @@ public class WorkspacesApi {
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<InlineResponse2002> deleteWorkspaceWithHttpInfo(String workspaceId) throws ApiException {
-        okhttp3.Call localVarCall = deleteWorkspaceValidateBeforeCall(workspaceId, null);
-        Type localVarReturnType = new TypeToken<InlineResponse2002>(){}.getType();
+    public ApiResponse<InlineResponse2004> mergeTemplateWithHttpInfo(Integer templateId, Data data, String name, String format, String output) throws ApiException {
+        okhttp3.Call localVarCall = mergeTemplateValidateBeforeCall(templateId, data, name, format, output, null);
+        Type localVarReturnType = new TypeToken<InlineResponse2004>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
-     * Delete workspace (asynchronously)
-     * Deletes the workspace
-     * @param workspaceId Workspace identifier (required)
+     * Generate document (asynchronously)
+     * Merges template with data and returns base64 encoded document or a public URL to a document. You can send json encoded data in request body or a public URL to your json file as the data parameter. NB! When the public URL option is used, the document is stored for 30 days and automatically deleted.
+     * @param templateId Template unique identifier (required)
+     * @param data Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file. (required)
+     * @param name Document name, returned in the meta data. (optional)
+     * @param format Document format. The zip option will return a ZIP file with PDF files. (optional, default to pdf)
+     * @param output Response format. With the url option, the document is stored for 30 days and automatically deleted. (optional, default to base64)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> The request was successfully executed. </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Document data </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
@@ -185,23 +218,26 @@ public class WorkspacesApi {
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteWorkspaceAsync(String workspaceId, final ApiCallback<InlineResponse2002> _callback) throws ApiException {
+    public okhttp3.Call mergeTemplateAsync(Integer templateId, Data data, String name, String format, String output, final ApiCallback<InlineResponse2004> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = deleteWorkspaceValidateBeforeCall(workspaceId, _callback);
-        Type localVarReturnType = new TypeToken<InlineResponse2002>(){}.getType();
+        okhttp3.Call localVarCall = mergeTemplateValidateBeforeCall(templateId, data, name, format, output, _callback);
+        Type localVarReturnType = new TypeToken<InlineResponse2004>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
     /**
-     * Build call for getWorkspace
-     * @param workspaceId Workspace identifier (required)
+     * Build call for mergeTemplates
+     * @param requestBody Data used to specify templates and data objects which are used to merge the template (required)
+     * @param name Document name, returned in the meta data. (optional)
+     * @param format Document format. The zip option will return a ZIP file with PDF files. (optional, default to pdf)
+     * @param output Response format. With the url option, the document is stored for 30 days and automatically deleted. (optional, default to base64)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Workspace information </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Document data </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
@@ -209,18 +245,29 @@ public class WorkspacesApi {
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getWorkspaceCall(String workspaceId, final ApiCallback _callback) throws ApiException {
-        Object localVarPostBody = null;
+    public okhttp3.Call mergeTemplatesCall(List<Object> requestBody, String name, String format, String output, final ApiCallback _callback) throws ApiException {
+        Object localVarPostBody = requestBody;
 
         // create path and map variables
-        String localVarPath = "/workspaces/workspaceId"
-            .replaceAll("\\{" + "workspaceId" + "\\}", localVarApiClient.escapeString(workspaceId.toString()));
+        String localVarPath = "/templates/output";
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (name != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("name", name));
+        }
+
+        if (format != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("format", format));
+        }
+
+        if (output != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("output", output));
+        }
 
         final String[] localVarAccepts = {
             "application/json"
@@ -231,39 +278,42 @@ public class WorkspacesApi {
         }
 
         final String[] localVarContentTypes = {
-            
+            "application/json"
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         localVarHeaderParams.put("Content-Type", localVarContentType);
 
         String[] localVarAuthNames = new String[] { "JSONWebTokenAuth" };
-        return localVarApiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+        return localVarApiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getWorkspaceValidateBeforeCall(String workspaceId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call mergeTemplatesValidateBeforeCall(List<Object> requestBody, String name, String format, String output, final ApiCallback _callback) throws ApiException {
         
-        // verify the required parameter 'workspaceId' is set
-        if (workspaceId == null) {
-            throw new ApiException("Missing the required parameter 'workspaceId' when calling getWorkspace(Async)");
+        // verify the required parameter 'requestBody' is set
+        if (requestBody == null) {
+            throw new ApiException("Missing the required parameter 'requestBody' when calling mergeTemplates(Async)");
         }
         
 
-        okhttp3.Call localVarCall = getWorkspaceCall(workspaceId, _callback);
+        okhttp3.Call localVarCall = mergeTemplatesCall(requestBody, name, format, output, _callback);
         return localVarCall;
 
     }
 
     /**
-     * Get workspace
-     * Returns workspace information
-     * @param workspaceId Workspace identifier (required)
-     * @return InlineResponse2005
+     * Generate document (multiple templates)
+     * Allows to merge multiples template with data and returns base64 encoded document or public URL to a document. NB! When the public URL option is used, the document is stored for 30 days and automatically deleted.
+     * @param requestBody Data used to specify templates and data objects which are used to merge the template (required)
+     * @param name Document name, returned in the meta data. (optional)
+     * @param format Document format. The zip option will return a ZIP file with PDF files. (optional, default to pdf)
+     * @param output Response format. With the url option, the document is stored for 30 days and automatically deleted. (optional, default to base64)
+     * @return InlineResponse2004
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Workspace information </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Document data </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
@@ -271,21 +321,24 @@ public class WorkspacesApi {
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public InlineResponse2005 getWorkspace(String workspaceId) throws ApiException {
-        ApiResponse<InlineResponse2005> localVarResp = getWorkspaceWithHttpInfo(workspaceId);
+    public InlineResponse2004 mergeTemplates(List<Object> requestBody, String name, String format, String output) throws ApiException {
+        ApiResponse<InlineResponse2004> localVarResp = mergeTemplatesWithHttpInfo(requestBody, name, format, output);
         return localVarResp.getData();
     }
 
     /**
-     * Get workspace
-     * Returns workspace information
-     * @param workspaceId Workspace identifier (required)
-     * @return ApiResponse&lt;InlineResponse2005&gt;
+     * Generate document (multiple templates)
+     * Allows to merge multiples template with data and returns base64 encoded document or public URL to a document. NB! When the public URL option is used, the document is stored for 30 days and automatically deleted.
+     * @param requestBody Data used to specify templates and data objects which are used to merge the template (required)
+     * @param name Document name, returned in the meta data. (optional)
+     * @param format Document format. The zip option will return a ZIP file with PDF files. (optional, default to pdf)
+     * @param output Response format. With the url option, the document is stored for 30 days and automatically deleted. (optional, default to base64)
+     * @return ApiResponse&lt;InlineResponse2004&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Workspace information </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Document data </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
@@ -293,23 +346,26 @@ public class WorkspacesApi {
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<InlineResponse2005> getWorkspaceWithHttpInfo(String workspaceId) throws ApiException {
-        okhttp3.Call localVarCall = getWorkspaceValidateBeforeCall(workspaceId, null);
-        Type localVarReturnType = new TypeToken<InlineResponse2005>(){}.getType();
+    public ApiResponse<InlineResponse2004> mergeTemplatesWithHttpInfo(List<Object> requestBody, String name, String format, String output) throws ApiException {
+        okhttp3.Call localVarCall = mergeTemplatesValidateBeforeCall(requestBody, name, format, output, null);
+        Type localVarReturnType = new TypeToken<InlineResponse2004>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
-     * Get workspace (asynchronously)
-     * Returns workspace information
-     * @param workspaceId Workspace identifier (required)
+     * Generate document (multiple templates) (asynchronously)
+     * Allows to merge multiples template with data and returns base64 encoded document or public URL to a document. NB! When the public URL option is used, the document is stored for 30 days and automatically deleted.
+     * @param requestBody Data used to specify templates and data objects which are used to merge the template (required)
+     * @param name Document name, returned in the meta data. (optional)
+     * @param format Document format. The zip option will return a ZIP file with PDF files. (optional, default to pdf)
+     * @param output Response format. With the url option, the document is stored for 30 days and automatically deleted. (optional, default to base64)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      * @http.response.details
      <table summary="Response Details" border="1">
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Workspace information </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td> Document data </td><td>  -  </td></tr>
         <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
         <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
@@ -317,10 +373,10 @@ public class WorkspacesApi {
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getWorkspaceAsync(String workspaceId, final ApiCallback<InlineResponse2005> _callback) throws ApiException {
+    public okhttp3.Call mergeTemplatesAsync(List<Object> requestBody, String name, String format, String output, final ApiCallback<InlineResponse2004> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getWorkspaceValidateBeforeCall(workspaceId, _callback);
-        Type localVarReturnType = new TypeToken<InlineResponse2005>(){}.getType();
+        okhttp3.Call localVarCall = mergeTemplatesValidateBeforeCall(requestBody, name, format, output, _callback);
+        Type localVarReturnType = new TypeToken<InlineResponse2004>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

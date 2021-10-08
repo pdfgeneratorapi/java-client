@@ -3,6 +3,7 @@
 # Template
 
 Template object
+
 ## Properties
 
 Name | Type | Description | Notes

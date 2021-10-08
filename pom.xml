@@ -5,9 +5,9 @@
     <artifactId>pdf-genrator-api</artifactId>
     <packaging>jar</packaging>
     <name>pdf-genrator-api</name>
-    <version>3.1.0</version>
+    <version>3.1.1</version>
     <url>https://github.com/pdfgeneratorapi/java-client</url>
-    <description>Java wrapper for PDF Generator API REST API</description>
+    <description>Java wrapper for PDF Generator API</description>
     <scm>
         <connection>scm:git:git@github.com:openapitools/openapi-generator.git</connection>
         <developerConnection>scm:git:git@github.com:openapitools/openapi-generator.git</developerConnection>
@@ -33,6 +33,20 @@
 
     <build>
         <plugins>
+           <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <fork>true</fork>
+                    <meminitial>128m</meminitial>
+                    <maxmem>512m</maxmem>
+                    <compilerArgs>
+                        <arg>-Xlint:all</arg>
+                        <arg>-J-Xss4m</arg><!-- Compiling the generated JSON.java file may require larger stack size. -->
+                    </compilerArgs>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -239,8 +253,14 @@
         </dependency>
         <dependency>
             <groupId>javax.annotation</groupId>
-            <artifactId>jsr250-api</artifactId>
+            <artifactId>javax.annotation-api</artifactId>
             <version>${javax-annotation-version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>${jackson-databind-nullable-version}</version>
         </dependency>
         <!-- test dependencies -->
         <dependency>
@@ -249,20 +269,26 @@
             <version>${junit-version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.11.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <properties>
         <java.version>1.7</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <gson-fire-version>1.8.3</gson-fire-version>
-        <swagger-core-version>1.5.22</swagger-core-version>
-        <okhttp-version>3.14.2</okhttp-version>
-        <gson-version>2.8.5</gson-version>
-        <commons-lang3-version>3.9</commons-lang3-version>
-        <threetenbp-version>1.4.0</threetenbp-version>
-        <maven-plugin-version>1.0.0</maven-plugin-version>
-        <javax-annotation-version>1.0</javax-annotation-version>
-        <junit-version>4.13</junit-version>
+        <gson-fire-version>1.8.5</gson-fire-version>
+        <swagger-core-version>1.6.2</swagger-core-version>
+        <okhttp-version>4.9.1</okhttp-version>
+        <gson-version>2.8.6</gson-version>
+        <commons-lang3-version>3.11</commons-lang3-version>
+        <jackson-databind-nullable-version>0.2.1</jackson-databind-nullable-version>
+        <threetenbp-version>1.5.0</threetenbp-version>
+        <javax-annotation-version>1.3.2</javax-annotation-version>
+        <junit-version>4.13.1</junit-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>
