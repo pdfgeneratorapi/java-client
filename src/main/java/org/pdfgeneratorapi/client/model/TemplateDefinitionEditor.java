@@ -29,7 +29,7 @@ import java.math.BigDecimal;
  * Configuration preferences for the editor
  */
 @ApiModel(description = "Configuration preferences for the editor")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-10-08T09:52:30.707288Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-11-15T13:14:30.511540Z[Etc/UTC]")
 public class TemplateDefinitionEditor {
   public static final String SERIALIZED_NAME_HEIGHT_MULTIPLIER = "heightMultiplier";
   @SerializedName(SERIALIZED_NAME_HEIGHT_MULTIPLIER)

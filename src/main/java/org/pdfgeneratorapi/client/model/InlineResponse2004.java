@@ -28,7 +28,7 @@ import org.pdfgeneratorapi.client.model.InlineResponse2004Meta;
 /**
  * InlineResponse2004
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-10-08T09:52:30.707288Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-11-15T13:14:30.511540Z[Etc/UTC]")
 public class InlineResponse2004 {
   public static final String SERIALIZED_NAME_RESPONSE = "response";
   @SerializedName(SERIALIZED_NAME_RESPONSE)

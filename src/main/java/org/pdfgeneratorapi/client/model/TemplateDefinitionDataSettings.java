@@ -30,7 +30,7 @@ import java.util.List;
  * Defines filter and sort option for root data set.
  */
 @ApiModel(description = "Defines filter and sort option for root data set.")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-10-08T09:52:30.707288Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-11-15T13:14:30.511540Z[Etc/UTC]")
 public class TemplateDefinitionDataSettings {
   public static final String SERIALIZED_NAME_SORT_BY = "sortBy";
   @SerializedName(SERIALIZED_NAME_SORT_BY)

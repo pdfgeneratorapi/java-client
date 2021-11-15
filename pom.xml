@@ -2,9 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.pdfgeneratorapi</groupId>
-    <artifactId>pdf-genrator-api</artifactId>
+    <artifactId>pdf-generator-api</artifactId>
     <packaging>jar</packaging>
-    <name>pdf-genrator-api</name>
+    <name>pdf-generator-api</name>
     <version>3.1.1</version>
     <url>https://github.com/pdfgeneratorapi/java-client</url>
     <description>Java wrapper for PDF Generator API</description>

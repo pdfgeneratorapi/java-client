@@ -1,8 +1,8 @@
-# pdf-genrator-api
+# pdf-generator-api
 
 PDF Generator API
 - API version: 3.1.1
-  - Build date: 2021-10-08T09:52:30.707288Z[Etc/UTC]
+  - Build date: 2021-11-15T13:14:30.511540Z[Etc/UTC]
 
 # Introduction
 PDF Generator API allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.
@@ -226,7 +226,7 @@ Add this dependency to your project's POM:
 ```xml
 <dependency>
   <groupId>org.pdfgeneratorapi</groupId>
-  <artifactId>pdf-genrator-api</artifactId>
+  <artifactId>pdf-generator-api</artifactId>
   <version>3.1.1</version>
   <scope>compile</scope>
 </dependency>
@@ -237,7 +237,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "org.pdfgeneratorapi:pdf-genrator-api:3.1.1"
+compile "org.pdfgeneratorapi:pdf-generator-api:3.1.1"
 ```
 
 ### Others
@@ -250,7 +250,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pdf-genrator-api-3.1.1.jar`
+* `target/pdf-generator-api-3.1.1.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
