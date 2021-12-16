@@ -29,7 +29,7 @@ import java.math.BigDecimal;
  * Page margins in units
  */
 @ApiModel(description = "Page margins in units")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-11-15T13:14:30.511540Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-12-16T07:31:52.370703Z[Etc/UTC]")
 public class TemplateDefinitionNewLayoutMargins {
   public static final String SERIALIZED_NAME_TOP = "top";
   @SerializedName(SERIALIZED_NAME_TOP)

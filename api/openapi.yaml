@@ -320,7 +320,7 @@ paths:
       - Templates
       x-contentType: application/json
       x-accepts: application/json
-  /templates/templateId:
+  /templates/{templateId}:
     delete:
       description: Deletes the template from workspace
       operationId: deleteTemplate
@@ -493,7 +493,7 @@ paths:
       - Templates
       x-contentType: application/json
       x-accepts: application/json
-  /templates/templateId/copy:
+  /templates/{templateId}/copy:
     post:
       description: Creates a copy of a template to the workspace specified in authentication
         parameters.
@@ -559,7 +559,7 @@ paths:
       tags:
       - Templates
       x-accepts: application/json
-  /templates/templateId/editor:
+  /templates/{templateId}/editor:
     post:
       description: |
         Returns an unique URL which you can use to redirect your user to the editor from your application or use the generated URL as iframe source to show the editor within your application.
@@ -644,7 +644,7 @@ paths:
       - Templates
       x-contentType: application/json
       x-accepts: application/json
-  /templates/templateId/output:
+  /templates/{templateId}/output:
     post:
       description: Merges template with data and returns base64 encoded document or
         a public URL to a document. You can send json encoded data in request body
@@ -753,7 +753,7 @@ paths:
       x-accepts: application/json
   /templates/output:
     post:
-      description: Allows to merge multiples template with data and returns base64
+      description: Allows to merge multiple templated with data and returns base64
         encoded document or public URL to a document. NB! When the public URL option
         is used, the document is stored for 30 days and automatically deleted.
       operationId: mergeTemplates
@@ -848,7 +848,7 @@ paths:
       - Documents
       x-contentType: application/json
       x-accepts: application/json
-  /workspaces/workspaceId:
+  /workspaces/{workspaceId}:
     delete:
       description: Deletes the workspace
       operationId: deleteWorkspace
@@ -1501,11 +1501,10 @@ components:
           - 'Authentication failed: signature or secret missing'
           - 'Authentication failed: workspace missing'
           - 'Authentication failed: key missing'
-          - 'Authentication failed: property ''iss'' (issuer) missing in JWT'
-          - 'Authentication failed: property ''sub'' (subject) missing in JWT'
-          - 'Authentication failed: property ''exp'' (expiration time) missing in
-            JWT'
-          - 'Authentication failed: invalid ''iss'' (issuer)'
+          - 'Authentication failed: property iss (issuer) missing in JWT'
+          - 'Authentication failed: property sub (subject) missing in JWT'
+          - 'Authentication failed: property exp (expiration time) missing in JWT'
+          - 'Authentication failed: invalid iss (issuer)'
           - 'Authentication failed: incorrect signature'
           - Authentication failed
           example: Authentication failed

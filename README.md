@@ -2,7 +2,7 @@
 
 PDF Generator API
 - API version: 3.1.1
-  - Build date: 2021-11-15T13:14:30.511540Z[Etc/UTC]
+  - Build date: 2021-12-16T07:31:52.370703Z[Etc/UTC]
 
 # Introduction
 PDF Generator API allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.
@@ -303,17 +303,17 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v3*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DocumentsApi* | [**mergeTemplate**](docs/DocumentsApi.md#mergeTemplate) | **POST** /templates/templateId/output | Generate document
+*DocumentsApi* | [**mergeTemplate**](docs/DocumentsApi.md#mergeTemplate) | **POST** /templates/{templateId}/output | Generate document
 *DocumentsApi* | [**mergeTemplates**](docs/DocumentsApi.md#mergeTemplates) | **POST** /templates/output | Generate document (multiple templates)
-*TemplatesApi* | [**copyTemplate**](docs/TemplatesApi.md#copyTemplate) | **POST** /templates/templateId/copy | Copy template
+*TemplatesApi* | [**copyTemplate**](docs/TemplatesApi.md#copyTemplate) | **POST** /templates/{templateId}/copy | Copy template
 *TemplatesApi* | [**createTemplate**](docs/TemplatesApi.md#createTemplate) | **POST** /templates | Create template
-*TemplatesApi* | [**deleteTemplate**](docs/TemplatesApi.md#deleteTemplate) | **DELETE** /templates/templateId | Delete template
-*TemplatesApi* | [**getEditorUrl**](docs/TemplatesApi.md#getEditorUrl) | **POST** /templates/templateId/editor | Open editor
-*TemplatesApi* | [**getTemplate**](docs/TemplatesApi.md#getTemplate) | **GET** /templates/templateId | Get template
+*TemplatesApi* | [**deleteTemplate**](docs/TemplatesApi.md#deleteTemplate) | **DELETE** /templates/{templateId} | Delete template
+*TemplatesApi* | [**getEditorUrl**](docs/TemplatesApi.md#getEditorUrl) | **POST** /templates/{templateId}/editor | Open editor
+*TemplatesApi* | [**getTemplate**](docs/TemplatesApi.md#getTemplate) | **GET** /templates/{templateId} | Get template
 *TemplatesApi* | [**getTemplates**](docs/TemplatesApi.md#getTemplates) | **GET** /templates | Get templates
-*TemplatesApi* | [**updateTemplate**](docs/TemplatesApi.md#updateTemplate) | **PUT** /templates/templateId | Update template
-*WorkspacesApi* | [**deleteWorkspace**](docs/WorkspacesApi.md#deleteWorkspace) | **DELETE** /workspaces/workspaceId | Delete workspace
-*WorkspacesApi* | [**getWorkspace**](docs/WorkspacesApi.md#getWorkspace) | **GET** /workspaces/workspaceId | Get workspace
+*TemplatesApi* | [**updateTemplate**](docs/TemplatesApi.md#updateTemplate) | **PUT** /templates/{templateId} | Update template
+*WorkspacesApi* | [**deleteWorkspace**](docs/WorkspacesApi.md#deleteWorkspace) | **DELETE** /workspaces/{workspaceId} | Delete workspace
+*WorkspacesApi* | [**getWorkspace**](docs/WorkspacesApi.md#getWorkspace) | **GET** /workspaces/{workspaceId} | Get workspace
 
 
 ## Documentation for Models

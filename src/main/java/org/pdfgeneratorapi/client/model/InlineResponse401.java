@@ -27,7 +27,7 @@ import java.io.IOException;
 /**
  * InlineResponse401
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-11-15T13:14:30.511540Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-12-16T07:31:52.370703Z[Etc/UTC]")
 public class InlineResponse401 {
   /**
    * Error description
@@ -42,13 +42,13 @@ public class InlineResponse401 {
     
     FAILED_KEY_MISSING("Authentication failed: key missing"),
     
-    FAILED_PROPERTY_ISS_ISSUER_MISSING_IN_JWT("Authentication failed: property 'iss' (issuer) missing in JWT"),
+    FAILED_PROPERTY_ISS_ISSUER_MISSING_IN_JWT("Authentication failed: property iss (issuer) missing in JWT"),
     
-    FAILED_PROPERTY_SUB_SUBJECT_MISSING_IN_JWT("Authentication failed: property 'sub' (subject) missing in JWT"),
+    FAILED_PROPERTY_SUB_SUBJECT_MISSING_IN_JWT("Authentication failed: property sub (subject) missing in JWT"),
     
-    FAILED_PROPERTY_EXP_EXPIRATION_TIME_MISSING_IN_JWT("Authentication failed: property 'exp' (expiration time) missing in JWT"),
+    FAILED_PROPERTY_EXP_EXPIRATION_TIME_MISSING_IN_JWT("Authentication failed: property exp (expiration time) missing in JWT"),
     
-    FAILED_INVALID_ISS_ISSUER_("Authentication failed: invalid 'iss' (issuer)"),
+    FAILED_INVALID_ISS_ISSUER_("Authentication failed: invalid iss (issuer)"),
     
     FAILED_INCORRECT_SIGNATURE("Authentication failed: incorrect signature"),
     

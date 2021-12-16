@@ -81,7 +81,7 @@ public class WorkspacesApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/workspaces/workspaceId"
+        String localVarPath = "/workspaces/{workspaceId}"
             .replaceAll("\\{" + "workspaceId" + "\\}", localVarApiClient.escapeString(workspaceId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -213,7 +213,7 @@ public class WorkspacesApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/workspaces/workspaceId"
+        String localVarPath = "/workspaces/{workspaceId}"
             .replaceAll("\\{" + "workspaceId" + "\\}", localVarApiClient.escapeString(workspaceId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();

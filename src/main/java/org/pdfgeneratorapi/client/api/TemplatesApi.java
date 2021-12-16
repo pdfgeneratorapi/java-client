@@ -85,7 +85,7 @@ public class TemplatesApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/templates/templateId/copy"
+        String localVarPath = "/templates/{templateId}/copy"
             .replaceAll("\\{" + "templateId" + "\\}", localVarApiClient.escapeString(templateId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -355,7 +355,7 @@ public class TemplatesApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/templates/templateId"
+        String localVarPath = "/templates/{templateId}"
             .replaceAll("\\{" + "templateId" + "\\}", localVarApiClient.escapeString(templateId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -489,7 +489,7 @@ public class TemplatesApi {
         Object localVarPostBody = body;
 
         // create path and map variables
-        String localVarPath = "/templates/templateId/editor"
+        String localVarPath = "/templates/{templateId}/editor"
             .replaceAll("\\{" + "templateId" + "\\}", localVarApiClient.escapeString(templateId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -636,7 +636,7 @@ public class TemplatesApi {
         Object localVarPostBody = null;
 
         // create path and map variables
-        String localVarPath = "/templates/templateId"
+        String localVarPath = "/templates/{templateId}"
             .replaceAll("\\{" + "templateId" + "\\}", localVarApiClient.escapeString(templateId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -891,7 +891,7 @@ public class TemplatesApi {
         Object localVarPostBody = templateDefinitionNew;
 
         // create path and map variables
-        String localVarPath = "/templates/templateId"
+        String localVarPath = "/templates/{templateId}"
             .replaceAll("\\{" + "templateId" + "\\}", localVarApiClient.escapeString(templateId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();

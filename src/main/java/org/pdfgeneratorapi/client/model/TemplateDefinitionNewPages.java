@@ -32,7 +32,7 @@ import org.pdfgeneratorapi.client.model.TemplateDefinitionNewMargins;
 /**
  * TemplateDefinitionNewPages
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-11-15T13:14:30.511540Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2021-12-16T07:31:52.370703Z[Etc/UTC]")
 public class TemplateDefinitionNewPages {
   public static final String SERIALIZED_NAME_WIDTH = "width";
   @SerializedName(SERIALIZED_NAME_WIDTH)

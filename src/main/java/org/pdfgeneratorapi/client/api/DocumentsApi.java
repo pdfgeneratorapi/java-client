@@ -85,7 +85,7 @@ public class DocumentsApi {
         Object localVarPostBody = data;
 
         // create path and map variables
-        String localVarPath = "/templates/templateId/output"
+        String localVarPath = "/templates/{templateId}/output"
             .replaceAll("\\{" + "templateId" + "\\}", localVarApiClient.escapeString(templateId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
@@ -303,7 +303,7 @@ public class DocumentsApi {
 
     /**
      * Generate document (multiple templates)
-     * Allows to merge multiples template with data and returns base64 encoded document or public URL to a document. NB! When the public URL option is used, the document is stored for 30 days and automatically deleted.
+     * Allows to merge multiple templated with data and returns base64 encoded document or public URL to a document. NB! When the public URL option is used, the document is stored for 30 days and automatically deleted.
      * @param requestBody Data used to specify templates and data objects which are used to merge the template (required)
      * @param name Document name, returned in the meta data. (optional)
      * @param format Document format. The zip option will return a ZIP file with PDF files. (optional, default to pdf)
@@ -328,7 +328,7 @@ public class DocumentsApi {
 
     /**
      * Generate document (multiple templates)
-     * Allows to merge multiples template with data and returns base64 encoded document or public URL to a document. NB! When the public URL option is used, the document is stored for 30 days and automatically deleted.
+     * Allows to merge multiple templated with data and returns base64 encoded document or public URL to a document. NB! When the public URL option is used, the document is stored for 30 days and automatically deleted.
      * @param requestBody Data used to specify templates and data objects which are used to merge the template (required)
      * @param name Document name, returned in the meta data. (optional)
      * @param format Document format. The zip option will return a ZIP file with PDF files. (optional, default to pdf)
@@ -354,7 +354,7 @@ public class DocumentsApi {
 
     /**
      * Generate document (multiple templates) (asynchronously)
-     * Allows to merge multiples template with data and returns base64 encoded document or public URL to a document. NB! When the public URL option is used, the document is stored for 30 days and automatically deleted.
+     * Allows to merge multiple templated with data and returns base64 encoded document or public URL to a document. NB! When the public URL option is used, the document is stored for 30 days and automatically deleted.
      * @param requestBody Data used to specify templates and data objects which are used to merge the template (required)
      * @param name Document name, returned in the meta data. (optional)
      * @param format Document format. The zip option will return a ZIP file with PDF files. (optional, default to pdf)
