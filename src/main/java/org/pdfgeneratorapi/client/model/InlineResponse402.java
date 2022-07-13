@@ -23,248 +23,109 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionDataSettings;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionEditor;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionLayout;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionNewPages;
 
 /**
- * TemplateDefinition
+ * InlineResponse402
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-07-13T14:55:27.173409+03:00[Europe/Tallinn]")
-public class TemplateDefinition {
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
-  private Integer id;
+public class InlineResponse402 {
+  /**
+   * Error description
+   */
+  @JsonAdapter(ErrorEnum.Adapter.class)
+  public enum ErrorEnum {
+    YOUR_ACCOUNT_IS_SUSPENDED_PLEASE_UPGRADE_YOUR_ACCOUNT_OR_CONTACT_SUPPORT_PDFGENERATORAPI_COM("Your account is suspended, please upgrade your account or contact support@pdfgeneratorapi.com");
 
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
-  private String name;
+    private String value;
 
-  public static final String SERIALIZED_NAME_TAGS = "tags";
-  @SerializedName(SERIALIZED_NAME_TAGS)
-  private List<String> tags = null;
-
-  public static final String SERIALIZED_NAME_IS_DRAFT = "isDraft";
-  @SerializedName(SERIALIZED_NAME_IS_DRAFT)
-  private Boolean isDraft;
-
-  public static final String SERIALIZED_NAME_LAYOUT = "layout";
-  @SerializedName(SERIALIZED_NAME_LAYOUT)
-  private TemplateDefinitionLayout layout;
-
-  public static final String SERIALIZED_NAME_PAGES = "pages";
-  @SerializedName(SERIALIZED_NAME_PAGES)
-  private List<TemplateDefinitionNewPages> pages = null;
-
-  public static final String SERIALIZED_NAME_DATA_SETTINGS = "dataSettings";
-  @SerializedName(SERIALIZED_NAME_DATA_SETTINGS)
-  private TemplateDefinitionDataSettings dataSettings;
-
-  public static final String SERIALIZED_NAME_EDITOR = "editor";
-  @SerializedName(SERIALIZED_NAME_EDITOR)
-  private TemplateDefinitionEditor editor;
-
-
-  public TemplateDefinition id(Integer id) {
-    
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Unique identifier
-   * @return id
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "24382", value = "Unique identifier")
-
-  public Integer getId() {
-    return id;
-  }
-
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-
-  public TemplateDefinition name(String name) {
-    
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Template name
-   * @return name
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "Invoice template", value = "Template name")
-
-  public String getName() {
-    return name;
-  }
-
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  public TemplateDefinition tags(List<String> tags) {
-    
-    this.tags = tags;
-    return this;
-  }
-
-  public TemplateDefinition addTagsItem(String tagsItem) {
-    if (this.tags == null) {
-      this.tags = new ArrayList<String>();
+    ErrorEnum(String value) {
+      this.value = value;
     }
-    this.tags.add(tagsItem);
-    return this;
-  }
 
-   /**
-   * A list of tags assigned to a template
-   * @return tags
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "[\"invoice\",\"orders\"]", value = "A list of tags assigned to a template")
-
-  public List<String> getTags() {
-    return tags;
-  }
-
-
-  public void setTags(List<String> tags) {
-    this.tags = tags;
-  }
-
-
-  public TemplateDefinition isDraft(Boolean isDraft) {
-    
-    this.isDraft = isDraft;
-    return this;
-  }
-
-   /**
-   * Indicates if the template is a draft or published.
-   * @return isDraft
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Indicates if the template is a draft or published.")
-
-  public Boolean getIsDraft() {
-    return isDraft;
-  }
-
-
-  public void setIsDraft(Boolean isDraft) {
-    this.isDraft = isDraft;
-  }
-
-
-  public TemplateDefinition layout(TemplateDefinitionLayout layout) {
-    
-    this.layout = layout;
-    return this;
-  }
-
-   /**
-   * Get layout
-   * @return layout
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public TemplateDefinitionLayout getLayout() {
-    return layout;
-  }
-
-
-  public void setLayout(TemplateDefinitionLayout layout) {
-    this.layout = layout;
-  }
-
-
-  public TemplateDefinition pages(List<TemplateDefinitionNewPages> pages) {
-    
-    this.pages = pages;
-    return this;
-  }
-
-  public TemplateDefinition addPagesItem(TemplateDefinitionNewPages pagesItem) {
-    if (this.pages == null) {
-      this.pages = new ArrayList<TemplateDefinitionNewPages>();
+    public String getValue() {
+      return value;
     }
-    this.pages.add(pagesItem);
-    return this;
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static ErrorEnum fromValue(String value) {
+      for (ErrorEnum b : ErrorEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<ErrorEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final ErrorEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public ErrorEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return ErrorEnum.fromValue(value);
+      }
+    }
   }
 
-   /**
-   * Defines page or label size, margins and components on page or label
-   * @return pages
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Defines page or label size, margins and components on page or label")
+  public static final String SERIALIZED_NAME_ERROR = "error";
+  @SerializedName(SERIALIZED_NAME_ERROR)
+  private ErrorEnum error;
 
-  public List<TemplateDefinitionNewPages> getPages() {
-    return pages;
-  }
+  public static final String SERIALIZED_NAME_STATUS = "status";
+  @SerializedName(SERIALIZED_NAME_STATUS)
+  private Integer status;
 
 
-  public void setPages(List<TemplateDefinitionNewPages> pages) {
-    this.pages = pages;
-  }
-
-
-  public TemplateDefinition dataSettings(TemplateDefinitionDataSettings dataSettings) {
+  public InlineResponse402 error(ErrorEnum error) {
     
-    this.dataSettings = dataSettings;
+    this.error = error;
     return this;
   }
 
    /**
-   * Get dataSettings
-   * @return dataSettings
+   * Error description
+   * @return error
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "Account Suspended", value = "Error description")
 
-  public TemplateDefinitionDataSettings getDataSettings() {
-    return dataSettings;
+  public ErrorEnum getError() {
+    return error;
   }
 
 
-  public void setDataSettings(TemplateDefinitionDataSettings dataSettings) {
-    this.dataSettings = dataSettings;
+  public void setError(ErrorEnum error) {
+    this.error = error;
   }
 
 
-  public TemplateDefinition editor(TemplateDefinitionEditor editor) {
+  public InlineResponse402 status(Integer status) {
     
-    this.editor = editor;
+    this.status = status;
     return this;
   }
 
    /**
-   * Get editor
-   * @return editor
+   * HTTP Error code
+   * @return status
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "402", value = "HTTP Error code")
 
-  public TemplateDefinitionEditor getEditor() {
-    return editor;
+  public Integer getStatus() {
+    return status;
   }
 
 
-  public void setEditor(TemplateDefinitionEditor editor) {
-    this.editor = editor;
+  public void setStatus(Integer status) {
+    this.status = status;
   }
 
 
@@ -276,34 +137,22 @@ public class TemplateDefinition {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TemplateDefinition templateDefinition = (TemplateDefinition) o;
-    return Objects.equals(this.id, templateDefinition.id) &&
-        Objects.equals(this.name, templateDefinition.name) &&
-        Objects.equals(this.tags, templateDefinition.tags) &&
-        Objects.equals(this.isDraft, templateDefinition.isDraft) &&
-        Objects.equals(this.layout, templateDefinition.layout) &&
-        Objects.equals(this.pages, templateDefinition.pages) &&
-        Objects.equals(this.dataSettings, templateDefinition.dataSettings) &&
-        Objects.equals(this.editor, templateDefinition.editor);
+    InlineResponse402 inlineResponse402 = (InlineResponse402) o;
+    return Objects.equals(this.error, inlineResponse402.error) &&
+        Objects.equals(this.status, inlineResponse402.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, tags, isDraft, layout, pages, dataSettings, editor);
+    return Objects.hash(error, status);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TemplateDefinition {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-    sb.append("    isDraft: ").append(toIndentedString(isDraft)).append("\n");
-    sb.append("    layout: ").append(toIndentedString(layout)).append("\n");
-    sb.append("    pages: ").append(toIndentedString(pages)).append("\n");
-    sb.append("    dataSettings: ").append(toIndentedString(dataSettings)).append("\n");
-    sb.append("    editor: ").append(toIndentedString(editor)).append("\n");
+    sb.append("class InlineResponse402 {\n");
+    sb.append("    error: ").append(toIndentedString(error)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -13,8 +13,6 @@
 
 package org.pdfgeneratorapi.client.model;
 
-import java.util.Objects;
-import java.util.Arrays;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -23,301 +21,39 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionDataSettings;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionEditor;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionLayout;
-import org.pdfgeneratorapi.client.model.TemplateDefinitionNewPages;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
+
 
 /**
- * TemplateDefinition
+ * Model tests for InlineResponse402
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-07-13T14:55:27.173409+03:00[Europe/Tallinn]")
-public class TemplateDefinition {
-  public static final String SERIALIZED_NAME_ID = "id";
-  @SerializedName(SERIALIZED_NAME_ID)
-  private Integer id;
+public class InlineResponse402Test {
+    private final InlineResponse402 model = new InlineResponse402();
 
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
-  private String name;
-
-  public static final String SERIALIZED_NAME_TAGS = "tags";
-  @SerializedName(SERIALIZED_NAME_TAGS)
-  private List<String> tags = null;
-
-  public static final String SERIALIZED_NAME_IS_DRAFT = "isDraft";
-  @SerializedName(SERIALIZED_NAME_IS_DRAFT)
-  private Boolean isDraft;
-
-  public static final String SERIALIZED_NAME_LAYOUT = "layout";
-  @SerializedName(SERIALIZED_NAME_LAYOUT)
-  private TemplateDefinitionLayout layout;
-
-  public static final String SERIALIZED_NAME_PAGES = "pages";
-  @SerializedName(SERIALIZED_NAME_PAGES)
-  private List<TemplateDefinitionNewPages> pages = null;
-
-  public static final String SERIALIZED_NAME_DATA_SETTINGS = "dataSettings";
-  @SerializedName(SERIALIZED_NAME_DATA_SETTINGS)
-  private TemplateDefinitionDataSettings dataSettings;
-
-  public static final String SERIALIZED_NAME_EDITOR = "editor";
-  @SerializedName(SERIALIZED_NAME_EDITOR)
-  private TemplateDefinitionEditor editor;
-
-
-  public TemplateDefinition id(Integer id) {
-    
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Unique identifier
-   * @return id
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "24382", value = "Unique identifier")
-
-  public Integer getId() {
-    return id;
-  }
-
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-
-  public TemplateDefinition name(String name) {
-    
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Template name
-   * @return name
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "Invoice template", value = "Template name")
-
-  public String getName() {
-    return name;
-  }
-
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  public TemplateDefinition tags(List<String> tags) {
-    
-    this.tags = tags;
-    return this;
-  }
-
-  public TemplateDefinition addTagsItem(String tagsItem) {
-    if (this.tags == null) {
-      this.tags = new ArrayList<String>();
+    /**
+     * Model tests for InlineResponse402
+     */
+    @Test
+    public void testInlineResponse402() {
+        // TODO: test InlineResponse402
     }
-    this.tags.add(tagsItem);
-    return this;
-  }
 
-   /**
-   * A list of tags assigned to a template
-   * @return tags
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "[\"invoice\",\"orders\"]", value = "A list of tags assigned to a template")
-
-  public List<String> getTags() {
-    return tags;
-  }
-
-
-  public void setTags(List<String> tags) {
-    this.tags = tags;
-  }
-
-
-  public TemplateDefinition isDraft(Boolean isDraft) {
-    
-    this.isDraft = isDraft;
-    return this;
-  }
-
-   /**
-   * Indicates if the template is a draft or published.
-   * @return isDraft
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "true", value = "Indicates if the template is a draft or published.")
-
-  public Boolean getIsDraft() {
-    return isDraft;
-  }
-
-
-  public void setIsDraft(Boolean isDraft) {
-    this.isDraft = isDraft;
-  }
-
-
-  public TemplateDefinition layout(TemplateDefinitionLayout layout) {
-    
-    this.layout = layout;
-    return this;
-  }
-
-   /**
-   * Get layout
-   * @return layout
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public TemplateDefinitionLayout getLayout() {
-    return layout;
-  }
-
-
-  public void setLayout(TemplateDefinitionLayout layout) {
-    this.layout = layout;
-  }
-
-
-  public TemplateDefinition pages(List<TemplateDefinitionNewPages> pages) {
-    
-    this.pages = pages;
-    return this;
-  }
-
-  public TemplateDefinition addPagesItem(TemplateDefinitionNewPages pagesItem) {
-    if (this.pages == null) {
-      this.pages = new ArrayList<TemplateDefinitionNewPages>();
+    /**
+     * Test the property 'error'
+     */
+    @Test
+    public void errorTest() {
+        // TODO: test error
     }
-    this.pages.add(pagesItem);
-    return this;
-  }
 
-   /**
-   * Defines page or label size, margins and components on page or label
-   * @return pages
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "Defines page or label size, margins and components on page or label")
-
-  public List<TemplateDefinitionNewPages> getPages() {
-    return pages;
-  }
-
-
-  public void setPages(List<TemplateDefinitionNewPages> pages) {
-    this.pages = pages;
-  }
-
-
-  public TemplateDefinition dataSettings(TemplateDefinitionDataSettings dataSettings) {
-    
-    this.dataSettings = dataSettings;
-    return this;
-  }
-
-   /**
-   * Get dataSettings
-   * @return dataSettings
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public TemplateDefinitionDataSettings getDataSettings() {
-    return dataSettings;
-  }
-
-
-  public void setDataSettings(TemplateDefinitionDataSettings dataSettings) {
-    this.dataSettings = dataSettings;
-  }
-
-
-  public TemplateDefinition editor(TemplateDefinitionEditor editor) {
-    
-    this.editor = editor;
-    return this;
-  }
-
-   /**
-   * Get editor
-   * @return editor
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-
-  public TemplateDefinitionEditor getEditor() {
-    return editor;
-  }
-
-
-  public void setEditor(TemplateDefinitionEditor editor) {
-    this.editor = editor;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * Test the property 'status'
+     */
+    @Test
+    public void statusTest() {
+        // TODO: test status
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    TemplateDefinition templateDefinition = (TemplateDefinition) o;
-    return Objects.equals(this.id, templateDefinition.id) &&
-        Objects.equals(this.name, templateDefinition.name) &&
-        Objects.equals(this.tags, templateDefinition.tags) &&
-        Objects.equals(this.isDraft, templateDefinition.isDraft) &&
-        Objects.equals(this.layout, templateDefinition.layout) &&
-        Objects.equals(this.pages, templateDefinition.pages) &&
-        Objects.equals(this.dataSettings, templateDefinition.dataSettings) &&
-        Objects.equals(this.editor, templateDefinition.editor);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, name, tags, isDraft, layout, pages, dataSettings, editor);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class TemplateDefinition {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-    sb.append("    isDraft: ").append(toIndentedString(isDraft)).append("\n");
-    sb.append("    layout: ").append(toIndentedString(layout)).append("\n");
-    sb.append("    pages: ").append(toIndentedString(pages)).append("\n");
-    sb.append("    dataSettings: ").append(toIndentedString(dataSettings)).append("\n");
-    sb.append("    editor: ").append(toIndentedString(editor)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
 
 }
-

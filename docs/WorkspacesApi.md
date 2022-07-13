@@ -75,6 +75,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | The request was successfully executed. |  -  |
 **401** | Unauthorized |  -  |
+**402** | Account Suspended |  -  |
 **403** | Forbidden |  -  |
 **404** | Not Found |  -  |
 **422** | Unprocessable Entity |  -  |
@@ -147,6 +148,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Workspace information |  -  |
 **401** | Unauthorized |  -  |
+**402** | Account Suspended |  -  |
 **403** | Forbidden |  -  |
 **404** | Not Found |  -  |
 **422** | Unprocessable Entity |  -  |

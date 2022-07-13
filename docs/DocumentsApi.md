@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 <a name="mergeTemplate"></a>
 # **mergeTemplate**
-> InlineResponse2004 mergeTemplate(templateId, data, name, format, output)
+> InlineResponse2004 mergeTemplate(templateId, body, name, format, output)
 
 Generate document
 
@@ -37,12 +37,12 @@ public class Example {
 
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     Integer templateId = 19375; // Integer | Template unique identifier
-    Data data = new Data(); // Data | Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file.
+    Object body = null; // Object | Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file.
     String name = "My document"; // String | Document name, returned in the meta data.
     String format = "pdf"; // String | Document format. The zip option will return a ZIP file with PDF files.
-    String output = "base64"; // String | Response format. With the url option, the document is stored for 30 days and automatically deleted.
+    String output = "base64"; // String | Response format. \"I\" is used to return the file inline. With the url option, the document is stored for 30 days and automatically deleted.
     try {
-      InlineResponse2004 result = apiInstance.mergeTemplate(templateId, data, name, format, output);
+      InlineResponse2004 result = apiInstance.mergeTemplate(templateId, body, name, format, output);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#mergeTemplate");
@@ -60,10 +60,10 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **templateId** | **Integer**| Template unique identifier |
- **data** | [**Data**](Data.md)| Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file. |
+ **body** | **Object**| Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file. |
  **name** | **String**| Document name, returned in the meta data. | [optional]
  **format** | **String**| Document format. The zip option will return a ZIP file with PDF files. | [optional] [default to pdf] [enum: pdf, html, zip, xlsx]
- **output** | **String**| Response format. With the url option, the document is stored for 30 days and automatically deleted. | [optional] [default to base64] [enum: base64, url, I]
+ **output** | **String**| Response format. \&quot;I\&quot; is used to return the file inline. With the url option, the document is stored for 30 days and automatically deleted. | [optional] [default to base64] [enum: base64, url, I]
 
 ### Return type
 
@@ -83,6 +83,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Document data |  -  |
 **401** | Unauthorized |  -  |
+**402** | Account Suspended |  -  |
 **403** | Forbidden |  -  |
 **404** | Not Found |  -  |
 **422** | Unprocessable Entity |  -  |
@@ -94,7 +95,7 @@ Name | Type | Description  | Notes
 
 Generate document (multiple templates)
 
-Allows to merge multiple templated with data and returns base64 encoded document or public URL to a document. NB! When the public URL option is used, the document is stored for 30 days and automatically deleted.
+Allows to merge multiple templates with data and returns base64 encoded document or public URL to a document. NB! When the public URL option is used, the document is stored for 30 days and automatically deleted.
 
 ### Example
 ```java
@@ -119,7 +120,7 @@ public class Example {
     List<Object> requestBody = null; // List<Object> | Data used to specify templates and data objects which are used to merge the template
     String name = "My document"; // String | Document name, returned in the meta data.
     String format = "pdf"; // String | Document format. The zip option will return a ZIP file with PDF files.
-    String output = "base64"; // String | Response format. With the url option, the document is stored for 30 days and automatically deleted.
+    String output = "base64"; // String | Response format. \"I\" is used to return the file inline. With the url option, the document is stored for 30 days and automatically deleted.
     try {
       InlineResponse2004 result = apiInstance.mergeTemplates(requestBody, name, format, output);
       System.out.println(result);
@@ -141,7 +142,7 @@ Name | Type | Description  | Notes
  **requestBody** | [**List&lt;Object&gt;**](Object.md)| Data used to specify templates and data objects which are used to merge the template |
  **name** | **String**| Document name, returned in the meta data. | [optional]
  **format** | **String**| Document format. The zip option will return a ZIP file with PDF files. | [optional] [default to pdf] [enum: pdf, html, zip, xlsx]
- **output** | **String**| Response format. With the url option, the document is stored for 30 days and automatically deleted. | [optional] [default to base64] [enum: base64, url, I]
+ **output** | **String**| Response format. \&quot;I\&quot; is used to return the file inline. With the url option, the document is stored for 30 days and automatically deleted. | [optional] [default to base64] [enum: base64, url, I]
 
 ### Return type
 
@@ -161,6 +162,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Document data |  -  |
 **401** | Unauthorized |  -  |
+**402** | Account Suspended |  -  |
 **403** | Forbidden |  -  |
 **404** | Not Found |  -  |
 **422** | Unprocessable Entity |  -  |

@@ -2,7 +2,7 @@
 
 PDF Generator API
 - API version: 3.1.1
-  - Build date: 2021-12-16T07:31:52.370703Z[Etc/UTC]
+  - Build date: 2022-07-13T14:55:27.173409+03:00[Europe/Tallinn]
 
 # Introduction
 PDF Generator API allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.
@@ -152,6 +152,7 @@ We have validated the generated libraries, but let us know if you find any anoma
 | Code   | Description                    |
 |--------|--------------------------------|
 | 401    | Unauthorized                   |
+| 402    | Payment Required               |
 | 403    | Forbidden                      |
 | 404    | Not Found                      |
 | 422    | Unprocessable Entity           |
@@ -167,6 +168,11 @@ We have validated the generated libraries, but let us know if you find any anoma
 | Authentication failed: property 'sub' (subject) missing in JWT          |
 | Authentication failed: property 'exp' (expiration time) missing in JWT  |
 | Authentication failed: incorrect signature                              |
+
+## 402 Payment Required
+| Description                                                             |
+|-------------------------------------------------------------------------|
+| Your account is suspended, please upgrade your account                  |
 
 ## 403 Forbidden
 | Description                                                             |
@@ -278,12 +284,12 @@ public class Example {
 
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     Integer templateId = 19375; // Integer | Template unique identifier
-    Data data = new Data(); // Data | Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file.
+    Object body = null; // Object | Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file.
     String name = "My document"; // String | Document name, returned in the meta data.
     String format = "pdf"; // String | Document format. The zip option will return a ZIP file with PDF files.
-    String output = "base64"; // String | Response format. With the url option, the document is stored for 30 days and automatically deleted.
+    String output = "base64"; // String | Response format. "I" is used to return the file inline. With the url option, the document is stored for 30 days and automatically deleted.
     try {
-      InlineResponse2004 result = apiInstance.mergeTemplate(templateId, data, name, format, output);
+      InlineResponse2004 result = apiInstance.mergeTemplate(templateId, body, name, format, output);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#mergeTemplate");
@@ -319,7 +325,6 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [Component](docs/Component.md)
- - [Data](docs/Data.md)
  - [InlineResponse200](docs/InlineResponse200.md)
  - [InlineResponse2001](docs/InlineResponse2001.md)
  - [InlineResponse2002](docs/InlineResponse2002.md)
@@ -329,6 +334,7 @@ Class | Method | HTTP request | Description
  - [InlineResponse2004Meta](docs/InlineResponse2004Meta.md)
  - [InlineResponse2005](docs/InlineResponse2005.md)
  - [InlineResponse401](docs/InlineResponse401.md)
+ - [InlineResponse402](docs/InlineResponse402.md)
  - [InlineResponse403](docs/InlineResponse403.md)
  - [InlineResponse404](docs/InlineResponse404.md)
  - [InlineResponse422](docs/InlineResponse422.md)

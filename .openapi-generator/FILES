@@ -5,7 +5,6 @@ api/openapi.yaml
 build.gradle
 build.sbt
 docs/Component.md
-docs/Data.md
 docs/DocumentsApi.md
 docs/InlineResponse200.md
 docs/InlineResponse2001.md
@@ -16,6 +15,7 @@ docs/InlineResponse2004.md
 docs/InlineResponse2004Meta.md
 docs/InlineResponse2005.md
 docs/InlineResponse401.md
+docs/InlineResponse402.md
 docs/InlineResponse403.md
 docs/InlineResponse404.md
 docs/InlineResponse422.md
@@ -64,7 +64,6 @@ src/main/java/org/pdfgeneratorapi/client/auth/Authentication.java
 src/main/java/org/pdfgeneratorapi/client/auth/HttpBasicAuth.java
 src/main/java/org/pdfgeneratorapi/client/auth/HttpBearerAuth.java
 src/main/java/org/pdfgeneratorapi/client/model/Component.java
-src/main/java/org/pdfgeneratorapi/client/model/Data.java
 src/main/java/org/pdfgeneratorapi/client/model/InlineResponse200.java
 src/main/java/org/pdfgeneratorapi/client/model/InlineResponse2001.java
 src/main/java/org/pdfgeneratorapi/client/model/InlineResponse2002.java
@@ -74,6 +73,7 @@ src/main/java/org/pdfgeneratorapi/client/model/InlineResponse2004.java
 src/main/java/org/pdfgeneratorapi/client/model/InlineResponse2004Meta.java
 src/main/java/org/pdfgeneratorapi/client/model/InlineResponse2005.java
 src/main/java/org/pdfgeneratorapi/client/model/InlineResponse401.java
+src/main/java/org/pdfgeneratorapi/client/model/InlineResponse402.java
 src/main/java/org/pdfgeneratorapi/client/model/InlineResponse403.java
 src/main/java/org/pdfgeneratorapi/client/model/InlineResponse404.java
 src/main/java/org/pdfgeneratorapi/client/model/InlineResponse422.java
@@ -90,3 +90,4 @@ src/main/java/org/pdfgeneratorapi/client/model/TemplateDefinitionNewLayoutRepeat
 src/main/java/org/pdfgeneratorapi/client/model/TemplateDefinitionNewMargins.java
 src/main/java/org/pdfgeneratorapi/client/model/TemplateDefinitionNewPages.java
 src/main/java/org/pdfgeneratorapi/client/model/Workspace.java
+src/test/java/org/pdfgeneratorapi/client/model/InlineResponse402Test.java

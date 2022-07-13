@@ -82,6 +82,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Template configuration as JSON object |  -  |
 **401** | Unauthorized |  -  |
+**402** | Account Suspended |  -  |
 **403** | Forbidden |  -  |
 **404** | Not Found |  -  |
 **422** | Unprocessable Entity |  -  |
@@ -154,6 +155,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Template configuration as JSON object |  -  |
 **401** | Unauthorized |  -  |
+**402** | Account Suspended |  -  |
 **403** | Forbidden |  -  |
 **404** | Not Found |  -  |
 **422** | Unprocessable Entity |  -  |
@@ -226,6 +228,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | The request was successfully executed. |  -  |
 **401** | Unauthorized |  -  |
+**402** | Account Suspended |  -  |
 **403** | Forbidden |  -  |
 **404** | Not Found |  -  |
 **422** | Unprocessable Entity |  -  |
@@ -237,7 +240,7 @@ Name | Type | Description  | Notes
 
 Open editor
 
-Returns an unique URL which you can use to redirect your user to the editor from your application or use the generated URL as iframe source to show the editor within your application. 
+Returns an unique URL which you can use to redirect your user to the editor from your application or use the generated URL as iframe source to show the editor within your application. When using iframe, make sure that your browser allows third-party cookies. 
 
 ### Example
 ```java
@@ -282,7 +285,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **templateId** | **Integer**| Template unique identifier |
  **body** | **Object**| Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file. |
- **language** | **String**| Specify the editor UI language. Defaults to organization editor language. | [optional] [enum: en, et, cs, sk, ru]
+ **language** | **String**| Specify the editor UI language. Defaults to organization editor language. | [optional] [enum: en, et, cs, sk, ru, de]
 
 ### Return type
 
@@ -302,6 +305,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Returns an URL which you can use to redirect your user to the editor or use as iframe source |  -  |
 **401** | Unauthorized |  -  |
+**402** | Account Suspended |  -  |
 **403** | Forbidden |  -  |
 **404** | Not Found |  -  |
 **422** | Unprocessable Entity |  -  |
@@ -374,6 +378,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Template configuration as JSON object |  -  |
 **401** | Unauthorized |  -  |
+**402** | Account Suspended |  -  |
 **403** | Forbidden |  -  |
 **404** | Not Found |  -  |
 **422** | Unprocessable Entity |  -  |
@@ -442,6 +447,7 @@ This endpoint does not need any parameter.
 |-------------|-------------|------------------|
 **200** | An array of template objects |  -  |
 **401** | Unauthorized |  -  |
+**402** | Account Suspended |  -  |
 **403** | Forbidden |  -  |
 **404** | Not Found |  -  |
 **422** | Unprocessable Entity |  -  |
@@ -516,6 +522,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Template configuration as JSON object |  -  |
 **401** | Unauthorized |  -  |
+**402** | Account Suspended |  -  |
 **403** | Forbidden |  -  |
 **404** | Not Found |  -  |
 **422** | Unprocessable Entity |  -  |
