@@ -7,12 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**error** | [**ErrorEnum**](#ErrorEnum) | Error description |  [optional] |
-|**status** | **Integer** | HTTP Error code |  [optional] |
+|**message** | [**MessageEnum**](#MessageEnum) | Error description |  [optional] |
 
 
 
-## Enum: ErrorEnum
+## Enum: MessageEnum
 
 | Name | Value |
 |---- | -----|

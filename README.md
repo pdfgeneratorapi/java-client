@@ -1,23 +1,21 @@
 # pdf-generator-api
 
 PDF Generator API
-- API version: 3.1.1
-  - Build date: 2023-02-22T21:11:49.567449+02:00[Europe/Tallinn]
+- API version: 4.0.1
+  - Build date: 2023-02-22T21:48:03.152845+02:00[Europe/Tallinn]
 
 # Introduction
 [PDF Generator API](https://pdfgeneratorapi.com) allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.
 
 The PDF Generator API features a web API architecture, allowing you to code in the language of your choice. This API supports the JSON media type, and uses UTF-8 character encoding.
 
-You can find our previous API documentation page with references to Simple and Signature authentication [here](https://docs.pdfgeneratorapi.com/legacy).
-
 ## Base URL
-The base URL for all the API endpoints is `https://us1.pdfgeneratorapi.com/api/v3`
+The base URL for all the API endpoints is `https://us1.pdfgeneratorapi.com/api/v4`
 
 For example
-* `https://us1.pdfgeneratorapi.com/api/v3/templates`
-* `https://us1.pdfgeneratorapi.com/api/v3/workspaces`
-* `https://us1.pdfgeneratorapi.com/api/v3/templates/123123`
+* `https://us1.pdfgeneratorapi.com/api/v4/templates`
+* `https://us1.pdfgeneratorapi.com/api/v4/workspaces`
+* `https://us1.pdfgeneratorapi.com/api/v4/templates/123123`
 
 ## Editor
 PDF Generator API comes with a powerful drag & drop editor that allows to create any kind of document templates, from barcode labels to invoices, quotes and reports. You can find tutorials and videos from our [Support Portal](https://support.pdfgeneratorapi.com).
@@ -58,15 +56,27 @@ Data Field is a placeholder for the specific data in your JSON data set. In this
 ```
 
 ## Rate limiting
-Our API endpoints use IP-based rate limiting and allow you to make up to 30 requests per second and 240 requests per minute. If you make more requests, you will receive a response with HTTP code 429.
+Our API endpoints use IP-based rate limiting and allow you to make up to 2 requests per second and 60 requests per minute. If you make more requests, you will receive a response with HTTP code 429.
+
+Response headers contain additional values:
+
+| Header   | Description                    |
+|--------|--------------------------------|
+| X-RateLimit-Limit    | Maximum requests per minute                   |
+| X-RateLimit-Remaining    | The requests remaining in the current minute               |
+| Retry-After     | How many seconds you need to wait until you are allowed to make requests |
+
+## Postman Collection
+We have created a [Postman](https://www.postman.com) Collection so you can easily test all the API endpoints without developing and code. You can download the collection [here](https://god.gw.postman.com/run-collection/11578263-c6546175-de49-4b35-904b-29bb52a5a69a?action=collection%2Ffork&collection-url=entityId%3D11578263-c6546175-de49-4b35-904b-29bb52a5a69a%26entityType%3Dcollection%26workspaceId%3D5900d75f-c45d-4e61-9fb7-63aca23580df) or just click the button below.
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/11578263-c6546175-de49-4b35-904b-29bb52a5a69a?action=collection%2Ffork&collection-url=entityId%3D11578263-c6546175-de49-4b35-904b-29bb52a5a69a%26entityType%3Dcollection%26workspaceId%3D5900d75f-c45d-4e61-9fb7-63aca23580df)
 
 *  *  *  *  *
+
 # Authentication
 The PDF Generator API uses __JSON Web Tokens (JWT)__ to authenticate all API requests. These tokens offer a method to establish secure server-to-server authentication by transferring a compact JSON object with a signed payload of your account’s API Key and Secret.
 When authenticating to the PDF Generator API, a JWT should be generated uniquely by a __server-side application__ and included as a __Bearer Token__ in the header of each request.
 
-## Legacy Simple and Signature authentication
-You can find our legacy documentation for Simple and Signature authentication [here](https://docs.pdfgeneratorapi.com/legacy).
 
 <SecurityDefinitions />
 
@@ -127,27 +137,9 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhZDU0YWFmZjg5ZmZkZmVmZjE3OGJiOGE
 // Signature: SxO-H7UYYYsclS8RGWO1qf0z1cB1m73wF9FLl9RCc1Q
 ```
 
-## Testing with JWTs
-You can create a temporary token in [Account Settings](https://pdfgeneratorapi.com/account/organization) page after you login to PDF Generator API. The generated token uses your email address as the subject (`sub`) value and is valid for __5 minutes__.
+## Temporary JWTs
+You can create a temporary token in [Account Settings](https://pdfgeneratorapi.com/account/organization) page after you login to PDF Generator API. The generated token uses your email address as the subject (`sub`) value and is valid for __15 minutes__.
 You can also use [jwt.io](https://jwt.io/) to generate test tokens for your API calls. These test tokens should never be used in production applications.
-*  *  *  *  *
-
-# Libraries and SDKs
-## Postman Collection
-We have created a [Postman](https://www.postman.com) Collection so you can easily test all the API endpoints wihtout developing and code. You can download the collection [here](https://app.getpostman.com/run-collection/329f09618ec8a957dbc4) or just click the button below.
-
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/329f09618ec8a957dbc4)
-
-## Client Libraries
-All our Client Libraries are auto-generated using [OpenAPI Generator](https://openapi-generator.tech/) which uses the OpenAPI v3 specification to automatically generate a client library in specific programming language.
-
-* [PHP Client](https://github.com/pdfgeneratorapi/php-client)
-* [Java Client](https://github.com/pdfgeneratorapi/java-client)
-* [Ruby Client](https://github.com/pdfgeneratorapi/ruby-client)
-* [Python Client](https://github.com/pdfgeneratorapi/python-client)
-* [Javascript Client](https://github.com/pdfgeneratorapi/javascript-client)
-
-We have validated the generated libraries, but let us know if you find any anomalies in the client code.
 *  *  *  *  *
 
 # Error codes
@@ -206,6 +198,8 @@ We have validated the generated libraries, but let us know if you find any anoma
 |-------------------------------------------------------------------------|
 | You can make up to 5 requests per second and 120 requests per minute.   |
 
+*  *  *  *  *
+
 
   For more information, please visit [https://support.pdfgeneratorapi.com](https://support.pdfgeneratorapi.com)
 
@@ -242,7 +236,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.pdfgeneratorapi</groupId>
   <artifactId>pdf-generator-api</artifactId>
-  <version>3.1.1</version>
+  <version>4.0.1</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -258,7 +252,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "org.pdfgeneratorapi:pdf-generator-api:3.1.1"
+     implementation "org.pdfgeneratorapi:pdf-generator-api:4.0.1"
   }
 ```
 
@@ -272,7 +266,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pdf-generator-api-3.1.1.jar`
+* `target/pdf-generator-api-4.0.1.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -287,28 +281,24 @@ import org.pdfgeneratorapi.client.ApiException;
 import org.pdfgeneratorapi.client.Configuration;
 import org.pdfgeneratorapi.client.auth.*;
 import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.DocumentsApi;
+import org.pdfgeneratorapi.client.api.ConversionApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v3");
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
     
     // Configure HTTP bearer authorization: JSONWebTokenAuth
     HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
     JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
-    DocumentsApi apiInstance = new DocumentsApi(defaultClient);
-    Integer templateId = 19375; // Integer | Template unique identifier
-    Object body = null; // Object | Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file.
-    String name = "My document"; // String | Document name, returned in the meta data.
-    String format = "pdf"; // String | Document format. The zip option will return a ZIP file with PDF files.
-    String output = "base64"; // String | Response format. "I" is used to return the file inline. With the url option, the document is stored for 30 days and automatically deleted.
+    ConversionApi apiInstance = new ConversionApi(defaultClient);
+    ConvertHTML2PDFRequest convertHTML2PDFRequest = new ConvertHTML2PDFRequest(); // ConvertHTML2PDFRequest | 
     try {
-      MergeTemplate200Response result = apiInstance.mergeTemplate(templateId, body, name, format, output);
+      GenerateDocument200Response result = apiInstance.convertHTML2PDF(convertHTML2PDFRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DocumentsApi#mergeTemplate");
+      System.err.println("Exception when calling ConversionApi#convertHTML2PDF");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -321,31 +311,57 @@ public class Example {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v3*
+All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DocumentsApi* | [**mergeTemplate**](docs/DocumentsApi.md#mergeTemplate) | **POST** /templates/{templateId}/output | Generate document
-*DocumentsApi* | [**mergeTemplates**](docs/DocumentsApi.md#mergeTemplates) | **POST** /templates/output | Generate document (multiple templates)
+*ConversionApi* | [**convertHTML2PDF**](docs/ConversionApi.md#convertHTML2PDF) | **POST** /conversion/html2pdf | HTML to PDF
+*ConversionApi* | [**convertURL2PDF**](docs/ConversionApi.md#convertURL2PDF) | **POST** /conversion/url2pdf | URL to PDF
+*DocumentsApi* | [**generateDocument**](docs/DocumentsApi.md#generateDocument) | **POST** /documents/generate | Generate document
+*DocumentsApi* | [**generateDocumentAsync**](docs/DocumentsApi.md#generateDocumentAsync) | **POST** /documents/generate/async | Generate document (async)
+*DocumentsApi* | [**generateDocumentBatch**](docs/DocumentsApi.md#generateDocumentBatch) | **POST** /documents/generate/batch | Generate document (batch)
+*DocumentsApi* | [**generateDocumentBatchAsync**](docs/DocumentsApi.md#generateDocumentBatchAsync) | **POST** /documents/generate/batch/async | Generate document (batch + async)
+*DocumentsApi* | [**getDocuments**](docs/DocumentsApi.md#getDocuments) | **GET** /documents | Get documents
 *TemplatesApi* | [**copyTemplate**](docs/TemplatesApi.md#copyTemplate) | **POST** /templates/{templateId}/copy | Copy template
 *TemplatesApi* | [**createTemplate**](docs/TemplatesApi.md#createTemplate) | **POST** /templates | Create template
 *TemplatesApi* | [**deleteTemplate**](docs/TemplatesApi.md#deleteTemplate) | **DELETE** /templates/{templateId} | Delete template
-*TemplatesApi* | [**getEditorUrl**](docs/TemplatesApi.md#getEditorUrl) | **POST** /templates/{templateId}/editor | Open editor
 *TemplatesApi* | [**getTemplate**](docs/TemplatesApi.md#getTemplate) | **GET** /templates/{templateId} | Get template
+*TemplatesApi* | [**getTemplateData**](docs/TemplatesApi.md#getTemplateData) | **GET** /templates/{templateId}/data | Get template data fields
 *TemplatesApi* | [**getTemplates**](docs/TemplatesApi.md#getTemplates) | **GET** /templates | Get templates
+*TemplatesApi* | [**openEditor**](docs/TemplatesApi.md#openEditor) | **POST** /templates/{templateId}/editor | Open editor
 *TemplatesApi* | [**updateTemplate**](docs/TemplatesApi.md#updateTemplate) | **PUT** /templates/{templateId} | Update template
-*WorkspacesApi* | [**deleteWorkspace**](docs/WorkspacesApi.md#deleteWorkspace) | **DELETE** /workspaces/{workspaceId} | Delete workspace
-*WorkspacesApi* | [**getWorkspace**](docs/WorkspacesApi.md#getWorkspace) | **GET** /workspaces/{workspaceId} | Get workspace
+*WorkspacesApi* | [**createWorkspace**](docs/WorkspacesApi.md#createWorkspace) | **POST** /workspaces | Create workspace
+*WorkspacesApi* | [**deleteWorkspace**](docs/WorkspacesApi.md#deleteWorkspace) | **DELETE** /workspaces/{workspaceIdentifier} | Delete workspace
+*WorkspacesApi* | [**getWorkspace**](docs/WorkspacesApi.md#getWorkspace) | **GET** /workspaces/{workspaceIdentifier} | Get workspace
+*WorkspacesApi* | [**getWorkspaces**](docs/WorkspacesApi.md#getWorkspaces) | **GET** /workspaces | Get workspaces
 
 
 ## Documentation for Models
 
- - [BatchDataInner](docs/BatchDataInner.md)
+ - [AsyncOutputParam](docs/AsyncOutputParam.md)
+ - [CallbackParam](docs/CallbackParam.md)
  - [Component](docs/Component.md)
+ - [ConvertHTML2PDFRequest](docs/ConvertHTML2PDFRequest.md)
+ - [ConvertURL2PDFRequest](docs/ConvertURL2PDFRequest.md)
+ - [CopyTemplateRequest](docs/CopyTemplateRequest.md)
  - [CreateTemplate200Response](docs/CreateTemplate200Response.md)
- - [DeleteTemplate200Response](docs/DeleteTemplate200Response.md)
- - [DeleteTemplate200ResponseResponse](docs/DeleteTemplate200ResponseResponse.md)
- - [GetEditorUrl200Response](docs/GetEditorUrl200Response.md)
+ - [CreateWorkspace200Response](docs/CreateWorkspace200Response.md)
+ - [CreateWorkspaceRequest](docs/CreateWorkspaceRequest.md)
+ - [DataBatchInner](docs/DataBatchInner.md)
+ - [DeleteTemplate204Response](docs/DeleteTemplate204Response.md)
+ - [DeleteTemplate204ResponseResponse](docs/DeleteTemplate204ResponseResponse.md)
+ - [Document](docs/Document.md)
+ - [FormatParam](docs/FormatParam.md)
+ - [GenerateDocument200Response](docs/GenerateDocument200Response.md)
+ - [GenerateDocument200ResponseMeta](docs/GenerateDocument200ResponseMeta.md)
+ - [GenerateDocumentAsync200Response](docs/GenerateDocumentAsync200Response.md)
+ - [GenerateDocumentAsync200ResponseResponse](docs/GenerateDocumentAsync200ResponseResponse.md)
+ - [GenerateDocumentAsyncRequest](docs/GenerateDocumentAsyncRequest.md)
+ - [GenerateDocumentBatchAsyncRequest](docs/GenerateDocumentBatchAsyncRequest.md)
+ - [GenerateDocumentBatchRequest](docs/GenerateDocumentBatchRequest.md)
+ - [GenerateDocumentRequest](docs/GenerateDocumentRequest.md)
+ - [GetDocuments200Response](docs/GetDocuments200Response.md)
+ - [GetTemplateData200Response](docs/GetTemplateData200Response.md)
  - [GetTemplates200Response](docs/GetTemplates200Response.md)
  - [GetTemplates401Response](docs/GetTemplates401Response.md)
  - [GetTemplates402Response](docs/GetTemplates402Response.md)
@@ -354,19 +370,25 @@ Class | Method | HTTP request | Description
  - [GetTemplates422Response](docs/GetTemplates422Response.md)
  - [GetTemplates429Response](docs/GetTemplates429Response.md)
  - [GetTemplates500Response](docs/GetTemplates500Response.md)
- - [GetWorkspace200Response](docs/GetWorkspace200Response.md)
- - [MergeTemplate200Response](docs/MergeTemplate200Response.md)
- - [MergeTemplate200ResponseMeta](docs/MergeTemplate200ResponseMeta.md)
+ - [GetWorkspaces200Response](docs/GetWorkspaces200Response.md)
+ - [OpenEditor200Response](docs/OpenEditor200Response.md)
+ - [OpenEditorRequest](docs/OpenEditorRequest.md)
+ - [OpenEditorRequestData](docs/OpenEditorRequestData.md)
+ - [OutputParam](docs/OutputParam.md)
+ - [PaginationMeta](docs/PaginationMeta.md)
  - [Template](docs/Template.md)
  - [TemplateDefinition](docs/TemplateDefinition.md)
  - [TemplateDefinitionDataSettings](docs/TemplateDefinitionDataSettings.md)
  - [TemplateDefinitionEditor](docs/TemplateDefinitionEditor.md)
+ - [TemplateDefinitionLayout](docs/TemplateDefinitionLayout.md)
  - [TemplateDefinitionNew](docs/TemplateDefinitionNew.md)
  - [TemplateDefinitionNewLayout](docs/TemplateDefinitionNewLayout.md)
  - [TemplateDefinitionNewLayoutMargins](docs/TemplateDefinitionNewLayoutMargins.md)
  - [TemplateDefinitionNewLayoutRepeatLayout](docs/TemplateDefinitionNewLayoutRepeatLayout.md)
  - [TemplateDefinitionNewPagesInner](docs/TemplateDefinitionNewPagesInner.md)
  - [TemplateDefinitionNewPagesInnerMargins](docs/TemplateDefinitionNewPagesInnerMargins.md)
+ - [TemplateParam](docs/TemplateParam.md)
+ - [TemplateParamData](docs/TemplateParamData.md)
  - [Workspace](docs/Workspace.md)
 
 
