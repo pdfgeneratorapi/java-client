@@ -6,7 +6,7 @@ info:
     url: https://support.pdfgeneratorapi.com
   description: |
     # Introduction
-    PDF Generator API allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.
+    [PDF Generator API](https://pdfgeneratorapi.com) allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.
 
     The PDF Generator API features a web API architecture, allowing you to code in the language of your choice. This API supports the JSON media type, and uses UTF-8 character encoding.
 
@@ -57,6 +57,9 @@ info:
         ]
     }
     ```
+
+    ## Rate limiting
+    Our API endpoints use IP-based rate limiting and allow you to make up to 30 requests per second and 240 requests per minute. If you make more requests, you will receive a response with HTTP code 429.
 
     *  *  *  *  *
     # Authentication
@@ -157,6 +160,7 @@ info:
     | 403    | Forbidden                      |
     | 404    | Not Found                      |
     | 422    | Unprocessable Entity           |
+    | 429    | Too Many Requests              |
     | 500    | Internal Server Error          |
 
     ## 401 Unauthorized
@@ -197,11 +201,16 @@ info:
     | Required parameter missing                                              |
     | Required parameter missing: template definition not defined             |
     | Required parameter missing: template not defined                        |
+
+    ## 429 Too Many Requests
+    | Description                                                             |
+    |-------------------------------------------------------------------------|
+    | You can make up to 5 requests per second and 120 requests per minute.   |
   title: PDF Generator API
   version: 3.1.1
   x-logo:
-    url: https://pdfgeneratorapi.com/assets/web/images/logo_and_text_white.png
-    backgroundColor: '#3F46AD'
+    url: https://d2304hinatgg5e.cloudfront.net/images/logo/300X90.png
+    backgroundColor: '#00d9b5'
     altText: PDF Generator API
     href: https://docs.pdfgeneratorapi.com
 servers:
@@ -235,43 +244,49 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200'
+                $ref: '#/components/schemas/getTemplates_200_response'
           description: An array of template objects
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_401'
+                $ref: '#/components/schemas/getTemplates_401_response'
           description: Unauthorized
         "402":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_402'
+                $ref: '#/components/schemas/getTemplates_402_response'
           description: Account Suspended
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_403'
+                $ref: '#/components/schemas/getTemplates_403_response'
           description: Forbidden
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_404'
+                $ref: '#/components/schemas/getTemplates_404_response'
           description: Not Found
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_422'
+                $ref: '#/components/schemas/getTemplates_422_response'
           description: Unprocessable Entity
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTemplates_429_response'
+          description: Too Many Requests
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_500'
+                $ref: '#/components/schemas/getTemplates_500_response'
           description: Internal Server Error
       summary: Get templates
       tags:
@@ -295,48 +310,54 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_1'
+                $ref: '#/components/schemas/createTemplate_200_response'
           description: Template configuration as JSON object
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_401'
+                $ref: '#/components/schemas/getTemplates_401_response'
           description: Unauthorized
         "402":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_402'
+                $ref: '#/components/schemas/getTemplates_402_response'
           description: Account Suspended
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_403'
+                $ref: '#/components/schemas/getTemplates_403_response'
           description: Forbidden
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_404'
+                $ref: '#/components/schemas/getTemplates_404_response'
           description: Not Found
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_422'
+                $ref: '#/components/schemas/getTemplates_422_response'
           description: Unprocessable Entity
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTemplates_429_response'
+          description: Too Many Requests
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_500'
+                $ref: '#/components/schemas/getTemplates_500_response'
           description: Internal Server Error
       summary: Create template
       tags:
       - Templates
-      x-contentType: application/json
+      x-content-type: application/json
       x-accepts: application/json
   /templates/{templateId}:
     delete:
@@ -357,43 +378,49 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_2'
+                $ref: '#/components/schemas/deleteTemplate_200_response'
           description: The request was successfully executed.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_401'
+                $ref: '#/components/schemas/getTemplates_401_response'
           description: Unauthorized
         "402":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_402'
+                $ref: '#/components/schemas/getTemplates_402_response'
           description: Account Suspended
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_403'
+                $ref: '#/components/schemas/getTemplates_403_response'
           description: Forbidden
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_404'
+                $ref: '#/components/schemas/getTemplates_404_response'
           description: Not Found
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_422'
+                $ref: '#/components/schemas/getTemplates_422_response'
           description: Unprocessable Entity
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTemplates_429_response'
+          description: Too Many Requests
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_500'
+                $ref: '#/components/schemas/getTemplates_500_response'
           description: Internal Server Error
       summary: Delete template
       tags:
@@ -417,43 +444,49 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_1'
+                $ref: '#/components/schemas/createTemplate_200_response'
           description: Template configuration as JSON object
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_401'
+                $ref: '#/components/schemas/getTemplates_401_response'
           description: Unauthorized
         "402":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_402'
+                $ref: '#/components/schemas/getTemplates_402_response'
           description: Account Suspended
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_403'
+                $ref: '#/components/schemas/getTemplates_403_response'
           description: Forbidden
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_404'
+                $ref: '#/components/schemas/getTemplates_404_response'
           description: Not Found
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_422'
+                $ref: '#/components/schemas/getTemplates_422_response'
           description: Unprocessable Entity
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTemplates_429_response'
+          description: Too Many Requests
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_500'
+                $ref: '#/components/schemas/getTemplates_500_response'
           description: Internal Server Error
       summary: Get template
       tags:
@@ -486,48 +519,54 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_1'
+                $ref: '#/components/schemas/createTemplate_200_response'
           description: Template configuration as JSON object
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_401'
+                $ref: '#/components/schemas/getTemplates_401_response'
           description: Unauthorized
         "402":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_402'
+                $ref: '#/components/schemas/getTemplates_402_response'
           description: Account Suspended
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_403'
+                $ref: '#/components/schemas/getTemplates_403_response'
           description: Forbidden
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_404'
+                $ref: '#/components/schemas/getTemplates_404_response'
           description: Not Found
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_422'
+                $ref: '#/components/schemas/getTemplates_422_response'
           description: Unprocessable Entity
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTemplates_429_response'
+          description: Too Many Requests
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_500'
+                $ref: '#/components/schemas/getTemplates_500_response'
           description: Internal Server Error
       summary: Update template
       tags:
       - Templates
-      x-contentType: application/json
+      x-content-type: application/json
       x-accepts: application/json
   /templates/{templateId}/copy:
     post:
@@ -559,43 +598,49 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_1'
+                $ref: '#/components/schemas/createTemplate_200_response'
           description: Template configuration as JSON object
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_401'
+                $ref: '#/components/schemas/getTemplates_401_response'
           description: Unauthorized
         "402":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_402'
+                $ref: '#/components/schemas/getTemplates_402_response'
           description: Account Suspended
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_403'
+                $ref: '#/components/schemas/getTemplates_403_response'
           description: Forbidden
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_404'
+                $ref: '#/components/schemas/getTemplates_404_response'
           description: Not Found
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_422'
+                $ref: '#/components/schemas/getTemplates_422_response'
           description: Unprocessable Entity
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTemplates_429_response'
+          description: Too Many Requests
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_500'
+                $ref: '#/components/schemas/getTemplates_500_response'
           description: Internal Server Error
       summary: Copy template
       tags:
@@ -650,56 +695,63 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_3'
+                $ref: '#/components/schemas/getEditorUrl_200_response'
           description: Returns an URL which you can use to redirect your user to the
             editor or use as iframe source
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_401'
+                $ref: '#/components/schemas/getTemplates_401_response'
           description: Unauthorized
         "402":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_402'
+                $ref: '#/components/schemas/getTemplates_402_response'
           description: Account Suspended
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_403'
+                $ref: '#/components/schemas/getTemplates_403_response'
           description: Forbidden
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_404'
+                $ref: '#/components/schemas/getTemplates_404_response'
           description: Not Found
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_422'
+                $ref: '#/components/schemas/getTemplates_422_response'
           description: Unprocessable Entity
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTemplates_429_response'
+          description: Too Many Requests
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_500'
+                $ref: '#/components/schemas/getTemplates_500_response'
           description: Internal Server Error
       summary: Open editor
       tags:
       - Templates
-      x-contentType: application/json
+      x-content-type: application/json
       x-accepts: application/json
   /templates/{templateId}/output:
     post:
-      description: Merges template with data and returns base64 encoded document or
-        a public URL to a document. You can send json encoded data in request body
-        or a public URL to your json file as the data parameter. NB! When the public
-        URL option is used, the document is stored for 30 days and automatically deleted.
+      description: "Merges template with data and returns base64 encoded document\
+        \ or a public URL to a document. You can send json encoded data in request\
+        \ body or a public URL to your json file as the data parameter. NB! When the\
+        \ public URL option is used, the document is stored for 30 days and automatically\
+        \ deleted."
       operationId: mergeTemplate
       parameters:
       - description: Template unique identifier
@@ -711,7 +763,7 @@ paths:
           example: 19375
           type: integer
         style: simple
-      - description: Document name, returned in the meta data.
+      - description: "Document name, returned in the meta data."
         explode: true
         in: query
         name: name
@@ -727,7 +779,6 @@ paths:
         name: format
         required: false
         schema:
-          default: pdf
           enum:
           - pdf
           - html
@@ -736,14 +787,13 @@ paths:
           example: pdf
           type: string
         style: form
-      - description: Response format. "I" is used to return the file inline. With
-          the url option, the document is stored for 30 days and automatically deleted.
+      - description: "Response format. \"I\" is used to return the file inline. With\
+          \ the url option, the document is stored for 30 days and automatically deleted."
         explode: true
         in: query
         name: output
         required: false
         schema:
-          default: base64
           enum:
           - base64
           - url
@@ -764,57 +814,63 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_4'
+                $ref: '#/components/schemas/mergeTemplate_200_response'
           description: Document data
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_401'
+                $ref: '#/components/schemas/getTemplates_401_response'
           description: Unauthorized
         "402":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_402'
+                $ref: '#/components/schemas/getTemplates_402_response'
           description: Account Suspended
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_403'
+                $ref: '#/components/schemas/getTemplates_403_response'
           description: Forbidden
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_404'
+                $ref: '#/components/schemas/getTemplates_404_response'
           description: Not Found
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_422'
+                $ref: '#/components/schemas/getTemplates_422_response'
           description: Unprocessable Entity
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTemplates_429_response'
+          description: Too Many Requests
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_500'
+                $ref: '#/components/schemas/getTemplates_500_response'
           description: Internal Server Error
       summary: Generate document
       tags:
       - Documents
-      x-contentType: application/json
+      x-content-type: application/json
       x-accepts: application/json
   /templates/output:
     post:
-      description: Allows to merge multiple templates with data and returns base64
-        encoded document or public URL to a document. NB! When the public URL option
-        is used, the document is stored for 30 days and automatically deleted.
+      description: "Allows to merge multiple templates with data and returns base64\
+        \ encoded document or public URL to a document. NB! When the public URL option\
+        \ is used, the document is stored for 30 days and automatically deleted."
       operationId: mergeTemplates
       parameters:
-      - description: Document name, returned in the meta data.
+      - description: "Document name, returned in the meta data."
         explode: true
         in: query
         name: name
@@ -830,7 +886,6 @@ paths:
         name: format
         required: false
         schema:
-          default: pdf
           enum:
           - pdf
           - html
@@ -839,14 +894,13 @@ paths:
           example: pdf
           type: string
         style: form
-      - description: Response format. "I" is used to return the file inline. With
-          the url option, the document is stored for 30 days and automatically deleted.
+      - description: "Response format. \"I\" is used to return the file inline. With\
+          \ the url option, the document is stored for 30 days and automatically deleted."
         explode: true
         in: query
         name: output
         required: false
         schema:
-          default: base64
           enum:
           - base64
           - url
@@ -867,48 +921,54 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_4'
+                $ref: '#/components/schemas/mergeTemplate_200_response'
           description: Document data
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_401'
+                $ref: '#/components/schemas/getTemplates_401_response'
           description: Unauthorized
         "402":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_402'
+                $ref: '#/components/schemas/getTemplates_402_response'
           description: Account Suspended
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_403'
+                $ref: '#/components/schemas/getTemplates_403_response'
           description: Forbidden
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_404'
+                $ref: '#/components/schemas/getTemplates_404_response'
           description: Not Found
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_422'
+                $ref: '#/components/schemas/getTemplates_422_response'
           description: Unprocessable Entity
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTemplates_429_response'
+          description: Too Many Requests
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_500'
+                $ref: '#/components/schemas/getTemplates_500_response'
           description: Internal Server Error
       summary: Generate document (multiple templates)
       tags:
       - Documents
-      x-contentType: application/json
+      x-content-type: application/json
       x-accepts: application/json
   /workspaces/{workspaceId}:
     delete:
@@ -929,43 +989,49 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_2'
+                $ref: '#/components/schemas/deleteTemplate_200_response'
           description: The request was successfully executed.
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_401'
+                $ref: '#/components/schemas/getTemplates_401_response'
           description: Unauthorized
         "402":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_402'
+                $ref: '#/components/schemas/getTemplates_402_response'
           description: Account Suspended
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_403'
+                $ref: '#/components/schemas/getTemplates_403_response'
           description: Forbidden
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_404'
+                $ref: '#/components/schemas/getTemplates_404_response'
           description: Not Found
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_422'
+                $ref: '#/components/schemas/getTemplates_422_response'
           description: Unprocessable Entity
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTemplates_429_response'
+          description: Too Many Requests
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_500'
+                $ref: '#/components/schemas/getTemplates_500_response'
           description: Internal Server Error
       summary: Delete workspace
       tags:
@@ -989,43 +1055,49 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_5'
+                $ref: '#/components/schemas/getWorkspace_200_response'
           description: Workspace information
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_401'
+                $ref: '#/components/schemas/getTemplates_401_response'
           description: Unauthorized
         "402":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_402'
+                $ref: '#/components/schemas/getTemplates_402_response'
           description: Account Suspended
         "403":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_403'
+                $ref: '#/components/schemas/getTemplates_403_response'
           description: Forbidden
         "404":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_404'
+                $ref: '#/components/schemas/getTemplates_404_response'
           description: Not Found
         "422":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_422'
+                $ref: '#/components/schemas/getTemplates_422_response'
           description: Unprocessable Entity
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTemplates_429_response'
+          description: Too Many Requests
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_500'
+                $ref: '#/components/schemas/getTemplates_500_response'
           description: Internal Server Error
       summary: Get workspace
       tags:
@@ -1054,7 +1126,7 @@ components:
         type: string
       style: simple
     doc_name:
-      description: Document name, returned in the meta data.
+      description: "Document name, returned in the meta data."
       explode: true
       in: query
       name: name
@@ -1071,7 +1143,6 @@ components:
       name: format
       required: false
       schema:
-        default: pdf
         enum:
         - pdf
         - html
@@ -1081,14 +1152,13 @@ components:
         type: string
       style: form
     output:
-      description: Response format. "I" is used to return the file inline. With the
-        url option, the document is stored for 30 days and automatically deleted.
+      description: "Response format. \"I\" is used to return the file inline. With\
+        \ the url option, the document is stored for 30 days and automatically deleted."
       explode: true
       in: query
       name: output
       required: false
       schema:
-        default: base64
         enum:
         - base64
         - url
@@ -1101,75 +1171,81 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_200_3'
+            $ref: '#/components/schemas/getEditorUrl_200_response'
       description: Returns an URL which you can use to redirect your user to the editor
         or use as iframe source
     listOfTemplates:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_200'
+            $ref: '#/components/schemas/getTemplates_200_response'
       description: An array of template objects
     success:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_200_2'
+            $ref: '#/components/schemas/deleteTemplate_200_response'
       description: The request was successfully executed.
     workspace:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_200_5'
+            $ref: '#/components/schemas/getWorkspace_200_response'
       description: Workspace information
     document:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_200_4'
+            $ref: '#/components/schemas/mergeTemplate_200_response'
       description: Document data
     templateConfig:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_200_1'
+            $ref: '#/components/schemas/createTemplate_200_response'
       description: Template configuration as JSON object
     error401:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_401'
+            $ref: '#/components/schemas/getTemplates_401_response'
       description: Unauthorized
     error402:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_402'
+            $ref: '#/components/schemas/getTemplates_402_response'
       description: Account Suspended
     error403:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_403'
+            $ref: '#/components/schemas/getTemplates_403_response'
       description: Forbidden
     error404:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_404'
+            $ref: '#/components/schemas/getTemplates_404_response'
       description: Not Found
     error422:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_422'
+            $ref: '#/components/schemas/getTemplates_422_response'
       description: Unprocessable Entity
     error500:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_response_500'
+            $ref: '#/components/schemas/getTemplates_500_response'
       description: Internal Server Error
+    error429:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/getTemplates_429_response'
+      description: Too Many Requests
   schemas:
     Component:
       description: Template component definition
@@ -1181,7 +1257,7 @@ components:
         width: 3.5
         cls: labelComponent
         id: component-12313
-        value: ${price}
+        value: "${price}"
         height: 1
       properties:
         cls:
@@ -1233,7 +1309,7 @@ components:
           type: integer
         value:
           description: Component value
-          example: ${price}
+          example: "${price}"
           type: string
         dataIndex:
           description: Defines data field for Table and Container components which
@@ -1289,13 +1365,13 @@ components:
           unit: cm
           orientation: portrait
           emptyLabels: 0
+          rotation: 0
           format: A4
           width: 21
           repeatLayout:
             format: A4
             width: 21
             height: 29.7
-          rotaion: 0
           height: 29.7
         pages:
         - margins:
@@ -1309,7 +1385,7 @@ components:
             width: 3.5
             cls: labelComponent
             id: component-12313
-            value: ${price}
+            value: "${price}"
             height: 1
           - zindex: 102
             top: 4.2
@@ -1318,7 +1394,7 @@ components:
             width: 3.5
             cls: labelComponent
             id: component-12313
-            value: ${price}
+            value: "${price}"
             height: 1
           width: 21
           height: 29.7
@@ -1333,7 +1409,7 @@ components:
             width: 3.5
             cls: labelComponent
             id: component-12313
-            value: ${price}
+            value: "${price}"
             height: 1
           - zindex: 102
             top: 4.2
@@ -1342,7 +1418,7 @@ components:
             width: 3.5
             cls: labelComponent
             id: component-12313
-            value: ${price}
+            value: "${price}"
             height: 1
           width: 21
           height: 29.7
@@ -1371,10 +1447,10 @@ components:
         layout:
           $ref: '#/components/schemas/TemplateDefinitionNew_layout'
         pages:
-          description: Defines page or label size, margins and components on page
-            or label
+          description: "Defines page or label size, margins and components on page\
+            \ or label"
           items:
-            $ref: '#/components/schemas/TemplateDefinitionNew_pages'
+            $ref: '#/components/schemas/TemplateDefinitionNew_pages_inner'
           type: array
       required:
       - name
@@ -1412,7 +1488,7 @@ components:
             width: 3.5
             cls: labelComponent
             id: component-12313
-            value: ${price}
+            value: "${price}"
             height: 1
           - zindex: 102
             top: 4.2
@@ -1421,7 +1497,7 @@ components:
             width: 3.5
             cls: labelComponent
             id: component-12313
-            value: ${price}
+            value: "${price}"
             height: 1
           width: 21
           height: 29.7
@@ -1436,7 +1512,7 @@ components:
             width: 3.5
             cls: labelComponent
             id: component-12313
-            value: ${price}
+            value: "${price}"
             height: 1
           - zindex: 102
             top: 4.2
@@ -1445,17 +1521,17 @@ components:
             width: 3.5
             cls: labelComponent
             id: component-12313
-            value: ${price}
+            value: "${price}"
             height: 1
           width: 21
           height: 29.7
         dataSettings:
           sortBy:
-          - '{}'
-          - '{}'
+          - "{}"
+          - "{}"
           filterBy:
-          - '{}'
-          - '{}'
+          - "{}"
+          - "{}"
         name: Invoice template
         isDraft: true
         id: 24382
@@ -1484,12 +1560,12 @@ components:
           example: true
           type: boolean
         layout:
-          $ref: '#/components/schemas/TemplateDefinition_layout'
+          $ref: '#/components/schemas/TemplateDefinitionNew_layout'
         pages:
-          description: Defines page or label size, margins and components on page
-            or label
+          description: "Defines page or label size, margins and components on page\
+            \ or label"
           items:
-            $ref: '#/components/schemas/TemplateDefinitionNew_pages'
+            $ref: '#/components/schemas/TemplateDefinitionNew_pages_inner'
           type: array
         dataSettings:
           $ref: '#/components/schemas/TemplateDefinition_dataSettings'
@@ -1520,11 +1596,12 @@ components:
           type: string
       type: object
     Data:
+      example:
+        id: 123
+        name: John Smith
+        birthdate: 2000-01-01
+        role: Developer
       type: object
-    DataArray:
-      items:
-        type: object
-      type: array
     BatchData:
       example:
       - template: 52272
@@ -1534,16 +1611,9 @@ components:
         data:
           key2: value2
       items:
-        properties:
-          template:
-            description: Template id
-            example: 52272
-            type: integer
-          data:
-            $ref: '#/components/schemas/Data'
-        type: object
+        $ref: '#/components/schemas/BatchData_inner'
       type: array
-    inline_response_200:
+    getTemplates_200_response:
       example:
         response:
         - owner: true
@@ -1566,20 +1636,20 @@ components:
             $ref: '#/components/schemas/Template'
           type: array
       type: object
-    inline_response_401:
+    getTemplates_401_response:
       properties:
         error:
           description: Error description
           enum:
-          - 'Authentication failed: request expired'
-          - 'Authentication failed: signature or secret missing'
-          - 'Authentication failed: workspace missing'
-          - 'Authentication failed: key missing'
-          - 'Authentication failed: property iss (issuer) missing in JWT'
-          - 'Authentication failed: property sub (subject) missing in JWT'
-          - 'Authentication failed: property exp (expiration time) missing in JWT'
-          - 'Authentication failed: invalid iss (issuer)'
-          - 'Authentication failed: incorrect signature'
+          - "Authentication failed: request expired"
+          - "Authentication failed: signature or secret missing"
+          - "Authentication failed: workspace missing"
+          - "Authentication failed: key missing"
+          - "Authentication failed: property iss (issuer) missing in JWT"
+          - "Authentication failed: property sub (subject) missing in JWT"
+          - "Authentication failed: property exp (expiration time) missing in JWT"
+          - "Authentication failed: invalid iss (issuer)"
+          - "Authentication failed: incorrect signature"
           - Authentication failed
           example: Authentication failed
           type: string
@@ -1588,12 +1658,12 @@ components:
           example: 401
           type: integer
       type: object
-    inline_response_402:
+    getTemplates_402_response:
       properties:
         error:
           description: Error description
           enum:
-          - Your account is suspended, please upgrade your account or contact support@pdfgeneratorapi.com
+          - "Your account is suspended, please upgrade your account or contact support@pdfgeneratorapi.com"
           example: Account Suspended
           type: string
         status:
@@ -1601,7 +1671,7 @@ components:
           example: 402
           type: integer
       type: object
-    inline_response_403:
+    getTemplates_403_response:
       properties:
         error:
           description: Error description
@@ -1614,7 +1684,7 @@ components:
           example: 403
           type: integer
       type: object
-    inline_response_404:
+    getTemplates_404_response:
       properties:
         error:
           description: Error description
@@ -1629,15 +1699,15 @@ components:
           example: 404
           type: integer
       type: object
-    inline_response_422:
+    getTemplates_422_response:
       properties:
         error:
           description: Error description
           enum:
-          - Unable to parse JSON, please check formatting
+          - "Unable to parse JSON, please check formatting"
           - Required parameter missing
-          - 'Required parameter missing: template definition not defined'
-          - 'Required parameter missing: template not defined'
+          - "Required parameter missing: template definition not defined"
+          - "Required parameter missing: template not defined"
           example: Incorrect parameter value
           type: string
         status:
@@ -1645,7 +1715,20 @@ components:
           example: 422
           type: integer
       type: object
-    inline_response_500:
+    getTemplates_429_response:
+      properties:
+        error:
+          description: Error description
+          enum:
+          - You can make up to 5 requests per second and 120 requests per minute.
+          example: You can make up to 5 requests per second and 120 requests per minute.
+          type: string
+        status:
+          description: HTTP Error code
+          example: 429
+          type: integer
+      type: object
+    getTemplates_500_response:
       properties:
         error:
           description: Error description
@@ -1656,7 +1739,7 @@ components:
           example: 500
           type: integer
       type: object
-    inline_response_200_1:
+    createTemplate_200_response:
       example:
         response:
           layout:
@@ -1690,7 +1773,7 @@ components:
               width: 3.5
               cls: labelComponent
               id: component-12313
-              value: ${price}
+              value: "${price}"
               height: 1
             - zindex: 102
               top: 4.2
@@ -1699,7 +1782,7 @@ components:
               width: 3.5
               cls: labelComponent
               id: component-12313
-              value: ${price}
+              value: "${price}"
               height: 1
             width: 21
             height: 29.7
@@ -1714,7 +1797,7 @@ components:
               width: 3.5
               cls: labelComponent
               id: component-12313
-              value: ${price}
+              value: "${price}"
               height: 1
             - zindex: 102
               top: 4.2
@@ -1723,17 +1806,17 @@ components:
               width: 3.5
               cls: labelComponent
               id: component-12313
-              value: ${price}
+              value: "${price}"
               height: 1
             width: 21
             height: 29.7
           dataSettings:
             sortBy:
-            - '{}'
-            - '{}'
+            - "{}"
+            - "{}"
             filterBy:
-            - '{}'
-            - '{}'
+            - "{}"
+            - "{}"
           name: Invoice template
           isDraft: true
           id: 24382
@@ -1744,7 +1827,7 @@ components:
         response:
           $ref: '#/components/schemas/TemplateDefinition'
       type: object
-    inline_response_200_2_response:
+    deleteTemplate_200_response_response:
       example:
         success: true
       properties:
@@ -1752,15 +1835,15 @@ components:
           example: true
           type: boolean
       type: object
-    inline_response_200_2:
+    deleteTemplate_200_response:
       example:
         response:
           success: true
       properties:
         response:
-          $ref: '#/components/schemas/inline_response_200_2_response'
+          $ref: '#/components/schemas/deleteTemplate_200_response_response'
       type: object
-    inline_response_200_3:
+    getEditorUrl_200_response:
       example:
         response: https://us1.pdfgeneratorapi.com/editor/open/2ff98760d39456c4b2cf974fef005ecf
       properties:
@@ -1768,7 +1851,7 @@ components:
           example: https://us1.pdfgeneratorapi.com/editor/open/2ff98760d39456c4b2cf974fef005ecf
           type: string
       type: object
-    inline_response_200_4_meta:
+    mergeTemplate_200_response_meta:
       example:
         name: a2bd25b8921f3dc7a440fd7f427f90a4.pdf
         content-type: application/pdf
@@ -1793,7 +1876,7 @@ components:
           example: application/pdf
           type: string
       type: object
-    inline_response_200_4:
+    mergeTemplate_200_response:
       example:
         response: JVBERi0xLjcKJeLjz9MKNyAwIG9iago8PCAvVHlwZSA...
         meta:
@@ -1808,9 +1891,9 @@ components:
           example: JVBERi0xLjcKJeLjz9MKNyAwIG9iago8PCAvVHlwZSA...
           type: string
         meta:
-          $ref: '#/components/schemas/inline_response_200_4_meta'
+          $ref: '#/components/schemas/mergeTemplate_200_response_meta'
       type: object
-    inline_response_200_5:
+    getWorkspace_200_response:
       example:
         response:
           identifier: demo.example@actualreports.com
@@ -1868,131 +1951,7 @@ components:
           type: number
       type: object
     TemplateDefinitionNew_layout:
-      description: Defines template layout (e.g page format, margins).
-      example:
-        margins:
-          top: 0.5
-          left: 0.5
-          bottom: 0.5
-          right: 0.5
-        unit: cm
-        orientation: portrait
-        emptyLabels: 0
-        format: A4
-        width: 21
-        repeatLayout:
-          format: A4
-          width: 21
-          height: 29.7
-        rotaion: 0
-        height: 29.7
-      properties:
-        format:
-          description: Defines template page size
-          enum:
-          - A4
-          - letter
-          - custom
-          example: A4
-          type: string
-        width:
-          description: Page width in units
-          example: 21
-          type: number
-        height:
-          description: Page height in units
-          example: 29.7
-          type: number
-        unit:
-          description: Measure unit
-          enum:
-          - cm
-          - in
-          example: cm
-          type: string
-        orientation:
-          description: Page orientation
-          enum:
-          - portrait
-          - landscape
-          example: portrait
-          type: string
-        rotaion:
-          description: Page rotation in degrees
-          enum:
-          - 0
-          - 90
-          - 180
-          - 270
-          example: 0
-          type: integer
-        margins:
-          $ref: '#/components/schemas/TemplateDefinitionNew_layout_margins'
-        repeatLayout:
-          $ref: '#/components/schemas/TemplateDefinitionNew_layout_repeatLayout'
-        emptyLabels:
-          description: Defines how many pages or labels should be empty
-          example: 0
-          type: integer
-      type: object
-    TemplateDefinitionNew_margins:
-      example:
-        bottom: 0.5
-        right: 0.5
-      properties:
-        right:
-          description: Page or label margin from right
-          example: 0.5
-          type: number
-        bottom:
-          description: Page or label margin from bottom
-          example: 0.5
-          type: number
-      type: object
-    TemplateDefinitionNew_pages:
-      example:
-        margins:
-          bottom: 0.5
-          right: 0.5
-        components:
-        - zindex: 102
-          top: 4.2
-          left: 2.5
-          dataIndex: line_items
-          width: 3.5
-          cls: labelComponent
-          id: component-12313
-          value: ${price}
-          height: 1
-        - zindex: 102
-          top: 4.2
-          left: 2.5
-          dataIndex: line_items
-          width: 3.5
-          cls: labelComponent
-          id: component-12313
-          value: ${price}
-          height: 1
-        width: 21
-        height: 29.7
-      properties:
-        width:
-          description: Page width in units
-          example: 21
-          type: number
-        height:
-          description: Page height in units
-          example: 29.7
-          type: number
-        margins:
-          $ref: '#/components/schemas/TemplateDefinitionNew_margins'
-        components:
-          items:
-            $ref: '#/components/schemas/Component'
-          type: array
-      type: object
-    TemplateDefinition_layout:
-      description: Defines template layout (e.g page format, margins).
+      description: "Defines template layout (e.g page format, margins)."
       example:
         margins:
           top: 0.5
@@ -2059,15 +2018,71 @@ components:
           example: 0
           type: integer
       type: object
+    TemplateDefinitionNew_pages_inner_margins:
+      example:
+        bottom: 0.5
+        right: 0.5
+      properties:
+        right:
+          description: Page or label margin from right
+          example: 0.5
+          type: number
+        bottom:
+          description: Page or label margin from bottom
+          example: 0.5
+          type: number
+      type: object
+    TemplateDefinitionNew_pages_inner:
+      example:
+        margins:
+          bottom: 0.5
+          right: 0.5
+        components:
+        - zindex: 102
+          top: 4.2
+          left: 2.5
+          dataIndex: line_items
+          width: 3.5
+          cls: labelComponent
+          id: component-12313
+          value: "${price}"
+          height: 1
+        - zindex: 102
+          top: 4.2
+          left: 2.5
+          dataIndex: line_items
+          width: 3.5
+          cls: labelComponent
+          id: component-12313
+          value: "${price}"
+          height: 1
+        width: 21
+        height: 29.7
+      properties:
+        width:
+          description: Page width in units
+          example: 21
+          type: number
+        height:
+          description: Page height in units
+          example: 29.7
+          type: number
+        margins:
+          $ref: '#/components/schemas/TemplateDefinitionNew_pages_inner_margins'
+        components:
+          items:
+            $ref: '#/components/schemas/Component'
+          type: array
+      type: object
     TemplateDefinition_dataSettings:
       description: Defines filter and sort option for root data set.
       example:
         sortBy:
-        - '{}'
-        - '{}'
+        - "{}"
+        - "{}"
         filterBy:
-        - '{}'
-        - '{}'
+        - "{}"
+        - "{}"
       properties:
         sortBy:
           items:
@@ -2086,6 +2101,20 @@ components:
         heightMultiplier:
           example: 2
           type: number
+      type: object
+    BatchData_inner:
+      properties:
+        template:
+          description: Template id
+          example: 52272
+          type: integer
+        data:
+          example:
+            id: 123
+            name: John Smith
+            birthdate: 2000-01-01
+            role: Developer
+          type: object
       type: object
   securitySchemes:
     JSONWebTokenAuth:

@@ -2,10 +2,10 @@
 
 PDF Generator API
 - API version: 3.1.1
-  - Build date: 2022-07-13T14:55:27.173409+03:00[Europe/Tallinn]
+  - Build date: 2023-02-22T21:11:49.567449+02:00[Europe/Tallinn]
 
 # Introduction
-PDF Generator API allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.
+[PDF Generator API](https://pdfgeneratorapi.com) allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.
 
 The PDF Generator API features a web API architecture, allowing you to code in the language of your choice. This API supports the JSON media type, and uses UTF-8 character encoding.
 
@@ -56,6 +56,9 @@ Data Field is a placeholder for the specific data in your JSON data set. In this
     ]
 }
 ```
+
+## Rate limiting
+Our API endpoints use IP-based rate limiting and allow you to make up to 30 requests per second and 240 requests per minute. If you make more requests, you will receive a response with HTTP code 429.
 
 *  *  *  *  *
 # Authentication
@@ -156,6 +159,7 @@ We have validated the generated libraries, but let us know if you find any anoma
 | 403    | Forbidden                      |
 | 404    | Not Found                      |
 | 422    | Unprocessable Entity           |
+| 429    | Too Many Requests              |
 | 500    | Internal Server Error          |
 
 ## 401 Unauthorized
@@ -197,6 +201,11 @@ We have validated the generated libraries, but let us know if you find any anoma
 | Required parameter missing: template definition not defined             |
 | Required parameter missing: template not defined                        |
 
+## 429 Too Many Requests
+| Description                                                             |
+|-------------------------------------------------------------------------|
+| You can make up to 5 requests per second and 120 requests per minute.   |
+
 
   For more information, please visit [https://support.pdfgeneratorapi.com](https://support.pdfgeneratorapi.com)
 
@@ -206,8 +215,8 @@ We have validated the generated libraries, but let us know if you find any anoma
 ## Requirements
 
 Building the API client library requires:
-1. Java 1.7+
-2. Maven/Gradle
+1. Java 1.8+
+2. Maven (3.8.3+)/Gradle (7.2+)
 
 ## Installation
 
@@ -243,7 +252,14 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "org.pdfgeneratorapi:pdf-generator-api:3.1.1"
+  repositories {
+    mavenCentral()     // Needed if the 'pdf-generator-api' jar has been published to maven central.
+    mavenLocal()       // Needed if the 'pdf-generator-api' jar has been published to the local maven repo.
+  }
+
+  dependencies {
+     implementation "org.pdfgeneratorapi:pdf-generator-api:3.1.1"
+  }
 ```
 
 ### Others
@@ -289,7 +305,7 @@ public class Example {
     String format = "pdf"; // String | Document format. The zip option will return a ZIP file with PDF files.
     String output = "base64"; // String | Response format. "I" is used to return the file inline. With the url option, the document is stored for 30 days and automatically deleted.
     try {
-      InlineResponse2004 result = apiInstance.mergeTemplate(templateId, body, name, format, output);
+      MergeTemplate200Response result = apiInstance.mergeTemplate(templateId, body, name, format, output);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#mergeTemplate");
@@ -324,32 +340,33 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
+ - [BatchDataInner](docs/BatchDataInner.md)
  - [Component](docs/Component.md)
- - [InlineResponse200](docs/InlineResponse200.md)
- - [InlineResponse2001](docs/InlineResponse2001.md)
- - [InlineResponse2002](docs/InlineResponse2002.md)
- - [InlineResponse2002Response](docs/InlineResponse2002Response.md)
- - [InlineResponse2003](docs/InlineResponse2003.md)
- - [InlineResponse2004](docs/InlineResponse2004.md)
- - [InlineResponse2004Meta](docs/InlineResponse2004Meta.md)
- - [InlineResponse2005](docs/InlineResponse2005.md)
- - [InlineResponse401](docs/InlineResponse401.md)
- - [InlineResponse402](docs/InlineResponse402.md)
- - [InlineResponse403](docs/InlineResponse403.md)
- - [InlineResponse404](docs/InlineResponse404.md)
- - [InlineResponse422](docs/InlineResponse422.md)
- - [InlineResponse500](docs/InlineResponse500.md)
+ - [CreateTemplate200Response](docs/CreateTemplate200Response.md)
+ - [DeleteTemplate200Response](docs/DeleteTemplate200Response.md)
+ - [DeleteTemplate200ResponseResponse](docs/DeleteTemplate200ResponseResponse.md)
+ - [GetEditorUrl200Response](docs/GetEditorUrl200Response.md)
+ - [GetTemplates200Response](docs/GetTemplates200Response.md)
+ - [GetTemplates401Response](docs/GetTemplates401Response.md)
+ - [GetTemplates402Response](docs/GetTemplates402Response.md)
+ - [GetTemplates403Response](docs/GetTemplates403Response.md)
+ - [GetTemplates404Response](docs/GetTemplates404Response.md)
+ - [GetTemplates422Response](docs/GetTemplates422Response.md)
+ - [GetTemplates429Response](docs/GetTemplates429Response.md)
+ - [GetTemplates500Response](docs/GetTemplates500Response.md)
+ - [GetWorkspace200Response](docs/GetWorkspace200Response.md)
+ - [MergeTemplate200Response](docs/MergeTemplate200Response.md)
+ - [MergeTemplate200ResponseMeta](docs/MergeTemplate200ResponseMeta.md)
  - [Template](docs/Template.md)
  - [TemplateDefinition](docs/TemplateDefinition.md)
  - [TemplateDefinitionDataSettings](docs/TemplateDefinitionDataSettings.md)
  - [TemplateDefinitionEditor](docs/TemplateDefinitionEditor.md)
- - [TemplateDefinitionLayout](docs/TemplateDefinitionLayout.md)
  - [TemplateDefinitionNew](docs/TemplateDefinitionNew.md)
  - [TemplateDefinitionNewLayout](docs/TemplateDefinitionNewLayout.md)
  - [TemplateDefinitionNewLayoutMargins](docs/TemplateDefinitionNewLayoutMargins.md)
  - [TemplateDefinitionNewLayoutRepeatLayout](docs/TemplateDefinitionNewLayoutRepeatLayout.md)
- - [TemplateDefinitionNewMargins](docs/TemplateDefinitionNewMargins.md)
- - [TemplateDefinitionNewPages](docs/TemplateDefinitionNewPages.md)
+ - [TemplateDefinitionNewPagesInner](docs/TemplateDefinitionNewPagesInner.md)
+ - [TemplateDefinitionNewPagesInnerMargins](docs/TemplateDefinitionNewPagesInnerMargins.md)
  - [Workspace](docs/Workspace.md)
 
 

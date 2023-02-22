@@ -2,20 +2,20 @@
 
 All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v3*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**copyTemplate**](TemplatesApi.md#copyTemplate) | **POST** /templates/{templateId}/copy | Copy template
-[**createTemplate**](TemplatesApi.md#createTemplate) | **POST** /templates | Create template
-[**deleteTemplate**](TemplatesApi.md#deleteTemplate) | **DELETE** /templates/{templateId} | Delete template
-[**getEditorUrl**](TemplatesApi.md#getEditorUrl) | **POST** /templates/{templateId}/editor | Open editor
-[**getTemplate**](TemplatesApi.md#getTemplate) | **GET** /templates/{templateId} | Get template
-[**getTemplates**](TemplatesApi.md#getTemplates) | **GET** /templates | Get templates
-[**updateTemplate**](TemplatesApi.md#updateTemplate) | **PUT** /templates/{templateId} | Update template
+| Method | HTTP request | Description |
+|------------- | ------------- | -------------|
+| [**copyTemplate**](TemplatesApi.md#copyTemplate) | **POST** /templates/{templateId}/copy | Copy template |
+| [**createTemplate**](TemplatesApi.md#createTemplate) | **POST** /templates | Create template |
+| [**deleteTemplate**](TemplatesApi.md#deleteTemplate) | **DELETE** /templates/{templateId} | Delete template |
+| [**getEditorUrl**](TemplatesApi.md#getEditorUrl) | **POST** /templates/{templateId}/editor | Open editor |
+| [**getTemplate**](TemplatesApi.md#getTemplate) | **GET** /templates/{templateId} | Get template |
+| [**getTemplates**](TemplatesApi.md#getTemplates) | **GET** /templates | Get templates |
+| [**updateTemplate**](TemplatesApi.md#updateTemplate) | **PUT** /templates/{templateId} | Update template |
 
 
 <a name="copyTemplate"></a>
 # **copyTemplate**
-> InlineResponse2001 copyTemplate(templateId, name)
+> CreateTemplate200Response copyTemplate(templateId, name)
 
 Copy template
 
@@ -44,7 +44,7 @@ public class Example {
     Integer templateId = 19375; // Integer | Template unique identifier
     String name = "My copied template"; // String | Name for the copied template. If name is not specified then the original name is used.
     try {
-      InlineResponse2001 result = apiInstance.copyTemplate(templateId, name);
+      CreateTemplate200Response result = apiInstance.copyTemplate(templateId, name);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#copyTemplate");
@@ -59,14 +59,14 @@ public class Example {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **templateId** | **Integer**| Template unique identifier |
- **name** | **String**| Name for the copied template. If name is not specified then the original name is used. | [optional]
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **templateId** | **Integer**| Template unique identifier | |
+| **name** | **String**| Name for the copied template. If name is not specified then the original name is used. | [optional] |
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**CreateTemplate200Response**](CreateTemplate200Response.md)
 
 ### Authorization
 
@@ -80,17 +80,18 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Template configuration as JSON object |  -  |
-**401** | Unauthorized |  -  |
-**402** | Account Suspended |  -  |
-**403** | Forbidden |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Entity |  -  |
-**500** | Internal Server Error |  -  |
+| **200** | Template configuration as JSON object |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
 
 <a name="createTemplate"></a>
 # **createTemplate**
-> InlineResponse2001 createTemplate(templateDefinitionNew)
+> CreateTemplate200Response createTemplate(templateDefinitionNew)
 
 Create template
 
@@ -118,7 +119,7 @@ public class Example {
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     TemplateDefinitionNew templateDefinitionNew = new TemplateDefinitionNew(); // TemplateDefinitionNew | Template configuration as JSON string
     try {
-      InlineResponse2001 result = apiInstance.createTemplate(templateDefinitionNew);
+      CreateTemplate200Response result = apiInstance.createTemplate(templateDefinitionNew);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#createTemplate");
@@ -133,13 +134,13 @@ public class Example {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **templateDefinitionNew** | [**TemplateDefinitionNew**](TemplateDefinitionNew.md)| Template configuration as JSON string |
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **templateDefinitionNew** | [**TemplateDefinitionNew**](TemplateDefinitionNew.md)| Template configuration as JSON string | |
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**CreateTemplate200Response**](CreateTemplate200Response.md)
 
 ### Authorization
 
@@ -153,17 +154,18 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Template configuration as JSON object |  -  |
-**401** | Unauthorized |  -  |
-**402** | Account Suspended |  -  |
-**403** | Forbidden |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Entity |  -  |
-**500** | Internal Server Error |  -  |
+| **200** | Template configuration as JSON object |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
 
 <a name="deleteTemplate"></a>
 # **deleteTemplate**
-> InlineResponse2002 deleteTemplate(templateId)
+> DeleteTemplate200Response deleteTemplate(templateId)
 
 Delete template
 
@@ -191,7 +193,7 @@ public class Example {
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     Integer templateId = 19375; // Integer | Template unique identifier
     try {
-      InlineResponse2002 result = apiInstance.deleteTemplate(templateId);
+      DeleteTemplate200Response result = apiInstance.deleteTemplate(templateId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#deleteTemplate");
@@ -206,13 +208,13 @@ public class Example {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **templateId** | **Integer**| Template unique identifier |
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **templateId** | **Integer**| Template unique identifier | |
 
 ### Return type
 
-[**InlineResponse2002**](InlineResponse2002.md)
+[**DeleteTemplate200Response**](DeleteTemplate200Response.md)
 
 ### Authorization
 
@@ -226,17 +228,18 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The request was successfully executed. |  -  |
-**401** | Unauthorized |  -  |
-**402** | Account Suspended |  -  |
-**403** | Forbidden |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Entity |  -  |
-**500** | Internal Server Error |  -  |
+| **200** | The request was successfully executed. |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
 
 <a name="getEditorUrl"></a>
 # **getEditorUrl**
-> InlineResponse2003 getEditorUrl(templateId, body, language)
+> GetEditorUrl200Response getEditorUrl(templateId, body, language)
 
 Open editor
 
@@ -266,7 +269,7 @@ public class Example {
     Object body = null; // Object | Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file.
     String language = "en"; // String | Specify the editor UI language. Defaults to organization editor language.
     try {
-      InlineResponse2003 result = apiInstance.getEditorUrl(templateId, body, language);
+      GetEditorUrl200Response result = apiInstance.getEditorUrl(templateId, body, language);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#getEditorUrl");
@@ -281,15 +284,15 @@ public class Example {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **templateId** | **Integer**| Template unique identifier |
- **body** | **Object**| Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file. |
- **language** | **String**| Specify the editor UI language. Defaults to organization editor language. | [optional] [enum: en, et, cs, sk, ru, de]
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **templateId** | **Integer**| Template unique identifier | |
+| **body** | **Object**| Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file. | |
+| **language** | **String**| Specify the editor UI language. Defaults to organization editor language. | [optional] [enum: en, et, cs, sk, ru, de] |
 
 ### Return type
 
-[**InlineResponse2003**](InlineResponse2003.md)
+[**GetEditorUrl200Response**](GetEditorUrl200Response.md)
 
 ### Authorization
 
@@ -303,17 +306,18 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Returns an URL which you can use to redirect your user to the editor or use as iframe source |  -  |
-**401** | Unauthorized |  -  |
-**402** | Account Suspended |  -  |
-**403** | Forbidden |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Entity |  -  |
-**500** | Internal Server Error |  -  |
+| **200** | Returns an URL which you can use to redirect your user to the editor or use as iframe source |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
 
 <a name="getTemplate"></a>
 # **getTemplate**
-> InlineResponse2001 getTemplate(templateId)
+> CreateTemplate200Response getTemplate(templateId)
 
 Get template
 
@@ -341,7 +345,7 @@ public class Example {
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     Integer templateId = 19375; // Integer | Template unique identifier
     try {
-      InlineResponse2001 result = apiInstance.getTemplate(templateId);
+      CreateTemplate200Response result = apiInstance.getTemplate(templateId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#getTemplate");
@@ -356,13 +360,13 @@ public class Example {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **templateId** | **Integer**| Template unique identifier |
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **templateId** | **Integer**| Template unique identifier | |
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**CreateTemplate200Response**](CreateTemplate200Response.md)
 
 ### Authorization
 
@@ -376,17 +380,18 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Template configuration as JSON object |  -  |
-**401** | Unauthorized |  -  |
-**402** | Account Suspended |  -  |
-**403** | Forbidden |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Entity |  -  |
-**500** | Internal Server Error |  -  |
+| **200** | Template configuration as JSON object |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
 
 <a name="getTemplates"></a>
 # **getTemplates**
-> InlineResponse200 getTemplates()
+> GetTemplates200Response getTemplates()
 
 Get templates
 
@@ -413,7 +418,7 @@ public class Example {
 
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     try {
-      InlineResponse200 result = apiInstance.getTemplates();
+      GetTemplates200Response result = apiInstance.getTemplates();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#getTemplates");
@@ -431,7 +436,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**GetTemplates200Response**](GetTemplates200Response.md)
 
 ### Authorization
 
@@ -445,17 +450,18 @@ This endpoint does not need any parameter.
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | An array of template objects |  -  |
-**401** | Unauthorized |  -  |
-**402** | Account Suspended |  -  |
-**403** | Forbidden |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Entity |  -  |
-**500** | Internal Server Error |  -  |
+| **200** | An array of template objects |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
 
 <a name="updateTemplate"></a>
 # **updateTemplate**
-> InlineResponse2001 updateTemplate(templateId, templateDefinitionNew)
+> CreateTemplate200Response updateTemplate(templateId, templateDefinitionNew)
 
 Update template
 
@@ -484,7 +490,7 @@ public class Example {
     Integer templateId = 19375; // Integer | Template unique identifier
     TemplateDefinitionNew templateDefinitionNew = new TemplateDefinitionNew(); // TemplateDefinitionNew | Template configuration as JSON string
     try {
-      InlineResponse2001 result = apiInstance.updateTemplate(templateId, templateDefinitionNew);
+      CreateTemplate200Response result = apiInstance.updateTemplate(templateId, templateDefinitionNew);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#updateTemplate");
@@ -499,14 +505,14 @@ public class Example {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **templateId** | **Integer**| Template unique identifier |
- **templateDefinitionNew** | [**TemplateDefinitionNew**](TemplateDefinitionNew.md)| Template configuration as JSON string |
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **templateId** | **Integer**| Template unique identifier | |
+| **templateDefinitionNew** | [**TemplateDefinitionNew**](TemplateDefinitionNew.md)| Template configuration as JSON string | |
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**CreateTemplate200Response**](CreateTemplate200Response.md)
 
 ### Authorization
 
@@ -520,11 +526,12 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Template configuration as JSON object |  -  |
-**401** | Unauthorized |  -  |
-**402** | Account Suspended |  -  |
-**403** | Forbidden |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Entity |  -  |
-**500** | Internal Server Error |  -  |
+| **200** | Template configuration as JSON object |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
 

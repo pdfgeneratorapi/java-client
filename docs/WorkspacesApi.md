@@ -2,15 +2,15 @@
 
 All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v3*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**deleteWorkspace**](WorkspacesApi.md#deleteWorkspace) | **DELETE** /workspaces/{workspaceId} | Delete workspace
-[**getWorkspace**](WorkspacesApi.md#getWorkspace) | **GET** /workspaces/{workspaceId} | Get workspace
+| Method | HTTP request | Description |
+|------------- | ------------- | -------------|
+| [**deleteWorkspace**](WorkspacesApi.md#deleteWorkspace) | **DELETE** /workspaces/{workspaceId} | Delete workspace |
+| [**getWorkspace**](WorkspacesApi.md#getWorkspace) | **GET** /workspaces/{workspaceId} | Get workspace |
 
 
 <a name="deleteWorkspace"></a>
 # **deleteWorkspace**
-> InlineResponse2002 deleteWorkspace(workspaceId)
+> DeleteTemplate200Response deleteWorkspace(workspaceId)
 
 Delete workspace
 
@@ -38,7 +38,7 @@ public class Example {
     WorkspacesApi apiInstance = new WorkspacesApi(defaultClient);
     String workspaceId = "demo.example@actualreports.com"; // String | Workspace identifier
     try {
-      InlineResponse2002 result = apiInstance.deleteWorkspace(workspaceId);
+      DeleteTemplate200Response result = apiInstance.deleteWorkspace(workspaceId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling WorkspacesApi#deleteWorkspace");
@@ -53,13 +53,13 @@ public class Example {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **workspaceId** | **String**| Workspace identifier |
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **workspaceId** | **String**| Workspace identifier | |
 
 ### Return type
 
-[**InlineResponse2002**](InlineResponse2002.md)
+[**DeleteTemplate200Response**](DeleteTemplate200Response.md)
 
 ### Authorization
 
@@ -73,17 +73,18 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The request was successfully executed. |  -  |
-**401** | Unauthorized |  -  |
-**402** | Account Suspended |  -  |
-**403** | Forbidden |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Entity |  -  |
-**500** | Internal Server Error |  -  |
+| **200** | The request was successfully executed. |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
 
 <a name="getWorkspace"></a>
 # **getWorkspace**
-> InlineResponse2005 getWorkspace(workspaceId)
+> GetWorkspace200Response getWorkspace(workspaceId)
 
 Get workspace
 
@@ -111,7 +112,7 @@ public class Example {
     WorkspacesApi apiInstance = new WorkspacesApi(defaultClient);
     String workspaceId = "demo.example@actualreports.com"; // String | Workspace identifier
     try {
-      InlineResponse2005 result = apiInstance.getWorkspace(workspaceId);
+      GetWorkspace200Response result = apiInstance.getWorkspace(workspaceId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling WorkspacesApi#getWorkspace");
@@ -126,13 +127,13 @@ public class Example {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **workspaceId** | **String**| Workspace identifier |
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **workspaceId** | **String**| Workspace identifier | |
 
 ### Return type
 
-[**InlineResponse2005**](InlineResponse2005.md)
+[**GetWorkspace200Response**](GetWorkspace200Response.md)
 
 ### Authorization
 
@@ -146,11 +147,12 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Workspace information |  -  |
-**401** | Unauthorized |  -  |
-**402** | Account Suspended |  -  |
-**403** | Forbidden |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Entity |  -  |
-**500** | Internal Server Error |  -  |
+| **200** | Workspace information |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
 

@@ -2,15 +2,15 @@
 
 All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v3*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**mergeTemplate**](DocumentsApi.md#mergeTemplate) | **POST** /templates/{templateId}/output | Generate document
-[**mergeTemplates**](DocumentsApi.md#mergeTemplates) | **POST** /templates/output | Generate document (multiple templates)
+| Method | HTTP request | Description |
+|------------- | ------------- | -------------|
+| [**mergeTemplate**](DocumentsApi.md#mergeTemplate) | **POST** /templates/{templateId}/output | Generate document |
+| [**mergeTemplates**](DocumentsApi.md#mergeTemplates) | **POST** /templates/output | Generate document (multiple templates) |
 
 
 <a name="mergeTemplate"></a>
 # **mergeTemplate**
-> InlineResponse2004 mergeTemplate(templateId, body, name, format, output)
+> MergeTemplate200Response mergeTemplate(templateId, body, name, format, output)
 
 Generate document
 
@@ -42,7 +42,7 @@ public class Example {
     String format = "pdf"; // String | Document format. The zip option will return a ZIP file with PDF files.
     String output = "base64"; // String | Response format. \"I\" is used to return the file inline. With the url option, the document is stored for 30 days and automatically deleted.
     try {
-      InlineResponse2004 result = apiInstance.mergeTemplate(templateId, body, name, format, output);
+      MergeTemplate200Response result = apiInstance.mergeTemplate(templateId, body, name, format, output);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#mergeTemplate");
@@ -57,17 +57,17 @@ public class Example {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **templateId** | **Integer**| Template unique identifier |
- **body** | **Object**| Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file. |
- **name** | **String**| Document name, returned in the meta data. | [optional]
- **format** | **String**| Document format. The zip option will return a ZIP file with PDF files. | [optional] [default to pdf] [enum: pdf, html, zip, xlsx]
- **output** | **String**| Response format. \&quot;I\&quot; is used to return the file inline. With the url option, the document is stored for 30 days and automatically deleted. | [optional] [default to base64] [enum: base64, url, I]
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **templateId** | **Integer**| Template unique identifier | |
+| **body** | **Object**| Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file. | |
+| **name** | **String**| Document name, returned in the meta data. | [optional] |
+| **format** | **String**| Document format. The zip option will return a ZIP file with PDF files. | [optional] [enum: pdf, html, zip, xlsx] |
+| **output** | **String**| Response format. \&quot;I\&quot; is used to return the file inline. With the url option, the document is stored for 30 days and automatically deleted. | [optional] [enum: base64, url, I] |
 
 ### Return type
 
-[**InlineResponse2004**](InlineResponse2004.md)
+[**MergeTemplate200Response**](MergeTemplate200Response.md)
 
 ### Authorization
 
@@ -81,17 +81,18 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Document data |  -  |
-**401** | Unauthorized |  -  |
-**402** | Account Suspended |  -  |
-**403** | Forbidden |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Entity |  -  |
-**500** | Internal Server Error |  -  |
+| **200** | Document data |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
 
 <a name="mergeTemplates"></a>
 # **mergeTemplates**
-> InlineResponse2004 mergeTemplates(requestBody, name, format, output)
+> MergeTemplate200Response mergeTemplates(batchDataInner, name, format, output)
 
 Generate document (multiple templates)
 
@@ -117,12 +118,12 @@ public class Example {
     JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
-    List<Object> requestBody = null; // List<Object> | Data used to specify templates and data objects which are used to merge the template
+    List<BatchDataInner> batchDataInner = Arrays.asList(); // List<BatchDataInner> | Data used to specify templates and data objects which are used to merge the template
     String name = "My document"; // String | Document name, returned in the meta data.
     String format = "pdf"; // String | Document format. The zip option will return a ZIP file with PDF files.
     String output = "base64"; // String | Response format. \"I\" is used to return the file inline. With the url option, the document is stored for 30 days and automatically deleted.
     try {
-      InlineResponse2004 result = apiInstance.mergeTemplates(requestBody, name, format, output);
+      MergeTemplate200Response result = apiInstance.mergeTemplates(batchDataInner, name, format, output);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#mergeTemplates");
@@ -137,16 +138,16 @@ public class Example {
 
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **requestBody** | [**List&lt;Object&gt;**](Object.md)| Data used to specify templates and data objects which are used to merge the template |
- **name** | **String**| Document name, returned in the meta data. | [optional]
- **format** | **String**| Document format. The zip option will return a ZIP file with PDF files. | [optional] [default to pdf] [enum: pdf, html, zip, xlsx]
- **output** | **String**| Response format. \&quot;I\&quot; is used to return the file inline. With the url option, the document is stored for 30 days and automatically deleted. | [optional] [default to base64] [enum: base64, url, I]
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **batchDataInner** | [**List&lt;BatchDataInner&gt;**](BatchDataInner.md)| Data used to specify templates and data objects which are used to merge the template | |
+| **name** | **String**| Document name, returned in the meta data. | [optional] |
+| **format** | **String**| Document format. The zip option will return a ZIP file with PDF files. | [optional] [enum: pdf, html, zip, xlsx] |
+| **output** | **String**| Response format. \&quot;I\&quot; is used to return the file inline. With the url option, the document is stored for 30 days and automatically deleted. | [optional] [enum: base64, url, I] |
 
 ### Return type
 
-[**InlineResponse2004**](InlineResponse2004.md)
+[**MergeTemplate200Response**](MergeTemplate200Response.md)
 
 ### Authorization
 
@@ -160,11 +161,12 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Document data |  -  |
-**401** | Unauthorized |  -  |
-**402** | Account Suspended |  -  |
-**403** | Forbidden |  -  |
-**404** | Not Found |  -  |
-**422** | Unprocessable Entity |  -  |
-**500** | Internal Server Error |  -  |
+| **200** | Document data |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
 
