@@ -197,11 +197,11 @@ info:
     ## 429 Too Many Requests
     | Description                                                             |
     |-------------------------------------------------------------------------|
-    | You can make up to 5 requests per second and 120 requests per minute.   |
+    | You can make up to 2 requests per second and 60 requests per minute.   |
 
     *  *  *  *  *
   title: PDF Generator API
-  version: 4.0.1
+  version: 4.0.2
   x-logo:
     url: https://d2304hinatgg5e.cloudfront.net/images/logo/300X90.png
     backgroundColor: '#00d9b5'
@@ -248,6 +248,26 @@ paths:
           - ""
           example: private
           type: string
+        style: form
+      - description: "Pagination: page to return"
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          example: 1
+          type: integer
+        style: form
+      - description: "Pagination: How many records to return per page"
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          default: 15
+          example: 20
+          type: integer
         style: form
       responses:
         "200":
@@ -823,6 +843,26 @@ paths:
           example: 2022-08-05 12:00:00
           type: string
         style: form
+      - description: "Pagination: page to return"
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          example: 1
+          type: integer
+        style: form
+      - description: "Pagination: How many records to return per page"
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          default: 15
+          example: 20
+          type: integer
+        style: form
       responses:
         "200":
           content:
@@ -961,12 +1001,12 @@ paths:
           }
         }
         ```
-      operationId: generateDocumentAsync
+      operationId: generateDocumentAsynchronous
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/generateDocumentAsync_request'
+              $ref: '#/components/schemas/generateDocumentAsynchronous_request'
         description: "Request parameters, including template id, data and formats."
         required: true
       responses:
@@ -974,7 +1014,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/generateDocumentAsync_200_response'
+                $ref: '#/components/schemas/generateDocumentAsynchronous_200_response'
           description: Async job response
         "401":
           content:
@@ -1108,12 +1148,12 @@ paths:
           }
         }
         ```
-      operationId: generateDocumentBatchAsync
+      operationId: generateDocumentBatchAsynchronous
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/generateDocumentBatchAsync_request'
+              $ref: '#/components/schemas/generateDocumentBatchAsynchronous_request'
         description: "Request parameters, including template id, data and formats."
         required: true
       responses:
@@ -1121,7 +1161,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/generateDocumentAsync_200_response'
+                $ref: '#/components/schemas/generateDocumentAsynchronous_200_response'
           description: Async job response
         "401":
           content:
@@ -1174,6 +1214,27 @@ paths:
     get:
       description: Returns all workspaces in the organization
       operationId: getWorkspaces
+      parameters:
+      - description: "Pagination: page to return"
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          example: 1
+          type: integer
+        style: form
+      - description: "Pagination: How many records to return per page"
+        explode: true
+        in: query
+        name: per_page
+        required: false
+        schema:
+          default: 15
+          example: 20
+          type: integer
+        style: form
       responses:
         "200":
           content:
@@ -1638,6 +1699,28 @@ components:
         example: 2022-08-05 12:00:00
         type: string
       style: form
+    perPage:
+      description: "Pagination: How many records to return per page"
+      explode: true
+      in: query
+      name: per_page
+      required: false
+      schema:
+        default: 15
+        example: 20
+        type: integer
+      style: form
+    page:
+      description: "Pagination: page to return"
+      explode: true
+      in: query
+      name: page
+      required: false
+      schema:
+        default: 1
+        example: 1
+        type: integer
+      style: form
   responses:
     templateData:
       content:
@@ -1698,7 +1781,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/generateDocumentAsync_200_response'
+            $ref: '#/components/schemas/generateDocumentAsynchronous_200_response'
       description: Async job response
     error401:
       content:
@@ -1760,22 +1843,22 @@ components:
           description: Defines component class/type
           enum:
           - labelComponent
-          - numberComponent
-          - textComponent
-          - imageComponent
-          - dateComponent
-          - hlineComponent
-          - vlineComponent
           - tableComponent
           - compositeComponent
+          - chartComponent
           - barcodeComponent
           - qrcodeComponent
-          - chartComponent
-          - rectangleComponent
+          - imageComponent
           - headerComponent
           - footerComponent
+          - rectangleComponent
+          - vlineComponent
+          - hlineComponent
+          - pagenumberComponent
+          - symbolComponent
           - checkboxComponent
           - radioComponent
+          - signatureComponent
           example: labelComponent
           type: string
         id:
@@ -1866,13 +1949,13 @@ components:
           unit: cm
           orientation: portrait
           emptyLabels: 0
+          rotation: 0
           format: A4
           width: 21
           repeatLayout:
             format: A4
             width: 21
             height: 29.7
-          rotaion: 0
           height: 29.7
         pages:
         - margins:
@@ -2061,7 +2144,7 @@ components:
           example: true
           type: boolean
         layout:
-          $ref: '#/components/schemas/TemplateDefinition_layout'
+          $ref: '#/components/schemas/TemplateDefinitionNew_layout'
         pages:
           description: "Defines page or label size, margins and components on page\
             \ or label"
@@ -2229,22 +2312,18 @@ components:
     paginationMeta:
       description: Information about pagination and navigation
       example:
-        per_page: 25
-        total: 15
+        per_page: 15
         last_page: 1
         current_page: 1
       properties:
         current_page:
           example: 1
           type: number
-        per_page:
-          example: 25
-          type: number
-        total:
-          example: 15
-          type: number
         last_page:
           example: 1
+          type: number
+        per_page:
+          example: 15
           type: number
       type: object
     getTemplates_200_response:
@@ -2266,11 +2345,17 @@ components:
           tags:
           - invoice
           - orders
+        meta:
+          per_page: 15
+          last_page: 1
+          current_page: 1
       properties:
         response:
           items:
             $ref: '#/components/schemas/Template'
           type: array
+        meta:
+          $ref: '#/components/schemas/paginationMeta'
       type: object
     getTemplates_401_response:
       properties:
@@ -2506,11 +2591,17 @@ components:
           created_at: 2022-07-02 13:04:21
           template_id: 18905762
           public_id: a2bd25b8921f3dc7a440fd7f427f90a4
+        meta:
+          per_page: 15
+          last_page: 1
+          current_page: 1
       properties:
         response:
           items:
             $ref: '#/components/schemas/Document'
           type: array
+        meta:
+          $ref: '#/components/schemas/paginationMeta'
       type: object
     generateDocument_request:
       properties:
@@ -2568,7 +2659,7 @@ components:
         meta:
           $ref: '#/components/schemas/generateDocument_200_response_meta'
       type: object
-    generateDocumentAsync_request:
+    generateDocumentAsynchronous_request:
       properties:
         template:
           $ref: '#/components/schemas/templateParam'
@@ -2584,7 +2675,7 @@ components:
           example: Invoice 123
           type: string
       type: object
-    generateDocumentAsync_200_response_response:
+    generateDocumentAsynchronous_200_response_response:
       example:
         job_id: JeLjz9MKNyAwIG9iago8PCA
       properties:
@@ -2594,13 +2685,13 @@ components:
           example: JeLjz9MKNyAwIG9iago8PCA
           type: string
       type: object
-    generateDocumentAsync_200_response:
+    generateDocumentAsynchronous_200_response:
       example:
         response:
           job_id: JeLjz9MKNyAwIG9iago8PCA
       properties:
         response:
-          $ref: '#/components/schemas/generateDocumentAsync_200_response_response'
+          $ref: '#/components/schemas/generateDocumentAsynchronous_200_response_response'
       type: object
     generateDocumentBatch_request:
       properties:
@@ -2618,7 +2709,7 @@ components:
           example: Invoice 123
           type: string
       type: object
-    generateDocumentBatchAsync_request:
+    generateDocumentBatchAsynchronous_request:
       properties:
         template:
           items:
@@ -2648,8 +2739,7 @@ components:
           created_at: 2020-04-01 12:03:12
           id: 1
         meta:
-          per_page: 25
-          total: 15
+          per_page: 15
           last_page: 1
           current_page: 1
       properties:
@@ -2814,13 +2904,13 @@ components:
         unit: cm
         orientation: portrait
         emptyLabels: 0
+        rotation: 0
         format: A4
         width: 21
         repeatLayout:
           format: A4
           width: 21
           height: 29.7
-        rotaion: 0
         height: 29.7
       properties:
         format:
@@ -2853,7 +2943,7 @@ components:
           - landscape
           example: portrait
           type: string
-        rotaion:
+        rotation:
           description: Page rotation in degrees
           enum:
           - 0
@@ -2926,74 +3016,6 @@ components:
           items:
             $ref: '#/components/schemas/Component'
           type: array
-      type: object
-    TemplateDefinition_layout:
-      description: "Defines template layout (e.g page format, margins)."
-      example:
-        margins:
-          top: 0.5
-          left: 0.5
-          bottom: 0.5
-          right: 0.5
-        unit: cm
-        orientation: portrait
-        emptyLabels: 0
-        rotation: 0
-        format: A4
-        width: 21
-        repeatLayout:
-          format: A4
-          width: 21
-          height: 29.7
-        height: 29.7
-      properties:
-        format:
-          description: Defines template page size
-          enum:
-          - A4
-          - letter
-          - custom
-          example: A4
-          type: string
-        width:
-          description: Page width in units
-          example: 21
-          type: number
-        height:
-          description: Page height in units
-          example: 29.7
-          type: number
-        unit:
-          description: Measure unit
-          enum:
-          - cm
-          - in
-          example: cm
-          type: string
-        orientation:
-          description: Page orientation
-          enum:
-          - portrait
-          - landscape
-          example: portrait
-          type: string
-        rotation:
-          description: Page rotation in degrees
-          enum:
-          - 0
-          - 90
-          - 180
-          - 270
-          example: 0
-          type: integer
-        margins:
-          $ref: '#/components/schemas/TemplateDefinitionNew_layout_margins'
-        repeatLayout:
-          $ref: '#/components/schemas/TemplateDefinitionNew_layout_repeatLayout'
-        emptyLabels:
-          description: Defines how many pages or labels should be empty
-          example: 0
-          type: integer
       type: object
     TemplateDefinition_dataSettings:
       description: Defines filter and sort option for root data set.

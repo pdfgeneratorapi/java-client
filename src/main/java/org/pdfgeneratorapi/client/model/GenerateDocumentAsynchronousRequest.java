@@ -21,10 +21,9 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import org.pdfgeneratorapi.client.model.AsyncOutputParam;
+import org.pdfgeneratorapi.client.model.CallbackParam;
 import org.pdfgeneratorapi.client.model.FormatParam;
-import org.pdfgeneratorapi.client.model.OutputParam;
 import org.pdfgeneratorapi.client.model.TemplateParam;
 
 import com.google.gson.Gson;
@@ -49,13 +48,17 @@ import java.util.Set;
 import org.pdfgeneratorapi.client.JSON;
 
 /**
- * GenerateDocumentBatchRequest
+ * GenerateDocumentAsynchronousRequest
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-05-03T15:08:54.021423+03:00[Europe/Tallinn]")
-public class GenerateDocumentBatchRequest {
+public class GenerateDocumentAsynchronousRequest {
   public static final String SERIALIZED_NAME_TEMPLATE = "template";
   @SerializedName(SERIALIZED_NAME_TEMPLATE)
-  private List<TemplateParam> template;
+  private TemplateParam template;
+
+  public static final String SERIALIZED_NAME_CALLBACK = "callback";
+  @SerializedName(SERIALIZED_NAME_CALLBACK)
+  private CallbackParam callback;
 
   public static final String SERIALIZED_NAME_FORMAT = "format";
   @SerializedName(SERIALIZED_NAME_FORMAT)
@@ -63,26 +66,18 @@ public class GenerateDocumentBatchRequest {
 
   public static final String SERIALIZED_NAME_OUTPUT = "output";
   @SerializedName(SERIALIZED_NAME_OUTPUT)
-  private OutputParam output = OutputParam.BASE64;
+  private AsyncOutputParam output = AsyncOutputParam.BASE64;
 
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
   private String name = "";
 
-  public GenerateDocumentBatchRequest() {
+  public GenerateDocumentAsynchronousRequest() {
   }
 
-  public GenerateDocumentBatchRequest template(List<TemplateParam> template) {
+  public GenerateDocumentAsynchronousRequest template(TemplateParam template) {
     
     this.template = template;
-    return this;
-  }
-
-  public GenerateDocumentBatchRequest addTemplateItem(TemplateParam templateItem) {
-    if (this.template == null) {
-      this.template = new ArrayList<>();
-    }
-    this.template.add(templateItem);
     return this;
   }
 
@@ -92,17 +87,39 @@ public class GenerateDocumentBatchRequest {
   **/
   @javax.annotation.Nullable
 
-  public List<TemplateParam> getTemplate() {
+  public TemplateParam getTemplate() {
     return template;
   }
 
 
-  public void setTemplate(List<TemplateParam> template) {
+  public void setTemplate(TemplateParam template) {
     this.template = template;
   }
 
 
-  public GenerateDocumentBatchRequest format(FormatParam format) {
+  public GenerateDocumentAsynchronousRequest callback(CallbackParam callback) {
+    
+    this.callback = callback;
+    return this;
+  }
+
+   /**
+   * Get callback
+   * @return callback
+  **/
+  @javax.annotation.Nullable
+
+  public CallbackParam getCallback() {
+    return callback;
+  }
+
+
+  public void setCallback(CallbackParam callback) {
+    this.callback = callback;
+  }
+
+
+  public GenerateDocumentAsynchronousRequest format(FormatParam format) {
     
     this.format = format;
     return this;
@@ -124,7 +141,7 @@ public class GenerateDocumentBatchRequest {
   }
 
 
-  public GenerateDocumentBatchRequest output(OutputParam output) {
+  public GenerateDocumentAsynchronousRequest output(AsyncOutputParam output) {
     
     this.output = output;
     return this;
@@ -136,17 +153,17 @@ public class GenerateDocumentBatchRequest {
   **/
   @javax.annotation.Nullable
 
-  public OutputParam getOutput() {
+  public AsyncOutputParam getOutput() {
     return output;
   }
 
 
-  public void setOutput(OutputParam output) {
+  public void setOutput(AsyncOutputParam output) {
     this.output = output;
   }
 
 
-  public GenerateDocumentBatchRequest name(String name) {
+  public GenerateDocumentAsynchronousRequest name(String name) {
     
     this.name = name;
     return this;
@@ -177,23 +194,25 @@ public class GenerateDocumentBatchRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    GenerateDocumentBatchRequest generateDocumentBatchRequest = (GenerateDocumentBatchRequest) o;
-    return Objects.equals(this.template, generateDocumentBatchRequest.template) &&
-        Objects.equals(this.format, generateDocumentBatchRequest.format) &&
-        Objects.equals(this.output, generateDocumentBatchRequest.output) &&
-        Objects.equals(this.name, generateDocumentBatchRequest.name);
+    GenerateDocumentAsynchronousRequest generateDocumentAsynchronousRequest = (GenerateDocumentAsynchronousRequest) o;
+    return Objects.equals(this.template, generateDocumentAsynchronousRequest.template) &&
+        Objects.equals(this.callback, generateDocumentAsynchronousRequest.callback) &&
+        Objects.equals(this.format, generateDocumentAsynchronousRequest.format) &&
+        Objects.equals(this.output, generateDocumentAsynchronousRequest.output) &&
+        Objects.equals(this.name, generateDocumentAsynchronousRequest.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(template, format, output, name);
+    return Objects.hash(template, callback, format, output, name);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class GenerateDocumentBatchRequest {\n");
+    sb.append("class GenerateDocumentAsynchronousRequest {\n");
     sb.append("    template: ").append(toIndentedString(template)).append("\n");
+    sb.append("    callback: ").append(toIndentedString(callback)).append("\n");
     sb.append("    format: ").append(toIndentedString(format)).append("\n");
     sb.append("    output: ").append(toIndentedString(output)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
@@ -220,6 +239,7 @@ public class GenerateDocumentBatchRequest {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
     openapiFields.add("template");
+    openapiFields.add("callback");
     openapiFields.add("format");
     openapiFields.add("output");
     openapiFields.add("name");
@@ -232,35 +252,29 @@ public class GenerateDocumentBatchRequest {
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to GenerateDocumentBatchRequest
+  * @throws IOException if the JSON Object is invalid with respect to GenerateDocumentAsynchronousRequest
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!GenerateDocumentBatchRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in GenerateDocumentBatchRequest is not found in the empty JSON string", GenerateDocumentBatchRequest.openapiRequiredFields.toString()));
+        if (!GenerateDocumentAsynchronousRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in GenerateDocumentAsynchronousRequest is not found in the empty JSON string", GenerateDocumentAsynchronousRequest.openapiRequiredFields.toString()));
         }
       }
 
       Set<Entry<String, JsonElement>> entries = jsonObj.entrySet();
       // check to see if the JSON string contains additional fields
       for (Entry<String, JsonElement> entry : entries) {
-        if (!GenerateDocumentBatchRequest.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `GenerateDocumentBatchRequest` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
+        if (!GenerateDocumentAsynchronousRequest.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `GenerateDocumentAsynchronousRequest` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
+      // validate the optional field `template`
       if (jsonObj.get("template") != null && !jsonObj.get("template").isJsonNull()) {
-        JsonArray jsonArraytemplate = jsonObj.getAsJsonArray("template");
-        if (jsonArraytemplate != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("template").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `template` to be an array in the JSON string but got `%s`", jsonObj.get("template").toString()));
-          }
-
-          // validate the optional field `template` (array)
-          for (int i = 0; i < jsonArraytemplate.size(); i++) {
-            TemplateParam.validateJsonObject(jsonArraytemplate.get(i).getAsJsonObject());
-          };
-        }
+        TemplateParam.validateJsonObject(jsonObj.getAsJsonObject("template"));
+      }
+      // validate the optional field `callback`
+      if (jsonObj.get("callback") != null && !jsonObj.get("callback").isJsonNull()) {
+        CallbackParam.validateJsonObject(jsonObj.getAsJsonObject("callback"));
       }
       if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
@@ -271,22 +285,22 @@ public class GenerateDocumentBatchRequest {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!GenerateDocumentBatchRequest.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'GenerateDocumentBatchRequest' and its subtypes
+       if (!GenerateDocumentAsynchronousRequest.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'GenerateDocumentAsynchronousRequest' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<GenerateDocumentBatchRequest> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(GenerateDocumentBatchRequest.class));
+       final TypeAdapter<GenerateDocumentAsynchronousRequest> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(GenerateDocumentAsynchronousRequest.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<GenerateDocumentBatchRequest>() {
+       return (TypeAdapter<T>) new TypeAdapter<GenerateDocumentAsynchronousRequest>() {
            @Override
-           public void write(JsonWriter out, GenerateDocumentBatchRequest value) throws IOException {
+           public void write(JsonWriter out, GenerateDocumentAsynchronousRequest value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public GenerateDocumentBatchRequest read(JsonReader in) throws IOException {
+           public GenerateDocumentAsynchronousRequest read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              return thisAdapter.fromJsonTree(jsonObj);
@@ -297,18 +311,18 @@ public class GenerateDocumentBatchRequest {
   }
 
  /**
-  * Create an instance of GenerateDocumentBatchRequest given an JSON string
+  * Create an instance of GenerateDocumentAsynchronousRequest given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of GenerateDocumentBatchRequest
-  * @throws IOException if the JSON string is invalid with respect to GenerateDocumentBatchRequest
+  * @return An instance of GenerateDocumentAsynchronousRequest
+  * @throws IOException if the JSON string is invalid with respect to GenerateDocumentAsynchronousRequest
   */
-  public static GenerateDocumentBatchRequest fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, GenerateDocumentBatchRequest.class);
+  public static GenerateDocumentAsynchronousRequest fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, GenerateDocumentAsynchronousRequest.class);
   }
 
  /**
-  * Convert an instance of GenerateDocumentBatchRequest to an JSON string
+  * Convert an instance of GenerateDocumentAsynchronousRequest to an JSON string
   *
   * @return JSON string
   */

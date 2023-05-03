@@ -388,7 +388,7 @@ public class Example {
 
 <a name="getTemplates"></a>
 # **getTemplates**
-> GetTemplates200Response getTemplates(name, tags, access)
+> GetTemplates200Response getTemplates(name, tags, access, page, perPage)
 
 Get templates
 
@@ -417,8 +417,10 @@ public class Example {
     String name = "name_example"; // String | Filter template by name
     String tags = "tags_example"; // String | Filter template by tags
     String access = "private"; // String | Filter template by access type. No values returns all templates. private - returns only private templates, organization - returns only organization templates.
+    Integer page = 1; // Integer | Pagination: page to return
+    Integer perPage = 15; // Integer | Pagination: How many records to return per page
     try {
-      GetTemplates200Response result = apiInstance.getTemplates(name, tags, access);
+      GetTemplates200Response result = apiInstance.getTemplates(name, tags, access, page, perPage);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#getTemplates");
@@ -438,6 +440,8 @@ public class Example {
 | **name** | **String**| Filter template by name | [optional] |
 | **tags** | **String**| Filter template by tags | [optional] |
 | **access** | **String**| Filter template by access type. No values returns all templates. private - returns only private templates, organization - returns only organization templates. | [optional] [default to ] [enum: private, organization, ] |
+| **page** | **Integer**| Pagination: page to return | [optional] [default to 1] |
+| **perPage** | **Integer**| Pagination: How many records to return per page | [optional] [default to 15] |
 
 ### Return type
 

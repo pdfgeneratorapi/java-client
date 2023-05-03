@@ -1,8 +1,8 @@
 # pdf-generator-api
 
 PDF Generator API
-- API version: 4.0.1
-  - Build date: 2023-02-22T21:48:03.152845+02:00[Europe/Tallinn]
+- API version: 4.0.2
+  - Build date: 2023-05-03T15:08:54.021423+03:00[Europe/Tallinn]
 
 # Introduction
 [PDF Generator API](https://pdfgeneratorapi.com) allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.
@@ -196,7 +196,7 @@ You can also use [jwt.io](https://jwt.io/) to generate test tokens for your API 
 ## 429 Too Many Requests
 | Description                                                             |
 |-------------------------------------------------------------------------|
-| You can make up to 5 requests per second and 120 requests per minute.   |
+| You can make up to 2 requests per second and 60 requests per minute.   |
 
 *  *  *  *  *
 
@@ -236,7 +236,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.pdfgeneratorapi</groupId>
   <artifactId>pdf-generator-api</artifactId>
-  <version>4.0.1</version>
+  <version>4.0.2</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -252,7 +252,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "org.pdfgeneratorapi:pdf-generator-api:4.0.1"
+     implementation "org.pdfgeneratorapi:pdf-generator-api:4.0.2"
   }
 ```
 
@@ -266,7 +266,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pdf-generator-api-4.0.1.jar`
+* `target/pdf-generator-api-4.0.2.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -318,9 +318,9 @@ Class | Method | HTTP request | Description
 *ConversionApi* | [**convertHTML2PDF**](docs/ConversionApi.md#convertHTML2PDF) | **POST** /conversion/html2pdf | HTML to PDF
 *ConversionApi* | [**convertURL2PDF**](docs/ConversionApi.md#convertURL2PDF) | **POST** /conversion/url2pdf | URL to PDF
 *DocumentsApi* | [**generateDocument**](docs/DocumentsApi.md#generateDocument) | **POST** /documents/generate | Generate document
-*DocumentsApi* | [**generateDocumentAsync**](docs/DocumentsApi.md#generateDocumentAsync) | **POST** /documents/generate/async | Generate document (async)
+*DocumentsApi* | [**generateDocumentAsynchronous**](docs/DocumentsApi.md#generateDocumentAsynchronous) | **POST** /documents/generate/async | Generate document (async)
 *DocumentsApi* | [**generateDocumentBatch**](docs/DocumentsApi.md#generateDocumentBatch) | **POST** /documents/generate/batch | Generate document (batch)
-*DocumentsApi* | [**generateDocumentBatchAsync**](docs/DocumentsApi.md#generateDocumentBatchAsync) | **POST** /documents/generate/batch/async | Generate document (batch + async)
+*DocumentsApi* | [**generateDocumentBatchAsynchronous**](docs/DocumentsApi.md#generateDocumentBatchAsynchronous) | **POST** /documents/generate/batch/async | Generate document (batch + async)
 *DocumentsApi* | [**getDocuments**](docs/DocumentsApi.md#getDocuments) | **GET** /documents | Get documents
 *TemplatesApi* | [**copyTemplate**](docs/TemplatesApi.md#copyTemplate) | **POST** /templates/{templateId}/copy | Copy template
 *TemplatesApi* | [**createTemplate**](docs/TemplatesApi.md#createTemplate) | **POST** /templates | Create template
@@ -354,10 +354,10 @@ Class | Method | HTTP request | Description
  - [FormatParam](docs/FormatParam.md)
  - [GenerateDocument200Response](docs/GenerateDocument200Response.md)
  - [GenerateDocument200ResponseMeta](docs/GenerateDocument200ResponseMeta.md)
- - [GenerateDocumentAsync200Response](docs/GenerateDocumentAsync200Response.md)
- - [GenerateDocumentAsync200ResponseResponse](docs/GenerateDocumentAsync200ResponseResponse.md)
- - [GenerateDocumentAsyncRequest](docs/GenerateDocumentAsyncRequest.md)
- - [GenerateDocumentBatchAsyncRequest](docs/GenerateDocumentBatchAsyncRequest.md)
+ - [GenerateDocumentAsynchronous200Response](docs/GenerateDocumentAsynchronous200Response.md)
+ - [GenerateDocumentAsynchronous200ResponseResponse](docs/GenerateDocumentAsynchronous200ResponseResponse.md)
+ - [GenerateDocumentAsynchronousRequest](docs/GenerateDocumentAsynchronousRequest.md)
+ - [GenerateDocumentBatchAsynchronousRequest](docs/GenerateDocumentBatchAsynchronousRequest.md)
  - [GenerateDocumentBatchRequest](docs/GenerateDocumentBatchRequest.md)
  - [GenerateDocumentRequest](docs/GenerateDocumentRequest.md)
  - [GetDocuments200Response](docs/GetDocuments200Response.md)
@@ -380,7 +380,6 @@ Class | Method | HTTP request | Description
  - [TemplateDefinition](docs/TemplateDefinition.md)
  - [TemplateDefinitionDataSettings](docs/TemplateDefinitionDataSettings.md)
  - [TemplateDefinitionEditor](docs/TemplateDefinitionEditor.md)
- - [TemplateDefinitionLayout](docs/TemplateDefinitionLayout.md)
  - [TemplateDefinitionNew](docs/TemplateDefinitionNew.md)
  - [TemplateDefinitionNewLayout](docs/TemplateDefinitionNewLayout.md)
  - [TemplateDefinitionNewLayoutMargins](docs/TemplateDefinitionNewLayoutMargins.md)

@@ -25,22 +25,22 @@ Template component definition
 | Name | Value |
 |---- | -----|
 | LABELCOMPONENT | &quot;labelComponent&quot; |
-| NUMBERCOMPONENT | &quot;numberComponent&quot; |
-| TEXTCOMPONENT | &quot;textComponent&quot; |
-| IMAGECOMPONENT | &quot;imageComponent&quot; |
-| DATECOMPONENT | &quot;dateComponent&quot; |
-| HLINECOMPONENT | &quot;hlineComponent&quot; |
-| VLINECOMPONENT | &quot;vlineComponent&quot; |
 | TABLECOMPONENT | &quot;tableComponent&quot; |
 | COMPOSITECOMPONENT | &quot;compositeComponent&quot; |
+| CHARTCOMPONENT | &quot;chartComponent&quot; |
 | BARCODECOMPONENT | &quot;barcodeComponent&quot; |
 | QRCODECOMPONENT | &quot;qrcodeComponent&quot; |
-| CHARTCOMPONENT | &quot;chartComponent&quot; |
-| RECTANGLECOMPONENT | &quot;rectangleComponent&quot; |
+| IMAGECOMPONENT | &quot;imageComponent&quot; |
 | HEADERCOMPONENT | &quot;headerComponent&quot; |
 | FOOTERCOMPONENT | &quot;footerComponent&quot; |
+| RECTANGLECOMPONENT | &quot;rectangleComponent&quot; |
+| VLINECOMPONENT | &quot;vlineComponent&quot; |
+| HLINECOMPONENT | &quot;hlineComponent&quot; |
+| PAGENUMBERCOMPONENT | &quot;pagenumberComponent&quot; |
+| SYMBOLCOMPONENT | &quot;symbolComponent&quot; |
 | CHECKBOXCOMPONENT | &quot;checkboxComponent&quot; |
 | RADIOCOMPONENT | &quot;radioComponent&quot; |
+| SIGNATURECOMPONENT | &quot;signatureComponent&quot; |
 
 
 

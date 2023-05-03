@@ -21,11 +21,6 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import org.pdfgeneratorapi.client.model.FormatParam;
-import org.pdfgeneratorapi.client.model.OutputParam;
-import org.pdfgeneratorapi.client.model.TemplateParam;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -49,122 +44,36 @@ import java.util.Set;
 import org.pdfgeneratorapi.client.JSON;
 
 /**
- * GenerateDocumentBatchRequest
+ * GenerateDocumentAsynchronous200ResponseResponse
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-05-03T15:08:54.021423+03:00[Europe/Tallinn]")
-public class GenerateDocumentBatchRequest {
-  public static final String SERIALIZED_NAME_TEMPLATE = "template";
-  @SerializedName(SERIALIZED_NAME_TEMPLATE)
-  private List<TemplateParam> template;
+public class GenerateDocumentAsynchronous200ResponseResponse {
+  public static final String SERIALIZED_NAME_JOB_ID = "job_id";
+  @SerializedName(SERIALIZED_NAME_JOB_ID)
+  private String jobId;
 
-  public static final String SERIALIZED_NAME_FORMAT = "format";
-  @SerializedName(SERIALIZED_NAME_FORMAT)
-  private FormatParam format = FormatParam.PDF;
-
-  public static final String SERIALIZED_NAME_OUTPUT = "output";
-  @SerializedName(SERIALIZED_NAME_OUTPUT)
-  private OutputParam output = OutputParam.BASE64;
-
-  public static final String SERIALIZED_NAME_NAME = "name";
-  @SerializedName(SERIALIZED_NAME_NAME)
-  private String name = "";
-
-  public GenerateDocumentBatchRequest() {
+  public GenerateDocumentAsynchronous200ResponseResponse() {
   }
 
-  public GenerateDocumentBatchRequest template(List<TemplateParam> template) {
+  public GenerateDocumentAsynchronous200ResponseResponse jobId(String jobId) {
     
-    this.template = template;
-    return this;
-  }
-
-  public GenerateDocumentBatchRequest addTemplateItem(TemplateParam templateItem) {
-    if (this.template == null) {
-      this.template = new ArrayList<>();
-    }
-    this.template.add(templateItem);
+    this.jobId = jobId;
     return this;
   }
 
    /**
-   * Get template
-   * @return template
+   * Unique job id which is also added to the callback request as header PDF-API-Job-Id
+   * @return jobId
   **/
   @javax.annotation.Nullable
 
-  public List<TemplateParam> getTemplate() {
-    return template;
+  public String getJobId() {
+    return jobId;
   }
 
 
-  public void setTemplate(List<TemplateParam> template) {
-    this.template = template;
-  }
-
-
-  public GenerateDocumentBatchRequest format(FormatParam format) {
-    
-    this.format = format;
-    return this;
-  }
-
-   /**
-   * Get format
-   * @return format
-  **/
-  @javax.annotation.Nullable
-
-  public FormatParam getFormat() {
-    return format;
-  }
-
-
-  public void setFormat(FormatParam format) {
-    this.format = format;
-  }
-
-
-  public GenerateDocumentBatchRequest output(OutputParam output) {
-    
-    this.output = output;
-    return this;
-  }
-
-   /**
-   * Get output
-   * @return output
-  **/
-  @javax.annotation.Nullable
-
-  public OutputParam getOutput() {
-    return output;
-  }
-
-
-  public void setOutput(OutputParam output) {
-    this.output = output;
-  }
-
-
-  public GenerateDocumentBatchRequest name(String name) {
-    
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Generated document name (optional)
-   * @return name
-  **/
-  @javax.annotation.Nullable
-
-  public String getName() {
-    return name;
-  }
-
-
-  public void setName(String name) {
-    this.name = name;
+  public void setJobId(String jobId) {
+    this.jobId = jobId;
   }
 
 
@@ -177,26 +86,20 @@ public class GenerateDocumentBatchRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    GenerateDocumentBatchRequest generateDocumentBatchRequest = (GenerateDocumentBatchRequest) o;
-    return Objects.equals(this.template, generateDocumentBatchRequest.template) &&
-        Objects.equals(this.format, generateDocumentBatchRequest.format) &&
-        Objects.equals(this.output, generateDocumentBatchRequest.output) &&
-        Objects.equals(this.name, generateDocumentBatchRequest.name);
+    GenerateDocumentAsynchronous200ResponseResponse generateDocumentAsynchronous200ResponseResponse = (GenerateDocumentAsynchronous200ResponseResponse) o;
+    return Objects.equals(this.jobId, generateDocumentAsynchronous200ResponseResponse.jobId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(template, format, output, name);
+    return Objects.hash(jobId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class GenerateDocumentBatchRequest {\n");
-    sb.append("    template: ").append(toIndentedString(template)).append("\n");
-    sb.append("    format: ").append(toIndentedString(format)).append("\n");
-    sb.append("    output: ").append(toIndentedString(output)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("class GenerateDocumentAsynchronous200ResponseResponse {\n");
+    sb.append("    jobId: ").append(toIndentedString(jobId)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -219,10 +122,7 @@ public class GenerateDocumentBatchRequest {
   static {
     // a set of all properties/fields (JSON key names)
     openapiFields = new HashSet<String>();
-    openapiFields.add("template");
-    openapiFields.add("format");
-    openapiFields.add("output");
-    openapiFields.add("name");
+    openapiFields.add("job_id");
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>();
@@ -232,38 +132,24 @@ public class GenerateDocumentBatchRequest {
   * Validates the JSON Object and throws an exception if issues found
   *
   * @param jsonObj JSON Object
-  * @throws IOException if the JSON Object is invalid with respect to GenerateDocumentBatchRequest
+  * @throws IOException if the JSON Object is invalid with respect to GenerateDocumentAsynchronous200ResponseResponse
   */
   public static void validateJsonObject(JsonObject jsonObj) throws IOException {
       if (jsonObj == null) {
-        if (!GenerateDocumentBatchRequest.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in GenerateDocumentBatchRequest is not found in the empty JSON string", GenerateDocumentBatchRequest.openapiRequiredFields.toString()));
+        if (!GenerateDocumentAsynchronous200ResponseResponse.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in GenerateDocumentAsynchronous200ResponseResponse is not found in the empty JSON string", GenerateDocumentAsynchronous200ResponseResponse.openapiRequiredFields.toString()));
         }
       }
 
       Set<Entry<String, JsonElement>> entries = jsonObj.entrySet();
       // check to see if the JSON string contains additional fields
       for (Entry<String, JsonElement> entry : entries) {
-        if (!GenerateDocumentBatchRequest.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `GenerateDocumentBatchRequest` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
+        if (!GenerateDocumentAsynchronous200ResponseResponse.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `GenerateDocumentAsynchronous200ResponseResponse` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
-      if (jsonObj.get("template") != null && !jsonObj.get("template").isJsonNull()) {
-        JsonArray jsonArraytemplate = jsonObj.getAsJsonArray("template");
-        if (jsonArraytemplate != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("template").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `template` to be an array in the JSON string but got `%s`", jsonObj.get("template").toString()));
-          }
-
-          // validate the optional field `template` (array)
-          for (int i = 0; i < jsonArraytemplate.size(); i++) {
-            TemplateParam.validateJsonObject(jsonArraytemplate.get(i).getAsJsonObject());
-          };
-        }
-      }
-      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
+      if ((jsonObj.get("job_id") != null && !jsonObj.get("job_id").isJsonNull()) && !jsonObj.get("job_id").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `job_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("job_id").toString()));
       }
   }
 
@@ -271,22 +157,22 @@ public class GenerateDocumentBatchRequest {
     @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!GenerateDocumentBatchRequest.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'GenerateDocumentBatchRequest' and its subtypes
+       if (!GenerateDocumentAsynchronous200ResponseResponse.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'GenerateDocumentAsynchronous200ResponseResponse' and its subtypes
        }
        final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<GenerateDocumentBatchRequest> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(GenerateDocumentBatchRequest.class));
+       final TypeAdapter<GenerateDocumentAsynchronous200ResponseResponse> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(GenerateDocumentAsynchronous200ResponseResponse.class));
 
-       return (TypeAdapter<T>) new TypeAdapter<GenerateDocumentBatchRequest>() {
+       return (TypeAdapter<T>) new TypeAdapter<GenerateDocumentAsynchronous200ResponseResponse>() {
            @Override
-           public void write(JsonWriter out, GenerateDocumentBatchRequest value) throws IOException {
+           public void write(JsonWriter out, GenerateDocumentAsynchronous200ResponseResponse value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              elementAdapter.write(out, obj);
            }
 
            @Override
-           public GenerateDocumentBatchRequest read(JsonReader in) throws IOException {
+           public GenerateDocumentAsynchronous200ResponseResponse read(JsonReader in) throws IOException {
              JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
              validateJsonObject(jsonObj);
              return thisAdapter.fromJsonTree(jsonObj);
@@ -297,18 +183,18 @@ public class GenerateDocumentBatchRequest {
   }
 
  /**
-  * Create an instance of GenerateDocumentBatchRequest given an JSON string
+  * Create an instance of GenerateDocumentAsynchronous200ResponseResponse given an JSON string
   *
   * @param jsonString JSON string
-  * @return An instance of GenerateDocumentBatchRequest
-  * @throws IOException if the JSON string is invalid with respect to GenerateDocumentBatchRequest
+  * @return An instance of GenerateDocumentAsynchronous200ResponseResponse
+  * @throws IOException if the JSON string is invalid with respect to GenerateDocumentAsynchronous200ResponseResponse
   */
-  public static GenerateDocumentBatchRequest fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, GenerateDocumentBatchRequest.class);
+  public static GenerateDocumentAsynchronous200ResponseResponse fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, GenerateDocumentAsynchronous200ResponseResponse.class);
   }
 
  /**
-  * Convert an instance of GenerateDocumentBatchRequest to an JSON string
+  * Convert an instance of GenerateDocumentAsynchronous200ResponseResponse to an JSON string
   *
   * @return JSON string
   */

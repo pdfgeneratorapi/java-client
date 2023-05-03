@@ -5,9 +5,9 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**generateDocument**](DocumentsApi.md#generateDocument) | **POST** /documents/generate | Generate document |
-| [**generateDocumentAsync**](DocumentsApi.md#generateDocumentAsync) | **POST** /documents/generate/async | Generate document (async) |
+| [**generateDocumentAsynchronous**](DocumentsApi.md#generateDocumentAsynchronous) | **POST** /documents/generate/async | Generate document (async) |
 | [**generateDocumentBatch**](DocumentsApi.md#generateDocumentBatch) | **POST** /documents/generate/batch | Generate document (batch) |
-| [**generateDocumentBatchAsync**](DocumentsApi.md#generateDocumentBatchAsync) | **POST** /documents/generate/batch/async | Generate document (batch + async) |
+| [**generateDocumentBatchAsynchronous**](DocumentsApi.md#generateDocumentBatchAsynchronous) | **POST** /documents/generate/batch/async | Generate document (batch + async) |
 | [**getDocuments**](DocumentsApi.md#getDocuments) | **GET** /documents | Get documents |
 
 
@@ -85,9 +85,9 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="generateDocumentAsync"></a>
-# **generateDocumentAsync**
-> GenerateDocumentAsync200Response generateDocumentAsync(generateDocumentAsyncRequest)
+<a name="generateDocumentAsynchronous"></a>
+# **generateDocumentAsynchronous**
+> GenerateDocumentAsynchronous200Response generateDocumentAsynchronous(generateDocumentAsynchronousRequest)
 
 Generate document (async)
 
@@ -113,12 +113,12 @@ public class Example {
     JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
-    GenerateDocumentAsyncRequest generateDocumentAsyncRequest = new GenerateDocumentAsyncRequest(); // GenerateDocumentAsyncRequest | Request parameters, including template id, data and formats.
+    GenerateDocumentAsynchronousRequest generateDocumentAsynchronousRequest = new GenerateDocumentAsynchronousRequest(); // GenerateDocumentAsynchronousRequest | Request parameters, including template id, data and formats.
     try {
-      GenerateDocumentAsync200Response result = apiInstance.generateDocumentAsync(generateDocumentAsyncRequest);
+      GenerateDocumentAsynchronous200Response result = apiInstance.generateDocumentAsynchronous(generateDocumentAsynchronousRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DocumentsApi#generateDocumentAsync");
+      System.err.println("Exception when calling DocumentsApi#generateDocumentAsynchronous");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -132,11 +132,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **generateDocumentAsyncRequest** | [**GenerateDocumentAsyncRequest**](GenerateDocumentAsyncRequest.md)| Request parameters, including template id, data and formats. | |
+| **generateDocumentAsynchronousRequest** | [**GenerateDocumentAsynchronousRequest**](GenerateDocumentAsynchronousRequest.md)| Request parameters, including template id, data and formats. | |
 
 ### Return type
 
-[**GenerateDocumentAsync200Response**](GenerateDocumentAsync200Response.md)
+[**GenerateDocumentAsynchronous200Response**](GenerateDocumentAsynchronous200Response.md)
 
 ### Authorization
 
@@ -233,9 +233,9 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="generateDocumentBatchAsync"></a>
-# **generateDocumentBatchAsync**
-> GenerateDocumentAsync200Response generateDocumentBatchAsync(generateDocumentBatchAsyncRequest)
+<a name="generateDocumentBatchAsynchronous"></a>
+# **generateDocumentBatchAsynchronous**
+> GenerateDocumentAsynchronous200Response generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest)
 
 Generate document (batch + async)
 
@@ -261,12 +261,12 @@ public class Example {
     JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
-    GenerateDocumentBatchAsyncRequest generateDocumentBatchAsyncRequest = new GenerateDocumentBatchAsyncRequest(); // GenerateDocumentBatchAsyncRequest | Request parameters, including template id, data and formats.
+    GenerateDocumentBatchAsynchronousRequest generateDocumentBatchAsynchronousRequest = new GenerateDocumentBatchAsynchronousRequest(); // GenerateDocumentBatchAsynchronousRequest | Request parameters, including template id, data and formats.
     try {
-      GenerateDocumentAsync200Response result = apiInstance.generateDocumentBatchAsync(generateDocumentBatchAsyncRequest);
+      GenerateDocumentAsynchronous200Response result = apiInstance.generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DocumentsApi#generateDocumentBatchAsync");
+      System.err.println("Exception when calling DocumentsApi#generateDocumentBatchAsynchronous");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -280,11 +280,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **generateDocumentBatchAsyncRequest** | [**GenerateDocumentBatchAsyncRequest**](GenerateDocumentBatchAsyncRequest.md)| Request parameters, including template id, data and formats. | |
+| **generateDocumentBatchAsynchronousRequest** | [**GenerateDocumentBatchAsynchronousRequest**](GenerateDocumentBatchAsynchronousRequest.md)| Request parameters, including template id, data and formats. | |
 
 ### Return type
 
-[**GenerateDocumentAsync200Response**](GenerateDocumentAsync200Response.md)
+[**GenerateDocumentAsynchronous200Response**](GenerateDocumentAsynchronous200Response.md)
 
 ### Authorization
 
@@ -309,7 +309,7 @@ public class Example {
 
 <a name="getDocuments"></a>
 # **getDocuments**
-> GetDocuments200Response getDocuments(startDate, endDate)
+> GetDocuments200Response getDocuments(startDate, endDate, page, perPage)
 
 Get documents
 
@@ -337,8 +337,10 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     String startDate = "2022-08-01 12:00:00"; // String | Start date. Format: Y-m-d H:i:s
     String endDate = "2022-08-05 12:00:00"; // String | End date. Format: Y-m-d H:i:s. Defaults to current timestamp
+    Integer page = 1; // Integer | Pagination: page to return
+    Integer perPage = 15; // Integer | Pagination: How many records to return per page
     try {
-      GetDocuments200Response result = apiInstance.getDocuments(startDate, endDate);
+      GetDocuments200Response result = apiInstance.getDocuments(startDate, endDate, page, perPage);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#getDocuments");
@@ -357,6 +359,8 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **startDate** | **String**| Start date. Format: Y-m-d H:i:s | [optional] |
 | **endDate** | **String**| End date. Format: Y-m-d H:i:s. Defaults to current timestamp | [optional] |
+| **page** | **Integer**| Pagination: page to return | [optional] [default to 1] |
+| **perPage** | **Integer**| Pagination: How many records to return per page | [optional] [default to 15] |
 
 ### Return type
 

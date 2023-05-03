@@ -234,7 +234,7 @@ public class Example {
 
 <a name="getWorkspaces"></a>
 # **getWorkspaces**
-> GetWorkspaces200Response getWorkspaces()
+> GetWorkspaces200Response getWorkspaces(page, perPage)
 
 Get workspaces
 
@@ -260,8 +260,10 @@ public class Example {
     JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
     WorkspacesApi apiInstance = new WorkspacesApi(defaultClient);
+    Integer page = 1; // Integer | Pagination: page to return
+    Integer perPage = 15; // Integer | Pagination: How many records to return per page
     try {
-      GetWorkspaces200Response result = apiInstance.getWorkspaces();
+      GetWorkspaces200Response result = apiInstance.getWorkspaces(page, perPage);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling WorkspacesApi#getWorkspaces");
@@ -275,7 +277,11 @@ public class Example {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **page** | **Integer**| Pagination: page to return | [optional] [default to 1] |
+| **perPage** | **Integer**| Pagination: How many records to return per page | [optional] [default to 15] |
 
 ### Return type
 
