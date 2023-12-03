@@ -16,7 +16,7 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 
 <a name="copyTemplate"></a>
 # **copyTemplate**
-> CreateTemplate200Response copyTemplate(templateId, copyTemplateRequest)
+> CreateTemplate201Response copyTemplate(templateId, copyTemplateRequest)
 
 Copy template
 
@@ -45,7 +45,7 @@ public class Example {
     Integer templateId = 19375; // Integer | Template unique identifier
     CopyTemplateRequest copyTemplateRequest = new CopyTemplateRequest(); // CopyTemplateRequest | 
     try {
-      CreateTemplate200Response result = apiInstance.copyTemplate(templateId, copyTemplateRequest);
+      CreateTemplate201Response result = apiInstance.copyTemplate(templateId, copyTemplateRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#copyTemplate");
@@ -67,7 +67,7 @@ public class Example {
 
 ### Return type
 
-[**CreateTemplate200Response**](CreateTemplate200Response.md)
+[**CreateTemplate201Response**](CreateTemplate201Response.md)
 
 ### Authorization
 
@@ -81,7 +81,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Template configuration and example data structure |  -  |
+| **201** | Template configuration and example data structure |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -92,7 +92,7 @@ public class Example {
 
 <a name="createTemplate"></a>
 # **createTemplate**
-> CreateTemplate200Response createTemplate(templateDefinitionNew)
+> CreateTemplate201Response createTemplate(templateDefinitionNew)
 
 Create template
 
@@ -120,7 +120,7 @@ public class Example {
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     TemplateDefinitionNew templateDefinitionNew = new TemplateDefinitionNew(); // TemplateDefinitionNew | Template configuration as JSON string
     try {
-      CreateTemplate200Response result = apiInstance.createTemplate(templateDefinitionNew);
+      CreateTemplate201Response result = apiInstance.createTemplate(templateDefinitionNew);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#createTemplate");
@@ -141,7 +141,7 @@ public class Example {
 
 ### Return type
 
-[**CreateTemplate200Response**](CreateTemplate200Response.md)
+[**CreateTemplate201Response**](CreateTemplate201Response.md)
 
 ### Authorization
 
@@ -155,7 +155,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Template configuration and example data structure |  -  |
+| **201** | Template configuration and example data structure |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -240,7 +240,7 @@ public class Example {
 
 <a name="getTemplate"></a>
 # **getTemplate**
-> CreateTemplate200Response getTemplate(templateId)
+> CreateTemplate201Response getTemplate(templateId)
 
 Get template
 
@@ -268,7 +268,7 @@ public class Example {
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     Integer templateId = 19375; // Integer | Template unique identifier
     try {
-      CreateTemplate200Response result = apiInstance.getTemplate(templateId);
+      CreateTemplate201Response result = apiInstance.getTemplate(templateId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#getTemplate");
@@ -289,7 +289,7 @@ public class Example {
 
 ### Return type
 
-[**CreateTemplate200Response**](CreateTemplate200Response.md)
+[**CreateTemplate201Response**](CreateTemplate201Response.md)
 
 ### Authorization
 
@@ -546,7 +546,7 @@ public class Example {
 
 <a name="updateTemplate"></a>
 # **updateTemplate**
-> CreateTemplate200Response updateTemplate(templateId, templateDefinitionNew)
+> CreateTemplate201Response updateTemplate(templateId, templateDefinitionNew)
 
 Update template
 
@@ -575,7 +575,7 @@ public class Example {
     Integer templateId = 19375; // Integer | Template unique identifier
     TemplateDefinitionNew templateDefinitionNew = new TemplateDefinitionNew(); // TemplateDefinitionNew | Template configuration as JSON string
     try {
-      CreateTemplate200Response result = apiInstance.updateTemplate(templateId, templateDefinitionNew);
+      CreateTemplate201Response result = apiInstance.updateTemplate(templateId, templateDefinitionNew);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#updateTemplate");
@@ -597,7 +597,7 @@ public class Example {
 
 ### Return type
 
-[**CreateTemplate200Response**](CreateTemplate200Response.md)
+[**CreateTemplate201Response**](CreateTemplate201Response.md)
 
 ### Authorization
 

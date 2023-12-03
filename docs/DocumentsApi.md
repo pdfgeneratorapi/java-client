@@ -13,7 +13,7 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 
 <a name="generateDocument"></a>
 # **generateDocument**
-> GenerateDocument200Response generateDocument(generateDocumentRequest)
+> GenerateDocument201Response generateDocument(generateDocumentRequest)
 
 Generate document
 
@@ -41,7 +41,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     GenerateDocumentRequest generateDocumentRequest = new GenerateDocumentRequest(); // GenerateDocumentRequest | Request parameters, including template id, data and formats.
     try {
-      GenerateDocument200Response result = apiInstance.generateDocument(generateDocumentRequest);
+      GenerateDocument201Response result = apiInstance.generateDocument(generateDocumentRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#generateDocument");
@@ -62,7 +62,7 @@ public class Example {
 
 ### Return type
 
-[**GenerateDocument200Response**](GenerateDocument200Response.md)
+[**GenerateDocument201Response**](GenerateDocument201Response.md)
 
 ### Authorization
 
@@ -76,7 +76,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Document data |  -  |
+| **201** | Document data |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -87,7 +87,7 @@ public class Example {
 
 <a name="generateDocumentAsynchronous"></a>
 # **generateDocumentAsynchronous**
-> GenerateDocumentAsynchronous200Response generateDocumentAsynchronous(generateDocumentAsynchronousRequest)
+> GenerateDocumentAsynchronous201Response generateDocumentAsynchronous(generateDocumentAsynchronousRequest)
 
 Generate document (async)
 
@@ -115,7 +115,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     GenerateDocumentAsynchronousRequest generateDocumentAsynchronousRequest = new GenerateDocumentAsynchronousRequest(); // GenerateDocumentAsynchronousRequest | Request parameters, including template id, data and formats.
     try {
-      GenerateDocumentAsynchronous200Response result = apiInstance.generateDocumentAsynchronous(generateDocumentAsynchronousRequest);
+      GenerateDocumentAsynchronous201Response result = apiInstance.generateDocumentAsynchronous(generateDocumentAsynchronousRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#generateDocumentAsynchronous");
@@ -136,7 +136,7 @@ public class Example {
 
 ### Return type
 
-[**GenerateDocumentAsynchronous200Response**](GenerateDocumentAsynchronous200Response.md)
+[**GenerateDocumentAsynchronous201Response**](GenerateDocumentAsynchronous201Response.md)
 
 ### Authorization
 
@@ -150,7 +150,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Async job response |  -  |
+| **201** | Async job response |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -161,7 +161,7 @@ public class Example {
 
 <a name="generateDocumentBatch"></a>
 # **generateDocumentBatch**
-> GenerateDocument200Response generateDocumentBatch(generateDocumentBatchRequest)
+> GenerateDocument201Response generateDocumentBatch(generateDocumentBatchRequest)
 
 Generate document (batch)
 
@@ -189,7 +189,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     GenerateDocumentBatchRequest generateDocumentBatchRequest = new GenerateDocumentBatchRequest(); // GenerateDocumentBatchRequest | Request parameters, including template id, data and formats.
     try {
-      GenerateDocument200Response result = apiInstance.generateDocumentBatch(generateDocumentBatchRequest);
+      GenerateDocument201Response result = apiInstance.generateDocumentBatch(generateDocumentBatchRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#generateDocumentBatch");
@@ -210,7 +210,7 @@ public class Example {
 
 ### Return type
 
-[**GenerateDocument200Response**](GenerateDocument200Response.md)
+[**GenerateDocument201Response**](GenerateDocument201Response.md)
 
 ### Authorization
 
@@ -224,7 +224,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Document data |  -  |
+| **201** | Document data |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -235,7 +235,7 @@ public class Example {
 
 <a name="generateDocumentBatchAsynchronous"></a>
 # **generateDocumentBatchAsynchronous**
-> GenerateDocumentAsynchronous200Response generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest)
+> GenerateDocumentAsynchronous201Response generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest)
 
 Generate document (batch + async)
 
@@ -263,7 +263,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     GenerateDocumentBatchAsynchronousRequest generateDocumentBatchAsynchronousRequest = new GenerateDocumentBatchAsynchronousRequest(); // GenerateDocumentBatchAsynchronousRequest | Request parameters, including template id, data and formats.
     try {
-      GenerateDocumentAsynchronous200Response result = apiInstance.generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest);
+      GenerateDocumentAsynchronous201Response result = apiInstance.generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#generateDocumentBatchAsynchronous");
@@ -284,7 +284,7 @@ public class Example {
 
 ### Return type
 
-[**GenerateDocumentAsynchronous200Response**](GenerateDocumentAsynchronous200Response.md)
+[**GenerateDocumentAsynchronous201Response**](GenerateDocumentAsynchronous201Response.md)
 
 ### Authorization
 
@@ -298,7 +298,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Async job response |  -  |
+| **201** | Async job response |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |

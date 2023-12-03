@@ -25,6 +25,10 @@ Template component definition
 | Name | Value |
 |---- | -----|
 | LABELCOMPONENT | &quot;labelComponent&quot; |
+| TEXTCOMPONENT | &quot;textComponent&quot; |
+| DATECOMPONENT | &quot;dateComponent&quot; |
+| NUMBERCOMPONENT | &quot;numberComponent&quot; |
+| HTMLBLOCKCOMPONENT | &quot;htmlblockComponent&quot; |
 | TABLECOMPONENT | &quot;tableComponent&quot; |
 | COMPOSITECOMPONENT | &quot;compositeComponent&quot; |
 | CHARTCOMPONENT | &quot;chartComponent&quot; |

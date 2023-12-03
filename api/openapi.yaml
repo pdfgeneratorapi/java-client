@@ -67,11 +67,24 @@ info:
     | X-RateLimit-Remaining    | The requests remaining in the current minute               |
     | Retry-After     | How many seconds you need to wait until you are allowed to make requests |
 
+    *  *  *  *  *
+
+    # Libraries and SDKs
     ## Postman Collection
     We have created a [Postman](https://www.postman.com) Collection so you can easily test all the API endpoints without developing and code. You can download the collection [here](https://god.gw.postman.com/run-collection/11578263-c6546175-de49-4b35-904b-29bb52a5a69a?action=collection%2Ffork&collection-url=entityId%3D11578263-c6546175-de49-4b35-904b-29bb52a5a69a%26entityType%3Dcollection%26workspaceId%3D5900d75f-c45d-4e61-9fb7-63aca23580df) or just click the button below.
 
-    [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/11578263-c6546175-de49-4b35-904b-29bb52a5a69a?action=collection%2Ffork&collection-url=entityId%3D11578263-c6546175-de49-4b35-904b-29bb52a5a69a%26entityType%3Dcollection%26workspaceId%3D5900d75f-c45d-4e61-9fb7-63aca23580df)
+     [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/11578263-c6546175-de49-4b35-904b-29bb52a5a69a?action=collection%2Ffork&collection-url=entityId%3D11578263-c6546175-de49-4b35-904b-29bb52a5a69a%26entityType%3Dcollection%26workspaceId%3D5900d75f-c45d-4e61-9fb7-63aca23580df)
 
+    ## Client Libraries
+    All our Client Libraries are auto-generated using [OpenAPI Generator](https://openapi-generator.tech/) which uses the OpenAPI v3 specification to automatically generate a client library in specific programming language.
+
+    * [PHP Client](https://github.com/pdfgeneratorapi/php-client)
+    * [Java Client](https://github.com/pdfgeneratorapi/java-client)
+    * [Ruby Client](https://github.com/pdfgeneratorapi/ruby-client)
+    * [Python Client](https://github.com/pdfgeneratorapi/python-client)
+    * [Javascript Client](https://github.com/pdfgeneratorapi/javascript-client)
+
+    We have validated the generated libraries, but let us know if you find any anomalies in the client code.
     *  *  *  *  *
 
     # Authentication
@@ -201,7 +214,7 @@ info:
 
     *  *  *  *  *
   title: PDF Generator API
-  version: 4.0.2
+  version: 4.0.3
   x-logo:
     url: https://d2304hinatgg5e.cloudfront.net/images/logo/300X90.png
     backgroundColor: '#00d9b5'
@@ -336,11 +349,11 @@ paths:
         description: Template configuration as JSON string
         required: true
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/createTemplate_200_response'
+                $ref: '#/components/schemas/createTemplate_201_response'
           description: Template configuration and example data structure
         "401":
           content:
@@ -474,7 +487,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/createTemplate_200_response'
+                $ref: '#/components/schemas/createTemplate_201_response'
           description: Template configuration and example data structure
         "401":
           content:
@@ -549,7 +562,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/createTemplate_200_response'
+                $ref: '#/components/schemas/createTemplate_201_response'
           description: Template configuration and example data structure
         "401":
           content:
@@ -687,11 +700,11 @@ paths:
             schema:
               $ref: '#/components/schemas/copyTemplate_request'
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/createTemplate_200_response'
+                $ref: '#/components/schemas/createTemplate_201_response'
           description: Template configuration and example data structure
         "401":
           content:
@@ -930,11 +943,11 @@ paths:
         description: "Request parameters, including template id, data and formats."
         required: true
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/generateDocument_200_response'
+                $ref: '#/components/schemas/generateDocument_201_response'
           description: Document data
         "401":
           content:
@@ -1010,11 +1023,11 @@ paths:
         description: "Request parameters, including template id, data and formats."
         required: true
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/generateDocumentAsynchronous_200_response'
+                $ref: '#/components/schemas/generateDocumentAsynchronous_201_response'
           description: Async job response
         "401":
           content:
@@ -1077,11 +1090,11 @@ paths:
         description: "Request parameters, including template id, data and formats."
         required: true
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/generateDocument_200_response'
+                $ref: '#/components/schemas/generateDocument_201_response'
           description: Document data
         "401":
           content:
@@ -1157,11 +1170,11 @@ paths:
         description: "Request parameters, including template id, data and formats."
         required: true
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/generateDocumentAsynchronous_200_response'
+                $ref: '#/components/schemas/generateDocumentAsynchronous_201_response'
           description: Async job response
         "401":
           content:
@@ -1297,11 +1310,11 @@ paths:
             schema:
               $ref: '#/components/schemas/createWorkspace_request'
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/createWorkspace_200_response'
+                $ref: '#/components/schemas/createWorkspace_201_response'
           description: Workspace information
         "401":
           content:
@@ -1436,7 +1449,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/createWorkspace_200_response'
+                $ref: '#/components/schemas/createWorkspace_201_response'
           description: Workspace information
         "401":
           content:
@@ -1495,11 +1508,11 @@ paths:
               $ref: '#/components/schemas/convertHTML2PDF_request'
         required: true
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/generateDocument_200_response'
+                $ref: '#/components/schemas/generateDocument_201_response'
           description: Document data
         "401":
           content:
@@ -1559,11 +1572,11 @@ paths:
               $ref: '#/components/schemas/convertURL2PDF_request'
         required: true
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/generateDocument_200_response'
+                $ref: '#/components/schemas/generateDocument_201_response'
           description: Document data
         "401":
           content:
@@ -1757,13 +1770,13 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/createWorkspace_200_response'
+            $ref: '#/components/schemas/createWorkspace_201_response'
       description: Workspace information
     document:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/generateDocument_200_response'
+            $ref: '#/components/schemas/generateDocument_201_response'
       description: Document data
     documents:
       content:
@@ -1775,13 +1788,13 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/createTemplate_200_response'
+            $ref: '#/components/schemas/createTemplate_201_response'
       description: Template configuration and example data structure
     asyncGeneration:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/generateDocumentAsynchronous_200_response'
+            $ref: '#/components/schemas/generateDocumentAsynchronous_201_response'
       description: Async job response
     error401:
       content:
@@ -1843,6 +1856,10 @@ components:
           description: Defines component class/type
           enum:
           - labelComponent
+          - textComponent
+          - dateComponent
+          - numberComponent
+          - htmlblockComponent
           - tableComponent
           - compositeComponent
           - chartComponent
@@ -2429,7 +2446,7 @@ components:
           example: Internal error
           type: string
       type: object
-    createTemplate_200_response:
+    createTemplate_201_response:
       example:
         response:
           layout:
@@ -2617,7 +2634,7 @@ components:
           example: Invoice 123
           type: string
       type: object
-    generateDocument_200_response_meta:
+    generateDocument_201_response_meta:
       example:
         name: a2bd25b8921f3dc7a440fd7f427f90a4.pdf
         content-type: application/pdf
@@ -2642,7 +2659,7 @@ components:
           example: application/pdf
           type: string
       type: object
-    generateDocument_200_response:
+    generateDocument_201_response:
       example:
         response: JVBERi0xLjcKJeLjz9MKNyAwIG9iago8PCAvVHlwZSA...
         meta:
@@ -2657,7 +2674,7 @@ components:
           example: JVBERi0xLjcKJeLjz9MKNyAwIG9iago8PCAvVHlwZSA...
           type: string
         meta:
-          $ref: '#/components/schemas/generateDocument_200_response_meta'
+          $ref: '#/components/schemas/generateDocument_201_response_meta'
       type: object
     generateDocumentAsynchronous_request:
       properties:
@@ -2675,7 +2692,7 @@ components:
           example: Invoice 123
           type: string
       type: object
-    generateDocumentAsynchronous_200_response_response:
+    generateDocumentAsynchronous_201_response_response:
       example:
         job_id: JeLjz9MKNyAwIG9iago8PCA
       properties:
@@ -2685,13 +2702,13 @@ components:
           example: JeLjz9MKNyAwIG9iago8PCA
           type: string
       type: object
-    generateDocumentAsynchronous_200_response:
+    generateDocumentAsynchronous_201_response:
       example:
         response:
           job_id: JeLjz9MKNyAwIG9iago8PCA
       properties:
         response:
-          $ref: '#/components/schemas/generateDocumentAsynchronous_200_response_response'
+          $ref: '#/components/schemas/generateDocumentAsynchronous_201_response_response'
       type: object
     generateDocumentBatch_request:
       properties:
@@ -2758,7 +2775,7 @@ components:
           example: demo.example@actualreports.com
           type: string
       type: object
-    createWorkspace_200_response:
+    createWorkspace_201_response:
       example:
         response:
           identifier: demo.example@actualreports.com

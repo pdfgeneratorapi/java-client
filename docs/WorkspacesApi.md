@@ -12,7 +12,7 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 
 <a name="createWorkspace"></a>
 # **createWorkspace**
-> CreateWorkspace200Response createWorkspace(createWorkspaceRequest)
+> CreateWorkspace201Response createWorkspace(createWorkspaceRequest)
 
 Create workspace
 
@@ -40,7 +40,7 @@ public class Example {
     WorkspacesApi apiInstance = new WorkspacesApi(defaultClient);
     CreateWorkspaceRequest createWorkspaceRequest = new CreateWorkspaceRequest(); // CreateWorkspaceRequest | 
     try {
-      CreateWorkspace200Response result = apiInstance.createWorkspace(createWorkspaceRequest);
+      CreateWorkspace201Response result = apiInstance.createWorkspace(createWorkspaceRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling WorkspacesApi#createWorkspace");
@@ -61,7 +61,7 @@ public class Example {
 
 ### Return type
 
-[**CreateWorkspace200Response**](CreateWorkspace200Response.md)
+[**CreateWorkspace201Response**](CreateWorkspace201Response.md)
 
 ### Authorization
 
@@ -75,7 +75,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Workspace information |  -  |
+| **201** | Workspace information |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -160,7 +160,7 @@ public class Example {
 
 <a name="getWorkspace"></a>
 # **getWorkspace**
-> CreateWorkspace200Response getWorkspace(workspaceIdentifier)
+> CreateWorkspace201Response getWorkspace(workspaceIdentifier)
 
 Get workspace
 
@@ -188,7 +188,7 @@ public class Example {
     WorkspacesApi apiInstance = new WorkspacesApi(defaultClient);
     String workspaceIdentifier = "demo.example@actualreports.com"; // String | Workspace identifier
     try {
-      CreateWorkspace200Response result = apiInstance.getWorkspace(workspaceIdentifier);
+      CreateWorkspace201Response result = apiInstance.getWorkspace(workspaceIdentifier);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling WorkspacesApi#getWorkspace");
@@ -209,7 +209,7 @@ public class Example {
 
 ### Return type
 
-[**CreateWorkspace200Response**](CreateWorkspace200Response.md)
+[**CreateWorkspace201Response**](CreateWorkspace201Response.md)
 
 ### Authorization
 

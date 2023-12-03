@@ -1,8 +1,8 @@
 # pdf-generator-api
 
 PDF Generator API
-- API version: 4.0.2
-  - Build date: 2023-05-03T15:08:54.021423+03:00[Europe/Tallinn]
+- API version: 4.0.3
+  - Build date: 2023-12-03T17:38:42.652593+02:00[Europe/Tallinn]
 
 # Introduction
 [PDF Generator API](https://pdfgeneratorapi.com) allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.
@@ -66,11 +66,24 @@ Response headers contain additional values:
 | X-RateLimit-Remaining    | The requests remaining in the current minute               |
 | Retry-After     | How many seconds you need to wait until you are allowed to make requests |
 
+*  *  *  *  *
+
+# Libraries and SDKs
 ## Postman Collection
 We have created a [Postman](https://www.postman.com) Collection so you can easily test all the API endpoints without developing and code. You can download the collection [here](https://god.gw.postman.com/run-collection/11578263-c6546175-de49-4b35-904b-29bb52a5a69a?action=collection%2Ffork&collection-url=entityId%3D11578263-c6546175-de49-4b35-904b-29bb52a5a69a%26entityType%3Dcollection%26workspaceId%3D5900d75f-c45d-4e61-9fb7-63aca23580df) or just click the button below.
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/11578263-c6546175-de49-4b35-904b-29bb52a5a69a?action=collection%2Ffork&collection-url=entityId%3D11578263-c6546175-de49-4b35-904b-29bb52a5a69a%26entityType%3Dcollection%26workspaceId%3D5900d75f-c45d-4e61-9fb7-63aca23580df)
+ [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/11578263-c6546175-de49-4b35-904b-29bb52a5a69a?action=collection%2Ffork&collection-url=entityId%3D11578263-c6546175-de49-4b35-904b-29bb52a5a69a%26entityType%3Dcollection%26workspaceId%3D5900d75f-c45d-4e61-9fb7-63aca23580df)
 
+## Client Libraries
+All our Client Libraries are auto-generated using [OpenAPI Generator](https://openapi-generator.tech/) which uses the OpenAPI v3 specification to automatically generate a client library in specific programming language.
+
+* [PHP Client](https://github.com/pdfgeneratorapi/php-client)
+* [Java Client](https://github.com/pdfgeneratorapi/java-client)
+* [Ruby Client](https://github.com/pdfgeneratorapi/ruby-client)
+* [Python Client](https://github.com/pdfgeneratorapi/python-client)
+* [Javascript Client](https://github.com/pdfgeneratorapi/javascript-client)
+
+We have validated the generated libraries, but let us know if you find any anomalies in the client code.
 *  *  *  *  *
 
 # Authentication
@@ -236,7 +249,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.pdfgeneratorapi</groupId>
   <artifactId>pdf-generator-api</artifactId>
-  <version>4.0.2</version>
+  <version>4.0.3</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -252,7 +265,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "org.pdfgeneratorapi:pdf-generator-api:4.0.2"
+     implementation "org.pdfgeneratorapi:pdf-generator-api:4.0.3"
   }
 ```
 
@@ -266,7 +279,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pdf-generator-api-4.0.2.jar`
+* `target/pdf-generator-api-4.0.3.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -295,7 +308,7 @@ public class Example {
     ConversionApi apiInstance = new ConversionApi(defaultClient);
     ConvertHTML2PDFRequest convertHTML2PDFRequest = new ConvertHTML2PDFRequest(); // ConvertHTML2PDFRequest | 
     try {
-      GenerateDocument200Response result = apiInstance.convertHTML2PDF(convertHTML2PDFRequest);
+      GenerateDocument201Response result = apiInstance.convertHTML2PDF(convertHTML2PDFRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConversionApi#convertHTML2PDF");
@@ -344,18 +357,18 @@ Class | Method | HTTP request | Description
  - [ConvertHTML2PDFRequest](docs/ConvertHTML2PDFRequest.md)
  - [ConvertURL2PDFRequest](docs/ConvertURL2PDFRequest.md)
  - [CopyTemplateRequest](docs/CopyTemplateRequest.md)
- - [CreateTemplate200Response](docs/CreateTemplate200Response.md)
- - [CreateWorkspace200Response](docs/CreateWorkspace200Response.md)
+ - [CreateTemplate201Response](docs/CreateTemplate201Response.md)
+ - [CreateWorkspace201Response](docs/CreateWorkspace201Response.md)
  - [CreateWorkspaceRequest](docs/CreateWorkspaceRequest.md)
  - [DataBatchInner](docs/DataBatchInner.md)
  - [DeleteTemplate204Response](docs/DeleteTemplate204Response.md)
  - [DeleteTemplate204ResponseResponse](docs/DeleteTemplate204ResponseResponse.md)
  - [Document](docs/Document.md)
  - [FormatParam](docs/FormatParam.md)
- - [GenerateDocument200Response](docs/GenerateDocument200Response.md)
- - [GenerateDocument200ResponseMeta](docs/GenerateDocument200ResponseMeta.md)
- - [GenerateDocumentAsynchronous200Response](docs/GenerateDocumentAsynchronous200Response.md)
- - [GenerateDocumentAsynchronous200ResponseResponse](docs/GenerateDocumentAsynchronous200ResponseResponse.md)
+ - [GenerateDocument201Response](docs/GenerateDocument201Response.md)
+ - [GenerateDocument201ResponseMeta](docs/GenerateDocument201ResponseMeta.md)
+ - [GenerateDocumentAsynchronous201Response](docs/GenerateDocumentAsynchronous201Response.md)
+ - [GenerateDocumentAsynchronous201ResponseResponse](docs/GenerateDocumentAsynchronous201ResponseResponse.md)
  - [GenerateDocumentAsynchronousRequest](docs/GenerateDocumentAsynchronousRequest.md)
  - [GenerateDocumentBatchAsynchronousRequest](docs/GenerateDocumentBatchAsynchronousRequest.md)
  - [GenerateDocumentBatchRequest](docs/GenerateDocumentBatchRequest.md)

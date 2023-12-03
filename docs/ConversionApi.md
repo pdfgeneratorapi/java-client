@@ -10,7 +10,7 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 
 <a name="convertHTML2PDF"></a>
 # **convertHTML2PDF**
-> GenerateDocument200Response convertHTML2PDF(convertHTML2PDFRequest)
+> GenerateDocument201Response convertHTML2PDF(convertHTML2PDFRequest)
 
 HTML to PDF
 
@@ -38,7 +38,7 @@ public class Example {
     ConversionApi apiInstance = new ConversionApi(defaultClient);
     ConvertHTML2PDFRequest convertHTML2PDFRequest = new ConvertHTML2PDFRequest(); // ConvertHTML2PDFRequest | 
     try {
-      GenerateDocument200Response result = apiInstance.convertHTML2PDF(convertHTML2PDFRequest);
+      GenerateDocument201Response result = apiInstance.convertHTML2PDF(convertHTML2PDFRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConversionApi#convertHTML2PDF");
@@ -59,7 +59,7 @@ public class Example {
 
 ### Return type
 
-[**GenerateDocument200Response**](GenerateDocument200Response.md)
+[**GenerateDocument201Response**](GenerateDocument201Response.md)
 
 ### Authorization
 
@@ -73,7 +73,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Document data |  -  |
+| **201** | Document data |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -84,7 +84,7 @@ public class Example {
 
 <a name="convertURL2PDF"></a>
 # **convertURL2PDF**
-> GenerateDocument200Response convertURL2PDF(convertURL2PDFRequest)
+> GenerateDocument201Response convertURL2PDF(convertURL2PDFRequest)
 
 URL to PDF
 
@@ -112,7 +112,7 @@ public class Example {
     ConversionApi apiInstance = new ConversionApi(defaultClient);
     ConvertURL2PDFRequest convertURL2PDFRequest = new ConvertURL2PDFRequest(); // ConvertURL2PDFRequest | 
     try {
-      GenerateDocument200Response result = apiInstance.convertURL2PDF(convertURL2PDFRequest);
+      GenerateDocument201Response result = apiInstance.convertURL2PDF(convertURL2PDFRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConversionApi#convertURL2PDF");
@@ -133,7 +133,7 @@ public class Example {
 
 ### Return type
 
-[**GenerateDocument200Response**](GenerateDocument200Response.md)
+[**GenerateDocument201Response**](GenerateDocument201Response.md)
 
 ### Authorization
 
@@ -147,7 +147,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Document data |  -  |
+| **201** | Document data |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
