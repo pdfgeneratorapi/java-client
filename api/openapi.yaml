@@ -71,9 +71,7 @@ info:
 
     # Libraries and SDKs
     ## Postman Collection
-    We have created a [Postman](https://www.postman.com) Collection so you can easily test all the API endpoints without developing and code. You can download the collection [here](https://god.gw.postman.com/run-collection/11578263-c6546175-de49-4b35-904b-29bb52a5a69a?action=collection%2Ffork&collection-url=entityId%3D11578263-c6546175-de49-4b35-904b-29bb52a5a69a%26entityType%3Dcollection%26workspaceId%3D5900d75f-c45d-4e61-9fb7-63aca23580df) or just click the button below.
-
-     [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/11578263-c6546175-de49-4b35-904b-29bb52a5a69a?action=collection%2Ffork&collection-url=entityId%3D11578263-c6546175-de49-4b35-904b-29bb52a5a69a%26entityType%3Dcollection%26workspaceId%3D5900d75f-c45d-4e61-9fb7-63aca23580df)
+    We have created a [Postman Collection](https://www.postman.com/pdfgeneratorapi/workspace/pdf-generator-api-public-workspace/overview) so you can easily test all the API endpoints without developing and code. You can download the collection [here](https://www.postman.com/pdfgeneratorapi/workspace/pdf-generator-api-public-workspace/collection/11578263-42fed446-af7e-4266-84e1-69e8c1752e93).
 
     ## Client Libraries
     All our Client Libraries are auto-generated using [OpenAPI Generator](https://openapi-generator.tech/) which uses the OpenAPI v3 specification to automatically generate a client library in specific programming language.
@@ -214,7 +212,7 @@ info:
 
     *  *  *  *  *
   title: PDF Generator API
-  version: 4.0.3
+  version: 4.0.4
   x-logo:
     url: https://d2304hinatgg5e.cloudfront.net/images/logo/300X90.png
     backgroundColor: '#00d9b5'
@@ -346,7 +344,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/TemplateDefinitionNew'
-        description: Template configuration as JSON string
+        description: Template configuration
         required: true
       responses:
         "201":
@@ -354,7 +352,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/createTemplate_201_response'
-          description: Template configuration and example data structure
+          description: Template configuration
         "401":
           content:
             application/json:
@@ -418,11 +416,7 @@ paths:
         style: simple
       responses:
         "204":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/deleteTemplate_204_response'
-          description: The request was successfully executed.
+          description: The resource was deleted successfully.
         "401":
           content:
             application/json:
@@ -488,7 +482,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/createTemplate_201_response'
-          description: Template configuration and example data structure
+          description: Template configuration
         "401":
           content:
             application/json:
@@ -555,7 +549,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/TemplateDefinitionNew'
-        description: Template configuration as JSON string
+        description: Template configuration
         required: true
       responses:
         "200":
@@ -563,7 +557,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/createTemplate_201_response'
-          description: Template configuration and example data structure
+          description: Template configuration
         "401":
           content:
             application/json:
@@ -705,7 +699,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/createTemplate_201_response'
-          description: Template configuration and example data structure
+          description: Template configuration
         "401":
           content:
             application/json:
@@ -1382,7 +1376,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/deleteTemplate_204_response'
+                $ref: '#/components/schemas/deleteWorkspace_204_response'
           description: The request was successfully executed.
         "401":
           content:
@@ -1764,7 +1758,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/deleteTemplate_204_response'
+            $ref: '#/components/schemas/deleteWorkspace_204_response'
       description: The request was successfully executed.
     workspace:
       content:
@@ -1789,7 +1783,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/createTemplate_201_response'
-      description: Template configuration and example data structure
+      description: Template configuration
     asyncGeneration:
       content:
         application/json:
@@ -1841,16 +1835,6 @@ components:
   schemas:
     Component:
       description: Template component definition
-      example:
-        zindex: 102
-        top: 4.2
-        left: 2.5
-        dataIndex: line_items
-        width: 3.5
-        cls: labelComponent
-        id: component-12313
-        value: "${price}"
-        height: 1
       properties:
         cls:
           description: Defines component class/type
@@ -1974,55 +1958,32 @@ components:
             width: 21
             height: 29.7
           height: 29.7
+        editor:
+          heightMultiplier: 2
         pages:
         - margins:
             bottom: 0.5
             right: 0.5
           components:
-          - zindex: 102
-            top: 4.2
-            left: 2.5
-            dataIndex: line_items
-            width: 3.5
-            cls: labelComponent
-            id: component-12313
-            value: "${price}"
-            height: 1
-          - zindex: 102
-            top: 4.2
-            left: 2.5
-            dataIndex: line_items
-            width: 3.5
-            cls: labelComponent
-            id: component-12313
-            value: "${price}"
-            height: 1
+          - "{}"
+          - "{}"
           width: 21
           height: 29.7
         - margins:
             bottom: 0.5
             right: 0.5
           components:
-          - zindex: 102
-            top: 4.2
-            left: 2.5
-            dataIndex: line_items
-            width: 3.5
-            cls: labelComponent
-            id: component-12313
-            value: "${price}"
-            height: 1
-          - zindex: 102
-            top: 4.2
-            left: 2.5
-            dataIndex: line_items
-            width: 3.5
-            cls: labelComponent
-            id: component-12313
-            value: "${price}"
-            height: 1
+          - "{}"
+          - "{}"
           width: 21
           height: 29.7
+        dataSettings:
+          sortBy:
+          - "{}"
+          - "{}"
+          filterBy:
+          - "{}"
+          - "{}"
         name: Invoice template
         isDraft: true
         tags:
@@ -2053,6 +2014,10 @@ components:
           items:
             $ref: '#/components/schemas/TemplateDefinitionNew_pages_inner'
           type: array
+        dataSettings:
+          $ref: '#/components/schemas/TemplateDefinitionNew_dataSettings'
+        editor:
+          $ref: '#/components/schemas/TemplateDefinitionNew_editor'
       required:
       - name
       type: object
@@ -2082,48 +2047,16 @@ components:
             bottom: 0.5
             right: 0.5
           components:
-          - zindex: 102
-            top: 4.2
-            left: 2.5
-            dataIndex: line_items
-            width: 3.5
-            cls: labelComponent
-            id: component-12313
-            value: "${price}"
-            height: 1
-          - zindex: 102
-            top: 4.2
-            left: 2.5
-            dataIndex: line_items
-            width: 3.5
-            cls: labelComponent
-            id: component-12313
-            value: "${price}"
-            height: 1
+          - "{}"
+          - "{}"
           width: 21
           height: 29.7
         - margins:
             bottom: 0.5
             right: 0.5
           components:
-          - zindex: 102
-            top: 4.2
-            left: 2.5
-            dataIndex: line_items
-            width: 3.5
-            cls: labelComponent
-            id: component-12313
-            value: "${price}"
-            height: 1
-          - zindex: 102
-            top: 4.2
-            left: 2.5
-            dataIndex: line_items
-            width: 3.5
-            cls: labelComponent
-            id: component-12313
-            value: "${price}"
-            height: 1
+          - "{}"
+          - "{}"
           width: 21
           height: 29.7
         dataSettings:
@@ -2169,9 +2102,9 @@ components:
             $ref: '#/components/schemas/TemplateDefinitionNew_pages_inner'
           type: array
         dataSettings:
-          $ref: '#/components/schemas/TemplateDefinition_dataSettings'
+          $ref: '#/components/schemas/TemplateDefinitionNew_dataSettings'
         editor:
-          $ref: '#/components/schemas/TemplateDefinition_editor'
+          $ref: '#/components/schemas/TemplateDefinitionNew_editor'
       type: object
     Workspace:
       example:
@@ -2473,48 +2406,16 @@ components:
               bottom: 0.5
               right: 0.5
             components:
-            - zindex: 102
-              top: 4.2
-              left: 2.5
-              dataIndex: line_items
-              width: 3.5
-              cls: labelComponent
-              id: component-12313
-              value: "${price}"
-              height: 1
-            - zindex: 102
-              top: 4.2
-              left: 2.5
-              dataIndex: line_items
-              width: 3.5
-              cls: labelComponent
-              id: component-12313
-              value: "${price}"
-              height: 1
+            - "{}"
+            - "{}"
             width: 21
             height: 29.7
           - margins:
               bottom: 0.5
               right: 0.5
             components:
-            - zindex: 102
-              top: 4.2
-              left: 2.5
-              dataIndex: line_items
-              width: 3.5
-              cls: labelComponent
-              id: component-12313
-              value: "${price}"
-              height: 1
-            - zindex: 102
-              top: 4.2
-              left: 2.5
-              dataIndex: line_items
-              width: 3.5
-              cls: labelComponent
-              id: component-12313
-              value: "${price}"
-              height: 1
+            - "{}"
+            - "{}"
             width: 21
             height: 29.7
           dataSettings:
@@ -2530,25 +2431,12 @@ components:
           tags:
           - invoice
           - orders
+        meta: "{}"
       properties:
         response:
           $ref: '#/components/schemas/TemplateDefinition'
-      type: object
-    deleteTemplate_204_response_response:
-      example:
-        success: true
-      properties:
-        success:
-          example: true
-          type: boolean
-      type: object
-    deleteTemplate_204_response:
-      example:
-        response:
-          success: true
-      properties:
-        response:
-          $ref: '#/components/schemas/deleteTemplate_204_response_response'
+        meta:
+          type: object
       type: object
     getTemplateData_200_response:
       example:
@@ -2786,6 +2674,22 @@ components:
         response:
           $ref: '#/components/schemas/Workspace'
       type: object
+    deleteWorkspace_204_response_response:
+      example:
+        success: true
+      properties:
+        success:
+          example: true
+          type: boolean
+      type: object
+    deleteWorkspace_204_response:
+      example:
+        response:
+          success: true
+      properties:
+        response:
+          $ref: '#/components/schemas/deleteWorkspace_204_response_response'
+      type: object
     convertHTML2PDF_request:
       properties:
         content:
@@ -2803,6 +2707,7 @@ components:
           - a4
           - legal
           - tabloid
+          - letter
           example: a4
           type: string
         orientation:
@@ -2842,6 +2747,7 @@ components:
           - a4
           - legal
           - tabloid
+          - letter
           example: a4
           type: string
         orientation:
@@ -2931,6 +2837,7 @@ components:
         height: 29.7
       properties:
         format:
+          default: A4
           description: Defines template page size
           enum:
           - A4
@@ -2947,6 +2854,7 @@ components:
           example: 29.7
           type: number
         unit:
+          default: cm
           description: Measure unit
           enum:
           - cm
@@ -2974,7 +2882,8 @@ components:
         repeatLayout:
           $ref: '#/components/schemas/TemplateDefinitionNew_layout_repeatLayout'
         emptyLabels:
-          description: Defines how many pages or labels should be empty
+          default: 0
+          description: Specifies how many blank lables to add to sheet label.
           example: 0
           type: integer
       type: object
@@ -2998,24 +2907,8 @@ components:
           bottom: 0.5
           right: 0.5
         components:
-        - zindex: 102
-          top: 4.2
-          left: 2.5
-          dataIndex: line_items
-          width: 3.5
-          cls: labelComponent
-          id: component-12313
-          value: "${price}"
-          height: 1
-        - zindex: 102
-          top: 4.2
-          left: 2.5
-          dataIndex: line_items
-          width: 3.5
-          cls: labelComponent
-          id: component-12313
-          value: "${price}"
-          height: 1
+        - "{}"
+        - "{}"
         width: 21
         height: 29.7
       properties:
@@ -3031,10 +2924,10 @@ components:
           $ref: '#/components/schemas/TemplateDefinitionNew_pages_inner_margins'
         components:
           items:
-            $ref: '#/components/schemas/Component'
+            type: object
           type: array
       type: object
-    TemplateDefinition_dataSettings:
+    TemplateDefinitionNew_dataSettings:
       description: Defines filter and sort option for root data set.
       example:
         sortBy:
@@ -3053,7 +2946,7 @@ components:
             type: object
           type: array
       type: object
-    TemplateDefinition_editor:
+    TemplateDefinitionNew_editor:
       description: Configuration preferences for the editor
       example:
         heightMultiplier: 2

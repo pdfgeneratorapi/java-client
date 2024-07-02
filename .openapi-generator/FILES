@@ -16,8 +16,8 @@ docs/CreateTemplate201Response.md
 docs/CreateWorkspace201Response.md
 docs/CreateWorkspaceRequest.md
 docs/DataBatchInner.md
-docs/DeleteTemplate204Response.md
-docs/DeleteTemplate204ResponseResponse.md
+docs/DeleteWorkspace204Response.md
+docs/DeleteWorkspace204ResponseResponse.md
 docs/Document.md
 docs/DocumentsApi.md
 docs/FormatParam.md
@@ -47,9 +47,9 @@ docs/OutputParam.md
 docs/PaginationMeta.md
 docs/Template.md
 docs/TemplateDefinition.md
-docs/TemplateDefinitionDataSettings.md
-docs/TemplateDefinitionEditor.md
 docs/TemplateDefinitionNew.md
+docs/TemplateDefinitionNewDataSettings.md
+docs/TemplateDefinitionNewEditor.md
 docs/TemplateDefinitionNewLayout.md
 docs/TemplateDefinitionNewLayoutMargins.md
 docs/TemplateDefinitionNewLayoutRepeatLayout.md
@@ -101,8 +101,8 @@ src/main/java/org/pdfgeneratorapi/client/model/CreateTemplate201Response.java
 src/main/java/org/pdfgeneratorapi/client/model/CreateWorkspace201Response.java
 src/main/java/org/pdfgeneratorapi/client/model/CreateWorkspaceRequest.java
 src/main/java/org/pdfgeneratorapi/client/model/DataBatchInner.java
-src/main/java/org/pdfgeneratorapi/client/model/DeleteTemplate204Response.java
-src/main/java/org/pdfgeneratorapi/client/model/DeleteTemplate204ResponseResponse.java
+src/main/java/org/pdfgeneratorapi/client/model/DeleteWorkspace204Response.java
+src/main/java/org/pdfgeneratorapi/client/model/DeleteWorkspace204ResponseResponse.java
 src/main/java/org/pdfgeneratorapi/client/model/Document.java
 src/main/java/org/pdfgeneratorapi/client/model/FormatParam.java
 src/main/java/org/pdfgeneratorapi/client/model/GenerateDocument201Response.java
@@ -131,9 +131,9 @@ src/main/java/org/pdfgeneratorapi/client/model/OutputParam.java
 src/main/java/org/pdfgeneratorapi/client/model/PaginationMeta.java
 src/main/java/org/pdfgeneratorapi/client/model/Template.java
 src/main/java/org/pdfgeneratorapi/client/model/TemplateDefinition.java
-src/main/java/org/pdfgeneratorapi/client/model/TemplateDefinitionDataSettings.java
-src/main/java/org/pdfgeneratorapi/client/model/TemplateDefinitionEditor.java
 src/main/java/org/pdfgeneratorapi/client/model/TemplateDefinitionNew.java
+src/main/java/org/pdfgeneratorapi/client/model/TemplateDefinitionNewDataSettings.java
+src/main/java/org/pdfgeneratorapi/client/model/TemplateDefinitionNewEditor.java
 src/main/java/org/pdfgeneratorapi/client/model/TemplateDefinitionNewLayout.java
 src/main/java/org/pdfgeneratorapi/client/model/TemplateDefinitionNewLayoutMargins.java
 src/main/java/org/pdfgeneratorapi/client/model/TemplateDefinitionNewLayoutRepeatLayout.java
@@ -142,9 +142,3 @@ src/main/java/org/pdfgeneratorapi/client/model/TemplateDefinitionNewPagesInnerMa
 src/main/java/org/pdfgeneratorapi/client/model/TemplateParam.java
 src/main/java/org/pdfgeneratorapi/client/model/TemplateParamData.java
 src/main/java/org/pdfgeneratorapi/client/model/Workspace.java
-src/test/java/org/pdfgeneratorapi/client/model/CreateTemplate201ResponseTest.java
-src/test/java/org/pdfgeneratorapi/client/model/CreateWorkspace201ResponseTest.java
-src/test/java/org/pdfgeneratorapi/client/model/GenerateDocument201ResponseMetaTest.java
-src/test/java/org/pdfgeneratorapi/client/model/GenerateDocument201ResponseTest.java
-src/test/java/org/pdfgeneratorapi/client/model/GenerateDocumentAsynchronous201ResponseResponseTest.java
-src/test/java/org/pdfgeneratorapi/client/model/GenerateDocumentAsynchronous201ResponseTest.java

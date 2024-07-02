@@ -81,7 +81,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **201** | Template configuration and example data structure |  -  |
+| **201** | Template configuration |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -118,7 +118,7 @@ public class Example {
     JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
-    TemplateDefinitionNew templateDefinitionNew = new TemplateDefinitionNew(); // TemplateDefinitionNew | Template configuration as JSON string
+    TemplateDefinitionNew templateDefinitionNew = new TemplateDefinitionNew(); // TemplateDefinitionNew | Template configuration
     try {
       CreateTemplate201Response result = apiInstance.createTemplate(templateDefinitionNew);
       System.out.println(result);
@@ -137,7 +137,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **templateDefinitionNew** | [**TemplateDefinitionNew**](TemplateDefinitionNew.md)| Template configuration as JSON string | |
+| **templateDefinitionNew** | [**TemplateDefinitionNew**](TemplateDefinitionNew.md)| Template configuration | |
 
 ### Return type
 
@@ -155,7 +155,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **201** | Template configuration and example data structure |  -  |
+| **201** | Template configuration |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -166,7 +166,7 @@ public class Example {
 
 <a name="deleteTemplate"></a>
 # **deleteTemplate**
-> DeleteTemplate204Response deleteTemplate(templateId)
+> deleteTemplate(templateId)
 
 Delete template
 
@@ -194,8 +194,7 @@ public class Example {
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     Integer templateId = 19375; // Integer | Template unique identifier
     try {
-      DeleteTemplate204Response result = apiInstance.deleteTemplate(templateId);
-      System.out.println(result);
+      apiInstance.deleteTemplate(templateId);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#deleteTemplate");
       System.err.println("Status code: " + e.getCode());
@@ -215,7 +214,7 @@ public class Example {
 
 ### Return type
 
-[**DeleteTemplate204Response**](DeleteTemplate204Response.md)
+null (empty response body)
 
 ### Authorization
 
@@ -229,7 +228,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | The request was successfully executed. |  -  |
+| **204** | The resource was deleted successfully. |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -303,7 +302,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Template configuration and example data structure |  -  |
+| **200** | Template configuration |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -573,7 +572,7 @@ public class Example {
 
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     Integer templateId = 19375; // Integer | Template unique identifier
-    TemplateDefinitionNew templateDefinitionNew = new TemplateDefinitionNew(); // TemplateDefinitionNew | Template configuration as JSON string
+    TemplateDefinitionNew templateDefinitionNew = new TemplateDefinitionNew(); // TemplateDefinitionNew | Template configuration
     try {
       CreateTemplate201Response result = apiInstance.updateTemplate(templateId, templateDefinitionNew);
       System.out.println(result);
@@ -593,7 +592,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **templateId** | **Integer**| Template unique identifier | |
-| **templateDefinitionNew** | [**TemplateDefinitionNew**](TemplateDefinitionNew.md)| Template configuration as JSON string | |
+| **templateDefinitionNew** | [**TemplateDefinitionNew**](TemplateDefinitionNew.md)| Template configuration | |
 
 ### Return type
 
@@ -611,7 +610,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Template configuration and example data structure |  -  |
+| **200** | Template configuration |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |

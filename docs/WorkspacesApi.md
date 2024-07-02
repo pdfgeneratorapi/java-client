@@ -86,7 +86,7 @@ public class Example {
 
 <a name="deleteWorkspace"></a>
 # **deleteWorkspace**
-> DeleteTemplate204Response deleteWorkspace(workspaceIdentifier)
+> DeleteWorkspace204Response deleteWorkspace(workspaceIdentifier)
 
 Delete workspace
 
@@ -114,7 +114,7 @@ public class Example {
     WorkspacesApi apiInstance = new WorkspacesApi(defaultClient);
     String workspaceIdentifier = "demo.example@actualreports.com"; // String | Workspace identifier
     try {
-      DeleteTemplate204Response result = apiInstance.deleteWorkspace(workspaceIdentifier);
+      DeleteWorkspace204Response result = apiInstance.deleteWorkspace(workspaceIdentifier);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling WorkspacesApi#deleteWorkspace");
@@ -135,7 +135,7 @@ public class Example {
 
 ### Return type
 
-[**DeleteTemplate204Response**](DeleteTemplate204Response.md)
+[**DeleteWorkspace204Response**](DeleteWorkspace204Response.md)
 
 ### Authorization
 

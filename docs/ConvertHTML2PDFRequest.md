@@ -26,6 +26,7 @@
 | A4 | &quot;a4&quot; |
 | LEGAL | &quot;legal&quot; |
 | TABLOID | &quot;tabloid&quot; |
+| LETTER | &quot;letter&quot; |
 
 
 

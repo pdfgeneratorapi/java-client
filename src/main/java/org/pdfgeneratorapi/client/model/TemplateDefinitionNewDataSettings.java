@@ -13,137 +13,245 @@
 
 package org.pdfgeneratorapi.client.model;
 
-import org.pdfgeneratorapi.client.ApiException;
 import java.util.Objects;
-import java.lang.reflect.Type;
-import java.util.Map;
-import javax.ws.rs.core.GenericType;
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-//import com.fasterxml.jackson.annotation.JsonValue;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.pdfgeneratorapi.client.JSON;
 
 /**
- * Abstract class for oneOf,anyOf schemas defined in OpenAPI spec
+ * Defines filter and sort option for root data set.
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T10:54:04.148726+03:00[Europe/Tallinn]")
-public abstract class AbstractOpenApiSchema {
+public class TemplateDefinitionNewDataSettings {
+  public static final String SERIALIZED_NAME_SORT_BY = "sortBy";
+  @SerializedName(SERIALIZED_NAME_SORT_BY)
+  private List<Object> sortBy;
 
-    // store the actual instance of the schema/object
-    private Object instance;
+  public static final String SERIALIZED_NAME_FILTER_BY = "filterBy";
+  @SerializedName(SERIALIZED_NAME_FILTER_BY)
+  private List<Object> filterBy;
 
-    // is nullable
-    private Boolean isNullable;
+  public TemplateDefinitionNewDataSettings() {
+  }
 
-    // schema type (e.g. oneOf, anyOf)
-    private final String schemaType;
+  public TemplateDefinitionNewDataSettings sortBy(List<Object> sortBy) {
+    
+    this.sortBy = sortBy;
+    return this;
+  }
 
-    public AbstractOpenApiSchema(String schemaType, Boolean isNullable) {
-        this.schemaType = schemaType;
-        this.isNullable = isNullable;
+  public TemplateDefinitionNewDataSettings addSortByItem(Object sortByItem) {
+    if (this.sortBy == null) {
+      this.sortBy = new ArrayList<>();
     }
+    this.sortBy.add(sortByItem);
+    return this;
+  }
 
-    /**
-     * Get the list of oneOf/anyOf composed schemas allowed to be stored in this object
-     *
-     * @return an instance of the actual schema/object
-     */
-    public abstract Map<String, GenericType> getSchemas();
+   /**
+   * Get sortBy
+   * @return sortBy
+  **/
+  @javax.annotation.Nullable
 
-    /**
-     * Get the actual instance
-     *
-     * @return an instance of the actual schema/object
-     */
-    //@JsonValue
-    public Object getActualInstance() {return instance;}
+  public List<Object> getSortBy() {
+    return sortBy;
+  }
 
-    /**
-     * Set the actual instance
-     *
-     * @param instance the actual instance of the schema/object
-     */
-    public void setActualInstance(Object instance) {this.instance = instance;}
 
-    /**
-     * Get the instant recursively when the schemas defined in oneOf/anyof happen to be oneOf/anyOf schema as well
-     *
-     * @return an instance of the actual schema/object
-     */
-    public Object getActualInstanceRecursively() {
-        return getActualInstanceRecursively(this);
+  public void setSortBy(List<Object> sortBy) {
+    this.sortBy = sortBy;
+  }
+
+
+  public TemplateDefinitionNewDataSettings filterBy(List<Object> filterBy) {
+    
+    this.filterBy = filterBy;
+    return this;
+  }
+
+  public TemplateDefinitionNewDataSettings addFilterByItem(Object filterByItem) {
+    if (this.filterBy == null) {
+      this.filterBy = new ArrayList<>();
     }
+    this.filterBy.add(filterByItem);
+    return this;
+  }
 
-    private Object getActualInstanceRecursively(AbstractOpenApiSchema object) {
-        if (object.getActualInstance() == null) {
-            return null;
-        } else if (object.getActualInstance() instanceof AbstractOpenApiSchema) {
-            return getActualInstanceRecursively((AbstractOpenApiSchema)object.getActualInstance());
-        } else {
-            return object.getActualInstance();
+   /**
+   * Get filterBy
+   * @return filterBy
+  **/
+  @javax.annotation.Nullable
+
+  public List<Object> getFilterBy() {
+    return filterBy;
+  }
+
+
+  public void setFilterBy(List<Object> filterBy) {
+    this.filterBy = filterBy;
+  }
+
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TemplateDefinitionNewDataSettings templateDefinitionNewDataSettings = (TemplateDefinitionNewDataSettings) o;
+    return Objects.equals(this.sortBy, templateDefinitionNewDataSettings.sortBy) &&
+        Objects.equals(this.filterBy, templateDefinitionNewDataSettings.filterBy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(sortBy, filterBy);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TemplateDefinitionNewDataSettings {\n");
+    sb.append("    sortBy: ").append(toIndentedString(sortBy)).append("\n");
+    sb.append("    filterBy: ").append(toIndentedString(filterBy)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
+
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("sortBy");
+    openapiFields.add("filterBy");
+
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+  }
+
+ /**
+  * Validates the JSON Object and throws an exception if issues found
+  *
+  * @param jsonObj JSON Object
+  * @throws IOException if the JSON Object is invalid with respect to TemplateDefinitionNewDataSettings
+  */
+  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
+      if (jsonObj == null) {
+        if (!TemplateDefinitionNewDataSettings.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in TemplateDefinitionNewDataSettings is not found in the empty JSON string", TemplateDefinitionNewDataSettings.openapiRequiredFields.toString()));
         }
-    }
+      }
 
-    /**
-     * Get the schema type (e.g. anyOf, oneOf)
-     *
-     * @return the schema type
-     */
-    public String getSchemaType() {
-        return schemaType;
-    }
+      Set<Entry<String, JsonElement>> entries = jsonObj.entrySet();
+      // check to see if the JSON string contains additional fields
+      for (Entry<String, JsonElement> entry : entries) {
+        if (!TemplateDefinitionNewDataSettings.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `TemplateDefinitionNewDataSettings` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
+        }
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("sortBy") != null && !jsonObj.get("sortBy").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `sortBy` to be an array in the JSON string but got `%s`", jsonObj.get("sortBy").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("filterBy") != null && !jsonObj.get("filterBy").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `filterBy` to be an array in the JSON string but got `%s`", jsonObj.get("filterBy").toString()));
+      }
+  }
 
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ").append(getClass()).append(" {\n");
-        sb.append("    instance: ").append(toIndentedString(instance)).append("\n");
-        sb.append("    isNullable: ").append(toIndentedString(isNullable)).append("\n");
-        sb.append("    schemaType: ").append(toIndentedString(schemaType)).append("\n");
-        sb.append("}");
-        return sb.toString();
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!TemplateDefinitionNewDataSettings.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'TemplateDefinitionNewDataSettings' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<TemplateDefinitionNewDataSettings> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(TemplateDefinitionNewDataSettings.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<TemplateDefinitionNewDataSettings>() {
+           @Override
+           public void write(JsonWriter out, TemplateDefinitionNewDataSettings value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public TemplateDefinitionNewDataSettings read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             validateJsonObject(jsonObj);
+             return thisAdapter.fromJsonTree(jsonObj);
+           }
+
+       }.nullSafe();
     }
+  }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
+ /**
+  * Create an instance of TemplateDefinitionNewDataSettings given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of TemplateDefinitionNewDataSettings
+  * @throws IOException if the JSON string is invalid with respect to TemplateDefinitionNewDataSettings
+  */
+  public static TemplateDefinitionNewDataSettings fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, TemplateDefinitionNewDataSettings.class);
+  }
 
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        AbstractOpenApiSchema a = (AbstractOpenApiSchema) o;
-        return Objects.equals(this.instance, a.instance) &&
-            Objects.equals(this.isNullable, a.isNullable) &&
-            Objects.equals(this.schemaType, a.schemaType);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(instance, isNullable, schemaType);
-    }
-
-    /**
-     * Is nullable
-     *
-     * @return true if it's nullable
-     */
-    public Boolean isNullable() {
-        if (Boolean.TRUE.equals(isNullable)) {
-            return Boolean.TRUE;
-        } else {
-            return Boolean.FALSE;
-        }
-    }
-
-
-
+ /**
+  * Convert an instance of TemplateDefinitionNewDataSettings to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
+

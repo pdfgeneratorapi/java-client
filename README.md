@@ -1,8 +1,8 @@
 # pdf-generator-api
 
 PDF Generator API
-- API version: 4.0.3
-  - Build date: 2023-12-03T17:38:42.652593+02:00[Europe/Tallinn]
+- API version: 4.0.4
+  - Build date: 2024-07-02T10:54:04.148726+03:00[Europe/Tallinn]
 
 # Introduction
 [PDF Generator API](https://pdfgeneratorapi.com) allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.
@@ -70,9 +70,7 @@ Response headers contain additional values:
 
 # Libraries and SDKs
 ## Postman Collection
-We have created a [Postman](https://www.postman.com) Collection so you can easily test all the API endpoints without developing and code. You can download the collection [here](https://god.gw.postman.com/run-collection/11578263-c6546175-de49-4b35-904b-29bb52a5a69a?action=collection%2Ffork&collection-url=entityId%3D11578263-c6546175-de49-4b35-904b-29bb52a5a69a%26entityType%3Dcollection%26workspaceId%3D5900d75f-c45d-4e61-9fb7-63aca23580df) or just click the button below.
-
- [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/11578263-c6546175-de49-4b35-904b-29bb52a5a69a?action=collection%2Ffork&collection-url=entityId%3D11578263-c6546175-de49-4b35-904b-29bb52a5a69a%26entityType%3Dcollection%26workspaceId%3D5900d75f-c45d-4e61-9fb7-63aca23580df)
+We have created a [Postman Collection](https://www.postman.com/pdfgeneratorapi/workspace/pdf-generator-api-public-workspace/overview) so you can easily test all the API endpoints without developing and code. You can download the collection [here](https://www.postman.com/pdfgeneratorapi/workspace/pdf-generator-api-public-workspace/collection/11578263-42fed446-af7e-4266-84e1-69e8c1752e93).
 
 ## Client Libraries
 All our Client Libraries are auto-generated using [OpenAPI Generator](https://openapi-generator.tech/) which uses the OpenAPI v3 specification to automatically generate a client library in specific programming language.
@@ -249,7 +247,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.pdfgeneratorapi</groupId>
   <artifactId>pdf-generator-api</artifactId>
-  <version>4.0.3</version>
+  <version>4.0.4</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -265,7 +263,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "org.pdfgeneratorapi:pdf-generator-api:4.0.3"
+     implementation "org.pdfgeneratorapi:pdf-generator-api:4.0.4"
   }
 ```
 
@@ -279,7 +277,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pdf-generator-api-4.0.3.jar`
+* `target/pdf-generator-api-4.0.4.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -361,8 +359,8 @@ Class | Method | HTTP request | Description
  - [CreateWorkspace201Response](docs/CreateWorkspace201Response.md)
  - [CreateWorkspaceRequest](docs/CreateWorkspaceRequest.md)
  - [DataBatchInner](docs/DataBatchInner.md)
- - [DeleteTemplate204Response](docs/DeleteTemplate204Response.md)
- - [DeleteTemplate204ResponseResponse](docs/DeleteTemplate204ResponseResponse.md)
+ - [DeleteWorkspace204Response](docs/DeleteWorkspace204Response.md)
+ - [DeleteWorkspace204ResponseResponse](docs/DeleteWorkspace204ResponseResponse.md)
  - [Document](docs/Document.md)
  - [FormatParam](docs/FormatParam.md)
  - [GenerateDocument201Response](docs/GenerateDocument201Response.md)
@@ -391,9 +389,9 @@ Class | Method | HTTP request | Description
  - [PaginationMeta](docs/PaginationMeta.md)
  - [Template](docs/Template.md)
  - [TemplateDefinition](docs/TemplateDefinition.md)
- - [TemplateDefinitionDataSettings](docs/TemplateDefinitionDataSettings.md)
- - [TemplateDefinitionEditor](docs/TemplateDefinitionEditor.md)
  - [TemplateDefinitionNew](docs/TemplateDefinitionNew.md)
+ - [TemplateDefinitionNewDataSettings](docs/TemplateDefinitionNewDataSettings.md)
+ - [TemplateDefinitionNewEditor](docs/TemplateDefinitionNewEditor.md)
  - [TemplateDefinitionNewLayout](docs/TemplateDefinitionNewLayout.md)
  - [TemplateDefinitionNewLayoutMargins](docs/TemplateDefinitionNewLayoutMargins.md)
  - [TemplateDefinitionNewLayoutRepeatLayout](docs/TemplateDefinitionNewLayoutRepeatLayout.md)

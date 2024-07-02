@@ -13,137 +13,195 @@
 
 package org.pdfgeneratorapi.client.model;
 
-import org.pdfgeneratorapi.client.ApiException;
 import java.util.Objects;
-import java.lang.reflect.Type;
-import java.util.Map;
-import javax.ws.rs.core.GenericType;
+import java.util.Arrays;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
+import org.pdfgeneratorapi.client.model.DeleteWorkspace204ResponseResponse;
 
-//import com.fasterxml.jackson.annotation.JsonValue;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.pdfgeneratorapi.client.JSON;
 
 /**
- * Abstract class for oneOf,anyOf schemas defined in OpenAPI spec
+ * DeleteWorkspace204Response
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-07-02T10:54:04.148726+03:00[Europe/Tallinn]")
-public abstract class AbstractOpenApiSchema {
+public class DeleteWorkspace204Response {
+  public static final String SERIALIZED_NAME_RESPONSE = "response";
+  @SerializedName(SERIALIZED_NAME_RESPONSE)
+  private DeleteWorkspace204ResponseResponse response;
 
-    // store the actual instance of the schema/object
-    private Object instance;
+  public DeleteWorkspace204Response() {
+  }
 
-    // is nullable
-    private Boolean isNullable;
+  public DeleteWorkspace204Response response(DeleteWorkspace204ResponseResponse response) {
+    
+    this.response = response;
+    return this;
+  }
 
-    // schema type (e.g. oneOf, anyOf)
-    private final String schemaType;
+   /**
+   * Get response
+   * @return response
+  **/
+  @javax.annotation.Nullable
 
-    public AbstractOpenApiSchema(String schemaType, Boolean isNullable) {
-        this.schemaType = schemaType;
-        this.isNullable = isNullable;
+  public DeleteWorkspace204ResponseResponse getResponse() {
+    return response;
+  }
+
+
+  public void setResponse(DeleteWorkspace204ResponseResponse response) {
+    this.response = response;
+  }
+
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    /**
-     * Get the list of oneOf/anyOf composed schemas allowed to be stored in this object
-     *
-     * @return an instance of the actual schema/object
-     */
-    public abstract Map<String, GenericType> getSchemas();
-
-    /**
-     * Get the actual instance
-     *
-     * @return an instance of the actual schema/object
-     */
-    //@JsonValue
-    public Object getActualInstance() {return instance;}
-
-    /**
-     * Set the actual instance
-     *
-     * @param instance the actual instance of the schema/object
-     */
-    public void setActualInstance(Object instance) {this.instance = instance;}
-
-    /**
-     * Get the instant recursively when the schemas defined in oneOf/anyof happen to be oneOf/anyOf schema as well
-     *
-     * @return an instance of the actual schema/object
-     */
-    public Object getActualInstanceRecursively() {
-        return getActualInstanceRecursively(this);
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    DeleteWorkspace204Response deleteWorkspace204Response = (DeleteWorkspace204Response) o;
+    return Objects.equals(this.response, deleteWorkspace204Response.response);
+  }
 
-    private Object getActualInstanceRecursively(AbstractOpenApiSchema object) {
-        if (object.getActualInstance() == null) {
-            return null;
-        } else if (object.getActualInstance() instanceof AbstractOpenApiSchema) {
-            return getActualInstanceRecursively((AbstractOpenApiSchema)object.getActualInstance());
-        } else {
-            return object.getActualInstance();
+  @Override
+  public int hashCode() {
+    return Objects.hash(response);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class DeleteWorkspace204Response {\n");
+    sb.append("    response: ").append(toIndentedString(response)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
+
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("response");
+
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+  }
+
+ /**
+  * Validates the JSON Object and throws an exception if issues found
+  *
+  * @param jsonObj JSON Object
+  * @throws IOException if the JSON Object is invalid with respect to DeleteWorkspace204Response
+  */
+  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
+      if (jsonObj == null) {
+        if (!DeleteWorkspace204Response.openapiRequiredFields.isEmpty()) { // has required fields but JSON object is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in DeleteWorkspace204Response is not found in the empty JSON string", DeleteWorkspace204Response.openapiRequiredFields.toString()));
         }
-    }
+      }
 
-    /**
-     * Get the schema type (e.g. anyOf, oneOf)
-     *
-     * @return the schema type
-     */
-    public String getSchemaType() {
-        return schemaType;
-    }
+      Set<Entry<String, JsonElement>> entries = jsonObj.entrySet();
+      // check to see if the JSON string contains additional fields
+      for (Entry<String, JsonElement> entry : entries) {
+        if (!DeleteWorkspace204Response.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `DeleteWorkspace204Response` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
+        }
+      }
+      // validate the optional field `response`
+      if (jsonObj.get("response") != null && !jsonObj.get("response").isJsonNull()) {
+        DeleteWorkspace204ResponseResponse.validateJsonObject(jsonObj.getAsJsonObject("response"));
+      }
+  }
 
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ").append(getClass()).append(" {\n");
-        sb.append("    instance: ").append(toIndentedString(instance)).append("\n");
-        sb.append("    isNullable: ").append(toIndentedString(isNullable)).append("\n");
-        sb.append("    schemaType: ").append(toIndentedString(schemaType)).append("\n");
-        sb.append("}");
-        return sb.toString();
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!DeleteWorkspace204Response.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'DeleteWorkspace204Response' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<DeleteWorkspace204Response> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(DeleteWorkspace204Response.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<DeleteWorkspace204Response>() {
+           @Override
+           public void write(JsonWriter out, DeleteWorkspace204Response value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public DeleteWorkspace204Response read(JsonReader in) throws IOException {
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             validateJsonObject(jsonObj);
+             return thisAdapter.fromJsonTree(jsonObj);
+           }
+
+       }.nullSafe();
     }
+  }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
+ /**
+  * Create an instance of DeleteWorkspace204Response given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of DeleteWorkspace204Response
+  * @throws IOException if the JSON string is invalid with respect to DeleteWorkspace204Response
+  */
+  public static DeleteWorkspace204Response fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, DeleteWorkspace204Response.class);
+  }
 
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        AbstractOpenApiSchema a = (AbstractOpenApiSchema) o;
-        return Objects.equals(this.instance, a.instance) &&
-            Objects.equals(this.isNullable, a.isNullable) &&
-            Objects.equals(this.schemaType, a.schemaType);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(instance, isNullable, schemaType);
-    }
-
-    /**
-     * Is nullable
-     *
-     * @return true if it's nullable
-     */
-    public Boolean isNullable() {
-        if (Boolean.TRUE.equals(isNullable)) {
-            return Boolean.TRUE;
-        } else {
-            return Boolean.FALSE;
-        }
-    }
-
-
-
+ /**
+  * Convert an instance of DeleteWorkspace204Response to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
+
