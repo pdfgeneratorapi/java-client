@@ -10,7 +10,7 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 | [**getWorkspaces**](WorkspacesApi.md#getWorkspaces) | **GET** /workspaces | Get workspaces |
 
 
-<a name="createWorkspace"></a>
+<a id="createWorkspace"></a>
 # **createWorkspace**
 > CreateWorkspace201Response createWorkspace(createWorkspaceRequest)
 
@@ -84,9 +84,9 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="deleteWorkspace"></a>
+<a id="deleteWorkspace"></a>
 # **deleteWorkspace**
-> DeleteWorkspace204Response deleteWorkspace(workspaceIdentifier)
+> deleteWorkspace(workspaceIdentifier)
 
 Delete workspace
 
@@ -114,8 +114,7 @@ public class Example {
     WorkspacesApi apiInstance = new WorkspacesApi(defaultClient);
     String workspaceIdentifier = "demo.example@actualreports.com"; // String | Workspace identifier
     try {
-      DeleteWorkspace204Response result = apiInstance.deleteWorkspace(workspaceIdentifier);
-      System.out.println(result);
+      apiInstance.deleteWorkspace(workspaceIdentifier);
     } catch (ApiException e) {
       System.err.println("Exception when calling WorkspacesApi#deleteWorkspace");
       System.err.println("Status code: " + e.getCode());
@@ -135,7 +134,7 @@ public class Example {
 
 ### Return type
 
-[**DeleteWorkspace204Response**](DeleteWorkspace204Response.md)
+null (empty response body)
 
 ### Authorization
 
@@ -149,7 +148,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | The request was successfully executed. |  -  |
+| **204** | The resource was deleted successfully. |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -158,7 +157,7 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="getWorkspace"></a>
+<a id="getWorkspace"></a>
 # **getWorkspace**
 > CreateWorkspace201Response getWorkspace(workspaceIdentifier)
 
@@ -232,7 +231,7 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="getWorkspaces"></a>
+<a id="getWorkspaces"></a>
 # **getWorkspaces**
 > GetWorkspaces200Response getWorkspaces(page, perPage)
 

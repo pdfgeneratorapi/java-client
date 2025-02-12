@@ -14,7 +14,7 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 | [**updateTemplate**](TemplatesApi.md#updateTemplate) | **PUT** /templates/{templateId} | Update template |
 
 
-<a name="copyTemplate"></a>
+<a id="copyTemplate"></a>
 # **copyTemplate**
 > CreateTemplate201Response copyTemplate(templateId, copyTemplateRequest)
 
@@ -90,7 +90,7 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="createTemplate"></a>
+<a id="createTemplate"></a>
 # **createTemplate**
 > CreateTemplate201Response createTemplate(templateDefinitionNew)
 
@@ -164,7 +164,7 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="deleteTemplate"></a>
+<a id="deleteTemplate"></a>
 # **deleteTemplate**
 > deleteTemplate(templateId)
 
@@ -237,7 +237,7 @@ null (empty response body)
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="getTemplate"></a>
+<a id="getTemplate"></a>
 # **getTemplate**
 > CreateTemplate201Response getTemplate(templateId)
 
@@ -311,7 +311,7 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="getTemplateData"></a>
+<a id="getTemplateData"></a>
 # **getTemplateData**
 > GetTemplateData200Response getTemplateData(templateId)
 
@@ -385,7 +385,7 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="getTemplates"></a>
+<a id="getTemplates"></a>
 # **getTemplates**
 > GetTemplates200Response getTemplates(name, tags, access, page, perPage)
 
@@ -467,7 +467,7 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="openEditor"></a>
+<a id="openEditor"></a>
 # **openEditor**
 > OpenEditor200Response openEditor(templateId, openEditorRequest)
 
@@ -543,7 +543,7 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="updateTemplate"></a>
+<a id="updateTemplate"></a>
 # **updateTemplate**
 > CreateTemplate201Response updateTemplate(templateId, templateDefinitionNew)
 

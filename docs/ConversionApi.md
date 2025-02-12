@@ -8,7 +8,7 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 | [**convertURL2PDF**](ConversionApi.md#convertURL2PDF) | **POST** /conversion/url2pdf | URL to PDF |
 
 
-<a name="convertHTML2PDF"></a>
+<a id="convertHTML2PDF"></a>
 # **convertHTML2PDF**
 > GenerateDocument201Response convertHTML2PDF(convertHTML2PDFRequest)
 
@@ -82,7 +82,7 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="convertURL2PDF"></a>
+<a id="convertURL2PDF"></a>
 # **convertURL2PDF**
 > GenerateDocument201Response convertURL2PDF(convertURL2PDFRequest)
 

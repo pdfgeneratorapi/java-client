@@ -24,27 +24,27 @@ Template component definition
 
 | Name | Value |
 |---- | -----|
-| LABELCOMPONENT | &quot;labelComponent&quot; |
-| TEXTCOMPONENT | &quot;textComponent&quot; |
-| DATECOMPONENT | &quot;dateComponent&quot; |
-| NUMBERCOMPONENT | &quot;numberComponent&quot; |
-| HTMLBLOCKCOMPONENT | &quot;htmlblockComponent&quot; |
-| TABLECOMPONENT | &quot;tableComponent&quot; |
-| COMPOSITECOMPONENT | &quot;compositeComponent&quot; |
-| CHARTCOMPONENT | &quot;chartComponent&quot; |
-| BARCODECOMPONENT | &quot;barcodeComponent&quot; |
-| QRCODECOMPONENT | &quot;qrcodeComponent&quot; |
-| IMAGECOMPONENT | &quot;imageComponent&quot; |
-| HEADERCOMPONENT | &quot;headerComponent&quot; |
-| FOOTERCOMPONENT | &quot;footerComponent&quot; |
-| RECTANGLECOMPONENT | &quot;rectangleComponent&quot; |
-| VLINECOMPONENT | &quot;vlineComponent&quot; |
-| HLINECOMPONENT | &quot;hlineComponent&quot; |
-| PAGENUMBERCOMPONENT | &quot;pagenumberComponent&quot; |
-| SYMBOLCOMPONENT | &quot;symbolComponent&quot; |
-| CHECKBOXCOMPONENT | &quot;checkboxComponent&quot; |
-| RADIOCOMPONENT | &quot;radioComponent&quot; |
-| SIGNATURECOMPONENT | &quot;signatureComponent&quot; |
+| LABEL_COMPONENT | &quot;labelComponent&quot; |
+| TEXT_COMPONENT | &quot;textComponent&quot; |
+| DATE_COMPONENT | &quot;dateComponent&quot; |
+| NUMBER_COMPONENT | &quot;numberComponent&quot; |
+| HTMLBLOCK_COMPONENT | &quot;htmlblockComponent&quot; |
+| TABLE_COMPONENT | &quot;tableComponent&quot; |
+| COMPOSITE_COMPONENT | &quot;compositeComponent&quot; |
+| CHART_COMPONENT | &quot;chartComponent&quot; |
+| BARCODE_COMPONENT | &quot;barcodeComponent&quot; |
+| QRCODE_COMPONENT | &quot;qrcodeComponent&quot; |
+| IMAGE_COMPONENT | &quot;imageComponent&quot; |
+| HEADER_COMPONENT | &quot;headerComponent&quot; |
+| FOOTER_COMPONENT | &quot;footerComponent&quot; |
+| RECTANGLE_COMPONENT | &quot;rectangleComponent&quot; |
+| VLINE_COMPONENT | &quot;vlineComponent&quot; |
+| HLINE_COMPONENT | &quot;hlineComponent&quot; |
+| PAGENUMBER_COMPONENT | &quot;pagenumberComponent&quot; |
+| SYMBOL_COMPONENT | &quot;symbolComponent&quot; |
+| CHECKBOX_COMPONENT | &quot;checkboxComponent&quot; |
+| RADIO_COMPONENT | &quot;radioComponent&quot; |
+| SIGNATURE_COMPONENT | &quot;signatureComponent&quot; |
 
 
 

@@ -10,6 +10,7 @@ Defines filter and sort option for root data set.
 |------------ | ------------- | ------------- | -------------|
 |**sortBy** | **List&lt;Object&gt;** |  |  [optional] |
 |**filterBy** | **List&lt;Object&gt;** |  |  [optional] |
+|**transform** | **List&lt;Object&gt;** |  |  [optional] |
 
 
 

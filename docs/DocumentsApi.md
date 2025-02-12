@@ -4,14 +4,89 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
+| [**deleteDocument**](DocumentsApi.md#deleteDocument) | **DELETE** /documents/{publicId} | Delete document |
 | [**generateDocument**](DocumentsApi.md#generateDocument) | **POST** /documents/generate | Generate document |
 | [**generateDocumentAsynchronous**](DocumentsApi.md#generateDocumentAsynchronous) | **POST** /documents/generate/async | Generate document (async) |
 | [**generateDocumentBatch**](DocumentsApi.md#generateDocumentBatch) | **POST** /documents/generate/batch | Generate document (batch) |
 | [**generateDocumentBatchAsynchronous**](DocumentsApi.md#generateDocumentBatchAsynchronous) | **POST** /documents/generate/batch/async | Generate document (batch + async) |
+| [**getDocument**](DocumentsApi.md#getDocument) | **GET** /documents/{publicId} | Get document |
 | [**getDocuments**](DocumentsApi.md#getDocuments) | **GET** /documents | Get documents |
 
 
-<a name="generateDocument"></a>
+<a id="deleteDocument"></a>
+# **deleteDocument**
+> deleteDocument(publicId)
+
+Delete document
+
+Delete document from the Document Storage
+
+### Example
+```java
+// Import classes:
+import org.pdfgeneratorapi.client.ApiClient;
+import org.pdfgeneratorapi.client.ApiException;
+import org.pdfgeneratorapi.client.Configuration;
+import org.pdfgeneratorapi.client.auth.*;
+import org.pdfgeneratorapi.client.models.*;
+import org.pdfgeneratorapi.client.api.DocumentsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
+    
+    // Configure HTTP bearer authorization: JSONWebTokenAuth
+    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
+    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
+
+    DocumentsApi apiInstance = new DocumentsApi(defaultClient);
+    String publicId = "bac8381bce1982e5f6957a0f52371336"; // String | Resource public id
+    try {
+      apiInstance.deleteDocument(publicId);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DocumentsApi#deleteDocument");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **publicId** | **String**| Resource public id | |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **204** | The resource was deleted successfully. |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
+
+<a id="generateDocument"></a>
 # **generateDocument**
 > GenerateDocument201Response generateDocument(generateDocumentRequest)
 
@@ -85,7 +160,7 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="generateDocumentAsynchronous"></a>
+<a id="generateDocumentAsynchronous"></a>
 # **generateDocumentAsynchronous**
 > GenerateDocumentAsynchronous201Response generateDocumentAsynchronous(generateDocumentAsynchronousRequest)
 
@@ -159,7 +234,7 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="generateDocumentBatch"></a>
+<a id="generateDocumentBatch"></a>
 # **generateDocumentBatch**
 > GenerateDocument201Response generateDocumentBatch(generateDocumentBatchRequest)
 
@@ -233,7 +308,7 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="generateDocumentBatchAsynchronous"></a>
+<a id="generateDocumentBatchAsynchronous"></a>
 # **generateDocumentBatchAsynchronous**
 > GenerateDocumentAsynchronous201Response generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest)
 
@@ -307,9 +382,83 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
-<a name="getDocuments"></a>
+<a id="getDocument"></a>
+# **getDocument**
+> GetDocument200Response getDocument(publicId)
+
+Get document
+
+Returns document stored in the Document Storage
+
+### Example
+```java
+// Import classes:
+import org.pdfgeneratorapi.client.ApiClient;
+import org.pdfgeneratorapi.client.ApiException;
+import org.pdfgeneratorapi.client.Configuration;
+import org.pdfgeneratorapi.client.auth.*;
+import org.pdfgeneratorapi.client.models.*;
+import org.pdfgeneratorapi.client.api.DocumentsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
+    
+    // Configure HTTP bearer authorization: JSONWebTokenAuth
+    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
+    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
+
+    DocumentsApi apiInstance = new DocumentsApi(defaultClient);
+    String publicId = "bac8381bce1982e5f6957a0f52371336"; // String | Resource public id
+    try {
+      GetDocument200Response result = apiInstance.getDocument(publicId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DocumentsApi#getDocument");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **publicId** | **String**| Resource public id | |
+
+### Return type
+
+[**GetDocument200Response**](GetDocument200Response.md)
+
+### Authorization
+
+[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Document data |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
+
+<a id="getDocuments"></a>
 # **getDocuments**
-> GetDocuments200Response getDocuments(startDate, endDate, page, perPage)
+> GetDocuments200Response getDocuments(templateId, startDate, endDate, page, perPage)
 
 Get documents
 
@@ -335,12 +484,13 @@ public class Example {
     JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
+    Integer templateId = 19375; // Integer | Template unique identifier
     String startDate = "2022-08-01 12:00:00"; // String | Start date. Format: Y-m-d H:i:s
     String endDate = "2022-08-05 12:00:00"; // String | End date. Format: Y-m-d H:i:s. Defaults to current timestamp
     Integer page = 1; // Integer | Pagination: page to return
     Integer perPage = 15; // Integer | Pagination: How many records to return per page
     try {
-      GetDocuments200Response result = apiInstance.getDocuments(startDate, endDate, page, perPage);
+      GetDocuments200Response result = apiInstance.getDocuments(templateId, startDate, endDate, page, perPage);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#getDocuments");
@@ -357,6 +507,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **templateId** | **Integer**| Template unique identifier | [optional] |
 | **startDate** | **String**| Start date. Format: Y-m-d H:i:s | [optional] |
 | **endDate** | **String**| End date. Format: Y-m-d H:i:s. Defaults to current timestamp | [optional] |
 | **page** | **Integer**| Pagination: page to return | [optional] [default to 1] |

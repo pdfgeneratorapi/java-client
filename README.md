@@ -1,8 +1,9 @@
 # pdf-generator-api
 
 PDF Generator API
-- API version: 4.0.4
-  - Build date: 2024-07-02T10:54:04.148726+03:00[Europe/Tallinn]
+- API version: 4.0.8
+  - Build date: 2025-02-12T17:07:32.427582+02:00[Europe/Tallinn]
+  - Generator version: 7.11.0
 
 # Introduction
 [PDF Generator API](https://pdfgeneratorapi.com) allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.
@@ -247,7 +248,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.pdfgeneratorapi</groupId>
   <artifactId>pdf-generator-api</artifactId>
-  <version>4.0.4</version>
+  <version>4.0.8</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -263,7 +264,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "org.pdfgeneratorapi:pdf-generator-api:4.0.4"
+     implementation "org.pdfgeneratorapi:pdf-generator-api:4.0.8"
   }
 ```
 
@@ -277,7 +278,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pdf-generator-api-4.0.4.jar`
+* `target/pdf-generator-api-4.0.8.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -291,7 +292,7 @@ import org.pdfgeneratorapi.client.ApiClient;
 import org.pdfgeneratorapi.client.ApiException;
 import org.pdfgeneratorapi.client.Configuration;
 import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
+import org.pdfgeneratorapi.client.model.*;
 import org.pdfgeneratorapi.client.api.ConversionApi;
 
 public class Example {
@@ -328,11 +329,19 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ConversionApi* | [**convertHTML2PDF**](docs/ConversionApi.md#convertHTML2PDF) | **POST** /conversion/html2pdf | HTML to PDF
 *ConversionApi* | [**convertURL2PDF**](docs/ConversionApi.md#convertURL2PDF) | **POST** /conversion/url2pdf | URL to PDF
+*DocumentsApi* | [**deleteDocument**](docs/DocumentsApi.md#deleteDocument) | **DELETE** /documents/{publicId} | Delete document
 *DocumentsApi* | [**generateDocument**](docs/DocumentsApi.md#generateDocument) | **POST** /documents/generate | Generate document
 *DocumentsApi* | [**generateDocumentAsynchronous**](docs/DocumentsApi.md#generateDocumentAsynchronous) | **POST** /documents/generate/async | Generate document (async)
 *DocumentsApi* | [**generateDocumentBatch**](docs/DocumentsApi.md#generateDocumentBatch) | **POST** /documents/generate/batch | Generate document (batch)
 *DocumentsApi* | [**generateDocumentBatchAsynchronous**](docs/DocumentsApi.md#generateDocumentBatchAsynchronous) | **POST** /documents/generate/batch/async | Generate document (batch + async)
+*DocumentsApi* | [**getDocument**](docs/DocumentsApi.md#getDocument) | **GET** /documents/{publicId} | Get document
 *DocumentsApi* | [**getDocuments**](docs/DocumentsApi.md#getDocuments) | **GET** /documents | Get documents
+*FormsApi* | [**createFrom**](docs/FormsApi.md#createFrom) | **POST** /forms | Create form
+*FormsApi* | [**deleteForm**](docs/FormsApi.md#deleteForm) | **DELETE** /forms/{formId} | Delete form
+*FormsApi* | [**getForm**](docs/FormsApi.md#getForm) | **GET** /forms/{formId} | Get form
+*FormsApi* | [**getForms**](docs/FormsApi.md#getForms) | **GET** /forms | Get forms
+*FormsApi* | [**shareForm**](docs/FormsApi.md#shareForm) | **POST** /forms/{formId}/share | Share form
+*FormsApi* | [**updateForm**](docs/FormsApi.md#updateForm) | **PUT** /forms/{formId} | Update form
 *TemplatesApi* | [**copyTemplate**](docs/TemplatesApi.md#copyTemplate) | **POST** /templates/{templateId}/copy | Copy template
 *TemplatesApi* | [**createTemplate**](docs/TemplatesApi.md#createTemplate) | **POST** /templates | Create template
 *TemplatesApi* | [**deleteTemplate**](docs/TemplatesApi.md#deleteTemplate) | **DELETE** /templates/{templateId} | Delete template
@@ -355,13 +364,18 @@ Class | Method | HTTP request | Description
  - [ConvertHTML2PDFRequest](docs/ConvertHTML2PDFRequest.md)
  - [ConvertURL2PDFRequest](docs/ConvertURL2PDFRequest.md)
  - [CopyTemplateRequest](docs/CopyTemplateRequest.md)
+ - [CreateFrom201Response](docs/CreateFrom201Response.md)
  - [CreateTemplate201Response](docs/CreateTemplate201Response.md)
  - [CreateWorkspace201Response](docs/CreateWorkspace201Response.md)
  - [CreateWorkspaceRequest](docs/CreateWorkspaceRequest.md)
  - [DataBatchInner](docs/DataBatchInner.md)
- - [DeleteWorkspace204Response](docs/DeleteWorkspace204Response.md)
- - [DeleteWorkspace204ResponseResponse](docs/DeleteWorkspace204ResponseResponse.md)
  - [Document](docs/Document.md)
+ - [FormActionDownload](docs/FormActionDownload.md)
+ - [FormActionStore](docs/FormActionStore.md)
+ - [FormConfiguration](docs/FormConfiguration.md)
+ - [FormConfigurationNew](docs/FormConfigurationNew.md)
+ - [FormConfigurationNewActionsInner](docs/FormConfigurationNewActionsInner.md)
+ - [FormFieldsInner](docs/FormFieldsInner.md)
  - [FormatParam](docs/FormatParam.md)
  - [GenerateDocument201Response](docs/GenerateDocument201Response.md)
  - [GenerateDocument201ResponseMeta](docs/GenerateDocument201ResponseMeta.md)
@@ -371,7 +385,10 @@ Class | Method | HTTP request | Description
  - [GenerateDocumentBatchAsynchronousRequest](docs/GenerateDocumentBatchAsynchronousRequest.md)
  - [GenerateDocumentBatchRequest](docs/GenerateDocumentBatchRequest.md)
  - [GenerateDocumentRequest](docs/GenerateDocumentRequest.md)
+ - [GetDocument200Response](docs/GetDocument200Response.md)
+ - [GetDocument200ResponseMeta](docs/GetDocument200ResponseMeta.md)
  - [GetDocuments200Response](docs/GetDocuments200Response.md)
+ - [GetForms200Response](docs/GetForms200Response.md)
  - [GetTemplateData200Response](docs/GetTemplateData200Response.md)
  - [GetTemplates200Response](docs/GetTemplates200Response.md)
  - [GetTemplates401Response](docs/GetTemplates401Response.md)
@@ -382,13 +399,19 @@ Class | Method | HTTP request | Description
  - [GetTemplates429Response](docs/GetTemplates429Response.md)
  - [GetTemplates500Response](docs/GetTemplates500Response.md)
  - [GetWorkspaces200Response](docs/GetWorkspaces200Response.md)
+ - [InlineObject](docs/InlineObject.md)
+ - [InlineObjectResponse](docs/InlineObjectResponse.md)
  - [OpenEditor200Response](docs/OpenEditor200Response.md)
  - [OpenEditorRequest](docs/OpenEditorRequest.md)
  - [OpenEditorRequestData](docs/OpenEditorRequestData.md)
  - [OutputParam](docs/OutputParam.md)
  - [PaginationMeta](docs/PaginationMeta.md)
+ - [ShareForm201Response](docs/ShareForm201Response.md)
+ - [ShareForm201ResponseMeta](docs/ShareForm201ResponseMeta.md)
  - [Template](docs/Template.md)
  - [TemplateDefinition](docs/TemplateDefinition.md)
+ - [TemplateDefinitionDataSettings](docs/TemplateDefinitionDataSettings.md)
+ - [TemplateDefinitionEditor](docs/TemplateDefinitionEditor.md)
  - [TemplateDefinitionNew](docs/TemplateDefinitionNew.md)
  - [TemplateDefinitionNewDataSettings](docs/TemplateDefinitionNewDataSettings.md)
  - [TemplateDefinitionNewEditor](docs/TemplateDefinitionNewEditor.md)
@@ -397,17 +420,21 @@ Class | Method | HTTP request | Description
  - [TemplateDefinitionNewLayoutRepeatLayout](docs/TemplateDefinitionNewLayoutRepeatLayout.md)
  - [TemplateDefinitionNewPagesInner](docs/TemplateDefinitionNewPagesInner.md)
  - [TemplateDefinitionNewPagesInnerMargins](docs/TemplateDefinitionNewPagesInnerMargins.md)
+ - [TemplateDefinitionPagesInner](docs/TemplateDefinitionPagesInner.md)
  - [TemplateParam](docs/TemplateParam.md)
  - [TemplateParamData](docs/TemplateParamData.md)
  - [Workspace](docs/Workspace.md)
 
 
+<a id="documentation-for-authorization"></a>
 ## Documentation for Authorization
 
+
 Authentication schemes defined for the API:
+<a id="JSONWebTokenAuth"></a>
 ### JSONWebTokenAuth
 
-- **Type**: HTTP basic authentication
+- **Type**: HTTP Bearer Token authentication (JWT)
 
 
 ## Recommendation
