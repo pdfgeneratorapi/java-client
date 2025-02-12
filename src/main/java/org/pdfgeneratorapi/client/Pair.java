@@ -13,7 +13,7 @@
 
 package org.pdfgeneratorapi.client;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-12T17:07:32.427582+02:00[Europe/Tallinn]", comments = "Generator version: 7.11.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-12T20:23:44.909280+02:00[Europe/Tallinn]", comments = "Generator version: 7.11.0")
 public class Pair {
     private String name = "";
     private String value = "";

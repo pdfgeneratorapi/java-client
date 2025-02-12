@@ -2,7 +2,7 @@
 
 PDF Generator API
 - API version: 4.0.8
-  - Build date: 2025-02-12T17:07:32.427582+02:00[Europe/Tallinn]
+  - Build date: 2025-02-12T20:23:44.909280+02:00[Europe/Tallinn]
   - Generator version: 7.11.0
 
 # Introduction

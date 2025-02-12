@@ -48,7 +48,7 @@ import org.pdfgeneratorapi.client.JSON;
 /**
  * GenerateDocument201ResponseMeta
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-12T17:07:32.427582+02:00[Europe/Tallinn]", comments = "Generator version: 7.11.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-02-12T20:23:44.909280+02:00[Europe/Tallinn]", comments = "Generator version: 7.11.0")
 public class GenerateDocument201ResponseMeta {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)

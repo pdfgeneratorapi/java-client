@@ -45,7 +45,6 @@ if [ "$git_remote" = "" ]; then # git remote not defined
         echo "[INFO] \$GIT_TOKEN (environment variable) is not set. Using the git credential in your environment."
         git remote add origin https://${git_host}/${git_user_id}/${git_repo_id}.git
     else
-        echo $GIT_TOKEN;
         git remote add origin https://${git_user_id}:"${GIT_TOKEN}"@${git_host}/${git_user_id}/${git_repo_id}.git
     fi
 
