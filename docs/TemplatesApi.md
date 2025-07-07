@@ -1,21 +1,23 @@
 # TemplatesApi
 
-All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v3*
+All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**copyTemplate**](TemplatesApi.md#copyTemplate) | **POST** /templates/{templateId}/copy | Copy template |
 | [**createTemplate**](TemplatesApi.md#createTemplate) | **POST** /templates | Create template |
 | [**deleteTemplate**](TemplatesApi.md#deleteTemplate) | **DELETE** /templates/{templateId} | Delete template |
-| [**getEditorUrl**](TemplatesApi.md#getEditorUrl) | **POST** /templates/{templateId}/editor | Open editor |
 | [**getTemplate**](TemplatesApi.md#getTemplate) | **GET** /templates/{templateId} | Get template |
+| [**getTemplateData**](TemplatesApi.md#getTemplateData) | **GET** /templates/{templateId}/data | Get template data fields |
 | [**getTemplates**](TemplatesApi.md#getTemplates) | **GET** /templates | Get templates |
+| [**openEditor**](TemplatesApi.md#openEditor) | **POST** /templates/{templateId}/editor | Open editor |
 | [**updateTemplate**](TemplatesApi.md#updateTemplate) | **PUT** /templates/{templateId} | Update template |
+| [**validateTemplate**](TemplatesApi.md#validateTemplate) | **POST** /templates/validate | Validate template |
 
 
 <a id="copyTemplate"></a>
 # **copyTemplate**
-> CreateTemplate200Response copyTemplate(templateId, name)
+> CreateTemplate201Response copyTemplate(templateId, copyTemplateRequest)
 
 Copy template
 
@@ -34,7 +36,7 @@ import org.pdfgeneratorapi.client.api.TemplatesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v3");
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
     
     // Configure HTTP bearer authorization: JSONWebTokenAuth
     HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
@@ -42,9 +44,9 @@ public class Example {
 
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     Integer templateId = 19375; // Integer | Template unique identifier
-    String name = "My copied template"; // String | Name for the copied template. If name is not specified then the original name is used.
+    CopyTemplateRequest copyTemplateRequest = new CopyTemplateRequest(); // CopyTemplateRequest | 
     try {
-      CreateTemplate200Response result = apiInstance.copyTemplate(templateId, name);
+      CreateTemplate201Response result = apiInstance.copyTemplate(templateId, copyTemplateRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#copyTemplate");
@@ -62,11 +64,11 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **templateId** | **Integer**| Template unique identifier | |
-| **name** | **String**| Name for the copied template. If name is not specified then the original name is used. | [optional] |
+| **copyTemplateRequest** | [**CopyTemplateRequest**](CopyTemplateRequest.md)|  | [optional] |
 
 ### Return type
 
-[**CreateTemplate200Response**](CreateTemplate200Response.md)
+[**CreateTemplate201Response**](CreateTemplate201Response.md)
 
 ### Authorization
 
@@ -74,13 +76,13 @@ public class Example {
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Template configuration as JSON object |  -  |
+| **201** | Template configuration |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -91,7 +93,7 @@ public class Example {
 
 <a id="createTemplate"></a>
 # **createTemplate**
-> CreateTemplate200Response createTemplate(templateDefinitionNew)
+> CreateTemplate201Response createTemplate(templateDefinitionNew)
 
 Create template
 
@@ -110,16 +112,16 @@ import org.pdfgeneratorapi.client.api.TemplatesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v3");
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
     
     // Configure HTTP bearer authorization: JSONWebTokenAuth
     HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
     JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
-    TemplateDefinitionNew templateDefinitionNew = new TemplateDefinitionNew(); // TemplateDefinitionNew | Template configuration as JSON string
+    TemplateDefinitionNew templateDefinitionNew = new TemplateDefinitionNew(); // TemplateDefinitionNew | Template configuration
     try {
-      CreateTemplate200Response result = apiInstance.createTemplate(templateDefinitionNew);
+      CreateTemplate201Response result = apiInstance.createTemplate(templateDefinitionNew);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#createTemplate");
@@ -136,11 +138,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **templateDefinitionNew** | [**TemplateDefinitionNew**](TemplateDefinitionNew.md)| Template configuration as JSON string | |
+| **templateDefinitionNew** | [**TemplateDefinitionNew**](TemplateDefinitionNew.md)| Template configuration | |
 
 ### Return type
 
-[**CreateTemplate200Response**](CreateTemplate200Response.md)
+[**CreateTemplate201Response**](CreateTemplate201Response.md)
 
 ### Authorization
 
@@ -154,7 +156,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Template configuration as JSON object |  -  |
+| **201** | Template configuration |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -165,7 +167,7 @@ public class Example {
 
 <a id="deleteTemplate"></a>
 # **deleteTemplate**
-> DeleteTemplate200Response deleteTemplate(templateId)
+> deleteTemplate(templateId)
 
 Delete template
 
@@ -184,7 +186,7 @@ import org.pdfgeneratorapi.client.api.TemplatesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v3");
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
     
     // Configure HTTP bearer authorization: JSONWebTokenAuth
     HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
@@ -193,8 +195,7 @@ public class Example {
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     Integer templateId = 19375; // Integer | Template unique identifier
     try {
-      DeleteTemplate200Response result = apiInstance.deleteTemplate(templateId);
-      System.out.println(result);
+      apiInstance.deleteTemplate(templateId);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#deleteTemplate");
       System.err.println("Status code: " + e.getCode());
@@ -214,7 +215,7 @@ public class Example {
 
 ### Return type
 
-[**DeleteTemplate200Response**](DeleteTemplate200Response.md)
+null (empty response body)
 
 ### Authorization
 
@@ -228,85 +229,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | The request was successfully executed. |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
-| **500** | Internal Server Error |  -  |
-
-<a id="getEditorUrl"></a>
-# **getEditorUrl**
-> GetEditorUrl200Response getEditorUrl(templateId, body, language)
-
-Open editor
-
-Returns an unique URL which you can use to redirect your user to the editor from your application or use the generated URL as iframe source to show the editor within your application. When using iframe, make sure that your browser allows third-party cookies. 
-
-### Example
-```java
-// Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.TemplatesApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v3");
-    
-    // Configure HTTP bearer authorization: JSONWebTokenAuth
-    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
-    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
-
-    TemplatesApi apiInstance = new TemplatesApi(defaultClient);
-    Integer templateId = 19375; // Integer | Template unique identifier
-    Object body = null; // Object | Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file.
-    String language = "en"; // String | Specify the editor UI language. Defaults to organization editor language.
-    try {
-      GetEditorUrl200Response result = apiInstance.getEditorUrl(templateId, body, language);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling TemplatesApi#getEditorUrl");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **templateId** | **Integer**| Template unique identifier | |
-| **body** | **Object**| Data used to generate the PDF. This can be JSON encoded string or a public URL to your JSON file. | |
-| **language** | **String**| Specify the editor UI language. Defaults to organization editor language. | [optional] [enum: en, et, cs, sk, ru, de] |
-
-### Return type
-
-[**GetEditorUrl200Response**](GetEditorUrl200Response.md)
-
-### Authorization
-
-[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Returns an URL which you can use to redirect your user to the editor or use as iframe source |  -  |
+| **204** | The resource was deleted successfully. |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -317,7 +240,7 @@ public class Example {
 
 <a id="getTemplate"></a>
 # **getTemplate**
-> CreateTemplate200Response getTemplate(templateId)
+> CreateTemplate201Response getTemplate(templateId)
 
 Get template
 
@@ -336,7 +259,7 @@ import org.pdfgeneratorapi.client.api.TemplatesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v3");
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
     
     // Configure HTTP bearer authorization: JSONWebTokenAuth
     HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
@@ -345,7 +268,7 @@ public class Example {
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     Integer templateId = 19375; // Integer | Template unique identifier
     try {
-      CreateTemplate200Response result = apiInstance.getTemplate(templateId);
+      CreateTemplate201Response result = apiInstance.getTemplate(templateId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#getTemplate");
@@ -366,7 +289,7 @@ public class Example {
 
 ### Return type
 
-[**CreateTemplate200Response**](CreateTemplate200Response.md)
+[**CreateTemplate201Response**](CreateTemplate201Response.md)
 
 ### Authorization
 
@@ -380,7 +303,81 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Template configuration as JSON object |  -  |
+| **200** | Template configuration |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
+
+<a id="getTemplateData"></a>
+# **getTemplateData**
+> GetTemplateData200Response getTemplateData(templateId)
+
+Get template data fields
+
+Returns all data fields used in the template. Returns structured JSON data that can be used to check which data fields are used in template or autogenerate sample data. 
+
+### Example
+```java
+// Import classes:
+import org.pdfgeneratorapi.client.ApiClient;
+import org.pdfgeneratorapi.client.ApiException;
+import org.pdfgeneratorapi.client.Configuration;
+import org.pdfgeneratorapi.client.auth.*;
+import org.pdfgeneratorapi.client.models.*;
+import org.pdfgeneratorapi.client.api.TemplatesApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
+    
+    // Configure HTTP bearer authorization: JSONWebTokenAuth
+    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
+    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
+
+    TemplatesApi apiInstance = new TemplatesApi(defaultClient);
+    Integer templateId = 19375; // Integer | Template unique identifier
+    try {
+      GetTemplateData200Response result = apiInstance.getTemplateData(templateId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling TemplatesApi#getTemplateData");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **templateId** | **Integer**| Template unique identifier | |
+
+### Return type
+
+[**GetTemplateData200Response**](GetTemplateData200Response.md)
+
+### Authorization
+
+[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Template data structure |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -391,7 +388,7 @@ public class Example {
 
 <a id="getTemplates"></a>
 # **getTemplates**
-> GetTemplates200Response getTemplates()
+> GetTemplates200Response getTemplates(name, tags, access, page, perPage)
 
 Get templates
 
@@ -410,15 +407,20 @@ import org.pdfgeneratorapi.client.api.TemplatesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v3");
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
     
     // Configure HTTP bearer authorization: JSONWebTokenAuth
     HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
     JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
+    String name = "name_example"; // String | Filter template by name
+    String tags = "tags_example"; // String | Filter template by tags
+    String access = "private"; // String | Filter template by access type. No values returns all templates. private - returns only private templates, organization - returns only organization templates.
+    Integer page = 1; // Integer | Pagination: page to return
+    Integer perPage = 15; // Integer | Pagination: How many records to return per page
     try {
-      GetTemplates200Response result = apiInstance.getTemplates();
+      GetTemplates200Response result = apiInstance.getTemplates(name, tags, access, page, perPage);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#getTemplates");
@@ -432,7 +434,14 @@ public class Example {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **name** | **String**| Filter template by name | [optional] |
+| **tags** | **String**| Filter template by tags | [optional] |
+| **access** | **String**| Filter template by access type. No values returns all templates. private - returns only private templates, organization - returns only organization templates. | [optional] [default to ] [enum: private, organization, ] |
+| **page** | **Integer**| Pagination: page to return | [optional] [default to 1] |
+| **perPage** | **Integer**| Pagination: How many records to return per page | [optional] [default to 15] |
 
 ### Return type
 
@@ -459,9 +468,85 @@ This endpoint does not need any parameter.
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
+<a id="openEditor"></a>
+# **openEditor**
+> OpenEditor200Response openEditor(templateId, openEditorRequest)
+
+Open editor
+
+Returns an unique URL which you can use to redirect your user to the editor from your application or use the generated URL as iframe source to show the editor within your application. When using iframe, make sure that your browser allows third-party cookies. 
+
+### Example
+```java
+// Import classes:
+import org.pdfgeneratorapi.client.ApiClient;
+import org.pdfgeneratorapi.client.ApiException;
+import org.pdfgeneratorapi.client.Configuration;
+import org.pdfgeneratorapi.client.auth.*;
+import org.pdfgeneratorapi.client.models.*;
+import org.pdfgeneratorapi.client.api.TemplatesApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
+    
+    // Configure HTTP bearer authorization: JSONWebTokenAuth
+    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
+    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
+
+    TemplatesApi apiInstance = new TemplatesApi(defaultClient);
+    Integer templateId = 19375; // Integer | Template unique identifier
+    OpenEditorRequest openEditorRequest = new OpenEditorRequest(); // OpenEditorRequest | 
+    try {
+      OpenEditor200Response result = apiInstance.openEditor(templateId, openEditorRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling TemplatesApi#openEditor");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **templateId** | **Integer**| Template unique identifier | |
+| **openEditorRequest** | [**OpenEditorRequest**](OpenEditorRequest.md)|  | |
+
+### Return type
+
+[**OpenEditor200Response**](OpenEditor200Response.md)
+
+### Authorization
+
+[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Returns an URL which you can use to redirect your user to the editor or use as iframe source |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
+
 <a id="updateTemplate"></a>
 # **updateTemplate**
-> CreateTemplate200Response updateTemplate(templateId, templateDefinitionNew)
+> CreateTemplate201Response updateTemplate(templateId, templateDefinitionNew)
 
 Update template
 
@@ -480,7 +565,7 @@ import org.pdfgeneratorapi.client.api.TemplatesApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v3");
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
     
     // Configure HTTP bearer authorization: JSONWebTokenAuth
     HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
@@ -488,9 +573,9 @@ public class Example {
 
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     Integer templateId = 19375; // Integer | Template unique identifier
-    TemplateDefinitionNew templateDefinitionNew = new TemplateDefinitionNew(); // TemplateDefinitionNew | Template configuration as JSON string
+    TemplateDefinitionNew templateDefinitionNew = new TemplateDefinitionNew(); // TemplateDefinitionNew | Template configuration
     try {
-      CreateTemplate200Response result = apiInstance.updateTemplate(templateId, templateDefinitionNew);
+      CreateTemplate201Response result = apiInstance.updateTemplate(templateId, templateDefinitionNew);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#updateTemplate");
@@ -508,11 +593,11 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **templateId** | **Integer**| Template unique identifier | |
-| **templateDefinitionNew** | [**TemplateDefinitionNew**](TemplateDefinitionNew.md)| Template configuration as JSON string | |
+| **templateDefinitionNew** | [**TemplateDefinitionNew**](TemplateDefinitionNew.md)| Template configuration | |
 
 ### Return type
 
-[**CreateTemplate200Response**](CreateTemplate200Response.md)
+[**CreateTemplate201Response**](CreateTemplate201Response.md)
 
 ### Authorization
 
@@ -526,7 +611,81 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Template configuration as JSON object |  -  |
+| **200** | Template configuration |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
+
+<a id="validateTemplate"></a>
+# **validateTemplate**
+> ValidateTemplate200Response validateTemplate(templateDefinitionNew)
+
+Validate template
+
+Validates if the provided template configuration matches the template JSON schema.
+
+### Example
+```java
+// Import classes:
+import org.pdfgeneratorapi.client.ApiClient;
+import org.pdfgeneratorapi.client.ApiException;
+import org.pdfgeneratorapi.client.Configuration;
+import org.pdfgeneratorapi.client.auth.*;
+import org.pdfgeneratorapi.client.models.*;
+import org.pdfgeneratorapi.client.api.TemplatesApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
+    
+    // Configure HTTP bearer authorization: JSONWebTokenAuth
+    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
+    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
+
+    TemplatesApi apiInstance = new TemplatesApi(defaultClient);
+    TemplateDefinitionNew templateDefinitionNew = new TemplateDefinitionNew(); // TemplateDefinitionNew | Template configuration
+    try {
+      ValidateTemplate200Response result = apiInstance.validateTemplate(templateDefinitionNew);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling TemplatesApi#validateTemplate");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **templateDefinitionNew** | [**TemplateDefinitionNew**](TemplateDefinitionNew.md)| Template configuration | |
+
+### Return type
+
+[**ValidateTemplate200Response**](ValidateTemplate200Response.md)
+
+### Authorization
+
+[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Template validation response |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |

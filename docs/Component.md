@@ -25,22 +25,26 @@ Template component definition
 | Name | Value |
 |---- | -----|
 | LABEL_COMPONENT | &quot;labelComponent&quot; |
-| NUMBER_COMPONENT | &quot;numberComponent&quot; |
 | TEXT_COMPONENT | &quot;textComponent&quot; |
-| IMAGE_COMPONENT | &quot;imageComponent&quot; |
 | DATE_COMPONENT | &quot;dateComponent&quot; |
-| HLINE_COMPONENT | &quot;hlineComponent&quot; |
-| VLINE_COMPONENT | &quot;vlineComponent&quot; |
+| NUMBER_COMPONENT | &quot;numberComponent&quot; |
+| HTMLBLOCK_COMPONENT | &quot;htmlblockComponent&quot; |
 | TABLE_COMPONENT | &quot;tableComponent&quot; |
 | COMPOSITE_COMPONENT | &quot;compositeComponent&quot; |
+| CHART_COMPONENT | &quot;chartComponent&quot; |
 | BARCODE_COMPONENT | &quot;barcodeComponent&quot; |
 | QRCODE_COMPONENT | &quot;qrcodeComponent&quot; |
-| CHART_COMPONENT | &quot;chartComponent&quot; |
-| RECTANGLE_COMPONENT | &quot;rectangleComponent&quot; |
+| IMAGE_COMPONENT | &quot;imageComponent&quot; |
 | HEADER_COMPONENT | &quot;headerComponent&quot; |
 | FOOTER_COMPONENT | &quot;footerComponent&quot; |
+| RECTANGLE_COMPONENT | &quot;rectangleComponent&quot; |
+| VLINE_COMPONENT | &quot;vlineComponent&quot; |
+| HLINE_COMPONENT | &quot;hlineComponent&quot; |
+| PAGENUMBER_COMPONENT | &quot;pagenumberComponent&quot; |
+| SYMBOL_COMPONENT | &quot;symbolComponent&quot; |
 | CHECKBOX_COMPONENT | &quot;checkboxComponent&quot; |
 | RADIO_COMPONENT | &quot;radioComponent&quot; |
+| SIGNATURE_COMPONENT | &quot;signatureComponent&quot; |
 
 
 

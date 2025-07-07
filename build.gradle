@@ -4,7 +4,7 @@ apply plugin: 'java'
 apply plugin: 'com.diffplug.spotless'
 
 group = 'org.pdfgeneratorapi'
-version = '3.1.2'
+version = '4.0.12'
 
 buildscript {
     repositories {

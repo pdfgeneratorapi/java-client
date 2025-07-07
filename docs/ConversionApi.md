@@ -10,7 +10,7 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 
 <a id="convertHTML2PDF"></a>
 # **convertHTML2PDF**
-> GenerateDocument201Response convertHTML2PDF(convertHTML2PDFRequest)
+> AddWatermark201Response convertHTML2PDF(convertHTML2PDFRequest)
 
 HTML to PDF
 
@@ -38,7 +38,7 @@ public class Example {
     ConversionApi apiInstance = new ConversionApi(defaultClient);
     ConvertHTML2PDFRequest convertHTML2PDFRequest = new ConvertHTML2PDFRequest(); // ConvertHTML2PDFRequest | 
     try {
-      GenerateDocument201Response result = apiInstance.convertHTML2PDF(convertHTML2PDFRequest);
+      AddWatermark201Response result = apiInstance.convertHTML2PDF(convertHTML2PDFRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConversionApi#convertHTML2PDF");
@@ -59,7 +59,7 @@ public class Example {
 
 ### Return type
 
-[**GenerateDocument201Response**](GenerateDocument201Response.md)
+[**AddWatermark201Response**](AddWatermark201Response.md)
 
 ### Authorization
 
@@ -84,7 +84,7 @@ public class Example {
 
 <a id="convertURL2PDF"></a>
 # **convertURL2PDF**
-> GenerateDocument201Response convertURL2PDF(convertURL2PDFRequest)
+> AddWatermark201Response convertURL2PDF(convertURL2PDFRequest)
 
 URL to PDF
 
@@ -112,7 +112,7 @@ public class Example {
     ConversionApi apiInstance = new ConversionApi(defaultClient);
     ConvertURL2PDFRequest convertURL2PDFRequest = new ConvertURL2PDFRequest(); // ConvertURL2PDFRequest | 
     try {
-      GenerateDocument201Response result = apiInstance.convertURL2PDF(convertURL2PDFRequest);
+      AddWatermark201Response result = apiInstance.convertURL2PDF(convertURL2PDFRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConversionApi#convertURL2PDF");
@@ -133,7 +133,7 @@ public class Example {
 
 ### Return type
 
-[**GenerateDocument201Response**](GenerateDocument201Response.md)
+[**AddWatermark201Response**](AddWatermark201Response.md)
 
 ### Authorization
 

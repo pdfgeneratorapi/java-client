@@ -16,7 +16,7 @@ Defines template layout (e.g page format, margins).
 |**rotation** | [**RotationEnum**](#RotationEnum) | Page rotation in degrees |  [optional] |
 |**margins** | [**TemplateDefinitionNewLayoutMargins**](TemplateDefinitionNewLayoutMargins.md) |  |  [optional] |
 |**repeatLayout** | [**TemplateDefinitionNewLayoutRepeatLayout**](TemplateDefinitionNewLayoutRepeatLayout.md) |  |  [optional] |
-|**emptyLabels** | **Integer** | Defines how many pages or labels should be empty |  [optional] |
+|**emptyLabels** | **Integer** | Specifies how many blank lables to add to sheet label. |  [optional] |
 
 
 
