@@ -5,7 +5,7 @@
     <artifactId>pdf-generator-api</artifactId>
     <packaging>jar</packaging>
     <name>pdf-generator-api</name>
-    <version>4.0.8</version>
+    <version>3.1.2</version>
     <url>https://github.com/pdfgeneratorapi/java-client</url>
     <description>Java wrapper for PDF Generator API</description>
     <scm>

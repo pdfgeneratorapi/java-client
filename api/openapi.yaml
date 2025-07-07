@@ -10,13 +10,15 @@ info:
 
     The PDF Generator API features a web API architecture, allowing you to code in the language of your choice. This API supports the JSON media type, and uses UTF-8 character encoding.
 
+    You can find our previous API documentation page with references to Simple and Signature authentication [here](https://docs.pdfgeneratorapi.com/legacy).
+
     ## Base URL
-    The base URL for all the API endpoints is `https://us1.pdfgeneratorapi.com/api/v4`
+    The base URL for all the API endpoints is `https://us1.pdfgeneratorapi.com/api/v3`
 
     For example
-    * `https://us1.pdfgeneratorapi.com/api/v4/templates`
-    * `https://us1.pdfgeneratorapi.com/api/v4/workspaces`
-    * `https://us1.pdfgeneratorapi.com/api/v4/templates/123123`
+    * `https://us1.pdfgeneratorapi.com/api/v3/templates`
+    * `https://us1.pdfgeneratorapi.com/api/v3/workspaces`
+    * `https://us1.pdfgeneratorapi.com/api/v3/templates/123123`
 
     ## Editor
     PDF Generator API comes with a powerful drag & drop editor that allows to create any kind of document templates, from barcode labels to invoices, quotes and reports. You can find tutorials and videos from our [Support Portal](https://support.pdfgeneratorapi.com).
@@ -57,38 +59,15 @@ info:
     ```
 
     ## Rate limiting
-    Our API endpoints use IP-based rate limiting and allow you to make up to 2 requests per second and 60 requests per minute. If you make more requests, you will receive a response with HTTP code 429.
-
-    Response headers contain additional values:
-
-    | Header   | Description                    |
-    |--------|--------------------------------|
-    | X-RateLimit-Limit    | Maximum requests per minute                   |
-    | X-RateLimit-Remaining    | The requests remaining in the current minute               |
-    | Retry-After     | How many seconds you need to wait until you are allowed to make requests |
+    Our API endpoints use IP-based rate limiting and allow you to make up to 30 requests per second and 240 requests per minute. If you make more requests, you will receive a response with HTTP code 429.
 
     *  *  *  *  *
-
-    # Libraries and SDKs
-    ## Postman Collection
-    We have created a [Postman Collection](https://www.postman.com/pdfgeneratorapi/workspace/pdf-generator-api-public-workspace/overview) so you can easily test all the API endpoints without developing and code. You can download the collection [here](https://www.postman.com/pdfgeneratorapi/workspace/pdf-generator-api-public-workspace/collection/11578263-42fed446-af7e-4266-84e1-69e8c1752e93).
-
-    ## Client Libraries
-    All our Client Libraries are auto-generated using [OpenAPI Generator](https://openapi-generator.tech/) which uses the OpenAPI v3 specification to automatically generate a client library in specific programming language.
-
-    * [PHP Client](https://github.com/pdfgeneratorapi/php-client)
-    * [Java Client](https://github.com/pdfgeneratorapi/java-client)
-    * [Ruby Client](https://github.com/pdfgeneratorapi/ruby-client)
-    * [Python Client](https://github.com/pdfgeneratorapi/python-client)
-    * [Javascript Client](https://github.com/pdfgeneratorapi/javascript-client)
-
-    We have validated the generated libraries, but let us know if you find any anomalies in the client code.
-    *  *  *  *  *
-
     # Authentication
     The PDF Generator API uses __JSON Web Tokens (JWT)__ to authenticate all API requests. These tokens offer a method to establish secure server-to-server authentication by transferring a compact JSON object with a signed payload of your account’s API Key and Secret.
     When authenticating to the PDF Generator API, a JWT should be generated uniquely by a __server-side application__ and included as a __Bearer Token__ in the header of each request.
 
+    ## Legacy Simple and Signature authentication
+    You can find our legacy documentation for Simple and Signature authentication [here](https://docs.pdfgeneratorapi.com/legacy).
 
     <SecurityDefinitions />
 
@@ -149,9 +128,27 @@ info:
     // Signature: SxO-H7UYYYsclS8RGWO1qf0z1cB1m73wF9FLl9RCc1Q
     ```
 
-    ## Temporary JWTs
-    You can create a temporary token in [Account Settings](https://pdfgeneratorapi.com/account/organization) page after you login to PDF Generator API. The generated token uses your email address as the subject (`sub`) value and is valid for __15 minutes__.
+    ## Testing with JWTs
+    You can create a temporary token in [Account Settings](https://pdfgeneratorapi.com/account/organization) page after you login to PDF Generator API. The generated token uses your email address as the subject (`sub`) value and is valid for __5 minutes__.
     You can also use [jwt.io](https://jwt.io/) to generate test tokens for your API calls. These test tokens should never be used in production applications.
+    *  *  *  *  *
+
+    # Libraries and SDKs
+    ## Postman Collection
+    We have created a [Postman](https://www.postman.com) Collection so you can easily test all the API endpoints wihtout developing and code. You can download the collection [here](https://app.getpostman.com/run-collection/329f09618ec8a957dbc4) or just click the button below.
+
+    [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/329f09618ec8a957dbc4)
+
+    ## Client Libraries
+    All our Client Libraries are auto-generated using [OpenAPI Generator](https://openapi-generator.tech/) which uses the OpenAPI v3 specification to automatically generate a client library in specific programming language.
+
+    * [PHP Client](https://github.com/pdfgeneratorapi/php-client)
+    * [Java Client](https://github.com/pdfgeneratorapi/java-client)
+    * [Ruby Client](https://github.com/pdfgeneratorapi/ruby-client)
+    * [Python Client](https://github.com/pdfgeneratorapi/python-client)
+    * [Javascript Client](https://github.com/pdfgeneratorapi/javascript-client)
+
+    We have validated the generated libraries, but let us know if you find any anomalies in the client code.
     *  *  *  *  *
 
     # Error codes
@@ -208,78 +205,40 @@ info:
     ## 429 Too Many Requests
     | Description                                                             |
     |-------------------------------------------------------------------------|
-    | You can make up to 2 requests per second and 60 requests per minute.   |
-
-    *  *  *  *  *
+    | You can make up to 5 requests per second and 120 requests per minute.   |
   title: PDF Generator API
-  version: 4.0.8
+  version: 3.1.2
   x-logo:
     url: https://d2304hinatgg5e.cloudfront.net/images/logo/300X90.png
     backgroundColor: '#00d9b5'
     altText: PDF Generator API
     href: https://docs.pdfgeneratorapi.com
 servers:
-- url: https://us1.pdfgeneratorapi.com/api/v4
+- url: https://us1.pdfgeneratorapi.com/api/v3
 security:
 - JSONWebTokenAuth: []
+tags:
+- description: |
+    <SchemaDefinition schemaRef="#/components/schemas/Template" />
+  name: template_model
+  x-displayName: Template
+- description: |
+    <SchemaDefinition schemaRef="#/components/schemas/TemplateDefinition" />
+  name: template_definition
+  x-displayName: Template Definition
+- description: |
+    <SchemaDefinition schemaRef="#/components/schemas/Component" />
+  name: component_model
+  x-displayName: Component
+- description: |
+    <SchemaDefinition schemaRef="#/components/schemas/Workspace" />
+  name: workspace_model
+  x-displayName: Workspace
 paths:
   /templates:
     get:
       description: Returns a list of templates available for the authenticated workspace
       operationId: getTemplates
-      parameters:
-      - description: Filter template by name
-        explode: true
-        in: query
-        name: name
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: Filter template by tags
-        explode: true
-        in: query
-        name: tags
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: "Filter template by access type. No values returns all templates.\
-          \ private - returns only private templates, organization - returns only\
-          \ organization templates."
-        explode: true
-        in: query
-        name: access
-        required: false
-        schema:
-          default: ""
-          enum:
-          - private
-          - organization
-          - ""
-          example: private
-          type: string
-        style: form
-      - description: "Pagination: page to return"
-        explode: true
-        in: query
-        name: page
-        required: false
-        schema:
-          default: 1
-          example: 1
-          type: integer
-        style: form
-      - description: "Pagination: How many records to return per page"
-        explode: true
-        in: query
-        name: per_page
-        required: false
-        schema:
-          default: 15
-          example: 20
-          type: integer
-        style: form
       responses:
         "200":
           content:
@@ -345,15 +304,15 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/TemplateDefinitionNew'
-        description: Template configuration
+        description: Template configuration as JSON string
         required: true
       responses:
-        "201":
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/createTemplate_201_response'
-          description: Template configuration
+                $ref: '#/components/schemas/createTemplate_200_response'
+          description: Template configuration as JSON object
         "401":
           content:
             application/json:
@@ -417,8 +376,12 @@ paths:
           type: integer
         style: simple
       responses:
-        "204":
-          description: The resource was deleted successfully.
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deleteTemplate_200_response'
+          description: The request was successfully executed.
         "401":
           content:
             application/json:
@@ -484,8 +447,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/createTemplate_201_response'
-          description: Template configuration
+                $ref: '#/components/schemas/createTemplate_200_response'
+          description: Template configuration as JSON object
         "401":
           content:
             application/json:
@@ -553,15 +516,15 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/TemplateDefinitionNew'
-        description: Template configuration
+        description: Template configuration as JSON string
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/createTemplate_201_response'
-          description: Template configuration
+                $ref: '#/components/schemas/createTemplate_200_response'
+          description: Template configuration as JSON object
         "401":
           content:
             application/json:
@@ -610,75 +573,6 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
-  /templates/{templateId}/data:
-    get:
-      description: |
-        Returns all data fields used in the template. Returns structured JSON data that can be used to check which data fields are used in template or autogenerate sample data.
-      operationId: getTemplateData
-      parameters:
-      - description: Template unique identifier
-        explode: false
-        in: path
-        name: templateId
-        required: true
-        schema:
-          example: 19375
-          type: integer
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplateData_200_response'
-          description: Template data structure
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_401_response'
-          description: Unauthorized
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_402_response'
-          description: Account Suspended
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_403_response'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_404_response'
-          description: Not Found
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_422_response'
-          description: Unprocessable Entity
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_429_response'
-          description: Too Many Requests
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_500_response'
-          description: Internal Server Error
-      summary: Get template data fields
-      tags:
-      - Templates
-      x-accepts:
-      - application/json
   /templates/{templateId}/copy:
     post:
       description: Creates a copy of a template to the workspace specified in authentication
@@ -694,18 +588,23 @@ paths:
           example: 19375
           type: integer
         style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/copyTemplate_request'
+      - description: Name for the copied template. If name is not specified then the
+          original name is used.
+        example: My copied template
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
-        "201":
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/createTemplate_201_response'
-          description: Template configuration
+                $ref: '#/components/schemas/createTemplate_200_response'
+          description: Template configuration as JSON object
         "401":
           content:
             application/json:
@@ -751,7 +650,6 @@ paths:
       summary: Copy template
       tags:
       - Templates
-      x-content-type: application/json
       x-accepts:
       - application/json
   /templates/{templateId}/editor:
@@ -759,7 +657,7 @@ paths:
       description: |
         Returns an unique URL which you can use to redirect your user to the editor from your application or use the generated URL as iframe source to show the editor within your application.
         When using iframe, make sure that your browser allows third-party cookies.
-      operationId: openEditor
+      operationId: getEditorUrl
       parameters:
       - description: Template unique identifier
         explode: false
@@ -770,18 +668,40 @@ paths:
           example: 19375
           type: integer
         style: simple
+      - description: Specify the editor UI language. Defaults to organization editor
+          language.
+        example: en
+        explode: true
+        in: query
+        name: language
+        required: false
+        schema:
+          enum:
+          - en
+          - et
+          - cs
+          - sk
+          - ru
+          - de
+          type: string
+        style: form
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/openEditor_request'
+              example:
+                id: 12312
+                name: Sample Data
+              type: object
+        description: Data used to generate the PDF. This can be JSON encoded string
+          or a public URL to your JSON file.
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/openEditor_200_response'
+                $ref: '#/components/schemas/getEditorUrl_200_response'
           description: Returns an URL which you can use to redirect your user to the
             editor or use as iframe source
         "401":
@@ -832,265 +752,76 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
-  /documents:
-    get:
-      description: Returns a list of generated documents created by authorized workspace
-        and stored in PDF Generator API. If master user is specified as workspace
-        in JWT then all documents created in the organization are returned. NB! This
-        endpoint returns only documents generated using the output=url option.
-      operationId: getDocuments
+  /templates/{templateId}/output:
+    post:
+      description: "Merges template with data and returns base64 encoded document\
+        \ or a public URL to a document. You can send json encoded data in request\
+        \ body or a public URL to your json file as the data parameter. NB! When the\
+        \ public URL option is used, the document is stored for 30 days and automatically\
+        \ deleted."
+      operationId: mergeTemplate
       parameters:
       - description: Template unique identifier
-        explode: true
-        in: query
-        name: template_id
-        required: false
+        explode: false
+        in: path
+        name: templateId
+        required: true
         schema:
           example: 19375
           type: integer
-        style: form
-      - description: "Start date. Format: Y-m-d H:i:s"
-        explode: true
-        in: query
-        name: start_date
-        required: false
-        schema:
-          example: 2022-08-01 12:00:00
-          type: string
-        style: form
-      - description: "End date. Format: Y-m-d H:i:s. Defaults to current timestamp"
-        explode: true
-        in: query
-        name: end_date
-        required: false
-        schema:
-          example: 2022-08-05 12:00:00
-          type: string
-        style: form
-      - description: "Pagination: page to return"
-        explode: true
-        in: query
-        name: page
-        required: false
-        schema:
-          default: 1
-          example: 1
-          type: integer
-        style: form
-      - description: "Pagination: How many records to return per page"
-        explode: true
-        in: query
-        name: per_page
-        required: false
-        schema:
-          default: 15
-          example: 20
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getDocuments_200_response'
-          description: A list of generated documents
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_401_response'
-          description: Unauthorized
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_402_response'
-          description: Account Suspended
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_403_response'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_404_response'
-          description: Not Found
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_422_response'
-          description: Unprocessable Entity
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_429_response'
-          description: Too Many Requests
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_500_response'
-          description: Internal Server Error
-      summary: Get documents
-      tags:
-      - Documents
-      x-accepts:
-      - application/json
-  /documents/{publicId}:
-    delete:
-      description: Delete document from the Document Storage
-      operationId: deleteDocument
-      parameters:
-      - description: Resource public id
-        example: bac8381bce1982e5f6957a0f52371336
-        explode: false
-        in: path
-        name: publicId
-        required: true
-        schema:
-          type: string
         style: simple
-      responses:
-        "204":
-          description: The resource was deleted successfully.
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_401_response'
-          description: Unauthorized
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_402_response'
-          description: Account Suspended
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_403_response'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_404_response'
-          description: Not Found
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_422_response'
-          description: Unprocessable Entity
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_429_response'
-          description: Too Many Requests
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_500_response'
-          description: Internal Server Error
-      summary: Delete document
-      tags:
-      - Documents
-      x-accepts:
-      - application/json
-    get:
-      description: Returns document stored in the Document Storage
-      operationId: getDocument
-      parameters:
-      - description: Resource public id
-        example: bac8381bce1982e5f6957a0f52371336
-        explode: false
-        in: path
-        name: publicId
-        required: true
+      - description: "Document name, returned in the meta data."
+        explode: true
+        in: query
+        name: name
+        required: false
         schema:
+          example: My document
           type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getDocument_200_response'
-          description: Document data
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_401_response'
-          description: Unauthorized
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_402_response'
-          description: Account Suspended
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_403_response'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_404_response'
-          description: Not Found
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_422_response'
-          description: Unprocessable Entity
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_429_response'
-          description: Too Many Requests
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_500_response'
-          description: Internal Server Error
-      summary: Get document
-      tags:
-      - Documents
-      x-accepts:
-      - application/json
-  /documents/generate:
-    post:
-      description: "Merges template with data and returns base64 encoded document\
-        \ or a public URL to a document. NB! When the public URL option is used, the\
-        \ document is stored for 30 days and automatically deleted."
-      operationId: generateDocument
+        style: form
+      - description: Document format. The zip option will return a ZIP file with PDF
+          files.
+        explode: true
+        in: query
+        name: format
+        required: false
+        schema:
+          enum:
+          - pdf
+          - html
+          - zip
+          - xlsx
+          example: pdf
+          type: string
+        style: form
+      - description: "Response format. \"I\" is used to return the file inline. With\
+          \ the url option, the document is stored for 30 days and automatically deleted."
+        explode: true
+        in: query
+        name: output
+        required: false
+        schema:
+          enum:
+          - base64
+          - url
+          - I
+          example: base64
+          type: string
+        style: form
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/generateDocument_request'
-        description: "Request parameters, including template id, data and formats."
+              $ref: '#/components/schemas/Data'
+        description: Data used to generate the PDF. This can be JSON encoded string
+          or a public URL to your JSON file.
         required: true
       responses:
-        "201":
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/generateDocument_201_response'
+                $ref: '#/components/schemas/mergeTemplate_200_response'
           description: Document data
         "401":
           content:
@@ -1140,106 +871,65 @@ paths:
       x-content-type: application/json
       x-accepts:
       - application/json
-  /documents/generate/async:
-    post:
-      description: |
-        Merges template with data as asynchronous job and makes POST request to callback URL defined in the request. Request uses the same format as response of synchronous generation endpoint.
-        The job id is also added to the callback request as header PDF-API-Job-Id
-
-        *Example payload for callback URL:*
-        ```
-        {
-          "response": "https://us1.pdfgeneratorapi.com/share/12821/VBERi0xLjcKJeLjz9MKNyAwIG9i",
-          "meta": {
-            "name": "a2bd25b8921f3dc7a440fd7f427f90a4.pdf",
-            "display_name": "a2bd25b8921f3dc7a440fd7f427f90a4",
-            "encoding": "binary",
-            "content-type": "application/pdf"
-          }
-        }
-        ```
-      operationId: generateDocumentAsynchronous
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/generateDocumentAsynchronous_request'
-        description: "Request parameters, including template id, data and formats."
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/generateDocumentAsynchronous_201_response'
-          description: Async job response
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_401_response'
-          description: Unauthorized
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_402_response'
-          description: Account Suspended
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_403_response'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_404_response'
-          description: Not Found
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_422_response'
-          description: Unprocessable Entity
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_429_response'
-          description: Too Many Requests
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_500_response'
-          description: Internal Server Error
-      summary: Generate document (async)
-      tags:
-      - Documents
-      x-content-type: application/json
-      x-accepts:
-      - application/json
-  /documents/generate/batch:
+  /templates/output:
     post:
       description: "Allows to merge multiple templates with data and returns base64\
         \ encoded document or public URL to a document. NB! When the public URL option\
         \ is used, the document is stored for 30 days and automatically deleted."
-      operationId: generateDocumentBatch
+      operationId: mergeTemplates
+      parameters:
+      - description: "Document name, returned in the meta data."
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          example: My document
+          type: string
+        style: form
+      - description: Document format. The zip option will return a ZIP file with PDF
+          files.
+        explode: true
+        in: query
+        name: format
+        required: false
+        schema:
+          enum:
+          - pdf
+          - html
+          - zip
+          - xlsx
+          example: pdf
+          type: string
+        style: form
+      - description: "Response format. \"I\" is used to return the file inline. With\
+          \ the url option, the document is stored for 30 days and automatically deleted."
+        explode: true
+        in: query
+        name: output
+        required: false
+        schema:
+          enum:
+          - base64
+          - url
+          - I
+          example: base64
+          type: string
+        style: form
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/generateDocumentBatch_request'
-        description: "Request parameters, including template id, data and formats."
+              $ref: '#/components/schemas/BatchData'
+        description: Data used to specify templates and data objects which are used
+          to merge the template
         required: true
       responses:
-        "201":
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/generateDocument_201_response'
+                $ref: '#/components/schemas/mergeTemplate_200_response'
           description: Document data
         "401":
           content:
@@ -1283,252 +973,33 @@ paths:
               schema:
                 $ref: '#/components/schemas/getTemplates_500_response'
           description: Internal Server Error
-      summary: Generate document (batch)
+      summary: Generate document (multiple templates)
       tags:
       - Documents
       x-content-type: application/json
       x-accepts:
       - application/json
-  /documents/generate/batch/async:
-    post:
-      description: |
-        Merges template with data as asynchronous job and makes POST request to callback URL defined in the request. Request uses the same format as response of synchronous generation endpoint.
-        The job id is also added to the callback request as header PDF-API-Job-Id
-
-        *Example payload for callback URL:*
-        ```
-        {
-          "response": "https://us1.pdfgeneratorapi.com/share/12821/VBERi0xLjcKJeLjz9MKNyAwIG9i",
-          "meta": {
-            "name": "a2bd25b8921f3dc7a440fd7f427f90a4.pdf",
-            "display_name": "a2bd25b8921f3dc7a440fd7f427f90a4",
-            "encoding": "binary",
-            "content-type": "application/pdf"
-          }
-        }
-        ```
-      operationId: generateDocumentBatchAsynchronous
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/generateDocumentBatchAsynchronous_request'
-        description: "Request parameters, including template id, data and formats."
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/generateDocumentAsynchronous_201_response'
-          description: Async job response
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_401_response'
-          description: Unauthorized
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_402_response'
-          description: Account Suspended
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_403_response'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_404_response'
-          description: Not Found
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_422_response'
-          description: Unprocessable Entity
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_429_response'
-          description: Too Many Requests
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_500_response'
-          description: Internal Server Error
-      summary: Generate document (batch + async)
-      tags:
-      - Documents
-      x-content-type: application/json
-      x-accepts:
-      - application/json
-  /workspaces:
-    get:
-      description: Returns all workspaces in the organization
-      operationId: getWorkspaces
-      parameters:
-      - description: "Pagination: page to return"
-        explode: true
-        in: query
-        name: page
-        required: false
-        schema:
-          default: 1
-          example: 1
-          type: integer
-        style: form
-      - description: "Pagination: How many records to return per page"
-        explode: true
-        in: query
-        name: per_page
-        required: false
-        schema:
-          default: 15
-          example: 20
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getWorkspaces_200_response'
-          description: An array of workspace objects
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_401_response'
-          description: Unauthorized
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_402_response'
-          description: Account Suspended
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_403_response'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_404_response'
-          description: Not Found
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_422_response'
-          description: Unprocessable Entity
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_429_response'
-          description: Too Many Requests
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_500_response'
-          description: Internal Server Error
-      summary: Get workspaces
-      tags:
-      - Workspaces
-      x-accepts:
-      - application/json
-    post:
-      description: Creates a regular workspace with identifier specified in the request.
-      operationId: createWorkspace
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/createWorkspace_request'
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/createWorkspace_201_response'
-          description: Workspace information
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_401_response'
-          description: Unauthorized
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_402_response'
-          description: Account Suspended
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_403_response'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_404_response'
-          description: Not Found
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_422_response'
-          description: Unprocessable Entity
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_429_response'
-          description: Too Many Requests
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_500_response'
-          description: Internal Server Error
-      summary: Create workspace
-      tags:
-      - Workspaces
-      x-content-type: application/json
-      x-accepts:
-      - application/json
-  /workspaces/{workspaceIdentifier}:
+  /workspaces/{workspaceId}:
     delete:
-      description: Delete workspace. Only regular workspaces can be deleted.
+      description: Deletes the workspace
       operationId: deleteWorkspace
       parameters:
       - description: Workspace identifier
         example: demo.example@actualreports.com
         explode: false
         in: path
-        name: workspaceIdentifier
+        name: workspaceId
         required: true
         schema:
           type: string
         style: simple
       responses:
-        "204":
-          description: The resource was deleted successfully.
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deleteTemplate_200_response'
+          description: The request was successfully executed.
         "401":
           content:
             application/json:
@@ -1577,15 +1048,14 @@ paths:
       x-accepts:
       - application/json
     get:
-      description: Returns workspace information for the workspace identifier specified
-        in the request.
+      description: Returns workspace information
       operationId: getWorkspace
       parameters:
       - description: Workspace identifier
         example: demo.example@actualreports.com
         explode: false
         in: path
-        name: workspaceIdentifier
+        name: workspaceId
         required: true
         schema:
           type: string
@@ -1595,7 +1065,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/createWorkspace_201_response'
+                $ref: '#/components/schemas/getWorkspace_200_response'
           description: Workspace information
         "401":
           content:
@@ -1644,556 +1114,6 @@ paths:
       - Workspaces
       x-accepts:
       - application/json
-  /conversion/html2pdf:
-    post:
-      description: Converts HTML content to PDF
-      operationId: convertHTML2PDF
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/convertHTML2PDF_request'
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/generateDocument_201_response'
-          description: Document data
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_401_response'
-          description: Unauthorized
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_402_response'
-          description: Account Suspended
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_403_response'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_404_response'
-          description: Not Found
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_422_response'
-          description: Unprocessable Entity
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_429_response'
-          description: Too Many Requests
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_500_response'
-          description: Internal Server Error
-      summary: HTML to PDF
-      tags:
-      - Conversion
-      x-content-type: application/json
-      x-accepts:
-      - application/json
-  /conversion/url2pdf:
-    post:
-      description: Converts public URL to PDF
-      operationId: convertURL2PDF
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/convertURL2PDF_request'
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/generateDocument_201_response'
-          description: Document data
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_401_response'
-          description: Unauthorized
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_402_response'
-          description: Account Suspended
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_403_response'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_404_response'
-          description: Not Found
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_422_response'
-          description: Unprocessable Entity
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_429_response'
-          description: Too Many Requests
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_500_response'
-          description: Internal Server Error
-      summary: URL to PDF
-      tags:
-      - Conversion
-      x-content-type: application/json
-      x-accepts:
-      - application/json
-  /forms:
-    get:
-      description: Returns a list of forms available for the organization
-      operationId: getForms
-      parameters:
-      - description: "Pagination: page to return"
-        explode: true
-        in: query
-        name: page
-        required: false
-        schema:
-          default: 1
-          example: 1
-          type: integer
-        style: form
-      - description: "Pagination: How many records to return per page"
-        explode: true
-        in: query
-        name: per_page
-        required: false
-        schema:
-          default: 15
-          example: 20
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getForms_200_response'
-          description: An array of form objects
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_401_response'
-          description: Unauthorized
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_402_response'
-          description: Account Suspended
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_403_response'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_404_response'
-          description: Not Found
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_422_response'
-          description: Unprocessable Entity
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_429_response'
-          description: Too Many Requests
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_500_response'
-          description: Internal Server Error
-      summary: Get forms
-      tags:
-      - Forms
-      x-accepts:
-      - application/json
-    post:
-      description: Creates a new form based on the configuration sent in the request
-        body.
-      operationId: createFrom
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FormConfigurationNew'
-        description: Form configuration
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/createFrom_201_response'
-          description: Form configuration
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_401_response'
-          description: Unauthorized
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_402_response'
-          description: Account Suspended
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_403_response'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_404_response'
-          description: Not Found
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_422_response'
-          description: Unprocessable Entity
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_429_response'
-          description: Too Many Requests
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_500_response'
-          description: Internal Server Error
-      summary: Create form
-      tags:
-      - Forms
-      x-content-type: application/json
-      x-accepts:
-      - application/json
-  /forms/{formId}:
-    delete:
-      description: Deletes the form with specified id
-      operationId: deleteForm
-      parameters:
-      - description: Form unique identifier
-        explode: false
-        in: path
-        name: formId
-        required: true
-        schema:
-          example: 1
-          type: integer
-        style: simple
-      responses:
-        "204":
-          description: The resource was deleted successfully.
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_401_response'
-          description: Unauthorized
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_402_response'
-          description: Account Suspended
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_403_response'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_404_response'
-          description: Not Found
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_422_response'
-          description: Unprocessable Entity
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_429_response'
-          description: Too Many Requests
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_500_response'
-          description: Internal Server Error
-      summary: Delete form
-      tags:
-      - Forms
-      x-accepts:
-      - application/json
-    get:
-      description: Returns form configuration
-      operationId: getForm
-      parameters:
-      - description: Form unique identifier
-        explode: false
-        in: path
-        name: formId
-        required: true
-        schema:
-          example: 1
-          type: integer
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/createFrom_201_response'
-          description: Form configuration
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_401_response'
-          description: Unauthorized
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_402_response'
-          description: Account Suspended
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_403_response'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_404_response'
-          description: Not Found
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_422_response'
-          description: Unprocessable Entity
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_429_response'
-          description: Too Many Requests
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_500_response'
-          description: Internal Server Error
-      summary: Get form
-      tags:
-      - Forms
-      x-accepts:
-      - application/json
-    put:
-      description: Updates the form configuration. The form configuration must be
-        complete as the entire configuration is replaced and not merged.
-      operationId: updateForm
-      parameters:
-      - description: Form unique identifier
-        explode: false
-        in: path
-        name: formId
-        required: true
-        schema:
-          example: 1
-          type: integer
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/FormConfigurationNew'
-        description: Form configuration
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/createFrom_201_response'
-          description: Form configuration
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_401_response'
-          description: Unauthorized
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_402_response'
-          description: Account Suspended
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_403_response'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_404_response'
-          description: Not Found
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_422_response'
-          description: Unprocessable Entity
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_429_response'
-          description: Too Many Requests
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_500_response'
-          description: Internal Server Error
-      summary: Update form
-      tags:
-      - Forms
-      x-content-type: application/json
-      x-accepts:
-      - application/json
-  /forms/{formId}/share:
-    post:
-      description: Creates an unique sharing URL to collect form data
-      operationId: shareForm
-      parameters:
-      - description: Form unique identifier
-        explode: false
-        in: path
-        name: formId
-        required: true
-        schema:
-          example: 1
-          type: integer
-        style: simple
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/shareForm_201_response'
-          description: Form sharing URL
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_401_response'
-          description: Unauthorized
-        "402":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_402_response'
-          description: Account Suspended
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_403_response'
-          description: Forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_404_response'
-          description: Not Found
-        "422":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_422_response'
-          description: Unprocessable Entity
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_429_response'
-          description: Too Many Requests
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTemplates_500_response'
-          description: Internal Server Error
-      summary: Share form
-      tags:
-      - Forms
-      x-accepts:
-      - application/json
 components:
   parameters:
     templateId:
@@ -2206,47 +1126,17 @@ components:
         example: 19375
         type: integer
       style: simple
-    templateIdInQuery:
-      description: Template unique identifier
-      explode: true
-      in: query
-      name: template_id
-      required: false
-      schema:
-        example: 19375
-        type: integer
-      style: form
-    formId:
-      description: Form unique identifier
-      explode: false
-      in: path
-      name: formId
-      required: true
-      schema:
-        example: 1
-        type: integer
-      style: simple
-    workspaceIdentifier:
+    workspaceId:
       description: Workspace identifier
       example: demo.example@actualreports.com
       explode: false
       in: path
-      name: workspaceIdentifier
+      name: workspaceId
       required: true
       schema:
         type: string
       style: simple
-    publicId:
-      description: Resource public id
-      example: bac8381bce1982e5f6957a0f52371336
-      explode: false
-      in: path
-      name: publicId
-      required: true
-      schema:
-        type: string
-      style: simple
-    docName:
+    doc_name:
       description: "Document name, returned in the meta data."
       explode: true
       in: query
@@ -2256,95 +1146,43 @@ components:
         example: My document
         type: string
       style: form
-    nameFilter:
-      description: Filter template by name
+    format:
+      description: Document format. The zip option will return a ZIP file with PDF
+        files.
       explode: true
       in: query
-      name: name
+      name: format
       required: false
       schema:
-        type: string
-      style: form
-    tagFilter:
-      description: Filter template by tags
-      explode: true
-      in: query
-      name: tags
-      required: false
-      schema:
-        type: string
-      style: form
-    accessFilter:
-      description: "Filter template by access type. No values returns all templates.\
-        \ private - returns only private templates, organization - returns only organization\
-        \ templates."
-      explode: true
-      in: query
-      name: access
-      required: false
-      schema:
-        default: ""
         enum:
-        - private
-        - organization
-        - ""
-        example: private
+        - pdf
+        - html
+        - zip
+        - xlsx
+        example: pdf
         type: string
       style: form
-    startDate:
-      description: "Start date. Format: Y-m-d H:i:s"
+    output:
+      description: "Response format. \"I\" is used to return the file inline. With\
+        \ the url option, the document is stored for 30 days and automatically deleted."
       explode: true
       in: query
-      name: start_date
+      name: output
       required: false
       schema:
-        example: 2022-08-01 12:00:00
+        enum:
+        - base64
+        - url
+        - I
+        example: base64
         type: string
-      style: form
-    endDate:
-      description: "End date. Format: Y-m-d H:i:s. Defaults to current timestamp"
-      explode: true
-      in: query
-      name: end_date
-      required: false
-      schema:
-        example: 2022-08-05 12:00:00
-        type: string
-      style: form
-    perPage:
-      description: "Pagination: How many records to return per page"
-      explode: true
-      in: query
-      name: per_page
-      required: false
-      schema:
-        default: 15
-        example: 20
-        type: integer
-      style: form
-    page:
-      description: "Pagination: page to return"
-      explode: true
-      in: query
-      name: page
-      required: false
-      schema:
-        default: 1
-        example: 1
-        type: integer
       style: form
   responses:
-    templateData:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/getTemplateData_200_response'
-      description: Template data structure
     editorUrl:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/openEditor_200_response'
+            $ref: '#/components/schemas/getEditorUrl_200_response'
       description: Returns an URL which you can use to redirect your user to the editor
         or use as iframe source
     listOfTemplates:
@@ -2353,72 +1191,30 @@ components:
           schema:
             $ref: '#/components/schemas/getTemplates_200_response'
       description: An array of template objects
-    listOfWorkspaces:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/getWorkspaces_200_response'
-      description: An array of workspace objects
-    listOfForms:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/getForms_200_response'
-      description: An array of form objects
     success:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/inline_object'
+            $ref: '#/components/schemas/deleteTemplate_200_response'
       description: The request was successfully executed.
     workspace:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/createWorkspace_201_response'
+            $ref: '#/components/schemas/getWorkspace_200_response'
       description: Workspace information
     document:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/generateDocument_201_response'
+            $ref: '#/components/schemas/mergeTemplate_200_response'
       description: Document data
-    storedDocument:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/getDocument_200_response'
-      description: Document data
-    documents:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/getDocuments_200_response'
-      description: A list of generated documents
     templateConfig:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/createTemplate_201_response'
-      description: Template configuration
-    formConfiguration:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/createFrom_201_response'
-      description: Form configuration
-    formShareConfiguration:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/shareForm_201_response'
-      description: Form sharing URL
-    asyncGeneration:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/generateDocumentAsynchronous_201_response'
-      description: Async job response
+            $ref: '#/components/schemas/createTemplate_200_response'
+      description: Template configuration as JSON object
     error401:
       content:
         application/json:
@@ -2449,48 +1245,52 @@ components:
           schema:
             $ref: '#/components/schemas/getTemplates_422_response'
       description: Unprocessable Entity
-    error429:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/getTemplates_429_response'
-      description: Too Many Requests
     error500:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/getTemplates_500_response'
       description: Internal Server Error
-    deleted:
-      description: The resource was deleted successfully.
+    error429:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/getTemplates_429_response'
+      description: Too Many Requests
   schemas:
     Component:
       description: Template component definition
+      example:
+        zindex: 102
+        top: 4.2
+        left: 2.5
+        dataIndex: line_items
+        width: 3.5
+        cls: labelComponent
+        id: component-12313
+        value: "${price}"
+        height: 1
       properties:
         cls:
           description: Defines component class/type
           enum:
           - labelComponent
-          - textComponent
-          - dateComponent
           - numberComponent
-          - htmlblockComponent
+          - textComponent
+          - imageComponent
+          - dateComponent
+          - hlineComponent
+          - vlineComponent
           - tableComponent
           - compositeComponent
-          - chartComponent
           - barcodeComponent
           - qrcodeComponent
-          - imageComponent
+          - chartComponent
+          - rectangleComponent
           - headerComponent
           - footerComponent
-          - rectangleComponent
-          - vlineComponent
-          - hlineComponent
-          - pagenumberComponent
-          - symbolComponent
           - checkboxComponent
           - radioComponent
-          - signatureComponent
           example: labelComponent
           type: string
         id:
@@ -2532,17 +1332,16 @@ components:
       description: Template object
       example:
         owner: true
-        updated_at: 2022-08-01 23:49:28
         name: Invoice template
-        created_at: 2022-01-21 11:49:28
-        id: 19375
+        modified: 2017-10-21 11:49:28
+        id: 24382
         tags:
         - invoice
         - orders
       properties:
         id:
           description: Unique identifier
-          example: 19375
+          example: 24382
           type: integer
         name:
           description: Template name
@@ -2552,13 +1351,9 @@ components:
           description: Indicates if the workspace is the owner of the template
           example: true
           type: boolean
-        created_at:
-          description: Timestamp when the template was created
-          example: 2022-01-21 11:49:28
-          type: string
-        updated_at:
-          description: Timestamp when the template was updated
-          example: 2022-08-01 23:49:28
+        modified:
+          description: Timestamp when the template was modified
+          example: 2017-10-21 11:49:28
           type: string
         tags:
           description: A list of tags assigned to a template
@@ -2589,35 +1384,55 @@ components:
             width: 21
             height: 29.7
           height: 29.7
-        editor:
-          heightMultiplier: 1
         pages:
-        - border: false
-          layout: "{}"
-          margins:
+        - margins:
             bottom: 0.5
             right: 0.5
-          components: []
-          conditionalFormats: []
-          backgroundImage: backgroundImage
+          components:
+          - zindex: 102
+            top: 4.2
+            left: 2.5
+            dataIndex: line_items
+            width: 3.5
+            cls: labelComponent
+            id: component-12313
+            value: "${price}"
+            height: 1
+          - zindex: 102
+            top: 4.2
+            left: 2.5
+            dataIndex: line_items
+            width: 3.5
+            cls: labelComponent
+            id: component-12313
+            value: "${price}"
+            height: 1
           width: 21
           height: 29.7
-        - border: false
-          layout: "{}"
-          margins:
+        - margins:
             bottom: 0.5
             right: 0.5
-          components: []
-          conditionalFormats: []
-          backgroundImage: backgroundImage
+          components:
+          - zindex: 102
+            top: 4.2
+            left: 2.5
+            dataIndex: line_items
+            width: 3.5
+            cls: labelComponent
+            id: component-12313
+            value: "${price}"
+            height: 1
+          - zindex: 102
+            top: 4.2
+            left: 2.5
+            dataIndex: line_items
+            width: 3.5
+            cls: labelComponent
+            id: component-12313
+            value: "${price}"
+            height: 1
           width: 21
           height: 29.7
-        dataSettings:
-          transform: []
-          sortBy: []
-          filterBy: []
-        fontSubsetting: false
-        barcodeAsImage: false
         name: Invoice template
         isDraft: true
         tags:
@@ -2648,21 +1463,6 @@ components:
           items:
             $ref: '#/components/schemas/TemplateDefinitionNew_pages_inner'
           type: array
-        dataSettings:
-          $ref: '#/components/schemas/TemplateDefinitionNew_dataSettings'
-        editor:
-          $ref: '#/components/schemas/TemplateDefinitionNew_editor'
-        fontSubsetting:
-          default: false
-          description: If font-subsetting is applied to document when generated
-          example: false
-          type: boolean
-        barcodeAsImage:
-          default: false
-          description: Defines if barcodes are rendered as raster images instead of
-            vector graphics.
-          example: false
-          type: boolean
       required:
       - name
       type: object
@@ -2692,16 +1492,48 @@ components:
             bottom: 0.5
             right: 0.5
           components:
-          - "{}"
-          - "{}"
+          - zindex: 102
+            top: 4.2
+            left: 2.5
+            dataIndex: line_items
+            width: 3.5
+            cls: labelComponent
+            id: component-12313
+            value: "${price}"
+            height: 1
+          - zindex: 102
+            top: 4.2
+            left: 2.5
+            dataIndex: line_items
+            width: 3.5
+            cls: labelComponent
+            id: component-12313
+            value: "${price}"
+            height: 1
           width: 21
           height: 29.7
         - margins:
             bottom: 0.5
             right: 0.5
           components:
-          - "{}"
-          - "{}"
+          - zindex: 102
+            top: 4.2
+            left: 2.5
+            dataIndex: line_items
+            width: 3.5
+            cls: labelComponent
+            id: component-12313
+            value: "${price}"
+            height: 1
+          - zindex: 102
+            top: 4.2
+            left: 2.5
+            dataIndex: line_items
+            width: 3.5
+            cls: labelComponent
+            id: component-12313
+            value: "${price}"
+            height: 1
           width: 21
           height: 29.7
         dataSettings:
@@ -2713,14 +1545,14 @@ components:
           - "{}"
         name: Invoice template
         isDraft: true
-        id: 19375
+        id: 24382
         tags:
         - invoice
         - orders
       properties:
         id:
           description: Unique identifier
-          example: 19375
+          example: 24382
           type: integer
         name:
           description: Template name
@@ -2744,7 +1576,7 @@ components:
           description: "Defines page or label size, margins and components on page\
             \ or label"
           items:
-            $ref: '#/components/schemas/TemplateDefinition_pages_inner'
+            $ref: '#/components/schemas/TemplateDefinitionNew_pages_inner'
           type: array
         dataSettings:
           $ref: '#/components/schemas/TemplateDefinition_dataSettings'
@@ -2775,292 +1607,52 @@ components:
           type: string
       type: object
     Data:
-      description: JSON data used to replace data fields in the template
       example:
         id: 123
         name: John Smith
         birthdate: 2000-01-01
         role: Developer
       type: object
-    DataArray:
-      description: JSON data used to replace data fields in the template
-      example:
-      - id: 123
-        name: John Smith
-        birthdate: 2000-05-12
-        role: Developer
-      - id: 123
-        name: Jane Doe
-        birthdate: 1999-03-12
-        role: Manager
-      items:
-        $ref: '#/components/schemas/Data'
-      type: array
-    DataBatch:
-      description: JSON data used to replace data fields in the template
+    BatchData:
       example:
       - template: 52272
         data:
-          id: 123
-          name: John Smith
-          birthdate: 2000-01-01
-          role: Developer
+          key: value
       - template: 52273
         data:
-          id: 123
-          name: Jane Doe
-          birthdate: 1999-03-12
-          role: Manager
+          key2: value2
       items:
-        $ref: '#/components/schemas/DataBatch_inner'
+        $ref: '#/components/schemas/BatchData_inner'
       type: array
-    Document:
-      example:
-        public_url: https://us1.pdfgeneratorapi.com/api/v4/documents/66/6475768884cecfcd3ed4e6028be8a580/share
-        expires_at: 2022-08-02 13:04:21
-        created_at: 2022-07-02 13:04:21
-        template_id: 18905762
-        public_id: a2bd25b8921f3dc7a440fd7f427f90a4
-      properties:
-        public_id:
-          description: Document unique identifier
-          example: a2bd25b8921f3dc7a440fd7f427f90a4
-          type: string
-        public_url:
-          description: Public URL of the document
-          example: https://us1.pdfgeneratorapi.com/api/v4/documents/66/6475768884cecfcd3ed4e6028be8a580/share
-          type: string
-        template_id:
-          description: Template used to generate the document
-          example: 18905762
-          type: integer
-        created_at:
-          description: Date time when the document was generated
-          example: 2022-07-02 13:04:21
-          type: string
-        expires_at:
-          description: Date time when the document url will expire. Document is stored
-            for 30 days.
-          example: 2022-08-02 13:04:21
-          type: string
-      type: object
-    FormConfigurationNew:
-      example:
-        name: Certificate creator
-        template_id: 123123
-        fields:
-        - name: name
-          label: Full name
-          type: text
-          required: false
-        - name: name
-          label: Full name
-          type: text
-          required: false
-        actions:
-        - store_document: true
-        - store_document: true
-      properties:
-        template_id:
-          description: Template ID which is connected to the form
-          example: 123123
-          type: integer
-        name:
-          description: Form name
-          example: Certificate creator
-          type: string
-        actions:
-          description: Array of action configurations
-          items:
-            $ref: '#/components/schemas/FormConfigurationNew_actions_inner'
-          type: array
-        fields:
-          description: A list of form field objects
-          items:
-            $ref: '#/components/schemas/formFields_inner'
-          type: array
-      type: object
-    FormConfiguration:
-      example:
-        name: Certificate creator
-        template_id: 123123
-        id: 1
-        fields:
-        - name: name
-          label: Full name
-          type: text
-          required: false
-        - name: name
-          label: Full name
-          type: text
-          required: false
-        actions:
-        - store_document: true
-        - store_document: true
-      properties:
-        id:
-          description: Unique identifier
-          example: 1
-          type: integer
-        template_id:
-          description: Template ID which is connected to the form
-          example: 123123
-          type: integer
-        name:
-          description: Form name
-          example: Certificate creator
-          type: string
-        actions:
-          description: Array of action configurations
-          items:
-            $ref: '#/components/schemas/FormConfigurationNew_actions_inner'
-          type: array
-        fields:
-          description: A list of form field objects
-          items:
-            $ref: '#/components/schemas/formFields_inner'
-          type: array
-      type: object
-    formFields:
-      description: A list of form field objects
-      items:
-        $ref: '#/components/schemas/formFields_inner'
-      type: array
-    formActionStore:
-      description: Key-value pair of action configuration.
-      example:
-        store_document: true
-      properties:
-        store_document:
-          example: true
-          type: boolean
-      type: object
-    formActionDownload:
-      description: Key-value pair of action configuration.
-      properties:
-        download_document:
-          example: true
-          type: boolean
-      type: object
-    formatParam:
-      default: pdf
-      description: Document format. The zip option will return a ZIP file with PDF
-        files.
-      enum:
-      - pdf
-      - html
-      - zip
-      - xlsx
-      example: pdf
-      type: string
-    outputParam:
-      default: base64
-      description: "Response format. When the \"file\" option is used the API returns\
-        \ the file inline. With the \"url\" option, the document is stored for 30\
-        \ days and automatically deleted."
-      enum:
-      - base64
-      - url
-      - file
-      example: base64
-      type: string
-    asyncOutputParam:
-      default: base64
-      description: The generated document is returned as base64 string or URL which
-        is stored for 30 days and automatically deleted.
-      enum:
-      - base64
-      - url
-      example: base64
-      type: string
-    templateParam:
-      description: "Template id, version and data"
-      properties:
-        id:
-          description: Template ID
-          type: integer
-        data:
-          $ref: '#/components/schemas/templateParam_data'
-      type: object
-    nameParam:
-      default: ""
-      description: Generated document name (optional)
-      example: Invoice 123
-      type: string
-    testingParam:
-      default: false
-      description: "When set to true the generation is not counted as merge (monthly\
-        \ usage), but a large PREVIEW stamp is added."
-      example: false
-      type: boolean
-    callbackParam:
-      description: Callback URL and optional headers
-      properties:
-        url:
-          description: Public callback URL that is used to make a POST request when
-            the document is generated.
-          example: https://example.org/document-callback
-          type: string
-        headers:
-          description: A key-value pairs of header values sent with the POST request.
-          example:
-            Content-type: application/pdf
-            Authorization: Bearer ABCDE12345678
-          type: object
-      type: object
-    paginationMeta:
-      description: Information about pagination and navigation
-      example:
-        per_page: 15
-        last_page: 1
-        current_page: 1
-      properties:
-        current_page:
-          example: 1
-          type: number
-        last_page:
-          example: 1
-          type: number
-        per_page:
-          example: 15
-          type: number
-      type: object
     getTemplates_200_response:
       example:
         response:
         - owner: true
-          updated_at: 2022-08-01 23:49:28
           name: Invoice template
-          created_at: 2022-01-21 11:49:28
-          id: 19375
+          modified: 2017-10-21 11:49:28
+          id: 24382
           tags:
           - invoice
           - orders
         - owner: true
-          updated_at: 2022-08-01 23:49:28
           name: Invoice template
-          created_at: 2022-01-21 11:49:28
-          id: 19375
+          modified: 2017-10-21 11:49:28
+          id: 24382
           tags:
           - invoice
           - orders
-        meta:
-          per_page: 15
-          last_page: 1
-          current_page: 1
       properties:
         response:
           items:
             $ref: '#/components/schemas/Template'
           type: array
-        meta:
-          $ref: '#/components/schemas/paginationMeta'
       type: object
     getTemplates_401_response:
       example:
-        message: Authentication failed
+        error: Authentication failed
+        status: 401
       properties:
-        message:
+        error:
           description: Error description
           enum:
           - "Authentication failed: request expired"
@@ -3075,75 +1667,111 @@ components:
           - Authentication failed
           example: Authentication failed
           type: string
+        status:
+          description: HTTP Error code
+          example: 401
+          type: integer
       type: object
     getTemplates_402_response:
       example:
-        message: Account Suspended
+        error: Account Suspended
+        status: 402
       properties:
-        message:
+        error:
           description: Error description
           enum:
           - "Your account is suspended, please upgrade your account or contact support@pdfgeneratorapi.com"
           example: Account Suspended
           type: string
+        status:
+          description: HTTP Error code
+          example: 402
+          type: integer
       type: object
     getTemplates_403_response:
       example:
-        message: Access not granted
+        error: Access not granted
+        status: 403
       properties:
-        message:
+        error:
           description: Error description
           enum:
           - Your account has exceeded the monthly document generation limit.
           example: Access not granted
           type: string
+        status:
+          description: HTTP Error code
+          example: 403
+          type: integer
       type: object
     getTemplates_404_response:
       example:
-        message: Entity not found
+        error: Entity not found
+        status: 404
       properties:
-        message:
+        error:
           description: Error description
           enum:
           - Entity not found
-          - Template not found
           - Resource not found
           - None of the templates is available for the workspace.
           example: Entity not found
           type: string
+        status:
+          description: HTTP Error code
+          example: 404
+          type: integer
       type: object
     getTemplates_422_response:
       example:
-        message: Incorrect parameter value
-        errors: "{}"
+        error: Incorrect parameter value
+        status: 422
       properties:
-        message:
+        error:
           description: Error description
+          enum:
+          - "Unable to parse JSON, please check formatting"
+          - Required parameter missing
+          - "Required parameter missing: template definition not defined"
+          - "Required parameter missing: template not defined"
           example: Incorrect parameter value
           type: string
-        errors:
-          description: Details about validation errors
-          type: object
+        status:
+          description: HTTP Error code
+          example: 422
+          type: integer
       type: object
     getTemplates_429_response:
       example:
-        message: You can make up to 2 requests per second and 60 requests per minute.
+        error: You can make up to 5 requests per second and 120 requests per minute.
+        status: 429
       properties:
-        message:
+        error:
           description: Error description
-          example: You can make up to 2 requests per second and 60 requests per minute.
+          enum:
+          - You can make up to 5 requests per second and 120 requests per minute.
+          example: You can make up to 5 requests per second and 120 requests per minute.
           type: string
+        status:
+          description: HTTP Error code
+          example: 429
+          type: integer
       type: object
     getTemplates_500_response:
       example:
-        message: Internal error
+        error: Internal error
+        status: 500
       properties:
-        message:
+        error:
           description: Error description
           example: Internal error
           type: string
+        status:
+          description: HTTP Error code
+          example: 500
+          type: integer
       type: object
-    createTemplate_201_response:
+    createTemplate_200_response:
       example:
         response:
           layout:
@@ -3170,16 +1798,48 @@ components:
               bottom: 0.5
               right: 0.5
             components:
-            - "{}"
-            - "{}"
+            - zindex: 102
+              top: 4.2
+              left: 2.5
+              dataIndex: line_items
+              width: 3.5
+              cls: labelComponent
+              id: component-12313
+              value: "${price}"
+              height: 1
+            - zindex: 102
+              top: 4.2
+              left: 2.5
+              dataIndex: line_items
+              width: 3.5
+              cls: labelComponent
+              id: component-12313
+              value: "${price}"
+              height: 1
             width: 21
             height: 29.7
           - margins:
               bottom: 0.5
               right: 0.5
             components:
-            - "{}"
-            - "{}"
+            - zindex: 102
+              top: 4.2
+              left: 2.5
+              dataIndex: line_items
+              width: 3.5
+              cls: labelComponent
+              id: component-12313
+              value: "${price}"
+              height: 1
+            - zindex: 102
+              top: 4.2
+              left: 2.5
+              dataIndex: line_items
+              width: 3.5
+              cls: labelComponent
+              id: component-12313
+              value: "${price}"
+              height: 1
             width: 21
             height: 29.7
           dataSettings:
@@ -3191,55 +1851,31 @@ components:
             - "{}"
           name: Invoice template
           isDraft: true
-          id: 19375
+          id: 24382
           tags:
           - invoice
           - orders
-        meta: "{}"
       properties:
         response:
           $ref: '#/components/schemas/TemplateDefinition'
-        meta:
-          type: object
       type: object
-    getTemplateData_200_response:
+    deleteTemplate_200_response_response:
       example:
-        response: "{}"
+        success: true
+      properties:
+        success:
+          example: true
+          type: boolean
+      type: object
+    deleteTemplate_200_response:
+      example:
+        response:
+          success: true
       properties:
         response:
-          type: object
+          $ref: '#/components/schemas/deleteTemplate_200_response_response'
       type: object
-    copyTemplate_request:
-      properties:
-        name:
-          description: Name for the copied template. If name is not specified then
-            the original name is used.
-          example: My copied template
-          type: string
-      type: object
-    openEditor_request_data:
-      description: Data used to generate the document. This can be an object or array
-        of objects.
-      oneOf:
-      - $ref: '#/components/schemas/Data'
-      - $ref: '#/components/schemas/DataArray'
-    openEditor_request:
-      properties:
-        data:
-          $ref: '#/components/schemas/openEditor_request_data'
-        language:
-          description: Specify the editor UI language. Defaults to organization editor
-            language.
-          enum:
-          - en
-          - et
-          - cs
-          - sk
-          - ru
-          - de
-          type: string
-      type: object
-    openEditor_200_response:
+    getEditorUrl_200_response:
       example:
         response: https://us1.pdfgeneratorapi.com/editor/open/2ff98760d39456c4b2cf974fef005ecf
       properties:
@@ -3247,99 +1883,7 @@ components:
           example: https://us1.pdfgeneratorapi.com/editor/open/2ff98760d39456c4b2cf974fef005ecf
           type: string
       type: object
-    getDocuments_200_response:
-      example:
-        response:
-        - public_url: https://us1.pdfgeneratorapi.com/api/v4/documents/66/6475768884cecfcd3ed4e6028be8a580/share
-          expires_at: 2022-08-02 13:04:21
-          created_at: 2022-07-02 13:04:21
-          template_id: 18905762
-          public_id: a2bd25b8921f3dc7a440fd7f427f90a4
-        - public_url: https://us1.pdfgeneratorapi.com/api/v4/documents/66/6475768884cecfcd3ed4e6028be8a580/share
-          expires_at: 2022-08-02 13:04:21
-          created_at: 2022-07-02 13:04:21
-          template_id: 18905762
-          public_id: a2bd25b8921f3dc7a440fd7f427f90a4
-        meta:
-          per_page: 15
-          last_page: 1
-          current_page: 1
-      properties:
-        response:
-          items:
-            $ref: '#/components/schemas/Document'
-          type: array
-        meta:
-          $ref: '#/components/schemas/paginationMeta'
-      type: object
-    getDocument_200_response_meta:
-      example:
-        name: a2bd25b8921f3dc7a440fd7f427f90a4.pdf
-        content-type: application/pdf
-        display_name: a2bd25b8921f3dc7a440fd7f427f90a4
-        encoding: binary
-        public_id: bac8381bce1982e5f6957a0f52371336
-      properties:
-        name:
-          description: Document name. This value is automatically generated if name
-            attribute is not defined in request.
-          example: a2bd25b8921f3dc7a440fd7f427f90a4.pdf
-          type: string
-        display_name:
-          description: Document name without the file extension.
-          example: a2bd25b8921f3dc7a440fd7f427f90a4
-          type: string
-        encoding:
-          description: Document encoding
-          example: binary
-          type: string
-        content-type:
-          description: Document content type.
-          example: application/pdf
-          type: string
-        public_id:
-          description: Document public id
-          example: bac8381bce1982e5f6957a0f52371336
-          type: string
-      type: object
-    getDocument_200_response:
-      example:
-        response: https://us1.pdfgeneratorapi.com/api/v4/documents/66/bac8381bce1982e5f6957a0f52371336/share
-        meta:
-          name: a2bd25b8921f3dc7a440fd7f427f90a4.pdf
-          content-type: application/pdf
-          display_name: a2bd25b8921f3dc7a440fd7f427f90a4
-          encoding: binary
-          public_id: bac8381bce1982e5f6957a0f52371336
-      properties:
-        response:
-          description: Public URL to the document.
-          example: https://us1.pdfgeneratorapi.com/api/v4/documents/66/bac8381bce1982e5f6957a0f52371336/share
-          type: string
-        meta:
-          $ref: '#/components/schemas/getDocument_200_response_meta'
-      type: object
-    generateDocument_request:
-      properties:
-        template:
-          $ref: '#/components/schemas/templateParam'
-        format:
-          $ref: '#/components/schemas/formatParam'
-        output:
-          $ref: '#/components/schemas/outputParam'
-        name:
-          default: ""
-          description: Generated document name (optional)
-          example: Invoice 123
-          type: string
-        testing:
-          default: false
-          description: "When set to true the generation is not counted as merge (monthly\
-            \ usage), but a large PREVIEW stamp is added."
-          example: false
-          type: boolean
-      type: object
-    generateDocument_201_response_meta:
+    mergeTemplate_200_response_meta:
       example:
         name: a2bd25b8921f3dc7a440fd7f427f90a4.pdf
         content-type: application/pdf
@@ -3369,7 +1913,7 @@ components:
           example: a2bd25b8921f3dc7a440fd7f427f90a4
           type: string
       type: object
-    generateDocument_201_response:
+    mergeTemplate_200_response:
       example:
         response: JVBERi0xLjcKJeLjz9MKNyAwIG9iago8PCAvVHlwZSA...
         meta:
@@ -3385,126 +1929,9 @@ components:
           example: JVBERi0xLjcKJeLjz9MKNyAwIG9iago8PCAvVHlwZSA...
           type: string
         meta:
-          $ref: '#/components/schemas/generateDocument_201_response_meta'
+          $ref: '#/components/schemas/mergeTemplate_200_response_meta'
       type: object
-    generateDocumentAsynchronous_request:
-      properties:
-        template:
-          $ref: '#/components/schemas/templateParam'
-        callback:
-          $ref: '#/components/schemas/callbackParam'
-        format:
-          $ref: '#/components/schemas/formatParam'
-        output:
-          $ref: '#/components/schemas/asyncOutputParam'
-        name:
-          default: ""
-          description: Generated document name (optional)
-          example: Invoice 123
-          type: string
-        testing:
-          default: false
-          description: "When set to true the generation is not counted as merge (monthly\
-            \ usage), but a large PREVIEW stamp is added."
-          example: false
-          type: boolean
-      type: object
-    generateDocumentAsynchronous_201_response_response:
-      example:
-        job_id: JeLjz9MKNyAwIG9iago8PCA
-      properties:
-        job_id:
-          description: Unique job id which is also added to the callback request as
-            header PDF-API-Job-Id
-          example: JeLjz9MKNyAwIG9iago8PCA
-          type: string
-      type: object
-    generateDocumentAsynchronous_201_response:
-      example:
-        response:
-          job_id: JeLjz9MKNyAwIG9iago8PCA
-      properties:
-        response:
-          $ref: '#/components/schemas/generateDocumentAsynchronous_201_response_response'
-      type: object
-    generateDocumentBatch_request:
-      properties:
-        template:
-          items:
-            $ref: '#/components/schemas/templateParam'
-          type: array
-        format:
-          $ref: '#/components/schemas/formatParam'
-        output:
-          $ref: '#/components/schemas/outputParam'
-        name:
-          default: ""
-          description: Generated document name (optional)
-          example: Invoice 123
-          type: string
-        testing:
-          default: false
-          description: "When set to true the generation is not counted as merge (monthly\
-            \ usage), but a large PREVIEW stamp is added."
-          example: false
-          type: boolean
-      type: object
-    generateDocumentBatchAsynchronous_request:
-      properties:
-        template:
-          items:
-            $ref: '#/components/schemas/templateParam'
-          type: array
-        callback:
-          $ref: '#/components/schemas/callbackParam'
-        format:
-          $ref: '#/components/schemas/formatParam'
-        output:
-          $ref: '#/components/schemas/asyncOutputParam'
-        name:
-          default: ""
-          description: Generated document name (optional)
-          example: Invoice 123
-          type: string
-        testing:
-          default: false
-          description: "When set to true the generation is not counted as merge (monthly\
-            \ usage), but a large PREVIEW stamp is added."
-          example: false
-          type: boolean
-      type: object
-    getWorkspaces_200_response:
-      example:
-        response:
-        - identifier: demo.example@actualreports.com
-          is_master_workspace: false
-          created_at: 2020-04-01 12:03:12
-          id: 1
-        - identifier: demo.example@actualreports.com
-          is_master_workspace: false
-          created_at: 2020-04-01 12:03:12
-          id: 1
-        meta:
-          per_page: 15
-          last_page: 1
-          current_page: 1
-      properties:
-        response:
-          items:
-            $ref: '#/components/schemas/Workspace'
-          type: array
-        meta:
-          $ref: '#/components/schemas/paginationMeta'
-      type: object
-    createWorkspace_request:
-      properties:
-        identifier:
-          description: A unique identifier of the workspace. Make sure that you can
-            generate the same identifier for your user.
-          example: demo.example@actualreports.com
-          type: string
-      type: object
-    createWorkspace_201_response:
+    getWorkspace_200_response:
       example:
         response:
           identifier: demo.example@actualreports.com
@@ -3514,175 +1941,6 @@ components:
       properties:
         response:
           $ref: '#/components/schemas/Workspace'
-      type: object
-    convertHTML2PDF_request:
-      properties:
-        content:
-          description: HTML content
-          example: <html><title>Test</title><body><h1>Hello world</h1></body></html>
-          type: string
-        paper_size:
-          default: a4
-          description: PDF page size
-          enum:
-          - a0
-          - a1
-          - a2
-          - a3
-          - a4
-          - legal
-          - tabloid
-          - letter
-          example: a4
-          type: string
-        orientation:
-          default: portrait
-          enum:
-          - portrait
-          - landscape
-          example: portrait
-          type: string
-        output:
-          default: base64
-          description: Output
-          enum:
-          - base64
-          - file
-          example: base64
-          type: string
-        filename:
-          description: Document name
-          example: Invoice 12345
-          type: string
-      type: object
-    convertURL2PDF_request:
-      properties:
-        url:
-          description: Public URL
-          example: https://example.org
-          type: string
-        paper_size:
-          default: a4
-          description: PDF page size
-          enum:
-          - a0
-          - a1
-          - a2
-          - a3
-          - a4
-          - legal
-          - tabloid
-          - letter
-          example: a4
-          type: string
-        orientation:
-          default: portrait
-          enum:
-          - portrait
-          - landscape
-          example: portrait
-          type: string
-        output:
-          default: base64
-          description: Output
-          enum:
-          - base64
-          - file
-          example: base64
-          type: string
-        filename:
-          description: Document name
-          example: Invoice 12345
-          type: string
-      type: object
-    getForms_200_response:
-      example:
-        response:
-        - name: Certificate creator
-          template_id: 123123
-          id: 1
-          fields:
-          - name: name
-            label: Full name
-            type: text
-            required: false
-          - name: name
-            label: Full name
-            type: text
-            required: false
-          actions:
-          - store_document: true
-          - store_document: true
-        - name: Certificate creator
-          template_id: 123123
-          id: 1
-          fields:
-          - name: name
-            label: Full name
-            type: text
-            required: false
-          - name: name
-            label: Full name
-            type: text
-            required: false
-          actions:
-          - store_document: true
-          - store_document: true
-        meta:
-          per_page: 15
-          last_page: 1
-          current_page: 1
-      properties:
-        response:
-          items:
-            $ref: '#/components/schemas/FormConfiguration'
-          type: array
-        meta:
-          $ref: '#/components/schemas/paginationMeta'
-      type: object
-    createFrom_201_response:
-      example:
-        response:
-          name: Certificate creator
-          template_id: 123123
-          id: 1
-          fields:
-          - name: name
-            label: Full name
-            type: text
-            required: false
-          - name: name
-            label: Full name
-            type: text
-            required: false
-          actions:
-          - store_document: true
-          - store_document: true
-      properties:
-        response:
-          $ref: '#/components/schemas/FormConfiguration'
-      type: object
-    shareForm_201_response_meta:
-      example:
-        public_id: 097475c4-dcd5-42ca-814f-b9fa3da66b5a
-      properties:
-        public_id:
-          description: Form sharing unique identifier
-          example: 097475c4-dcd5-42ca-814f-b9fa3da66b5a
-          type: string
-      type: object
-    shareForm_201_response:
-      example:
-        response: https://app.pdfgeneratorapi.com/forms/097475c4-dcd5-42ca-814f-b9fa3da66b5a/share
-        meta:
-          public_id: 097475c4-dcd5-42ca-814f-b9fa3da66b5a
-      properties:
-        response:
-          description: Public URL for form data collection
-          example: https://app.pdfgeneratorapi.com/forms/097475c4-dcd5-42ca-814f-b9fa3da66b5a/share
-          type: string
-        meta:
-          $ref: '#/components/schemas/shareForm_201_response_meta'
       type: object
     TemplateDefinitionNew_layout_margins:
       description: Page margins in units
@@ -3751,7 +2009,6 @@ components:
         height: 29.7
       properties:
         format:
-          default: A4
           description: Defines template page size
           enum:
           - A4
@@ -3768,7 +2025,6 @@ components:
           example: 29.7
           type: number
         unit:
-          default: cm
           description: Measure unit
           enum:
           - cm
@@ -3796,8 +2052,7 @@ components:
         repeatLayout:
           $ref: '#/components/schemas/TemplateDefinitionNew_layout_repeatLayout'
         emptyLabels:
-          default: 0
-          description: Specifies how many blank lables to add to sheet label.
+          description: Defines how many pages or labels should be empty
           example: 0
           type: integer
       type: object
@@ -3817,91 +2072,28 @@ components:
       type: object
     TemplateDefinitionNew_pages_inner:
       example:
-        border: false
-        layout: "{}"
-        margins:
-          bottom: 0.5
-          right: 0.5
-        components: []
-        conditionalFormats: []
-        backgroundImage: backgroundImage
-        width: 21
-        height: 29.7
-      properties:
-        width:
-          description: Page width in units
-          example: 21
-          type: number
-        height:
-          description: Page height in units
-          example: 29.7
-          type: number
-        margins:
-          $ref: '#/components/schemas/TemplateDefinitionNew_pages_inner_margins'
-        border:
-          default: false
-          example: false
-          type: boolean
-        components:
-          example: []
-          items:
-            type: object
-          type: array
-        layout:
-          description: "Defines page specific layout which can differ from the main\
-            \ template layout (e.g page format, margins)."
-          nullable: true
-          type: object
-        conditionalFormats:
-          example: []
-          items:
-            type: object
-          type: array
-        backgroundImage:
-          description: Defines background image for the page.
-          nullable: true
-          type: string
-      type: object
-    TemplateDefinitionNew_dataSettings:
-      description: Defines filter and sort option for root data set.
-      example:
-        transform: []
-        sortBy: []
-        filterBy: []
-      properties:
-        sortBy:
-          example: []
-          items:
-            type: object
-          type: array
-        filterBy:
-          example: []
-          items:
-            type: object
-          type: array
-        transform:
-          example: []
-          items:
-            type: object
-          type: array
-      type: object
-    TemplateDefinitionNew_editor:
-      description: Configuration preferences for the editor
-      example:
-        heightMultiplier: 1
-      properties:
-        heightMultiplier:
-          example: 1
-          type: number
-      type: object
-    TemplateDefinition_pages_inner:
-      example:
         margins:
           bottom: 0.5
           right: 0.5
         components:
-        - "{}"
-        - "{}"
+        - zindex: 102
+          top: 4.2
+          left: 2.5
+          dataIndex: line_items
+          width: 3.5
+          cls: labelComponent
+          id: component-12313
+          value: "${price}"
+          height: 1
+        - zindex: 102
+          top: 4.2
+          left: 2.5
+          dataIndex: line_items
+          width: 3.5
+          cls: labelComponent
+          id: component-12313
+          value: "${price}"
+          height: 1
         width: 21
         height: 29.7
       properties:
@@ -3917,7 +2109,7 @@ components:
           $ref: '#/components/schemas/TemplateDefinitionNew_pages_inner_margins'
         components:
           items:
-            type: object
+            $ref: '#/components/schemas/Component'
           type: array
       type: object
     TemplateDefinition_dataSettings:
@@ -3948,70 +2140,19 @@ components:
           example: 2
           type: number
       type: object
-    DataBatch_inner:
+    BatchData_inner:
       properties:
         template:
           description: Template id
+          example: 52272
           type: integer
         data:
-          description: JSON data used to replace data fields in the template
           example:
             id: 123
             name: John Smith
             birthdate: 2000-01-01
             role: Developer
           type: object
-      type: object
-    FormConfigurationNew_actions_inner:
-      anyOf:
-      - $ref: '#/components/schemas/formActionStore'
-      - $ref: '#/components/schemas/formActionDownload'
-    formFields_inner:
-      description: Form field definition
-      example:
-        name: name
-        label: Full name
-        type: text
-        required: false
-      properties:
-        label:
-          description: Field label displayed in the form
-          example: Full name
-          type: string
-        name:
-          description: "Data field name. For example \"name\" can be used as \"{name}\"\
-            \ in the document as placeholder."
-          example: name
-          type: string
-        type:
-          description: Field type
-          enum:
-          - text
-          - integer
-          - number
-          - date
-          - signature
-          example: text
-          type: string
-        required:
-          description: Specifies if the field is required or not
-          example: false
-          type: boolean
-      type: object
-    templateParam_data:
-      oneOf:
-      - $ref: '#/components/schemas/Data'
-      - $ref: '#/components/schemas/DataArray'
-    inline_object_response:
-      properties:
-        success:
-          example: true
-          type: boolean
-      type: object
-    inline_object:
-      properties:
-        response:
-          $ref: '#/components/schemas/inline_object_response'
       type: object
   securitySchemes:
     JSONWebTokenAuth:
@@ -4026,6 +2167,10 @@ x-tagGroups:
   - Templates
   - Documents
   - Workspaces
-  - Forms
-  - Conversion
+- name: Models
+  tags:
+  - template_model
+  - template_definition
+  - component_model
+  - workspace_model
 
