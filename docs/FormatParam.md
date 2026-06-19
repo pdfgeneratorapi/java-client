@@ -9,9 +9,5 @@
 
 * `HTML` (value: `"html"`)
 
-* `ZIP` (value: `"zip"`)
-
-* `XLSX` (value: `"xlsx"`)
-
 
 

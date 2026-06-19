@@ -2,16 +2,15 @@
 
 # FormConfiguration
 
+Optional display configuration shown around the form fields in the embeddable Form Builder and in the shared data collection form.
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **Integer** | Unique identifier |  [optional] |
-|**templateId** | **Integer** | Template ID which is connected to the form |  [optional] |
-|**name** | **String** | Form name |  [optional] |
-|**actions** | [**List&lt;FormConfigurationNewActionsInner&gt;**](FormConfigurationNewActionsInner.md) | Array of action configurations |  [optional] |
-|**fields** | [**List&lt;FormFieldsInner&gt;**](FormFieldsInner.md) | A list of form field objects |  [optional] |
+|**title** | **String** | Form title displayed above the form |  [optional] |
+|**intro** | **String** | Introductory text displayed above the form fields. Supports rich text. |  [optional] |
+|**outro** | **String** | Closing text displayed below the form fields. Supports rich text. |  [optional] |
 
 
 

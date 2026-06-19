@@ -2,7 +2,7 @@
 
 # TemplateDefinitionNew
 
-Template configuration
+Template configuration. Use the Get schema endpoint to see the detailed payload structure.
 
 ## Properties
 

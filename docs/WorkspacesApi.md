@@ -12,7 +12,7 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 
 <a id="createWorkspace"></a>
 # **createWorkspace**
-> CreateWorkspace201Response createWorkspace(createWorkspaceRequest)
+> InlineObject8 createWorkspace(createWorkspaceRequest)
 
 Create workspace
 
@@ -40,7 +40,7 @@ public class Example {
     WorkspacesApi apiInstance = new WorkspacesApi(defaultClient);
     CreateWorkspaceRequest createWorkspaceRequest = new CreateWorkspaceRequest(); // CreateWorkspaceRequest | 
     try {
-      CreateWorkspace201Response result = apiInstance.createWorkspace(createWorkspaceRequest);
+      InlineObject8 result = apiInstance.createWorkspace(createWorkspaceRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling WorkspacesApi#createWorkspace");
@@ -61,7 +61,7 @@ public class Example {
 
 ### Return type
 
-[**CreateWorkspace201Response**](CreateWorkspace201Response.md)
+[**InlineObject8**](InlineObject8.md)
 
 ### Authorization
 
@@ -159,7 +159,7 @@ null (empty response body)
 
 <a id="getWorkspace"></a>
 # **getWorkspace**
-> CreateWorkspace201Response getWorkspace(workspaceIdentifier)
+> InlineObject8 getWorkspace(workspaceIdentifier)
 
 Get workspace
 
@@ -187,7 +187,7 @@ public class Example {
     WorkspacesApi apiInstance = new WorkspacesApi(defaultClient);
     String workspaceIdentifier = "demo.example@actualreports.com"; // String | Workspace identifier
     try {
-      CreateWorkspace201Response result = apiInstance.getWorkspace(workspaceIdentifier);
+      InlineObject8 result = apiInstance.getWorkspace(workspaceIdentifier);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling WorkspacesApi#getWorkspace");
@@ -208,7 +208,7 @@ public class Example {
 
 ### Return type
 
-[**CreateWorkspace201Response**](CreateWorkspace201Response.md)
+[**InlineObject8**](InlineObject8.md)
 
 ### Authorization
 
@@ -233,7 +233,7 @@ public class Example {
 
 <a id="getWorkspaces"></a>
 # **getWorkspaces**
-> GetWorkspaces200Response getWorkspaces(page, perPage)
+> InlineObject5 getWorkspaces(page, perPage)
 
 Get workspaces
 
@@ -262,7 +262,7 @@ public class Example {
     Integer page = 1; // Integer | Pagination: page to return
     Integer perPage = 15; // Integer | Pagination: How many records to return per page
     try {
-      GetWorkspaces200Response result = apiInstance.getWorkspaces(page, perPage);
+      InlineObject5 result = apiInstance.getWorkspaces(page, perPage);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling WorkspacesApi#getWorkspaces");
@@ -284,7 +284,7 @@ public class Example {
 
 ### Return type
 
-[**GetWorkspaces200Response**](GetWorkspaces200Response.md)
+[**InlineObject5**](InlineObject5.md)
 
 ### Authorization
 

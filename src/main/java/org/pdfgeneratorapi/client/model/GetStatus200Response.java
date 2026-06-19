@@ -1,8 +1,8 @@
 /*
  * PDF Generator API
- * # Introduction [PDF Generator API](https://pdfgeneratorapi.com) allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.  The PDF Generator API features a web API architecture, allowing you to code in the language of your choice. This API supports the JSON media type, and uses UTF-8 character encoding.  ## Base URL The base URL for all the API endpoints is `https://us1.pdfgeneratorapi.com/api/v4`  For example * `https://us1.pdfgeneratorapi.com/api/v4/templates` * `https://us1.pdfgeneratorapi.com/api/v4/workspaces` * `https://us1.pdfgeneratorapi.com/api/v4/templates/123123`  ## Editor PDF Generator API comes with a powerful drag & drop editor that allows to create any kind of document templates, from barcode labels to invoices, quotes and reports. You can find tutorials and videos from our [Support Portal](https://support.pdfgeneratorapi.com). * [Component specification](https://support.pdfgeneratorapi.com/en/category/components-1ffseaj/) * [Expression Language documentation](https://support.pdfgeneratorapi.com/en/category/expression-language-q203pa/) * [Frequently asked questions and answers](https://support.pdfgeneratorapi.com/en/category/qanda-1ov519d/)  ## Definitions  ### Organization Organization is a group of workspaces owned by your account.  ### Workspace Workspace contains templates. Each workspace has access to their own templates and organization default templates.  ### Master Workspace Master Workspace is the main/default workspace of your Organization. The Master Workspace identifier is the email you signed up with.  ### Default Template Default template is a template that is available for all workspaces by default. You can set the template access type under Page Setup. If template has \"Organization\" access then your users can use them from the \"New\" menu in the Editor.  ### Data Field Data Field is a placeholder for the specific data in your JSON data set. In this example JSON you can access the buyer name using Data Field `{paymentDetails::buyerName}`. The separator between depth levels is :: (two colons). When designing the template you don’t have to know every Data Field, our editor automatically extracts all the available fields from your data set and provides an easy way to insert them into the template. ``` {     \"documentNumber\": 1,     \"paymentDetails\": {         \"method\": \"Credit Card\",         \"buyerName\": \"John Smith\"     },     \"items\": [         {             \"id\": 1,             \"name\": \"Item one\"         }     ] } ```  ## Rate limiting Our API endpoints use IP-based rate limiting and allow you to make up to 2 requests per second and 60 requests per minute. If you make more requests, you will receive a response with HTTP code 429.  Response headers contain additional values:  | Header   | Description                    | |--------|--------------------------------| | X-RateLimit-Limit    | Maximum requests per minute                   | | X-RateLimit-Remaining    | The requests remaining in the current minute               | | Retry-After     | How many seconds you need to wait until you are allowed to make requests |  *  *  *  *  *  # Libraries and SDKs ## Postman Collection We have created a [Postman Collection](https://www.postman.com/pdfgeneratorapi/workspace/pdf-generator-api-public-workspace/overview) so you can easily test all the API endpoints without developing and code. You can download the collection [here](https://www.postman.com/pdfgeneratorapi/workspace/pdf-generator-api-public-workspace/collection/11578263-42fed446-af7e-4266-84e1-69e8c1752e93).  ## Client Libraries All our Client Libraries are auto-generated using [OpenAPI Generator](https://openapi-generator.tech/) which uses the OpenAPI v3 specification to automatically generate a client library in specific programming language.  * [PHP Client](https://github.com/pdfgeneratorapi/php-client) * [Java Client](https://github.com/pdfgeneratorapi/java-client) * [Ruby Client](https://github.com/pdfgeneratorapi/ruby-client) * [Python Client](https://github.com/pdfgeneratorapi/python-client) * [Javascript Client](https://github.com/pdfgeneratorapi/javascript-client)  We have validated the generated libraries, but let us know if you find any anomalies in the client code. *  *  *  *  *  # Authentication The PDF Generator API uses __JSON Web Tokens (JWT)__ to authenticate all API requests. These tokens offer a method to establish secure server-to-server authentication by transferring a compact JSON object with a signed payload of your account’s API Key and Secret. When authenticating to the PDF Generator API, a JWT should be generated uniquely by a __server-side application__ and included as a __Bearer Token__ in the header of each request.   <SecurityDefinitions />  ## Accessing your API Key and Secret You can find your __API Key__ and __API Secret__ from the __Account Settings__ page after you login to PDF Generator API [here](https://pdfgeneratorapi.com/login).  ## Creating a JWT JSON Web Tokens are composed of three sections: a header, a payload (containing a claim set), and a signature. The header and payload are JSON objects, which are serialized to UTF-8 bytes, then encoded using base64url encoding.  The JWT's header, payload, and signature are concatenated with periods (.). As a result, a JWT typically takes the following form: ``` {Base64url encoded header}.{Base64url encoded payload}.{Base64url encoded signature} ```  We recommend and support libraries provided on [jwt.io](https://jwt.io/). While other libraries can create JWT, these recommended libraries are the most robust.  ### Header Property `alg` defines which signing algorithm is being used. PDF Generator API users HS256. Property `typ` defines the type of token and it is always JWT. ``` {   \"alg\": \"HS256\",   \"typ\": \"JWT\" } ```  ### Payload The second part of the token is the payload, which contains the claims  or the pieces of information being passed about the user and any metadata required. It is mandatory to specify the following claims: * issuer (`iss`): Your API key * subject (`sub`): Workspace identifier * expiration time (`exp`): Timestamp (unix epoch time) until the token is valid. It is highly recommended to set the exp timestamp for a short period, i.e. a matter of seconds. This way, if a token is intercepted or shared, the token will only be valid for a short period of time.  ``` {   \"iss\": \"ad54aaff89ffdfeff178bb8a8f359b29fcb20edb56250b9f584aa2cb0162ed4a\",   \"sub\": \"demo.example@actualreports.com\",   \"exp\": 1586112639 } ```  ### Payload for Partners Our partners can send their unique identifier (provided by us) in JWT's partner_id claim. If the `partner_id` value is specified in the JWT, the organization making the request is automatically connected to the partner account. * Partner ID (`partner_id`): Unique identifier provide by PDF Generator API team  ``` {   \"iss\": \"ad54aaff89ffdfeff178bb8a8f359b29fcb20edb56250b9f584aa2cb0162ed4a\",   \"sub\": \"demo.example@actualreports.com\",   \"partner_id\": \"my-partner-identifier\",   \"exp\": 1586112639 } ```  ### Signature To create the signature part you have to take the encoded header, the encoded payload, a secret, the algorithm specified in the header, and sign that. The signature is used to verify the message wasn't changed along the way, and, in the case of tokens signed with a private key, it can also verify that the sender of the JWT is who it says it is. ``` HMACSHA256(     base64UrlEncode(header) + \".\" +     base64UrlEncode(payload),     API_SECRET) ```  ### Putting all together The output is three Base64-URL strings separated by dots. The following shows a JWT that has the previous header and payload encoded, and it is signed with a secret. ``` eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhZDU0YWFmZjg5ZmZkZmVmZjE3OGJiOGE4ZjM1OWIyOWZjYjIwZWRiNTYyNTBiOWY1ODRhYTJjYjAxNjJlZDRhIiwic3ViIjoiZGVtby5leGFtcGxlQGFjdHVhbHJlcG9ydHMuY29tIn0.SxO-H7UYYYsclS8RGWO1qf0z1cB1m73wF9FLl9RCc1Q  // Base64 encoded header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 // Base64 encoded payload: eyJpc3MiOiJhZDU0YWFmZjg5ZmZkZmVmZjE3OGJiOGE4ZjM1OWIyOWZjYjIwZWRiNTYyNTBiOWY1ODRhYTJjYjAxNjJlZDRhIiwic3ViIjoiZGVtby5leGFtcGxlQGFjdHVhbHJlcG9ydHMuY29tIn0 // Signature: SxO-H7UYYYsclS8RGWO1qf0z1cB1m73wF9FLl9RCc1Q ```  ## Temporary JWTs You can create a temporary token in [Account Settings](https://pdfgeneratorapi.com/account/organization) page after you login to PDF Generator API. The generated token uses your email address as the subject (`sub`) value and is valid for __15 minutes__. You can also use [jwt.io](https://jwt.io/) to generate test tokens for your API calls. These test tokens should never be used in production applications. *  *  *  *  *  # Error codes  | Code   | Description                    | |--------|--------------------------------| | 401    | Unauthorized                   | | 402    | Payment Required               | | 403    | Forbidden                      | | 404    | Not Found                      | | 422    | Unprocessable Entity           | | 429    | Too Many Requests              | | 500    | Internal Server Error          |  ## 401 Unauthorized | Description                                                             | |-------------------------------------------------------------------------| | Authentication failed: request expired                                  | | Authentication failed: workspace missing                                | | Authentication failed: key missing                                      | | Authentication failed: property 'iss' (issuer) missing in JWT           | | Authentication failed: property 'sub' (subject) missing in JWT          | | Authentication failed: property 'exp' (expiration time) missing in JWT  | | Authentication failed: incorrect signature                              |  ## 402 Payment Required | Description                                                             | |-------------------------------------------------------------------------| | Your account is suspended, please upgrade your account                  |  ## 403 Forbidden | Description                                                             | |-------------------------------------------------------------------------| | Your account has exceeded the monthly document generation limit.        | | Access not granted: You cannot delete master workspace via API          | | Access not granted: Template is not accessible by this organization     | | Your session has expired, please close and reopen the editor.           |  ## 404 Entity not found | Description                                                             | |-------------------------------------------------------------------------| | Entity not found                                                        | | Resource not found                                                      | | None of the templates is available for the workspace.                   |  ## 422 Unprocessable Entity | Description                                                             | |-------------------------------------------------------------------------| | Unable to parse JSON, please check formatting                           | | Required parameter missing                                              | | Required parameter missing: template definition not defined             | | Required parameter missing: template not defined                        |  ## 429 Too Many Requests | Description                                                             | |-------------------------------------------------------------------------| | You can make up to 2 requests per second and 60 requests per minute.   |  *  *  *  *  * 
+ * # Introduction [PDF Generator API](https://pdfgeneratorapi.com) allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.  The PDF Generator API features a web API architecture, allowing you to code in the language of your choice. This API supports the JSON media type, and uses UTF-8 character encoding.  ## Base URL The base URL for all the API endpoints is `https://us1.pdfgeneratorapi.com/api/v4`  For example * `https://us1.pdfgeneratorapi.com/api/v4/templates` * `https://us1.pdfgeneratorapi.com/api/v4/workspaces` * `https://us1.pdfgeneratorapi.com/api/v4/templates/123123`  ## Editor PDF Generator API comes with a powerful drag & drop editor that allows to create any kind of document templates, from barcode labels to invoices, quotes and reports. You can find tutorials and videos from our [Support Portal](https://support.pdfgeneratorapi.com). * [Component specification](https://support.pdfgeneratorapi.com/en/category/components-1ffseaj/) * [Expression Language documentation](https://support.pdfgeneratorapi.com/en/category/expression-language-q203pa/) * [Frequently asked questions and answers](https://support.pdfgeneratorapi.com/en/category/qanda-1ov519d/)  ## Definitions  ### Organization Organization is a group of workspaces owned by your account.  ### Workspace Workspace contains templates. Each workspace has access to their own templates and organization default templates.  ### Master Workspace Master Workspace is the main/default workspace of your Organization. The Master Workspace identifier is the email you signed up with.  ### Default Template Default template is a template that is available for all workspaces by default. You can set the template access type under Page Setup. If template has \"Organization\" access then your users can use them from the \"New\" menu in the Editor.  ### Data Field Data Field is a placeholder for the specific data in your JSON data set. In this example JSON you can access the buyer name using Data Field `{paymentDetails::buyerName}`. The separator between depth levels is :: (two colons). When designing the template you don’t have to know every Data Field, our editor automatically extracts all the available fields from your data set and provides an easy way to insert them into the template. ``` {     \"documentNumber\": 1,     \"paymentDetails\": {         \"method\": \"Credit Card\",         \"buyerName\": \"John Smith\"     },     \"items\": [         {             \"id\": 1,             \"name\": \"Item one\"         }     ] } ```  ## Rate limiting Our API endpoints use IP-based rate limiting and allow you to make up to 2 requests per second and 60 requests per minute. If you make more requests, you will receive a response with HTTP code 429.  Response headers contain additional values:  | Header   | Description                    | |--------|--------------------------------| | X-RateLimit-Limit    | Maximum requests per minute                   | | X-RateLimit-Remaining    | The requests remaining in the current minute               | | Retry-After     | How many seconds you need to wait until you are allowed to make requests |  *  *  *  *  *  # Libraries and SDKs ## Postman Collection We have created a [Postman Collection](https://www.postman.com/pdfgeneratorapi/workspace/pdf-generator-api-public-workspace/overview) so you can easily test all the API endpoints without developing and code.   ## Client Libraries All our Client Libraries are auto-generated using [OpenAPI Generator](https://openapi-generator.tech/) which uses the OpenAPI v3 specification to automatically generate a client library in specific programming language.  * [PHP Client](https://github.com/pdfgeneratorapi/php-client) * [Java Client](https://github.com/pdfgeneratorapi/java-client) * [Ruby Client](https://github.com/pdfgeneratorapi/ruby-client) * [Python Client](https://github.com/pdfgeneratorapi/python-client) * [Javascript Client](https://github.com/pdfgeneratorapi/javascript-client)  We have validated the generated libraries, but let us know if you find any anomalies in the client code.  ## Model Context Protocol (MCP) Server Integrate document generation directly into your AI agents and LLM applications using our official Model Context Protocol (MCP) Server.  The MCP server provides a standardized interface that allows AI assistants (like Claude Desktop and other MCP-compatible clients) to securely interact with the PDF Generator API. With it, your AI applications can automatically fetch workspaces, retrieve templates, merge data, and generate PDF documents on the fly.  [Get PDF Generator API MCP Server](https://github.com/pdfgeneratorapi/mcp-server) *  *  *  *  *   # Authentication The PDF Generator API uses __JSON Web Tokens (JWT)__ to authenticate all API requests. These tokens offer a method to establish secure server-to-server authentication by transferring a compact JSON object with a signed payload of your account’s API Key and Secret. When authenticating to the PDF Generator API, a JWT should be generated uniquely by a __server-side application__ and included as a __Bearer Token__ in the header of each request.   <SecurityDefinitions />  ## Accessing your API Key and Secret You can find your __API Key__ and __API Secret__ from the __Account Settings__ page after you login to PDF Generator API [here](https://pdfgeneratorapi.com/login).  ## Creating a JWT JSON Web Tokens are composed of three sections: a header, a payload (containing a claim set), and a signature. The header and payload are JSON objects, which are serialized to UTF-8 bytes, then encoded using base64url encoding.  The JWT's header, payload, and signature are concatenated with periods (.). As a result, a JWT typically takes the following form: ``` {Base64url encoded header}.{Base64url encoded payload}.{Base64url encoded signature} ```  We recommend and support libraries provided on [jwt.io](https://jwt.io/). While other libraries can create JWT, these recommended libraries are the most robust.  ### Header Property `alg` defines which signing algorithm is being used. PDF Generator API users HS256. Property `typ` defines the type of token and it is always JWT. ``` {   \"alg\": \"HS256\",   \"typ\": \"JWT\" } ```  ### Payload The second part of the token is the payload, which contains the claims  or the pieces of information being passed about the user and any metadata required. It is mandatory to specify the following claims: * issuer (`iss`): Your API key * subject (`sub`): Workspace identifier * expiration time (`exp`): Timestamp (unix epoch time) until the token is valid. It is highly recommended to set the exp timestamp for a short period, i.e. a matter of seconds. This way, if a token is intercepted or shared, the token will only be valid for a short period of time.  ``` {   \"iss\": \"ad54aaff89ffdfeff178bb8a8f359b29fcb20edb56250b9f584aa2cb0162ed4a\",   \"sub\": \"demo.example@actualreports.com\",   \"exp\": 1586112639 } ```  ### Payload for Partners Our partners can send their unique identifier (provided by us) in JWT's partner_id claim. If the `partner_id` value is specified in the JWT, the organization making the request is automatically connected to the partner account. * Partner ID (`partner_id`): Unique identifier provide by PDF Generator API team  ``` {   \"iss\": \"ad54aaff89ffdfeff178bb8a8f359b29fcb20edb56250b9f584aa2cb0162ed4a\",   \"sub\": \"demo.example@actualreports.com\",   \"partner_id\": \"my-partner-identifier\",   \"exp\": 1586112639 } ```  ### Signature To create the signature part you have to take the encoded header, the encoded payload, a secret, the algorithm specified in the header, and sign that. The signature is used to verify the message wasn't changed along the way, and, in the case of tokens signed with a private key, it can also verify that the sender of the JWT is who it says it is. ``` HMACSHA256(     base64UrlEncode(header) + \".\" +     base64UrlEncode(payload),     API_SECRET) ```  ### Putting all together The output is three Base64-URL strings separated by dots. The following shows a JWT that has the previous header and payload encoded, and it is signed with a secret. ``` eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhZDU0YWFmZjg5ZmZkZmVmZjE3OGJiOGE4ZjM1OWIyOWZjYjIwZWRiNTYyNTBiOWY1ODRhYTJjYjAxNjJlZDRhIiwic3ViIjoiZGVtby5leGFtcGxlQGFjdHVhbHJlcG9ydHMuY29tIn0.SxO-H7UYYYsclS8RGWO1qf0z1cB1m73wF9FLl9RCc1Q  // Base64 encoded header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 // Base64 encoded payload: eyJpc3MiOiJhZDU0YWFmZjg5ZmZkZmVmZjE3OGJiOGE4ZjM1OWIyOWZjYjIwZWRiNTYyNTBiOWY1ODRhYTJjYjAxNjJlZDRhIiwic3ViIjoiZGVtby5leGFtcGxlQGFjdHVhbHJlcG9ydHMuY29tIn0 // Signature: SxO-H7UYYYsclS8RGWO1qf0z1cB1m73wF9FLl9RCc1Q ```  ## Temporary JWTs You can create a temporary token in [Account Settings](https://pdfgeneratorapi.com/account/organization) page after you login to PDF Generator API. The generated token uses your email address as the subject (`sub`) value and is valid for __15 minutes__. You can also use [jwt.io](https://jwt.io/) to generate test tokens for your API calls. These test tokens should never be used in production applications. *  *  *  *  *  # Error codes  | Code   | Description                    | |--------|--------------------------------| | 401    | Unauthorized                   | | 402    | Payment Required               | | 403    | Forbidden                      | | 404    | Not Found                      | | 422    | Unprocessable Entity           | | 429    | Too Many Requests              | | 500    | Internal Server Error          |  ## 401 Unauthorized | Description                                                             | |-------------------------------------------------------------------------| | Authentication failed: request expired                                  | | Authentication failed: workspace missing                                | | Authentication failed: key missing                                      | | Authentication failed: property 'iss' (issuer) missing in JWT           | | Authentication failed: property 'sub' (subject) missing in JWT          | | Authentication failed: property 'exp' (expiration time) missing in JWT  | | Authentication failed: incorrect signature                              |  ## 402 Payment Required | Description                                                             | |-------------------------------------------------------------------------| | Your account is suspended, please upgrade your account                  |  ## 403 Forbidden | Description                                                             | |-------------------------------------------------------------------------| | Your account has exceeded the monthly document generation limit.        | | Access not granted: You cannot delete master workspace via API          | | Access not granted: Template is not accessible by this organization     | | Your session has expired, please close and reopen the editor.           |  ## 404 Entity not found | Description                                                             | |-------------------------------------------------------------------------| | Entity not found                                                        | | Resource not found                                                      | | None of the templates is available for the workspace.                   |  ## 422 Unprocessable Entity | Description                                                             | |-------------------------------------------------------------------------| | Unable to parse JSON, please check formatting                           | | Required parameter missing                                              | | Required parameter missing: template definition not defined             | | Required parameter missing: template not defined                        |  ## 429 Too Many Requests | Description                                                             | |-------------------------------------------------------------------------| | You can make up to 2 requests per second and 60 requests per minute.   |  *  *  *  *  * 
  *
- * The version of the OpenAPI document: 4.0.12
+ * The version of the OpenAPI document: 4.0.25
  * Contact: support@pdfgeneratorapi.com
  *
  * NOTE: This class is auto generated by OpenAPI Generator (https://openapi-generator.tech).
@@ -21,6 +21,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import org.pdfgeneratorapi.client.model.StatusParam;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -48,297 +49,42 @@ import org.pdfgeneratorapi.client.JSON;
 /**
  * GetStatus200Response
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-07-07T10:41:30.443864+03:00[Europe/Tallinn]", comments = "Generator version: 7.11.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-06-19T11:21:51.162235540Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class GetStatus200Response {
-  /**
-   * Gets or Sets api
-   */
-  @JsonAdapter(ApiEnum.Adapter.class)
-  public enum ApiEnum {
-    OK("ok"),
-    
-    FAILED("failed");
-
-    private String value;
-
-    ApiEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static ApiEnum fromValue(String value) {
-      for (ApiEnum b : ApiEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<ApiEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final ApiEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public ApiEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return ApiEnum.fromValue(value);
-      }
-    }
-
-    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-      String value = jsonElement.getAsString();
-      ApiEnum.fromValue(value);
-    }
-  }
-
   public static final String SERIALIZED_NAME_API = "api";
   @SerializedName(SERIALIZED_NAME_API)
   @javax.annotation.Nullable
-  private ApiEnum api = ApiEnum.OK;
-
-  /**
-   * Gets or Sets chartApi
-   */
-  @JsonAdapter(ChartApiEnum.Adapter.class)
-  public enum ChartApiEnum {
-    OK("ok"),
-    
-    FAILED("failed");
-
-    private String value;
-
-    ChartApiEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static ChartApiEnum fromValue(String value) {
-      for (ChartApiEnum b : ChartApiEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<ChartApiEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final ChartApiEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public ChartApiEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return ChartApiEnum.fromValue(value);
-      }
-    }
-
-    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-      String value = jsonElement.getAsString();
-      ChartApiEnum.fromValue(value);
-    }
-  }
+  private StatusParam api = StatusParam.OK;
 
   public static final String SERIALIZED_NAME_CHART_API = "chart-api";
   @SerializedName(SERIALIZED_NAME_CHART_API)
   @javax.annotation.Nullable
-  private ChartApiEnum chartApi = ChartApiEnum.OK;
-
-  /**
-   * Gets or Sets conversionApi
-   */
-  @JsonAdapter(ConversionApiEnum.Adapter.class)
-  public enum ConversionApiEnum {
-    OK("ok"),
-    
-    FAILED("failed");
-
-    private String value;
-
-    ConversionApiEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static ConversionApiEnum fromValue(String value) {
-      for (ConversionApiEnum b : ConversionApiEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<ConversionApiEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final ConversionApiEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public ConversionApiEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return ConversionApiEnum.fromValue(value);
-      }
-    }
-
-    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-      String value = jsonElement.getAsString();
-      ConversionApiEnum.fromValue(value);
-    }
-  }
+  private StatusParam chartApi = StatusParam.OK;
 
   public static final String SERIALIZED_NAME_CONVERSION_API = "conversion-api";
   @SerializedName(SERIALIZED_NAME_CONVERSION_API)
   @javax.annotation.Nullable
-  private ConversionApiEnum conversionApi = ConversionApiEnum.OK;
-
-  /**
-   * Gets or Sets generatorApiSync
-   */
-  @JsonAdapter(GeneratorApiSyncEnum.Adapter.class)
-  public enum GeneratorApiSyncEnum {
-    OK("ok"),
-    
-    FAILED("failed");
-
-    private String value;
-
-    GeneratorApiSyncEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static GeneratorApiSyncEnum fromValue(String value) {
-      for (GeneratorApiSyncEnum b : GeneratorApiSyncEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<GeneratorApiSyncEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final GeneratorApiSyncEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public GeneratorApiSyncEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return GeneratorApiSyncEnum.fromValue(value);
-      }
-    }
-
-    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-      String value = jsonElement.getAsString();
-      GeneratorApiSyncEnum.fromValue(value);
-    }
-  }
+  private StatusParam conversionApi = StatusParam.OK;
 
   public static final String SERIALIZED_NAME_GENERATOR_API_SYNC = "generator-api-sync";
   @SerializedName(SERIALIZED_NAME_GENERATOR_API_SYNC)
   @javax.annotation.Nullable
-  private GeneratorApiSyncEnum generatorApiSync = GeneratorApiSyncEnum.OK;
-
-  /**
-   * Gets or Sets generatorApiAsync
-   */
-  @JsonAdapter(GeneratorApiAsyncEnum.Adapter.class)
-  public enum GeneratorApiAsyncEnum {
-    OK("ok"),
-    
-    FAILED("failed");
-
-    private String value;
-
-    GeneratorApiAsyncEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static GeneratorApiAsyncEnum fromValue(String value) {
-      for (GeneratorApiAsyncEnum b : GeneratorApiAsyncEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<GeneratorApiAsyncEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final GeneratorApiAsyncEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public GeneratorApiAsyncEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return GeneratorApiAsyncEnum.fromValue(value);
-      }
-    }
-
-    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-      String value = jsonElement.getAsString();
-      GeneratorApiAsyncEnum.fromValue(value);
-    }
-  }
+  private StatusParam generatorApiSync = StatusParam.OK;
 
   public static final String SERIALIZED_NAME_GENERATOR_API_ASYNC = "generator-api-async";
   @SerializedName(SERIALIZED_NAME_GENERATOR_API_ASYNC)
   @javax.annotation.Nullable
-  private GeneratorApiAsyncEnum generatorApiAsync = GeneratorApiAsyncEnum.OK;
+  private StatusParam generatorApiAsync = StatusParam.OK;
+
+  public static final String SERIALIZED_NAME_E_INVOICE = "e-invoice";
+  @SerializedName(SERIALIZED_NAME_E_INVOICE)
+  @javax.annotation.Nullable
+  private StatusParam eInvoice = StatusParam.OK;
 
   public GetStatus200Response() {
   }
 
-  public GetStatus200Response api(@javax.annotation.Nullable ApiEnum api) {
+  public GetStatus200Response api(@javax.annotation.Nullable StatusParam api) {
     this.api = api;
     return this;
   }
@@ -348,16 +94,16 @@ public class GetStatus200Response {
    * @return api
    */
   @javax.annotation.Nullable
-  public ApiEnum getApi() {
+  public StatusParam getApi() {
     return api;
   }
 
-  public void setApi(@javax.annotation.Nullable ApiEnum api) {
+  public void setApi(@javax.annotation.Nullable StatusParam api) {
     this.api = api;
   }
 
 
-  public GetStatus200Response chartApi(@javax.annotation.Nullable ChartApiEnum chartApi) {
+  public GetStatus200Response chartApi(@javax.annotation.Nullable StatusParam chartApi) {
     this.chartApi = chartApi;
     return this;
   }
@@ -367,16 +113,16 @@ public class GetStatus200Response {
    * @return chartApi
    */
   @javax.annotation.Nullable
-  public ChartApiEnum getChartApi() {
+  public StatusParam getChartApi() {
     return chartApi;
   }
 
-  public void setChartApi(@javax.annotation.Nullable ChartApiEnum chartApi) {
+  public void setChartApi(@javax.annotation.Nullable StatusParam chartApi) {
     this.chartApi = chartApi;
   }
 
 
-  public GetStatus200Response conversionApi(@javax.annotation.Nullable ConversionApiEnum conversionApi) {
+  public GetStatus200Response conversionApi(@javax.annotation.Nullable StatusParam conversionApi) {
     this.conversionApi = conversionApi;
     return this;
   }
@@ -386,16 +132,16 @@ public class GetStatus200Response {
    * @return conversionApi
    */
   @javax.annotation.Nullable
-  public ConversionApiEnum getConversionApi() {
+  public StatusParam getConversionApi() {
     return conversionApi;
   }
 
-  public void setConversionApi(@javax.annotation.Nullable ConversionApiEnum conversionApi) {
+  public void setConversionApi(@javax.annotation.Nullable StatusParam conversionApi) {
     this.conversionApi = conversionApi;
   }
 
 
-  public GetStatus200Response generatorApiSync(@javax.annotation.Nullable GeneratorApiSyncEnum generatorApiSync) {
+  public GetStatus200Response generatorApiSync(@javax.annotation.Nullable StatusParam generatorApiSync) {
     this.generatorApiSync = generatorApiSync;
     return this;
   }
@@ -405,16 +151,16 @@ public class GetStatus200Response {
    * @return generatorApiSync
    */
   @javax.annotation.Nullable
-  public GeneratorApiSyncEnum getGeneratorApiSync() {
+  public StatusParam getGeneratorApiSync() {
     return generatorApiSync;
   }
 
-  public void setGeneratorApiSync(@javax.annotation.Nullable GeneratorApiSyncEnum generatorApiSync) {
+  public void setGeneratorApiSync(@javax.annotation.Nullable StatusParam generatorApiSync) {
     this.generatorApiSync = generatorApiSync;
   }
 
 
-  public GetStatus200Response generatorApiAsync(@javax.annotation.Nullable GeneratorApiAsyncEnum generatorApiAsync) {
+  public GetStatus200Response generatorApiAsync(@javax.annotation.Nullable StatusParam generatorApiAsync) {
     this.generatorApiAsync = generatorApiAsync;
     return this;
   }
@@ -424,12 +170,31 @@ public class GetStatus200Response {
    * @return generatorApiAsync
    */
   @javax.annotation.Nullable
-  public GeneratorApiAsyncEnum getGeneratorApiAsync() {
+  public StatusParam getGeneratorApiAsync() {
     return generatorApiAsync;
   }
 
-  public void setGeneratorApiAsync(@javax.annotation.Nullable GeneratorApiAsyncEnum generatorApiAsync) {
+  public void setGeneratorApiAsync(@javax.annotation.Nullable StatusParam generatorApiAsync) {
     this.generatorApiAsync = generatorApiAsync;
+  }
+
+
+  public GetStatus200Response eInvoice(@javax.annotation.Nullable StatusParam eInvoice) {
+    this.eInvoice = eInvoice;
+    return this;
+  }
+
+  /**
+   * Get eInvoice
+   * @return eInvoice
+   */
+  @javax.annotation.Nullable
+  public StatusParam geteInvoice() {
+    return eInvoice;
+  }
+
+  public void seteInvoice(@javax.annotation.Nullable StatusParam eInvoice) {
+    this.eInvoice = eInvoice;
   }
 
 
@@ -447,12 +212,13 @@ public class GetStatus200Response {
         Objects.equals(this.chartApi, getStatus200Response.chartApi) &&
         Objects.equals(this.conversionApi, getStatus200Response.conversionApi) &&
         Objects.equals(this.generatorApiSync, getStatus200Response.generatorApiSync) &&
-        Objects.equals(this.generatorApiAsync, getStatus200Response.generatorApiAsync);
+        Objects.equals(this.generatorApiAsync, getStatus200Response.generatorApiAsync) &&
+        Objects.equals(this.eInvoice, getStatus200Response.eInvoice);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(api, chartApi, conversionApi, generatorApiSync, generatorApiAsync);
+    return Objects.hash(api, chartApi, conversionApi, generatorApiSync, generatorApiAsync, eInvoice);
   }
 
   @Override
@@ -464,6 +230,7 @@ public class GetStatus200Response {
     sb.append("    conversionApi: ").append(toIndentedString(conversionApi)).append("\n");
     sb.append("    generatorApiSync: ").append(toIndentedString(generatorApiSync)).append("\n");
     sb.append("    generatorApiAsync: ").append(toIndentedString(generatorApiAsync)).append("\n");
+    sb.append("    eInvoice: ").append(toIndentedString(eInvoice)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -485,15 +252,10 @@ public class GetStatus200Response {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("api");
-    openapiFields.add("chart-api");
-    openapiFields.add("conversion-api");
-    openapiFields.add("generator-api-sync");
-    openapiFields.add("generator-api-async");
+    openapiFields = new HashSet<String>(Arrays.asList("api", "chart-api", "conversion-api", "generator-api-sync", "generator-api-async", "e-invoice"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
   /**
@@ -517,40 +279,29 @@ public class GetStatus200Response {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("api") != null && !jsonObj.get("api").isJsonNull()) && !jsonObj.get("api").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `api` to be a primitive type in the JSON string but got `%s`", jsonObj.get("api").toString()));
-      }
       // validate the optional field `api`
       if (jsonObj.get("api") != null && !jsonObj.get("api").isJsonNull()) {
-        ApiEnum.validateJsonElement(jsonObj.get("api"));
-      }
-      if ((jsonObj.get("chart-api") != null && !jsonObj.get("chart-api").isJsonNull()) && !jsonObj.get("chart-api").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `chart-api` to be a primitive type in the JSON string but got `%s`", jsonObj.get("chart-api").toString()));
+        StatusParam.validateJsonElement(jsonObj.get("api"));
       }
       // validate the optional field `chart-api`
       if (jsonObj.get("chart-api") != null && !jsonObj.get("chart-api").isJsonNull()) {
-        ChartApiEnum.validateJsonElement(jsonObj.get("chart-api"));
-      }
-      if ((jsonObj.get("conversion-api") != null && !jsonObj.get("conversion-api").isJsonNull()) && !jsonObj.get("conversion-api").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `conversion-api` to be a primitive type in the JSON string but got `%s`", jsonObj.get("conversion-api").toString()));
+        StatusParam.validateJsonElement(jsonObj.get("chart-api"));
       }
       // validate the optional field `conversion-api`
       if (jsonObj.get("conversion-api") != null && !jsonObj.get("conversion-api").isJsonNull()) {
-        ConversionApiEnum.validateJsonElement(jsonObj.get("conversion-api"));
-      }
-      if ((jsonObj.get("generator-api-sync") != null && !jsonObj.get("generator-api-sync").isJsonNull()) && !jsonObj.get("generator-api-sync").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `generator-api-sync` to be a primitive type in the JSON string but got `%s`", jsonObj.get("generator-api-sync").toString()));
+        StatusParam.validateJsonElement(jsonObj.get("conversion-api"));
       }
       // validate the optional field `generator-api-sync`
       if (jsonObj.get("generator-api-sync") != null && !jsonObj.get("generator-api-sync").isJsonNull()) {
-        GeneratorApiSyncEnum.validateJsonElement(jsonObj.get("generator-api-sync"));
-      }
-      if ((jsonObj.get("generator-api-async") != null && !jsonObj.get("generator-api-async").isJsonNull()) && !jsonObj.get("generator-api-async").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `generator-api-async` to be a primitive type in the JSON string but got `%s`", jsonObj.get("generator-api-async").toString()));
+        StatusParam.validateJsonElement(jsonObj.get("generator-api-sync"));
       }
       // validate the optional field `generator-api-async`
       if (jsonObj.get("generator-api-async") != null && !jsonObj.get("generator-api-async").isJsonNull()) {
-        GeneratorApiAsyncEnum.validateJsonElement(jsonObj.get("generator-api-async"));
+        StatusParam.validateJsonElement(jsonObj.get("generator-api-async"));
+      }
+      // validate the optional field `e-invoice`
+      if (jsonObj.get("e-invoice") != null && !jsonObj.get("e-invoice").isJsonNull()) {
+        StatusParam.validateJsonElement(jsonObj.get("e-invoice"));
       }
   }
 

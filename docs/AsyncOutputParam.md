@@ -9,5 +9,7 @@
 
 * `URL` (value: `"url"`)
 
+* `VIEWER` (value: `"viewer"`)
+
 
 

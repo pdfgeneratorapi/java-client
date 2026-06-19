@@ -9,12 +9,13 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 | [**encryptDocument**](ServicesApi.md#encryptDocument) | **POST** /pdfservices/encrypt | Encrypt document |
 | [**extractFormFields**](ServicesApi.md#extractFormFields) | **POST** /pdfservices/form/fields | Extract form fields |
 | [**fillFormFields**](ServicesApi.md#fillFormFields) | **POST** /pdfservices/form/fill | Fill form fields |
+| [**makeAccessible**](ServicesApi.md#makeAccessible) | **POST** /pdfservices/make-accessible | Make accessible |
 | [**optimizeDocument**](ServicesApi.md#optimizeDocument) | **POST** /pdfservices/optimize | Optimize document |
 
 
 <a id="addWatermark"></a>
 # **addWatermark**
-> AddWatermark201Response addWatermark(addWatermarkRequest)
+> InlineObject9 addWatermark(addWatermarkRequest)
 
 Add watermark
 
@@ -42,7 +43,7 @@ public class Example {
     ServicesApi apiInstance = new ServicesApi(defaultClient);
     AddWatermarkRequest addWatermarkRequest = new AddWatermarkRequest(); // AddWatermarkRequest | 
     try {
-      AddWatermark201Response result = apiInstance.addWatermark(addWatermarkRequest);
+      InlineObject9 result = apiInstance.addWatermark(addWatermarkRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ServicesApi#addWatermark");
@@ -63,7 +64,7 @@ public class Example {
 
 ### Return type
 
-[**AddWatermark201Response**](AddWatermark201Response.md)
+[**InlineObject9**](InlineObject9.md)
 
 ### Authorization
 
@@ -88,7 +89,7 @@ public class Example {
 
 <a id="decryptDocument"></a>
 # **decryptDocument**
-> AddWatermark201Response decryptDocument(encryptDocumentRequest)
+> InlineObject9 decryptDocument(encryptDocumentRequest)
 
 Decrypt document
 
@@ -116,7 +117,7 @@ public class Example {
     ServicesApi apiInstance = new ServicesApi(defaultClient);
     EncryptDocumentRequest encryptDocumentRequest = new EncryptDocumentRequest(); // EncryptDocumentRequest | 
     try {
-      AddWatermark201Response result = apiInstance.decryptDocument(encryptDocumentRequest);
+      InlineObject9 result = apiInstance.decryptDocument(encryptDocumentRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ServicesApi#decryptDocument");
@@ -137,7 +138,7 @@ public class Example {
 
 ### Return type
 
-[**AddWatermark201Response**](AddWatermark201Response.md)
+[**InlineObject9**](InlineObject9.md)
 
 ### Authorization
 
@@ -162,7 +163,7 @@ public class Example {
 
 <a id="encryptDocument"></a>
 # **encryptDocument**
-> AddWatermark201Response encryptDocument(encryptDocumentRequest)
+> InlineObject9 encryptDocument(encryptDocumentRequest)
 
 Encrypt document
 
@@ -190,7 +191,7 @@ public class Example {
     ServicesApi apiInstance = new ServicesApi(defaultClient);
     EncryptDocumentRequest encryptDocumentRequest = new EncryptDocumentRequest(); // EncryptDocumentRequest | 
     try {
-      AddWatermark201Response result = apiInstance.encryptDocument(encryptDocumentRequest);
+      InlineObject9 result = apiInstance.encryptDocument(encryptDocumentRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ServicesApi#encryptDocument");
@@ -211,7 +212,7 @@ public class Example {
 
 ### Return type
 
-[**AddWatermark201Response**](AddWatermark201Response.md)
+[**InlineObject9**](InlineObject9.md)
 
 ### Authorization
 
@@ -236,7 +237,7 @@ public class Example {
 
 <a id="extractFormFields"></a>
 # **extractFormFields**
-> ExtractFormFields200Response extractFormFields(extractFormFieldsRequest)
+> InlineObject14 extractFormFields(extractFormFieldsRequest)
 
 Extract form fields
 
@@ -264,7 +265,7 @@ public class Example {
     ServicesApi apiInstance = new ServicesApi(defaultClient);
     ExtractFormFieldsRequest extractFormFieldsRequest = new ExtractFormFieldsRequest(); // ExtractFormFieldsRequest | 
     try {
-      ExtractFormFields200Response result = apiInstance.extractFormFields(extractFormFieldsRequest);
+      InlineObject14 result = apiInstance.extractFormFields(extractFormFieldsRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ServicesApi#extractFormFields");
@@ -285,7 +286,7 @@ public class Example {
 
 ### Return type
 
-[**ExtractFormFields200Response**](ExtractFormFields200Response.md)
+[**InlineObject14**](InlineObject14.md)
 
 ### Authorization
 
@@ -310,7 +311,7 @@ public class Example {
 
 <a id="fillFormFields"></a>
 # **fillFormFields**
-> AddWatermark201Response fillFormFields(fillFormFieldsRequest)
+> InlineObject9 fillFormFields(fillFormFieldsRequest)
 
 Fill form fields
 
@@ -338,7 +339,7 @@ public class Example {
     ServicesApi apiInstance = new ServicesApi(defaultClient);
     FillFormFieldsRequest fillFormFieldsRequest = new FillFormFieldsRequest(); // FillFormFieldsRequest | 
     try {
-      AddWatermark201Response result = apiInstance.fillFormFields(fillFormFieldsRequest);
+      InlineObject9 result = apiInstance.fillFormFields(fillFormFieldsRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ServicesApi#fillFormFields");
@@ -359,7 +360,81 @@ public class Example {
 
 ### Return type
 
-[**AddWatermark201Response**](AddWatermark201Response.md)
+[**InlineObject9**](InlineObject9.md)
+
+### Authorization
+
+[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Document data |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
+
+<a id="makeAccessible"></a>
+# **makeAccessible**
+> InlineObject9 makeAccessible(makeAccessibleRequest)
+
+Make accessible
+
+Tags a PDF document for accessibility from base64 string or a remote URL.
+
+### Example
+```java
+// Import classes:
+import org.pdfgeneratorapi.client.ApiClient;
+import org.pdfgeneratorapi.client.ApiException;
+import org.pdfgeneratorapi.client.Configuration;
+import org.pdfgeneratorapi.client.auth.*;
+import org.pdfgeneratorapi.client.models.*;
+import org.pdfgeneratorapi.client.api.ServicesApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
+    
+    // Configure HTTP bearer authorization: JSONWebTokenAuth
+    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
+    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
+
+    ServicesApi apiInstance = new ServicesApi(defaultClient);
+    MakeAccessibleRequest makeAccessibleRequest = new MakeAccessibleRequest(); // MakeAccessibleRequest | 
+    try {
+      InlineObject9 result = apiInstance.makeAccessible(makeAccessibleRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling ServicesApi#makeAccessible");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **makeAccessibleRequest** | [**MakeAccessibleRequest**](MakeAccessibleRequest.md)|  | |
+
+### Return type
+
+[**InlineObject9**](InlineObject9.md)
 
 ### Authorization
 
@@ -384,7 +459,7 @@ public class Example {
 
 <a id="optimizeDocument"></a>
 # **optimizeDocument**
-> OptimizeDocument201Response optimizeDocument(optimizeDocumentRequest)
+> InlineObject12 optimizeDocument(optimizeDocumentRequest)
 
 Optimize document
 
@@ -412,7 +487,7 @@ public class Example {
     ServicesApi apiInstance = new ServicesApi(defaultClient);
     OptimizeDocumentRequest optimizeDocumentRequest = new OptimizeDocumentRequest(); // OptimizeDocumentRequest | 
     try {
-      OptimizeDocument201Response result = apiInstance.optimizeDocument(optimizeDocumentRequest);
+      InlineObject12 result = apiInstance.optimizeDocument(optimizeDocumentRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ServicesApi#optimizeDocument");
@@ -433,7 +508,7 @@ public class Example {
 
 ### Return type
 
-[**OptimizeDocument201Response**](OptimizeDocument201Response.md)
+[**InlineObject12**](InlineObject12.md)
 
 ### Authorization
 

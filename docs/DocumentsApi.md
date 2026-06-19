@@ -9,8 +9,10 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 | [**generateDocumentAsynchronous**](DocumentsApi.md#generateDocumentAsynchronous) | **POST** /documents/generate/async | Generate document (async) |
 | [**generateDocumentBatch**](DocumentsApi.md#generateDocumentBatch) | **POST** /documents/generate/batch | Generate document (batch) |
 | [**generateDocumentBatchAsynchronous**](DocumentsApi.md#generateDocumentBatchAsynchronous) | **POST** /documents/generate/batch/async | Generate document (batch + async) |
+| [**getAsyncJobStatus**](DocumentsApi.md#getAsyncJobStatus) | **GET** /documents/async/{jobId} | Get job status |
 | [**getDocument**](DocumentsApi.md#getDocument) | **GET** /documents/{publicId} | Get document |
 | [**getDocuments**](DocumentsApi.md#getDocuments) | **GET** /documents | Get documents |
+| [**storeDocument**](DocumentsApi.md#storeDocument) | **POST** /documents | Store document |
 
 
 <a id="deleteDocument"></a>
@@ -88,7 +90,7 @@ null (empty response body)
 
 <a id="generateDocument"></a>
 # **generateDocument**
-> AddWatermark201Response generateDocument(generateDocumentRequest)
+> InlineObject9 generateDocument(generateDocumentRequest)
 
 Generate document
 
@@ -116,7 +118,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     GenerateDocumentRequest generateDocumentRequest = new GenerateDocumentRequest(); // GenerateDocumentRequest | Request parameters, including template id, data and formats.
     try {
-      AddWatermark201Response result = apiInstance.generateDocument(generateDocumentRequest);
+      InlineObject9 result = apiInstance.generateDocument(generateDocumentRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#generateDocument");
@@ -137,7 +139,7 @@ public class Example {
 
 ### Return type
 
-[**AddWatermark201Response**](AddWatermark201Response.md)
+[**InlineObject9**](InlineObject9.md)
 
 ### Authorization
 
@@ -162,11 +164,11 @@ public class Example {
 
 <a id="generateDocumentAsynchronous"></a>
 # **generateDocumentAsynchronous**
-> GenerateDocumentAsynchronous201Response generateDocumentAsynchronous(generateDocumentAsynchronousRequest)
+> InlineObject20 generateDocumentAsynchronous(generateDocumentAsynchronousRequest)
 
 Generate document (async)
 
-Merges template with data as asynchronous job and makes POST request to callback URL defined in the request. Request uses the same format as response of synchronous generation endpoint. The job id is also added to the callback request as header PDF-API-Job-Id  *Example payload for callback URL:* &#x60;&#x60;&#x60; {   \&quot;response\&quot;: \&quot;https://us1.pdfgeneratorapi.com/share/12821/VBERi0xLjcKJeLjz9MKNyAwIG9i\&quot;,   \&quot;meta\&quot;: {     \&quot;name\&quot;: \&quot;a2bd25b8921f3dc7a440fd7f427f90a4.pdf\&quot;,     \&quot;display_name\&quot;: \&quot;a2bd25b8921f3dc7a440fd7f427f90a4\&quot;,     \&quot;encoding\&quot;: \&quot;binary\&quot;,     \&quot;content-type\&quot;: \&quot;application/pdf\&quot;   } } &#x60;&#x60;&#x60; 
+Merges template with data as asynchronous job and makes POST request to callback URL defined in the request. Request uses the same format as response of synchronous generation endpoint. The job id is also added to the callback request as header PDF-API-Job-Id  *Example response from callback URL:* &#x60;&#x60;&#x60; {   \&quot;response\&quot;: \&quot;https://us1.pdfgeneratorapi.com/share/12821/VBERi0xLjcKJeLjz9MKNyAwIG9i\&quot;,   \&quot;meta\&quot;: {     \&quot;name\&quot;: \&quot;a2bd25b8921f3dc7a440fd7f427f90a4.pdf\&quot;,     \&quot;display_name\&quot;: \&quot;a2bd25b8921f3dc7a440fd7f427f90a4\&quot;,     \&quot;encoding\&quot;: \&quot;binary\&quot;,     \&quot;content-type\&quot;: \&quot;application/pdf\&quot;   } } &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -190,7 +192,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     GenerateDocumentAsynchronousRequest generateDocumentAsynchronousRequest = new GenerateDocumentAsynchronousRequest(); // GenerateDocumentAsynchronousRequest | Request parameters, including template id, data and formats.
     try {
-      GenerateDocumentAsynchronous201Response result = apiInstance.generateDocumentAsynchronous(generateDocumentAsynchronousRequest);
+      InlineObject20 result = apiInstance.generateDocumentAsynchronous(generateDocumentAsynchronousRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#generateDocumentAsynchronous");
@@ -211,7 +213,7 @@ public class Example {
 
 ### Return type
 
-[**GenerateDocumentAsynchronous201Response**](GenerateDocumentAsynchronous201Response.md)
+[**InlineObject20**](InlineObject20.md)
 
 ### Authorization
 
@@ -236,7 +238,7 @@ public class Example {
 
 <a id="generateDocumentBatch"></a>
 # **generateDocumentBatch**
-> AddWatermark201Response generateDocumentBatch(generateDocumentBatchRequest)
+> InlineObject9 generateDocumentBatch(generateDocumentBatchRequest)
 
 Generate document (batch)
 
@@ -264,7 +266,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     GenerateDocumentBatchRequest generateDocumentBatchRequest = new GenerateDocumentBatchRequest(); // GenerateDocumentBatchRequest | Request parameters, including template id, data and formats.
     try {
-      AddWatermark201Response result = apiInstance.generateDocumentBatch(generateDocumentBatchRequest);
+      InlineObject9 result = apiInstance.generateDocumentBatch(generateDocumentBatchRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#generateDocumentBatch");
@@ -285,7 +287,7 @@ public class Example {
 
 ### Return type
 
-[**AddWatermark201Response**](AddWatermark201Response.md)
+[**InlineObject9**](InlineObject9.md)
 
 ### Authorization
 
@@ -310,11 +312,11 @@ public class Example {
 
 <a id="generateDocumentBatchAsynchronous"></a>
 # **generateDocumentBatchAsynchronous**
-> GenerateDocumentAsynchronous201Response generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest)
+> InlineObject20 generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest)
 
 Generate document (batch + async)
 
-Merges template with data as asynchronous job and makes POST request to callback URL defined in the request. Request uses the same format as response of synchronous generation endpoint. The job id is also added to the callback request as header PDF-API-Job-Id  *Example payload for callback URL:* &#x60;&#x60;&#x60; {   \&quot;response\&quot;: \&quot;https://us1.pdfgeneratorapi.com/share/12821/VBERi0xLjcKJeLjz9MKNyAwIG9i\&quot;,   \&quot;meta\&quot;: {     \&quot;name\&quot;: \&quot;a2bd25b8921f3dc7a440fd7f427f90a4.pdf\&quot;,     \&quot;display_name\&quot;: \&quot;a2bd25b8921f3dc7a440fd7f427f90a4\&quot;,     \&quot;encoding\&quot;: \&quot;binary\&quot;,     \&quot;content-type\&quot;: \&quot;application/pdf\&quot;   } } &#x60;&#x60;&#x60; 
+Merges template with data as asynchronous job and makes POST request to callback URL defined in the request. Request uses the same format as response of synchronous generation endpoint. The job id is also added to the callback request as header PDF-API-Job-Id  *Example response from callback URL:* &#x60;&#x60;&#x60; {   \&quot;response\&quot;: \&quot;https://us1.pdfgeneratorapi.com/share/12821/VBERi0xLjcKJeLjz9MKNyAwIG9i\&quot;,   \&quot;meta\&quot;: {     \&quot;name\&quot;: \&quot;a2bd25b8921f3dc7a440fd7f427f90a4.pdf\&quot;,     \&quot;display_name\&quot;: \&quot;a2bd25b8921f3dc7a440fd7f427f90a4\&quot;,     \&quot;encoding\&quot;: \&quot;binary\&quot;,     \&quot;content-type\&quot;: \&quot;application/pdf\&quot;   } } &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -338,7 +340,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     GenerateDocumentBatchAsynchronousRequest generateDocumentBatchAsynchronousRequest = new GenerateDocumentBatchAsynchronousRequest(); // GenerateDocumentBatchAsynchronousRequest | Request parameters, including template id, data and formats.
     try {
-      GenerateDocumentAsynchronous201Response result = apiInstance.generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest);
+      InlineObject20 result = apiInstance.generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#generateDocumentBatchAsynchronous");
@@ -359,7 +361,7 @@ public class Example {
 
 ### Return type
 
-[**GenerateDocumentAsynchronous201Response**](GenerateDocumentAsynchronous201Response.md)
+[**InlineObject20**](InlineObject20.md)
 
 ### Authorization
 
@@ -382,9 +384,83 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
+<a id="getAsyncJobStatus"></a>
+# **getAsyncJobStatus**
+> InlineObject13 getAsyncJobStatus(jobId)
+
+Get job status
+
+Returns status of an async job
+
+### Example
+```java
+// Import classes:
+import org.pdfgeneratorapi.client.ApiClient;
+import org.pdfgeneratorapi.client.ApiException;
+import org.pdfgeneratorapi.client.Configuration;
+import org.pdfgeneratorapi.client.auth.*;
+import org.pdfgeneratorapi.client.models.*;
+import org.pdfgeneratorapi.client.api.DocumentsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
+    
+    // Configure HTTP bearer authorization: JSONWebTokenAuth
+    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
+    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
+
+    DocumentsApi apiInstance = new DocumentsApi(defaultClient);
+    String jobId = "968b8a3a-e8ac-49cc-a670-25db545813ed"; // String | Job id
+    try {
+      InlineObject13 result = apiInstance.getAsyncJobStatus(jobId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DocumentsApi#getAsyncJobStatus");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **jobId** | **String**| Job id | |
+
+### Return type
+
+[**InlineObject13**](InlineObject13.md)
+
+### Authorization
+
+[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Async job status |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
+
 <a id="getDocument"></a>
 # **getDocument**
-> GetDocument200Response getDocument(publicId)
+> InlineObject11 getDocument(publicId)
 
 Get document
 
@@ -412,7 +488,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     String publicId = "bac8381bce1982e5f6957a0f52371336"; // String | Resource public id
     try {
-      GetDocument200Response result = apiInstance.getDocument(publicId);
+      InlineObject11 result = apiInstance.getDocument(publicId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#getDocument");
@@ -433,7 +509,7 @@ public class Example {
 
 ### Return type
 
-[**GetDocument200Response**](GetDocument200Response.md)
+[**InlineObject11**](InlineObject11.md)
 
 ### Authorization
 
@@ -458,7 +534,7 @@ public class Example {
 
 <a id="getDocuments"></a>
 # **getDocuments**
-> GetDocuments200Response getDocuments(templateId, startDate, endDate, page, perPage)
+> InlineObject15 getDocuments(templateId, startDate, endDate, page, perPage)
 
 Get documents
 
@@ -490,7 +566,7 @@ public class Example {
     Integer page = 1; // Integer | Pagination: page to return
     Integer perPage = 15; // Integer | Pagination: How many records to return per page
     try {
-      GetDocuments200Response result = apiInstance.getDocuments(templateId, startDate, endDate, page, perPage);
+      InlineObject15 result = apiInstance.getDocuments(templateId, startDate, endDate, page, perPage);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#getDocuments");
@@ -515,7 +591,7 @@ public class Example {
 
 ### Return type
 
-[**GetDocuments200Response**](GetDocuments200Response.md)
+[**InlineObject15**](InlineObject15.md)
 
 ### Authorization
 
@@ -530,6 +606,80 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | A list of generated documents |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
+
+<a id="storeDocument"></a>
+# **storeDocument**
+> InlineObject11 storeDocument(storeDocumentRequest)
+
+Store document
+
+Uploads a PDF as a URL or a base64 encoded string.
+
+### Example
+```java
+// Import classes:
+import org.pdfgeneratorapi.client.ApiClient;
+import org.pdfgeneratorapi.client.ApiException;
+import org.pdfgeneratorapi.client.Configuration;
+import org.pdfgeneratorapi.client.auth.*;
+import org.pdfgeneratorapi.client.models.*;
+import org.pdfgeneratorapi.client.api.DocumentsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
+    
+    // Configure HTTP bearer authorization: JSONWebTokenAuth
+    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
+    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
+
+    DocumentsApi apiInstance = new DocumentsApi(defaultClient);
+    StoreDocumentRequest storeDocumentRequest = new StoreDocumentRequest(); // StoreDocumentRequest | Document source and optional metadata. Exactly one of `file_base64` or `file_url` is required.
+    try {
+      InlineObject11 result = apiInstance.storeDocument(storeDocumentRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DocumentsApi#storeDocument");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **storeDocumentRequest** | [**StoreDocumentRequest**](StoreDocumentRequest.md)| Document source and optional metadata. Exactly one of &#x60;file_base64&#x60; or &#x60;file_url&#x60; is required. | |
+
+### Return type
+
+[**InlineObject11**](InlineObject11.md)
+
+### Authorization
+
+[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Document data |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |

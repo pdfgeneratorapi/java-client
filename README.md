@@ -1,9 +1,9 @@
 # pdf-generator-api
 
 PDF Generator API
-- API version: 4.0.12
-  - Build date: 2025-07-07T10:41:30.443864+03:00[Europe/Tallinn]
-  - Generator version: 7.11.0
+- API version: 4.0.25
+  - Build date: 2026-06-19T11:21:51.162235540Z[Etc/UTC]
+  - Generator version: 7.14.0
 
 # Introduction
 [PDF Generator API](https://pdfgeneratorapi.com) allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.
@@ -71,7 +71,8 @@ Response headers contain additional values:
 
 # Libraries and SDKs
 ## Postman Collection
-We have created a [Postman Collection](https://www.postman.com/pdfgeneratorapi/workspace/pdf-generator-api-public-workspace/overview) so you can easily test all the API endpoints without developing and code. You can download the collection [here](https://www.postman.com/pdfgeneratorapi/workspace/pdf-generator-api-public-workspace/collection/11578263-42fed446-af7e-4266-84e1-69e8c1752e93).
+We have created a [Postman Collection](https://www.postman.com/pdfgeneratorapi/workspace/pdf-generator-api-public-workspace/overview) so you can easily test all the API endpoints without developing and code.
+
 
 ## Client Libraries
 All our Client Libraries are auto-generated using [OpenAPI Generator](https://openapi-generator.tech/) which uses the OpenAPI v3 specification to automatically generate a client library in specific programming language.
@@ -83,7 +84,15 @@ All our Client Libraries are auto-generated using [OpenAPI Generator](https://op
 * [Javascript Client](https://github.com/pdfgeneratorapi/javascript-client)
 
 We have validated the generated libraries, but let us know if you find any anomalies in the client code.
+
+## Model Context Protocol (MCP) Server
+Integrate document generation directly into your AI agents and LLM applications using our official Model Context Protocol (MCP) Server.
+
+The MCP server provides a standardized interface that allows AI assistants (like Claude Desktop and other MCP-compatible clients) to securely interact with the PDF Generator API. With it, your AI applications can automatically fetch workspaces, retrieve templates, merge data, and generate PDF documents on the fly.
+
+[Get PDF Generator API MCP Server](https://github.com/pdfgeneratorapi/mcp-server)
 *  *  *  *  *
+
 
 # Authentication
 The PDF Generator API uses __JSON Web Tokens (JWT)__ to authenticate all API requests. These tokens offer a method to establish secure server-to-server authentication by transferring a compact JSON object with a signed payload of your account’s API Key and Secret.
@@ -261,7 +270,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>org.pdfgeneratorapi</groupId>
   <artifactId>pdf-generator-api</artifactId>
-  <version>4.0.12</version>
+  <version>4.0.25</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -277,7 +286,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "org.pdfgeneratorapi:pdf-generator-api:4.0.12"
+     implementation "org.pdfgeneratorapi:pdf-generator-api:4.0.25"
   }
 ```
 
@@ -291,7 +300,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pdf-generator-api-4.0.12.jar`
+* `target/pdf-generator-api-4.0.25.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -306,7 +315,7 @@ import org.pdfgeneratorapi.client.ApiException;
 import org.pdfgeneratorapi.client.Configuration;
 import org.pdfgeneratorapi.client.auth.*;
 import org.pdfgeneratorapi.client.model.*;
-import org.pdfgeneratorapi.client.api.ConversionApi;
+import org.pdfgeneratorapi.client.api.AssetsApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -317,13 +326,13 @@ public class Example {
     HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
     JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
-    ConversionApi apiInstance = new ConversionApi(defaultClient);
-    ConvertHTML2PDFRequest convertHTML2PDFRequest = new ConvertHTML2PDFRequest(); // ConvertHTML2PDFRequest | 
+    AssetsApi apiInstance = new AssetsApi(defaultClient);
+    GenerateQRCodeRequest generateQRCodeRequest = new GenerateQRCodeRequest(); // GenerateQRCodeRequest | QR Code configuration
     try {
-      AddWatermark201Response result = apiInstance.convertHTML2PDF(convertHTML2PDFRequest);
+      GenerateQRCode201Response result = apiInstance.generateQRCode(generateQRCodeRequest);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling ConversionApi#convertHTML2PDF");
+      System.err.println("Exception when calling AssetsApi#generateQRCode");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -340,19 +349,30 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AssetsApi* | [**generateQRCode**](docs/AssetsApi.md#generateQRCode) | **POST** /assets/qrcode | Generate QR Code
 *ConversionApi* | [**convertHTML2PDF**](docs/ConversionApi.md#convertHTML2PDF) | **POST** /conversion/html2pdf | HTML to PDF
+*ConversionApi* | [**convertPDF2Image**](docs/ConversionApi.md#convertPDF2Image) | **POST** /conversion/pdf2image | PDF to Image
 *ConversionApi* | [**convertURL2PDF**](docs/ConversionApi.md#convertURL2PDF) | **POST** /conversion/url2pdf | URL to PDF
 *DocumentsApi* | [**deleteDocument**](docs/DocumentsApi.md#deleteDocument) | **DELETE** /documents/{publicId} | Delete document
 *DocumentsApi* | [**generateDocument**](docs/DocumentsApi.md#generateDocument) | **POST** /documents/generate | Generate document
 *DocumentsApi* | [**generateDocumentAsynchronous**](docs/DocumentsApi.md#generateDocumentAsynchronous) | **POST** /documents/generate/async | Generate document (async)
 *DocumentsApi* | [**generateDocumentBatch**](docs/DocumentsApi.md#generateDocumentBatch) | **POST** /documents/generate/batch | Generate document (batch)
 *DocumentsApi* | [**generateDocumentBatchAsynchronous**](docs/DocumentsApi.md#generateDocumentBatchAsynchronous) | **POST** /documents/generate/batch/async | Generate document (batch + async)
+*DocumentsApi* | [**getAsyncJobStatus**](docs/DocumentsApi.md#getAsyncJobStatus) | **GET** /documents/async/{jobId} | Get job status
 *DocumentsApi* | [**getDocument**](docs/DocumentsApi.md#getDocument) | **GET** /documents/{publicId} | Get document
 *DocumentsApi* | [**getDocuments**](docs/DocumentsApi.md#getDocuments) | **GET** /documents | Get documents
-*FormsApi* | [**createFrom**](docs/FormsApi.md#createFrom) | **POST** /forms | Create form
+*DocumentsApi* | [**storeDocument**](docs/DocumentsApi.md#storeDocument) | **POST** /documents | Store document
+*EInvoicesApi* | [**createEInvoice**](docs/EInvoicesApi.md#createEInvoice) | **POST** /einvoice | Create eInvoice
+*EInvoicesApi* | [**createFacturXEInvoice**](docs/EInvoicesApi.md#createFacturXEInvoice) | **POST** /einvoice/facturx | Create Factur-X eInvoice
+*EInvoicesApi* | [**createXRechnungEInvoice**](docs/EInvoicesApi.md#createXRechnungEInvoice) | **POST** /einvoice/xrechnung | Create XRechnung eInvoice
+*EInvoicesApi* | [**getEInvoiceSchema**](docs/EInvoicesApi.md#getEInvoiceSchema) | **GET** /einvoice/schema | Get schema
+*FormsApi* | [**createForm**](docs/FormsApi.md#createForm) | **POST** /forms | Create form
 *FormsApi* | [**deleteForm**](docs/FormsApi.md#deleteForm) | **DELETE** /forms/{formId} | Delete form
 *FormsApi* | [**getForm**](docs/FormsApi.md#getForm) | **GET** /forms/{formId} | Get form
 *FormsApi* | [**getForms**](docs/FormsApi.md#getForms) | **GET** /forms | Get forms
+*FormsApi* | [**importForm**](docs/FormsApi.md#importForm) | **POST** /forms/import | Import Form
+*FormsApi* | [**openFormBuilder**](docs/FormsApi.md#openFormBuilder) | **POST** /forms/open | Open new form builder
+*FormsApi* | [**openFormBuilderForExistingForm**](docs/FormsApi.md#openFormBuilderForExistingForm) | **POST** /forms/{formId}/open | Open existing form builder
 *FormsApi* | [**shareForm**](docs/FormsApi.md#shareForm) | **POST** /forms/{formId}/share | Share form
 *FormsApi* | [**updateForm**](docs/FormsApi.md#updateForm) | **PUT** /forms/{formId} | Update form
 *MiscApi* | [**getStatus**](docs/MiscApi.md#getStatus) | **GET** /status | Get Service Status
@@ -361,13 +381,22 @@ Class | Method | HTTP request | Description
 *ServicesApi* | [**encryptDocument**](docs/ServicesApi.md#encryptDocument) | **POST** /pdfservices/encrypt | Encrypt document
 *ServicesApi* | [**extractFormFields**](docs/ServicesApi.md#extractFormFields) | **POST** /pdfservices/form/fields | Extract form fields
 *ServicesApi* | [**fillFormFields**](docs/ServicesApi.md#fillFormFields) | **POST** /pdfservices/form/fill | Fill form fields
+*ServicesApi* | [**makeAccessible**](docs/ServicesApi.md#makeAccessible) | **POST** /pdfservices/make-accessible | Make accessible
 *ServicesApi* | [**optimizeDocument**](docs/ServicesApi.md#optimizeDocument) | **POST** /pdfservices/optimize | Optimize document
+*TemplateLibraryApi* | [**getTemplateLibrary**](docs/TemplateLibraryApi.md#getTemplateLibrary) | **GET** /templates/library | Get template library
+*TemplateLibraryApi* | [**getTemplateLibraryItem**](docs/TemplateLibraryApi.md#getTemplateLibraryItem) | **GET** /templates/library/{publicId} | Open template from the library
+*TemplateVersionsApi* | [**deleteTemplateVersion**](docs/TemplateVersionsApi.md#deleteTemplateVersion) | **DELETE** /templates/{templateId}/versions/{templateVersion} | Delete template version
+*TemplateVersionsApi* | [**getTemplateVersion**](docs/TemplateVersionsApi.md#getTemplateVersion) | **GET** /templates/{templateId}/versions/{templateVersion} | Get template version
+*TemplateVersionsApi* | [**listTemplateVersions**](docs/TemplateVersionsApi.md#listTemplateVersions) | **GET** /templates/{templateId}/versions | List template versions
+*TemplateVersionsApi* | [**promoteTemplateVersion**](docs/TemplateVersionsApi.md#promoteTemplateVersion) | **PUT** /templates/{templateId}/versions/{templateVersion}/promote | Promote template version
 *TemplatesApi* | [**copyTemplate**](docs/TemplatesApi.md#copyTemplate) | **POST** /templates/{templateId}/copy | Copy template
 *TemplatesApi* | [**createTemplate**](docs/TemplatesApi.md#createTemplate) | **POST** /templates | Create template
 *TemplatesApi* | [**deleteTemplate**](docs/TemplatesApi.md#deleteTemplate) | **DELETE** /templates/{templateId} | Delete template
 *TemplatesApi* | [**getTemplate**](docs/TemplatesApi.md#getTemplate) | **GET** /templates/{templateId} | Get template
 *TemplatesApi* | [**getTemplateData**](docs/TemplatesApi.md#getTemplateData) | **GET** /templates/{templateId}/data | Get template data fields
+*TemplatesApi* | [**getTemplateSchema**](docs/TemplatesApi.md#getTemplateSchema) | **GET** /templates/schema | Get schema
 *TemplatesApi* | [**getTemplates**](docs/TemplatesApi.md#getTemplates) | **GET** /templates | Get templates
+*TemplatesApi* | [**importTemplate**](docs/TemplatesApi.md#importTemplate) | **POST** /templates/import | Import template
 *TemplatesApi* | [**openEditor**](docs/TemplatesApi.md#openEditor) | **POST** /templates/{templateId}/editor | Open editor
 *TemplatesApi* | [**updateTemplate**](docs/TemplatesApi.md#updateTemplate) | **PUT** /templates/{templateId} | Update template
 *TemplatesApi* | [**validateTemplate**](docs/TemplatesApi.md#validateTemplate) | **POST** /templates/validate | Validate template
@@ -379,38 +408,30 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
- - [AddWatermark201Response](docs/AddWatermark201Response.md)
- - [AddWatermark201ResponseMeta](docs/AddWatermark201ResponseMeta.md)
- - [AddWatermark401Response](docs/AddWatermark401Response.md)
- - [AddWatermark402Response](docs/AddWatermark402Response.md)
- - [AddWatermark403Response](docs/AddWatermark403Response.md)
- - [AddWatermark404Response](docs/AddWatermark404Response.md)
- - [AddWatermark422Response](docs/AddWatermark422Response.md)
- - [AddWatermark429Response](docs/AddWatermark429Response.md)
- - [AddWatermark500Response](docs/AddWatermark500Response.md)
+ - [AccessibilityOption](docs/AccessibilityOption.md)
  - [AddWatermarkRequest](docs/AddWatermarkRequest.md)
  - [AsyncOutputParam](docs/AsyncOutputParam.md)
  - [CallbackParam](docs/CallbackParam.md)
  - [Component](docs/Component.md)
  - [ConvertHTML2PDFRequest](docs/ConvertHTML2PDFRequest.md)
+ - [ConvertPDF2ImageRequest](docs/ConvertPDF2ImageRequest.md)
  - [ConvertURL2PDFRequest](docs/ConvertURL2PDFRequest.md)
  - [CopyTemplateRequest](docs/CopyTemplateRequest.md)
- - [CreateFrom201Response](docs/CreateFrom201Response.md)
- - [CreateTemplate201Response](docs/CreateTemplate201Response.md)
- - [CreateWorkspace201Response](docs/CreateWorkspace201Response.md)
+ - [CreateEInvoiceRequest](docs/CreateEInvoiceRequest.md)
+ - [CreateFacturXEInvoiceRequest](docs/CreateFacturXEInvoiceRequest.md)
+ - [CreateFacturXEInvoiceRequestTemplate](docs/CreateFacturXEInvoiceRequestTemplate.md)
  - [CreateWorkspaceRequest](docs/CreateWorkspaceRequest.md)
  - [DataBatchInner](docs/DataBatchInner.md)
  - [Document](docs/Document.md)
  - [EncryptAndDecryptBase64](docs/EncryptAndDecryptBase64.md)
  - [EncryptAndDecryptUrl](docs/EncryptAndDecryptUrl.md)
  - [EncryptDocumentRequest](docs/EncryptDocumentRequest.md)
- - [ExtractFormFields200Response](docs/ExtractFormFields200Response.md)
- - [ExtractFormFields200ResponseResponseValue](docs/ExtractFormFields200ResponseResponseValue.md)
- - [ExtractFormFields200ResponseResponseValueDefault](docs/ExtractFormFields200ResponseResponseValueDefault.md)
- - [ExtractFormFields200ResponseResponseValueValue](docs/ExtractFormFields200ResponseResponseValueValue.md)
  - [ExtractFormFieldsRequest](docs/ExtractFormFieldsRequest.md)
  - [FillFormFieldsRequest](docs/FillFormFieldsRequest.md)
  - [FormActionDownload](docs/FormActionDownload.md)
+ - [FormActionSend](docs/FormActionSend.md)
+ - [FormActionSendSendDocument](docs/FormActionSendSendDocument.md)
+ - [FormActionSendSendDocumentHeadersInner](docs/FormActionSendSendDocumentHeadersInner.md)
  - [FormActionStore](docs/FormActionStore.md)
  - [FormConfiguration](docs/FormConfiguration.md)
  - [FormConfigurationNew](docs/FormConfigurationNew.md)
@@ -421,35 +442,80 @@ Class | Method | HTTP request | Description
  - [FormFillBase64](docs/FormFillBase64.md)
  - [FormFillUrl](docs/FormFillUrl.md)
  - [FormatParam](docs/FormatParam.md)
- - [GenerateDocumentAsynchronous201Response](docs/GenerateDocumentAsynchronous201Response.md)
- - [GenerateDocumentAsynchronous201ResponseResponse](docs/GenerateDocumentAsynchronous201ResponseResponse.md)
  - [GenerateDocumentAsynchronousRequest](docs/GenerateDocumentAsynchronousRequest.md)
  - [GenerateDocumentBatchAsynchronousRequest](docs/GenerateDocumentBatchAsynchronousRequest.md)
  - [GenerateDocumentBatchRequest](docs/GenerateDocumentBatchRequest.md)
  - [GenerateDocumentRequest](docs/GenerateDocumentRequest.md)
- - [GetDocument200Response](docs/GetDocument200Response.md)
- - [GetDocument200ResponseMeta](docs/GetDocument200ResponseMeta.md)
- - [GetDocuments200Response](docs/GetDocuments200Response.md)
- - [GetForms200Response](docs/GetForms200Response.md)
+ - [GenerateQRCode201Response](docs/GenerateQRCode201Response.md)
+ - [GenerateQRCode201ResponseMeta](docs/GenerateQRCode201ResponseMeta.md)
+ - [GenerateQRCodeRequest](docs/GenerateQRCodeRequest.md)
  - [GetStatus200Response](docs/GetStatus200Response.md)
- - [GetTemplateData200Response](docs/GetTemplateData200Response.md)
- - [GetTemplates200Response](docs/GetTemplates200Response.md)
- - [GetWorkspaces200Response](docs/GetWorkspaces200Response.md)
+ - [GetTemplateLibrary200Response](docs/GetTemplateLibrary200Response.md)
+ - [GetTemplateVersion422Response](docs/GetTemplateVersion422Response.md)
+ - [ImportFormBase64](docs/ImportFormBase64.md)
+ - [ImportFormRequest](docs/ImportFormRequest.md)
+ - [ImportFormUrl](docs/ImportFormUrl.md)
+ - [ImportTemplateBase64](docs/ImportTemplateBase64.md)
+ - [ImportTemplateRequest](docs/ImportTemplateRequest.md)
+ - [ImportTemplateUrl](docs/ImportTemplateUrl.md)
+ - [ImportTemplateUrlTemplate](docs/ImportTemplateUrlTemplate.md)
  - [InlineObject](docs/InlineObject.md)
- - [InlineObjectResponse](docs/InlineObjectResponse.md)
- - [OpenEditor200Response](docs/OpenEditor200Response.md)
+ - [InlineObject1](docs/InlineObject1.md)
+ - [InlineObject10](docs/InlineObject10.md)
+ - [InlineObject10Meta](docs/InlineObject10Meta.md)
+ - [InlineObject11](docs/InlineObject11.md)
+ - [InlineObject11Meta](docs/InlineObject11Meta.md)
+ - [InlineObject12](docs/InlineObject12.md)
+ - [InlineObject12Meta](docs/InlineObject12Meta.md)
+ - [InlineObject12MetaStats](docs/InlineObject12MetaStats.md)
+ - [InlineObject13](docs/InlineObject13.md)
+ - [InlineObject14](docs/InlineObject14.md)
+ - [InlineObject14ResponseValue](docs/InlineObject14ResponseValue.md)
+ - [InlineObject14ResponseValueDefault](docs/InlineObject14ResponseValueDefault.md)
+ - [InlineObject14ResponseValueValue](docs/InlineObject14ResponseValueValue.md)
+ - [InlineObject15](docs/InlineObject15.md)
+ - [InlineObject16](docs/InlineObject16.md)
+ - [InlineObject17](docs/InlineObject17.md)
+ - [InlineObject18](docs/InlineObject18.md)
+ - [InlineObject18Meta](docs/InlineObject18Meta.md)
+ - [InlineObject19](docs/InlineObject19.md)
+ - [InlineObject1Response](docs/InlineObject1Response.md)
+ - [InlineObject2](docs/InlineObject2.md)
+ - [InlineObject20](docs/InlineObject20.md)
+ - [InlineObject20Response](docs/InlineObject20Response.md)
+ - [InlineObject21](docs/InlineObject21.md)
+ - [InlineObject22](docs/InlineObject22.md)
+ - [InlineObject23](docs/InlineObject23.md)
+ - [InlineObject24](docs/InlineObject24.md)
+ - [InlineObject25](docs/InlineObject25.md)
+ - [InlineObject26](docs/InlineObject26.md)
+ - [InlineObject27](docs/InlineObject27.md)
+ - [InlineObject3](docs/InlineObject3.md)
+ - [InlineObject4](docs/InlineObject4.md)
+ - [InlineObject5](docs/InlineObject5.md)
+ - [InlineObject6](docs/InlineObject6.md)
+ - [InlineObject7](docs/InlineObject7.md)
+ - [InlineObject7Response](docs/InlineObject7Response.md)
+ - [InlineObject8](docs/InlineObject8.md)
+ - [InlineObject9](docs/InlineObject9.md)
+ - [InlineObject9Meta](docs/InlineObject9Meta.md)
+ - [InlineObjectMeta](docs/InlineObjectMeta.md)
+ - [KeyFieldParam](docs/KeyFieldParam.md)
+ - [MakeAccessibleBase64](docs/MakeAccessibleBase64.md)
+ - [MakeAccessibleRequest](docs/MakeAccessibleRequest.md)
+ - [MakeAccessibleUrl](docs/MakeAccessibleUrl.md)
+ - [MetadataParam](docs/MetadataParam.md)
  - [OpenEditorRequest](docs/OpenEditorRequest.md)
  - [OpenEditorRequestData](docs/OpenEditorRequestData.md)
  - [OptimizeBase64](docs/OptimizeBase64.md)
- - [OptimizeDocument201Response](docs/OptimizeDocument201Response.md)
- - [OptimizeDocument201ResponseMeta](docs/OptimizeDocument201ResponseMeta.md)
- - [OptimizeDocument201ResponseMetaStats](docs/OptimizeDocument201ResponseMetaStats.md)
  - [OptimizeDocumentRequest](docs/OptimizeDocumentRequest.md)
  - [OptimizeUrl](docs/OptimizeUrl.md)
  - [OutputParam](docs/OutputParam.md)
  - [PaginationMeta](docs/PaginationMeta.md)
- - [ShareForm201Response](docs/ShareForm201Response.md)
- - [ShareForm201ResponseMeta](docs/ShareForm201ResponseMeta.md)
+ - [PromoteTemplateVersion200Response](docs/PromoteTemplateVersion200Response.md)
+ - [PublicTemplateLibraryItem](docs/PublicTemplateLibraryItem.md)
+ - [StatusParam](docs/StatusParam.md)
+ - [StoreDocumentRequest](docs/StoreDocumentRequest.md)
  - [Template](docs/Template.md)
  - [TemplateDefinition](docs/TemplateDefinition.md)
  - [TemplateDefinitionDataSettings](docs/TemplateDefinitionDataSettings.md)
@@ -465,8 +531,10 @@ Class | Method | HTTP request | Description
  - [TemplateDefinitionPagesInner](docs/TemplateDefinitionPagesInner.md)
  - [TemplateParam](docs/TemplateParam.md)
  - [TemplateParamData](docs/TemplateParamData.md)
- - [ValidateTemplate200Response](docs/ValidateTemplate200Response.md)
- - [ValidateTemplate200ResponseResponse](docs/ValidateTemplate200ResponseResponse.md)
+ - [TemplateParamId](docs/TemplateParamId.md)
+ - [TemplateVersion](docs/TemplateVersion.md)
+ - [TemplateVersionCollection](docs/TemplateVersionCollection.md)
+ - [TemplateVersionCollectionMeta](docs/TemplateVersionCollectionMeta.md)
  - [WatermarkBase64](docs/WatermarkBase64.md)
  - [WatermarkFileUrlWatermark](docs/WatermarkFileUrlWatermark.md)
  - [WatermarkImage](docs/WatermarkImage.md)

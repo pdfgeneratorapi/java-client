@@ -8,6 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**fileUrl** | **String** | Public URL to a PDF document |  |
+|**keyField** | **KeyFieldParam** |  |  [optional] |
 
 
 

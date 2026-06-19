@@ -11,6 +11,7 @@
 |**name** | **String** | Form name |  [optional] |
 |**actions** | [**List&lt;FormConfigurationNewActionsInner&gt;**](FormConfigurationNewActionsInner.md) | Array of action configurations |  [optional] |
 |**fields** | [**List&lt;FormFieldsInner&gt;**](FormFieldsInner.md) | A list of form field objects |  [optional] |
+|**_configuration** | [**FormConfiguration**](FormConfiguration.md) |  |  [optional] |
 
 
 

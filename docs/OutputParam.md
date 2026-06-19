@@ -11,5 +11,7 @@
 
 * `FILE` (value: `"file"`)
 
+* `VIEWER` (value: `"viewer"`)
+
 
 

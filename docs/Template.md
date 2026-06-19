@@ -2,7 +2,7 @@
 
 # Template
 
-Template object
+Template object. Use the Get schema endpoint to see the detailed payload structure.
 
 ## Properties
 
