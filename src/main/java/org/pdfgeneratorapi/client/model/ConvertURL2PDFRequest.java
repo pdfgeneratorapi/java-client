@@ -48,7 +48,7 @@ import org.pdfgeneratorapi.client.JSON;
 /**
  * ConvertURL2PDFRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-06-19T11:21:51.162235540Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-06-19T12:36:28.047162459Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class ConvertURL2PDFRequest {
   public static final String SERIALIZED_NAME_URL = "url";
   @SerializedName(SERIALIZED_NAME_URL)

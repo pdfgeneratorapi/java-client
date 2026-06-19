@@ -2,7 +2,7 @@ lazy val root = (project in file(".")).
   settings(
     organization := "org.pdfgeneratorapi",
     name := "pdf-generator-api",
-    version := "4.0.25",
+    version := "8.0.25",
     scalaVersion := "2.11.12",
     scalacOptions ++= Seq("-feature"),
     compile / javacOptions ++= Seq("-Xlint:deprecation"),

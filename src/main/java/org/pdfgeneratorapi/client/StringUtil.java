@@ -16,7 +16,7 @@ package org.pdfgeneratorapi.client;
 import java.util.Collection;
 import java.util.Iterator;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-06-19T11:21:51.162235540Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-06-19T12:36:28.047162459Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class StringUtil {
   /**
    * Check if the given array contains the given value (with case-insensitive comparison).

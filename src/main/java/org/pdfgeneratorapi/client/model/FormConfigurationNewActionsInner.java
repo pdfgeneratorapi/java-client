@@ -61,7 +61,7 @@ import com.google.gson.JsonParseException;
 
 import org.pdfgeneratorapi.client.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-06-19T11:21:51.162235540Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-06-19T12:36:28.047162459Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class FormConfigurationNewActionsInner extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(FormConfigurationNewActionsInner.class.getName());
 
