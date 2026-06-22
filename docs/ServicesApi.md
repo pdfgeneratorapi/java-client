@@ -24,12 +24,12 @@ Adds a text or an image watermark to PDF document from base64 string or a remote
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.ServicesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.ServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -98,12 +98,12 @@ Decrypts an encrypted PDF document from base64 string or a remote URL.
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.ServicesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.ServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -172,12 +172,12 @@ Encrypts a PDF document from base64 string or a remote URL.
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.ServicesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.ServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -246,12 +246,12 @@ Extracts form fields and their metadata from a PDF document using base64 string 
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.ServicesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.ServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -320,12 +320,12 @@ Fills form fields in a PDF document with provided data from base64 string or a r
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.ServicesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.ServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -394,12 +394,12 @@ Tags a PDF document for accessibility from base64 string or a remote URL.
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.ServicesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.ServicesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -468,12 +468,12 @@ Optimizes the size of a PDF document from base64 string or a remote URL.
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.ServicesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.ServicesApi;
 
 public class Example {
   public static void main(String[] args) {

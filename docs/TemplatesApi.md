@@ -28,12 +28,12 @@ Creates a copy of a template to the workspace specified in authentication parame
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.TemplatesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.TemplatesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -104,12 +104,12 @@ Creates a new template. If template configuration is not specified in the reques
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.TemplatesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.TemplatesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -178,12 +178,12 @@ Deletes the template from workspace
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.TemplatesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.TemplatesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -251,12 +251,12 @@ Returns template configuration
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.TemplatesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.TemplatesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -325,12 +325,12 @@ Returns all data fields used in the template. Returns structured JSON data that 
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.TemplatesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.TemplatesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -399,12 +399,12 @@ Returns Template JSON Schema which defines the structure of the Template Definit
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.TemplatesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.TemplatesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -464,12 +464,12 @@ Returns a list of templates available for the authenticated workspace
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.TemplatesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.TemplatesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -546,12 +546,12 @@ Creates a template from existing PDF
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.TemplatesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.TemplatesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -620,12 +620,12 @@ Returns an unique URL which you can use to redirect your user to the editor from
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.TemplatesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.TemplatesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -696,12 +696,12 @@ Updates template configuration. The template configuration for pages and layout 
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.TemplatesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.TemplatesApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -772,12 +772,12 @@ Validates if the provided template configuration matches the template JSON schem
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.TemplatesApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.TemplatesApi;
 
 public class Example {
   public static void main(String[] args) {

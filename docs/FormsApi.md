@@ -26,12 +26,12 @@ Creates a new form based on the configuration sent in the request body.
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.FormsApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.FormsApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -100,12 +100,12 @@ Deletes the form with specified id
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.FormsApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.FormsApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -173,12 +173,12 @@ Returns form configuration
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.FormsApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.FormsApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -247,12 +247,12 @@ Returns a list of forms available for the organization
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.FormsApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.FormsApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -323,12 +323,12 @@ Creates a new form based on editable PDF
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.FormsApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.FormsApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -397,12 +397,12 @@ Creates a new Form Builder session and returns a URL that can be used to open th
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.FormsApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.FormsApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -467,12 +467,12 @@ Creates a Form Builder session for editing an existing form and returns a URL th
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.FormsApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.FormsApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -541,12 +541,12 @@ Creates an unique sharing URL to collect form data
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.FormsApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.FormsApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -615,12 +615,12 @@ Updates the form configuration. The form configuration must be complete as the e
 ### Example
 ```java
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.models.*;
-import org.pdfgeneratorapi.client.api.FormsApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.FormsApi;
 
 public class Example {
   public static void main(String[] args) {

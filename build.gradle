@@ -3,7 +3,7 @@ apply plugin: 'eclipse'
 apply plugin: 'java'
 apply plugin: 'com.diffplug.spotless'
 
-group = 'org.pdfgeneratorapi'
+group = 'com.pdfgeneratorapi'
 version = '8.0.25'
 
 buildscript {

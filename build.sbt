@@ -1,6 +1,6 @@
 lazy val root = (project in file(".")).
   settings(
-    organization := "org.pdfgeneratorapi",
+    organization := "com.pdfgeneratorapi",
     name := "pdf-generator-api",
     version := "8.0.25",
     scalaVersion := "2.11.12",
