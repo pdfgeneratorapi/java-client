@@ -1,8 +1,8 @@
 # pdf-generator-api
 
 PDF Generator API
-- API version: 4.0.25
-  - Build date: 2026-06-19T12:36:28.047162459Z[Etc/UTC]
+- API version: 4.0.26
+  - Build date: 2026-06-25T14:29:26.098108138Z[Etc/UTC]
   - Generator version: 7.14.0
 
 # Introduction
@@ -268,9 +268,9 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-  <groupId>org.pdfgeneratorapi</groupId>
+  <groupId>com.pdfgeneratorapi</groupId>
   <artifactId>pdf-generator-api</artifactId>
-  <version>8.0.25</version>
+  <version>8.0.26</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -286,7 +286,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "org.pdfgeneratorapi:pdf-generator-api:8.0.25"
+     implementation "com.pdfgeneratorapi:pdf-generator-api:8.0.26"
   }
 ```
 
@@ -300,7 +300,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pdf-generator-api-8.0.25.jar`
+* `target/pdf-generator-api-8.0.26.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -310,12 +310,12 @@ Please follow the [installation](#installation) instruction and execute the foll
 ```java
 
 // Import classes:
-import org.pdfgeneratorapi.client.ApiClient;
-import org.pdfgeneratorapi.client.ApiException;
-import org.pdfgeneratorapi.client.Configuration;
-import org.pdfgeneratorapi.client.auth.*;
-import org.pdfgeneratorapi.client.model.*;
-import org.pdfgeneratorapi.client.api.AssetsApi;
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.model.*;
+import com.pdfgeneratorapi.client.api.AssetsApi;
 
 public class Example {
   public static void main(String[] args) {
@@ -353,13 +353,15 @@ Class | Method | HTTP request | Description
 *ConversionApi* | [**convertHTML2PDF**](docs/ConversionApi.md#convertHTML2PDF) | **POST** /conversion/html2pdf | HTML to PDF
 *ConversionApi* | [**convertPDF2Image**](docs/ConversionApi.md#convertPDF2Image) | **POST** /conversion/pdf2image | PDF to Image
 *ConversionApi* | [**convertURL2PDF**](docs/ConversionApi.md#convertURL2PDF) | **POST** /conversion/url2pdf | URL to PDF
-*DocumentsApi* | [**deleteDocument**](docs/DocumentsApi.md#deleteDocument) | **DELETE** /documents/{publicId} | Delete document
+*DocumentsApi* | [**deleteDocument**](docs/DocumentsApi.md#deleteDocument) | **DELETE** /documents/{publicId}/actions | Delete document
 *DocumentsApi* | [**generateDocument**](docs/DocumentsApi.md#generateDocument) | **POST** /documents/generate | Generate document
 *DocumentsApi* | [**generateDocumentAsynchronous**](docs/DocumentsApi.md#generateDocumentAsynchronous) | **POST** /documents/generate/async | Generate document (async)
 *DocumentsApi* | [**generateDocumentBatch**](docs/DocumentsApi.md#generateDocumentBatch) | **POST** /documents/generate/batch | Generate document (batch)
 *DocumentsApi* | [**generateDocumentBatchAsynchronous**](docs/DocumentsApi.md#generateDocumentBatchAsynchronous) | **POST** /documents/generate/batch/async | Generate document (batch + async)
 *DocumentsApi* | [**getAsyncJobStatus**](docs/DocumentsApi.md#getAsyncJobStatus) | **GET** /documents/async/{jobId} | Get job status
 *DocumentsApi* | [**getDocument**](docs/DocumentsApi.md#getDocument) | **GET** /documents/{publicId} | Get document
+*DocumentsApi* | [**getDocumentActions**](docs/DocumentsApi.md#getDocumentActions) | **GET** /documents/{publicId}/actions | Get document actions
+*DocumentsApi* | [**getDocumentVersions**](docs/DocumentsApi.md#getDocumentVersions) | **GET** /documents/{publicId}/versions | Get document versions
 *DocumentsApi* | [**getDocuments**](docs/DocumentsApi.md#getDocuments) | **GET** /documents | Get documents
 *DocumentsApi* | [**storeDocument**](docs/DocumentsApi.md#storeDocument) | **POST** /documents | Store document
 *EInvoicesApi* | [**createEInvoice**](docs/EInvoicesApi.md#createEInvoice) | **POST** /einvoice | Create eInvoice
@@ -423,6 +425,9 @@ Class | Method | HTTP request | Description
  - [CreateWorkspaceRequest](docs/CreateWorkspaceRequest.md)
  - [DataBatchInner](docs/DataBatchInner.md)
  - [Document](docs/Document.md)
+ - [DocumentAction](docs/DocumentAction.md)
+ - [DocumentUser](docs/DocumentUser.md)
+ - [DocumentVersion](docs/DocumentVersion.md)
  - [EncryptAndDecryptBase64](docs/EncryptAndDecryptBase64.md)
  - [EncryptAndDecryptUrl](docs/EncryptAndDecryptUrl.md)
  - [EncryptDocumentRequest](docs/EncryptDocumentRequest.md)
@@ -477,19 +482,21 @@ Class | Method | HTTP request | Description
  - [InlineObject16](docs/InlineObject16.md)
  - [InlineObject17](docs/InlineObject17.md)
  - [InlineObject18](docs/InlineObject18.md)
- - [InlineObject18Meta](docs/InlineObject18Meta.md)
  - [InlineObject19](docs/InlineObject19.md)
  - [InlineObject1Response](docs/InlineObject1Response.md)
  - [InlineObject2](docs/InlineObject2.md)
  - [InlineObject20](docs/InlineObject20.md)
- - [InlineObject20Response](docs/InlineObject20Response.md)
+ - [InlineObject20Meta](docs/InlineObject20Meta.md)
  - [InlineObject21](docs/InlineObject21.md)
  - [InlineObject22](docs/InlineObject22.md)
+ - [InlineObject22Response](docs/InlineObject22Response.md)
  - [InlineObject23](docs/InlineObject23.md)
  - [InlineObject24](docs/InlineObject24.md)
  - [InlineObject25](docs/InlineObject25.md)
  - [InlineObject26](docs/InlineObject26.md)
  - [InlineObject27](docs/InlineObject27.md)
+ - [InlineObject28](docs/InlineObject28.md)
+ - [InlineObject29](docs/InlineObject29.md)
  - [InlineObject3](docs/InlineObject3.md)
  - [InlineObject4](docs/InlineObject4.md)
  - [InlineObject5](docs/InlineObject5.md)

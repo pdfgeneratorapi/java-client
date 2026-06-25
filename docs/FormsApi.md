@@ -17,7 +17,7 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 
 <a id="createForm"></a>
 # **createForm**
-> InlineObject17 createForm(formConfigurationNew)
+> InlineObject19 createForm(formConfigurationNew)
 
 Create form
 
@@ -45,7 +45,7 @@ public class Example {
     FormsApi apiInstance = new FormsApi(defaultClient);
     FormConfigurationNew formConfigurationNew = new FormConfigurationNew(); // FormConfigurationNew | Form configuration
     try {
-      InlineObject17 result = apiInstance.createForm(formConfigurationNew);
+      InlineObject19 result = apiInstance.createForm(formConfigurationNew);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#createForm");
@@ -66,7 +66,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject17**](InlineObject17.md)
+[**InlineObject19**](InlineObject19.md)
 
 ### Authorization
 
@@ -164,7 +164,7 @@ null (empty response body)
 
 <a id="getForm"></a>
 # **getForm**
-> InlineObject17 getForm(formId)
+> InlineObject19 getForm(formId)
 
 Get form
 
@@ -192,7 +192,7 @@ public class Example {
     FormsApi apiInstance = new FormsApi(defaultClient);
     Integer formId = 1; // Integer | Form unique identifier
     try {
-      InlineObject17 result = apiInstance.getForm(formId);
+      InlineObject19 result = apiInstance.getForm(formId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#getForm");
@@ -213,7 +213,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject17**](InlineObject17.md)
+[**InlineObject19**](InlineObject19.md)
 
 ### Authorization
 
@@ -314,7 +314,7 @@ public class Example {
 
 <a id="importForm"></a>
 # **importForm**
-> InlineObject17 importForm(importFormRequest)
+> InlineObject19 importForm(importFormRequest)
 
 Import Form
 
@@ -342,7 +342,7 @@ public class Example {
     FormsApi apiInstance = new FormsApi(defaultClient);
     ImportFormRequest importFormRequest = new ImportFormRequest(); // ImportFormRequest | Import editable PDF via URL or base64 string as form
     try {
-      InlineObject17 result = apiInstance.importForm(importFormRequest);
+      InlineObject19 result = apiInstance.importForm(importFormRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#importForm");
@@ -363,7 +363,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject17**](InlineObject17.md)
+[**InlineObject19**](InlineObject19.md)
 
 ### Authorization
 
@@ -388,7 +388,7 @@ public class Example {
 
 <a id="openFormBuilder"></a>
 # **openFormBuilder**
-> InlineObject19 openFormBuilder()
+> InlineObject21 openFormBuilder()
 
 Open new form builder
 
@@ -415,7 +415,7 @@ public class Example {
 
     FormsApi apiInstance = new FormsApi(defaultClient);
     try {
-      InlineObject19 result = apiInstance.openFormBuilder();
+      InlineObject21 result = apiInstance.openFormBuilder();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#openFormBuilder");
@@ -433,7 +433,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**InlineObject19**](InlineObject19.md)
+[**InlineObject21**](InlineObject21.md)
 
 ### Authorization
 
@@ -458,7 +458,7 @@ This endpoint does not need any parameter.
 
 <a id="openFormBuilderForExistingForm"></a>
 # **openFormBuilderForExistingForm**
-> InlineObject19 openFormBuilderForExistingForm(formId)
+> InlineObject21 openFormBuilderForExistingForm(formId)
 
 Open existing form builder
 
@@ -486,7 +486,7 @@ public class Example {
     FormsApi apiInstance = new FormsApi(defaultClient);
     Integer formId = 1; // Integer | Form unique identifier
     try {
-      InlineObject19 result = apiInstance.openFormBuilderForExistingForm(formId);
+      InlineObject21 result = apiInstance.openFormBuilderForExistingForm(formId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#openFormBuilderForExistingForm");
@@ -507,7 +507,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject19**](InlineObject19.md)
+[**InlineObject21**](InlineObject21.md)
 
 ### Authorization
 
@@ -532,7 +532,7 @@ public class Example {
 
 <a id="shareForm"></a>
 # **shareForm**
-> InlineObject18 shareForm(formId)
+> InlineObject20 shareForm(formId)
 
 Share form
 
@@ -560,7 +560,7 @@ public class Example {
     FormsApi apiInstance = new FormsApi(defaultClient);
     Integer formId = 1; // Integer | Form unique identifier
     try {
-      InlineObject18 result = apiInstance.shareForm(formId);
+      InlineObject20 result = apiInstance.shareForm(formId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#shareForm");
@@ -581,7 +581,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject18**](InlineObject18.md)
+[**InlineObject20**](InlineObject20.md)
 
 ### Authorization
 
@@ -606,7 +606,7 @@ public class Example {
 
 <a id="updateForm"></a>
 # **updateForm**
-> InlineObject17 updateForm(formId, formConfigurationNew)
+> InlineObject19 updateForm(formId, formConfigurationNew)
 
 Update form
 
@@ -635,7 +635,7 @@ public class Example {
     Integer formId = 1; // Integer | Form unique identifier
     FormConfigurationNew formConfigurationNew = new FormConfigurationNew(); // FormConfigurationNew | Form configuration
     try {
-      InlineObject17 result = apiInstance.updateForm(formId, formConfigurationNew);
+      InlineObject19 result = apiInstance.updateForm(formId, formConfigurationNew);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#updateForm");
@@ -657,7 +657,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject17**](InlineObject17.md)
+[**InlineObject19**](InlineObject19.md)
 
 ### Authorization
 

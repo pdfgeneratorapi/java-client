@@ -1,0 +1,13 @@
+
+
+# InlineObject20Meta
+
+
+## Properties
+
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**publicId** | **String** | Form sharing unique identifier |  [optional] |
+
+
+

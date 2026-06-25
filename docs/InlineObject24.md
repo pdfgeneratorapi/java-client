@@ -15,10 +15,7 @@
 
 | Name | Value |
 |---- | -----|
-| ENTITY_NOT_FOUND | &quot;Entity not found&quot; |
-| TEMPLATE_NOT_FOUND | &quot;Template not found&quot; |
-| RESOURCE_NOT_FOUND | &quot;Resource not found&quot; |
-| NONE_OF_THE_TEMPLATES_IS_AVAILABLE_FOR_THE_WORKSPACE_ | &quot;None of the templates is available for the workspace.&quot; |
+| YOUR_ACCOUNT_IS_SUSPENDED_PLEASE_UPGRADE_YOUR_ACCOUNT_OR_CONTACT_SUPPORT_PDFGENERATORAPI_COM | &quot;Your account is suspended, please upgrade your account or contact support@pdfgeneratorapi.com&quot; |
 
 
 

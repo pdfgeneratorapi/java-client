@@ -4,13 +4,15 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**deleteDocument**](DocumentsApi.md#deleteDocument) | **DELETE** /documents/{publicId} | Delete document |
+| [**deleteDocument**](DocumentsApi.md#deleteDocument) | **DELETE** /documents/{publicId}/actions | Delete document |
 | [**generateDocument**](DocumentsApi.md#generateDocument) | **POST** /documents/generate | Generate document |
 | [**generateDocumentAsynchronous**](DocumentsApi.md#generateDocumentAsynchronous) | **POST** /documents/generate/async | Generate document (async) |
 | [**generateDocumentBatch**](DocumentsApi.md#generateDocumentBatch) | **POST** /documents/generate/batch | Generate document (batch) |
 | [**generateDocumentBatchAsynchronous**](DocumentsApi.md#generateDocumentBatchAsynchronous) | **POST** /documents/generate/batch/async | Generate document (batch + async) |
 | [**getAsyncJobStatus**](DocumentsApi.md#getAsyncJobStatus) | **GET** /documents/async/{jobId} | Get job status |
 | [**getDocument**](DocumentsApi.md#getDocument) | **GET** /documents/{publicId} | Get document |
+| [**getDocumentActions**](DocumentsApi.md#getDocumentActions) | **GET** /documents/{publicId}/actions | Get document actions |
+| [**getDocumentVersions**](DocumentsApi.md#getDocumentVersions) | **GET** /documents/{publicId}/versions | Get document versions |
 | [**getDocuments**](DocumentsApi.md#getDocuments) | **GET** /documents | Get documents |
 | [**storeDocument**](DocumentsApi.md#storeDocument) | **POST** /documents | Store document |
 
@@ -164,7 +166,7 @@ public class Example {
 
 <a id="generateDocumentAsynchronous"></a>
 # **generateDocumentAsynchronous**
-> InlineObject20 generateDocumentAsynchronous(generateDocumentAsynchronousRequest)
+> InlineObject22 generateDocumentAsynchronous(generateDocumentAsynchronousRequest)
 
 Generate document (async)
 
@@ -192,7 +194,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     GenerateDocumentAsynchronousRequest generateDocumentAsynchronousRequest = new GenerateDocumentAsynchronousRequest(); // GenerateDocumentAsynchronousRequest | Request parameters, including template id, data and formats.
     try {
-      InlineObject20 result = apiInstance.generateDocumentAsynchronous(generateDocumentAsynchronousRequest);
+      InlineObject22 result = apiInstance.generateDocumentAsynchronous(generateDocumentAsynchronousRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#generateDocumentAsynchronous");
@@ -213,7 +215,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject20**](InlineObject20.md)
+[**InlineObject22**](InlineObject22.md)
 
 ### Authorization
 
@@ -312,7 +314,7 @@ public class Example {
 
 <a id="generateDocumentBatchAsynchronous"></a>
 # **generateDocumentBatchAsynchronous**
-> InlineObject20 generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest)
+> InlineObject22 generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest)
 
 Generate document (batch + async)
 
@@ -340,7 +342,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     GenerateDocumentBatchAsynchronousRequest generateDocumentBatchAsynchronousRequest = new GenerateDocumentBatchAsynchronousRequest(); // GenerateDocumentBatchAsynchronousRequest | Request parameters, including template id, data and formats.
     try {
-      InlineObject20 result = apiInstance.generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest);
+      InlineObject22 result = apiInstance.generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#generateDocumentBatchAsynchronous");
@@ -361,7 +363,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject20**](InlineObject20.md)
+[**InlineObject22**](InlineObject22.md)
 
 ### Authorization
 
@@ -524,6 +526,154 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Document data |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
+
+<a id="getDocumentActions"></a>
+# **getDocumentActions**
+> InlineObject17 getDocumentActions(publicId)
+
+Get document actions
+
+Returns a list of actions performed on a stored document
+
+### Example
+```java
+// Import classes:
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.DocumentsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
+    
+    // Configure HTTP bearer authorization: JSONWebTokenAuth
+    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
+    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
+
+    DocumentsApi apiInstance = new DocumentsApi(defaultClient);
+    String publicId = "bac8381bce1982e5f6957a0f52371336"; // String | Resource public id
+    try {
+      InlineObject17 result = apiInstance.getDocumentActions(publicId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DocumentsApi#getDocumentActions");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **publicId** | **String**| Resource public id | |
+
+### Return type
+
+[**InlineObject17**](InlineObject17.md)
+
+### Authorization
+
+[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A list of document actions |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
+
+<a id="getDocumentVersions"></a>
+# **getDocumentVersions**
+> InlineObject16 getDocumentVersions(publicId)
+
+Get document versions
+
+Returns a list of versions for a stored document
+
+### Example
+```java
+// Import classes:
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.DocumentsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
+    
+    // Configure HTTP bearer authorization: JSONWebTokenAuth
+    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
+    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
+
+    DocumentsApi apiInstance = new DocumentsApi(defaultClient);
+    String publicId = "bac8381bce1982e5f6957a0f52371336"; // String | Resource public id
+    try {
+      InlineObject16 result = apiInstance.getDocumentVersions(publicId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DocumentsApi#getDocumentVersions");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **publicId** | **String**| Resource public id | |
+
+### Return type
+
+[**InlineObject16**](InlineObject16.md)
+
+### Authorization
+
+[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A list of document versions |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |

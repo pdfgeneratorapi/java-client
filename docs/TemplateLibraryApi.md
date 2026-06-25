@@ -78,7 +78,7 @@ No authorization required
 
 <a id="getTemplateLibraryItem"></a>
 # **getTemplateLibraryItem**
-> InlineObject16 getTemplateLibraryItem(publicId)
+> InlineObject18 getTemplateLibraryItem(publicId)
 
 Open template from the library
 
@@ -101,7 +101,7 @@ public class Example {
     TemplateLibraryApi apiInstance = new TemplateLibraryApi(defaultClient);
     String publicId = "bac8381bce1982e5f6957a0f52371336"; // String | Resource public id
     try {
-      InlineObject16 result = apiInstance.getTemplateLibraryItem(publicId);
+      InlineObject18 result = apiInstance.getTemplateLibraryItem(publicId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplateLibraryApi#getTemplateLibraryItem");
@@ -122,7 +122,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject16**](InlineObject16.md)
+[**InlineObject18**](InlineObject18.md)
 
 ### Authorization
 

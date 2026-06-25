@@ -19,7 +19,7 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 
 <a id="copyTemplate"></a>
 # **copyTemplate**
-> InlineObject16 copyTemplate(templateId, copyTemplateRequest)
+> InlineObject18 copyTemplate(templateId, copyTemplateRequest)
 
 Copy template
 
@@ -48,7 +48,7 @@ public class Example {
     Integer templateId = 19375; // Integer | Template unique identifier
     CopyTemplateRequest copyTemplateRequest = new CopyTemplateRequest(); // CopyTemplateRequest | 
     try {
-      InlineObject16 result = apiInstance.copyTemplate(templateId, copyTemplateRequest);
+      InlineObject18 result = apiInstance.copyTemplate(templateId, copyTemplateRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#copyTemplate");
@@ -70,7 +70,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject16**](InlineObject16.md)
+[**InlineObject18**](InlineObject18.md)
 
 ### Authorization
 
@@ -95,7 +95,7 @@ public class Example {
 
 <a id="createTemplate"></a>
 # **createTemplate**
-> InlineObject16 createTemplate(templateDefinitionNew)
+> InlineObject18 createTemplate(templateDefinitionNew)
 
 Create template
 
@@ -123,7 +123,7 @@ public class Example {
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     TemplateDefinitionNew templateDefinitionNew = new TemplateDefinitionNew(); // TemplateDefinitionNew | Template configuration
     try {
-      InlineObject16 result = apiInstance.createTemplate(templateDefinitionNew);
+      InlineObject18 result = apiInstance.createTemplate(templateDefinitionNew);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#createTemplate");
@@ -144,7 +144,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject16**](InlineObject16.md)
+[**InlineObject18**](InlineObject18.md)
 
 ### Authorization
 
@@ -242,7 +242,7 @@ null (empty response body)
 
 <a id="getTemplate"></a>
 # **getTemplate**
-> InlineObject16 getTemplate(templateId)
+> InlineObject18 getTemplate(templateId)
 
 Get template
 
@@ -270,7 +270,7 @@ public class Example {
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     Integer templateId = 19375; // Integer | Template unique identifier
     try {
-      InlineObject16 result = apiInstance.getTemplate(templateId);
+      InlineObject18 result = apiInstance.getTemplate(templateId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#getTemplate");
@@ -291,7 +291,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject16**](InlineObject16.md)
+[**InlineObject18**](InlineObject18.md)
 
 ### Authorization
 
@@ -537,7 +537,7 @@ public class Example {
 
 <a id="importTemplate"></a>
 # **importTemplate**
-> InlineObject16 importTemplate(importTemplateRequest)
+> InlineObject18 importTemplate(importTemplateRequest)
 
 Import template
 
@@ -565,7 +565,7 @@ public class Example {
     TemplatesApi apiInstance = new TemplatesApi(defaultClient);
     ImportTemplateRequest importTemplateRequest = new ImportTemplateRequest(); // ImportTemplateRequest | Import a PDF via URL or base64 string as template
     try {
-      InlineObject16 result = apiInstance.importTemplate(importTemplateRequest);
+      InlineObject18 result = apiInstance.importTemplate(importTemplateRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#importTemplate");
@@ -586,7 +586,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject16**](InlineObject16.md)
+[**InlineObject18**](InlineObject18.md)
 
 ### Authorization
 
@@ -687,7 +687,7 @@ public class Example {
 
 <a id="updateTemplate"></a>
 # **updateTemplate**
-> InlineObject16 updateTemplate(templateId, templateDefinitionNew)
+> InlineObject18 updateTemplate(templateId, templateDefinitionNew)
 
 Update template
 
@@ -716,7 +716,7 @@ public class Example {
     Integer templateId = 19375; // Integer | Template unique identifier
     TemplateDefinitionNew templateDefinitionNew = new TemplateDefinitionNew(); // TemplateDefinitionNew | Template configuration
     try {
-      InlineObject16 result = apiInstance.updateTemplate(templateId, templateDefinitionNew);
+      InlineObject18 result = apiInstance.updateTemplate(templateId, templateDefinitionNew);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplatesApi#updateTemplate");
@@ -738,7 +738,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject16**](InlineObject16.md)
+[**InlineObject18**](InlineObject18.md)
 
 ### Authorization
 

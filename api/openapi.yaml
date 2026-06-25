@@ -237,7 +237,7 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
   title: PDF Generator API
-  version: 4.0.25
+  version: 4.0.26
   x-logo:
     url: https://d2304hinatgg5e.cloudfront.net/images/logo/300X90.png
     backgroundColor: "#00d9b5"
@@ -6904,216 +6904,6 @@ paths:
       x-accepts:
       - application/json
   /documents/{publicId}:
-    delete:
-      description: Delete document from the Document Storage
-      operationId: deleteDocument
-      parameters:
-      - description: Resource public id
-        example: bac8381bce1982e5f6957a0f52371336
-        explode: false
-        in: path
-        name: publicId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "204":
-          $ref: "#/components/responses/deleted"
-        "401":
-          $ref: "#/components/responses/error401"
-        "402":
-          $ref: "#/components/responses/error402"
-        "403":
-          $ref: "#/components/responses/error403"
-        "404":
-          $ref: "#/components/responses/error404"
-        "422":
-          $ref: "#/components/responses/error422"
-        "429":
-          $ref: "#/components/responses/error429"
-        "500":
-          $ref: "#/components/responses/error500"
-      summary: Delete document
-      tags:
-      - Documents
-      x-code-samples:
-      - lang: Shell + Curl
-        source: |-
-          curl --request DELETE \
-            --url https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336 \
-            --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'
-      - lang: Shell + Wget
-        source: |-
-          wget --quiet \
-            --method DELETE \
-            --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
-            --output-document \
-            - https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336
-      - lang: Php + Curl
-        source: |-
-          <?php
-
-          $curl = curl_init();
-
-          curl_setopt_array($curl, [
-            CURLOPT_URL => "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "DELETE",
-            CURLOPT_HTTPHEADER => [
-              "Authorization: Bearer REPLACE_BEARER_TOKEN"
-            ],
-          ]);
-
-          $response = curl_exec($curl);
-          $err = curl_error($curl);
-
-          curl_close($curl);
-
-          if ($err) {
-            echo "cURL Error #:" . $err;
-          } else {
-            echo $response;
-          }
-      - lang: Node + Native
-        source: |-
-          const http = require("https");
-
-          const options = {
-            "method": "DELETE",
-            "hostname": "us1.pdfgeneratorapi.com",
-            "port": null,
-            "path": "/api/v4/documents/bac8381bce1982e5f6957a0f52371336",
-            "headers": {
-              "Authorization": "Bearer REPLACE_BEARER_TOKEN"
-            }
-          };
-
-          const req = http.request(options, function (res) {
-            const chunks = [];
-
-            res.on("data", function (chunk) {
-              chunks.push(chunk);
-            });
-
-            res.on("end", function () {
-              const body = Buffer.concat(chunks);
-              console.log(body.toString());
-            });
-          });
-
-          req.end();
-      - lang: Node + Request
-        source: |
-          const request = require('request');
-
-          const options = {
-            method: 'DELETE',
-            url: 'https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336',
-            headers: {Authorization: 'Bearer REPLACE_BEARER_TOKEN'}
-          };
-
-          request(options, function (error, response, body) {
-            if (error) throw new Error(error);
-
-            console.log(body);
-          });
-      - lang: Python + Python3
-        source: |-
-          import http.client
-
-          conn = http.client.HTTPSConnection("us1.pdfgeneratorapi.com")
-
-          headers = { 'Authorization': "Bearer REPLACE_BEARER_TOKEN" }
-
-          conn.request("DELETE", "/api/v4/documents/bac8381bce1982e5f6957a0f52371336", headers=headers)
-
-          res = conn.getresponse()
-          data = res.read()
-
-          print(data.decode("utf-8"))
-      - lang: Ruby + Native
-        source: |-
-          require 'uri'
-          require 'net/http'
-          require 'openssl'
-
-          url = URI("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336")
-
-          http = Net::HTTP.new(url.host, url.port)
-          http.use_ssl = true
-          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-          request = Net::HTTP::Delete.new(url)
-          request["Authorization"] = 'Bearer REPLACE_BEARER_TOKEN'
-
-          response = http.request(request)
-          puts response.read_body
-      - lang: Go + Native
-        source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\
-          \n)\n\nfunc main() {\n\n\turl := \"https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336\"\
-          \n\n\treq, _ := http.NewRequest(\"DELETE\", url, nil)\n\n\treq.Header.Add(\"\
-          Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\
-          \n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\t\
-          fmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
-      - lang: Csharp + Restsharp
-        source: |-
-          var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336");
-          var request = new RestRequest(Method.DELETE);
-          request.AddHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN");
-          IRestResponse response = client.Execute(request);
-      - lang: Csharp + Httpclient
-        source: |-
-          var client = new HttpClient();
-          var request = new HttpRequestMessage
-          {
-              Method = HttpMethod.Delete,
-              RequestUri = new Uri("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336"),
-              Headers =
-              {
-                  { "Authorization", "Bearer REPLACE_BEARER_TOKEN" },
-              },
-          };
-          using (var response = await client.SendAsync(request))
-          {
-              response.EnsureSuccessStatusCode();
-              var body = await response.Content.ReadAsStringAsync();
-              Console.WriteLine(body);
-          }
-      - lang: Java + Unirest
-        source: |-
-          HttpResponse<String> response = Unirest.delete("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336")
-            .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
-            .asString();
-      - lang: Java + Okhttp
-        source: |-
-          OkHttpClient client = new OkHttpClient();
-
-          Request request = new Request.Builder()
-            .url("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336")
-            .delete(null)
-            .addHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN")
-            .build();
-
-          Response response = client.newCall(request).execute();
-      - lang: C + Libcurl
-        source: |-
-          CURL *hnd = curl_easy_init();
-
-          curl_easy_setopt(hnd, CURLOPT_CUSTOMREQUEST, "DELETE");
-          curl_easy_setopt(hnd, CURLOPT_URL, "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336");
-
-          struct curl_slist *headers = NULL;
-          headers = curl_slist_append(headers, "Authorization: Bearer REPLACE_BEARER_TOKEN");
-          curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
-
-          CURLcode ret = curl_easy_perform(hnd);
-      x-accepts:
-      - application/json
     get:
       description: Returns document stored in the Document Storage
       operationId: getDocument
@@ -7316,6 +7106,638 @@ paths:
 
           curl_easy_setopt(hnd, CURLOPT_CUSTOMREQUEST, "GET");
           curl_easy_setopt(hnd, CURLOPT_URL, "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336");
+
+          struct curl_slist *headers = NULL;
+          headers = curl_slist_append(headers, "Authorization: Bearer REPLACE_BEARER_TOKEN");
+          curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
+
+          CURLcode ret = curl_easy_perform(hnd);
+      x-accepts:
+      - application/json
+  /documents/{publicId}/versions:
+    get:
+      description: Returns a list of versions for a stored document
+      operationId: getDocumentVersions
+      parameters:
+      - description: Resource public id
+        example: bac8381bce1982e5f6957a0f52371336
+        explode: false
+        in: path
+        name: publicId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          $ref: "#/components/responses/documentVersions"
+        "401":
+          $ref: "#/components/responses/error401"
+        "402":
+          $ref: "#/components/responses/error402"
+        "403":
+          $ref: "#/components/responses/error403"
+        "404":
+          $ref: "#/components/responses/error404"
+        "422":
+          $ref: "#/components/responses/error422"
+        "429":
+          $ref: "#/components/responses/error429"
+        "500":
+          $ref: "#/components/responses/error500"
+      summary: Get document versions
+      tags:
+      - Documents
+      x-code-samples:
+      - lang: Shell + Curl
+        source: |-
+          curl --request GET \
+            --url https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/versions \
+            --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'
+      - lang: Shell + Wget
+        source: |-
+          wget --quiet \
+            --method GET \
+            --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
+            --output-document \
+            - https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/versions
+      - lang: Php + Curl
+        source: |-
+          <?php
+
+          $curl = curl_init();
+
+          curl_setopt_array($curl, [
+            CURLOPT_URL => "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/versions",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => [
+              "Authorization: Bearer REPLACE_BEARER_TOKEN"
+            ],
+          ]);
+
+          $response = curl_exec($curl);
+          $err = curl_error($curl);
+
+          curl_close($curl);
+
+          if ($err) {
+            echo "cURL Error #:" . $err;
+          } else {
+            echo $response;
+          }
+      - lang: Node + Native
+        source: |-
+          const http = require("https");
+
+          const options = {
+            "method": "GET",
+            "hostname": "us1.pdfgeneratorapi.com",
+            "port": null,
+            "path": "/api/v4/documents/bac8381bce1982e5f6957a0f52371336/versions",
+            "headers": {
+              "Authorization": "Bearer REPLACE_BEARER_TOKEN"
+            }
+          };
+
+          const req = http.request(options, function (res) {
+            const chunks = [];
+
+            res.on("data", function (chunk) {
+              chunks.push(chunk);
+            });
+
+            res.on("end", function () {
+              const body = Buffer.concat(chunks);
+              console.log(body.toString());
+            });
+          });
+
+          req.end();
+      - lang: Node + Request
+        source: |
+          const request = require('request');
+
+          const options = {
+            method: 'GET',
+            url: 'https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/versions',
+            headers: {Authorization: 'Bearer REPLACE_BEARER_TOKEN'}
+          };
+
+          request(options, function (error, response, body) {
+            if (error) throw new Error(error);
+
+            console.log(body);
+          });
+      - lang: Python + Python3
+        source: |-
+          import http.client
+
+          conn = http.client.HTTPSConnection("us1.pdfgeneratorapi.com")
+
+          headers = { 'Authorization': "Bearer REPLACE_BEARER_TOKEN" }
+
+          conn.request("GET", "/api/v4/documents/bac8381bce1982e5f6957a0f52371336/versions", headers=headers)
+
+          res = conn.getresponse()
+          data = res.read()
+
+          print(data.decode("utf-8"))
+      - lang: Ruby + Native
+        source: |-
+          require 'uri'
+          require 'net/http'
+          require 'openssl'
+
+          url = URI("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/versions")
+
+          http = Net::HTTP.new(url.host, url.port)
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+          request = Net::HTTP::Get.new(url)
+          request["Authorization"] = 'Bearer REPLACE_BEARER_TOKEN'
+
+          response = http.request(request)
+          puts response.read_body
+      - lang: Go + Native
+        source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\
+          \n)\n\nfunc main() {\n\n\turl := \"https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/versions\"\
+          \n\n\treq, _ := http.NewRequest(\"GET\", url, nil)\n\n\treq.Header.Add(\"\
+          Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\
+          \n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\t\
+          fmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+      - lang: Csharp + Restsharp
+        source: |-
+          var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/versions");
+          var request = new RestRequest(Method.GET);
+          request.AddHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN");
+          IRestResponse response = client.Execute(request);
+      - lang: Csharp + Httpclient
+        source: |-
+          var client = new HttpClient();
+          var request = new HttpRequestMessage
+          {
+              Method = HttpMethod.Get,
+              RequestUri = new Uri("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/versions"),
+              Headers =
+              {
+                  { "Authorization", "Bearer REPLACE_BEARER_TOKEN" },
+              },
+          };
+          using (var response = await client.SendAsync(request))
+          {
+              response.EnsureSuccessStatusCode();
+              var body = await response.Content.ReadAsStringAsync();
+              Console.WriteLine(body);
+          }
+      - lang: Java + Unirest
+        source: |-
+          HttpResponse<String> response = Unirest.get("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/versions")
+            .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+            .asString();
+      - lang: Java + Okhttp
+        source: |-
+          OkHttpClient client = new OkHttpClient();
+
+          Request request = new Request.Builder()
+            .url("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/versions")
+            .get()
+            .addHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+            .build();
+
+          Response response = client.newCall(request).execute();
+      - lang: C + Libcurl
+        source: |-
+          CURL *hnd = curl_easy_init();
+
+          curl_easy_setopt(hnd, CURLOPT_CUSTOMREQUEST, "GET");
+          curl_easy_setopt(hnd, CURLOPT_URL, "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/versions");
+
+          struct curl_slist *headers = NULL;
+          headers = curl_slist_append(headers, "Authorization: Bearer REPLACE_BEARER_TOKEN");
+          curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
+
+          CURLcode ret = curl_easy_perform(hnd);
+      x-accepts:
+      - application/json
+  /documents/{publicId}/actions:
+    delete:
+      description: Delete document from the Document Storage
+      operationId: deleteDocument
+      parameters:
+      - description: Resource public id
+        example: bac8381bce1982e5f6957a0f52371336
+        explode: false
+        in: path
+        name: publicId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          $ref: "#/components/responses/deleted"
+        "401":
+          $ref: "#/components/responses/error401"
+        "402":
+          $ref: "#/components/responses/error402"
+        "403":
+          $ref: "#/components/responses/error403"
+        "404":
+          $ref: "#/components/responses/error404"
+        "422":
+          $ref: "#/components/responses/error422"
+        "429":
+          $ref: "#/components/responses/error429"
+        "500":
+          $ref: "#/components/responses/error500"
+      summary: Delete document
+      tags:
+      - Documents
+      x-code-samples:
+      - lang: Shell + Curl
+        source: |-
+          curl --request DELETE \
+            --url https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions \
+            --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'
+      - lang: Shell + Wget
+        source: |-
+          wget --quiet \
+            --method DELETE \
+            --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
+            --output-document \
+            - https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions
+      - lang: Php + Curl
+        source: |-
+          <?php
+
+          $curl = curl_init();
+
+          curl_setopt_array($curl, [
+            CURLOPT_URL => "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "DELETE",
+            CURLOPT_HTTPHEADER => [
+              "Authorization: Bearer REPLACE_BEARER_TOKEN"
+            ],
+          ]);
+
+          $response = curl_exec($curl);
+          $err = curl_error($curl);
+
+          curl_close($curl);
+
+          if ($err) {
+            echo "cURL Error #:" . $err;
+          } else {
+            echo $response;
+          }
+      - lang: Node + Native
+        source: |-
+          const http = require("https");
+
+          const options = {
+            "method": "DELETE",
+            "hostname": "us1.pdfgeneratorapi.com",
+            "port": null,
+            "path": "/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions",
+            "headers": {
+              "Authorization": "Bearer REPLACE_BEARER_TOKEN"
+            }
+          };
+
+          const req = http.request(options, function (res) {
+            const chunks = [];
+
+            res.on("data", function (chunk) {
+              chunks.push(chunk);
+            });
+
+            res.on("end", function () {
+              const body = Buffer.concat(chunks);
+              console.log(body.toString());
+            });
+          });
+
+          req.end();
+      - lang: Node + Request
+        source: |
+          const request = require('request');
+
+          const options = {
+            method: 'DELETE',
+            url: 'https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions',
+            headers: {Authorization: 'Bearer REPLACE_BEARER_TOKEN'}
+          };
+
+          request(options, function (error, response, body) {
+            if (error) throw new Error(error);
+
+            console.log(body);
+          });
+      - lang: Python + Python3
+        source: |-
+          import http.client
+
+          conn = http.client.HTTPSConnection("us1.pdfgeneratorapi.com")
+
+          headers = { 'Authorization': "Bearer REPLACE_BEARER_TOKEN" }
+
+          conn.request("DELETE", "/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions", headers=headers)
+
+          res = conn.getresponse()
+          data = res.read()
+
+          print(data.decode("utf-8"))
+      - lang: Ruby + Native
+        source: |-
+          require 'uri'
+          require 'net/http'
+          require 'openssl'
+
+          url = URI("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions")
+
+          http = Net::HTTP.new(url.host, url.port)
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+          request = Net::HTTP::Delete.new(url)
+          request["Authorization"] = 'Bearer REPLACE_BEARER_TOKEN'
+
+          response = http.request(request)
+          puts response.read_body
+      - lang: Go + Native
+        source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\
+          \n)\n\nfunc main() {\n\n\turl := \"https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions\"\
+          \n\n\treq, _ := http.NewRequest(\"DELETE\", url, nil)\n\n\treq.Header.Add(\"\
+          Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\
+          \n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\t\
+          fmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+      - lang: Csharp + Restsharp
+        source: |-
+          var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions");
+          var request = new RestRequest(Method.DELETE);
+          request.AddHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN");
+          IRestResponse response = client.Execute(request);
+      - lang: Csharp + Httpclient
+        source: |-
+          var client = new HttpClient();
+          var request = new HttpRequestMessage
+          {
+              Method = HttpMethod.Delete,
+              RequestUri = new Uri("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions"),
+              Headers =
+              {
+                  { "Authorization", "Bearer REPLACE_BEARER_TOKEN" },
+              },
+          };
+          using (var response = await client.SendAsync(request))
+          {
+              response.EnsureSuccessStatusCode();
+              var body = await response.Content.ReadAsStringAsync();
+              Console.WriteLine(body);
+          }
+      - lang: Java + Unirest
+        source: |-
+          HttpResponse<String> response = Unirest.delete("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions")
+            .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+            .asString();
+      - lang: Java + Okhttp
+        source: |-
+          OkHttpClient client = new OkHttpClient();
+
+          Request request = new Request.Builder()
+            .url("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions")
+            .delete(null)
+            .addHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+            .build();
+
+          Response response = client.newCall(request).execute();
+      - lang: C + Libcurl
+        source: |-
+          CURL *hnd = curl_easy_init();
+
+          curl_easy_setopt(hnd, CURLOPT_CUSTOMREQUEST, "DELETE");
+          curl_easy_setopt(hnd, CURLOPT_URL, "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions");
+
+          struct curl_slist *headers = NULL;
+          headers = curl_slist_append(headers, "Authorization: Bearer REPLACE_BEARER_TOKEN");
+          curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
+
+          CURLcode ret = curl_easy_perform(hnd);
+      x-accepts:
+      - application/json
+    get:
+      description: Returns a list of actions performed on a stored document
+      operationId: getDocumentActions
+      parameters:
+      - description: Resource public id
+        example: bac8381bce1982e5f6957a0f52371336
+        explode: false
+        in: path
+        name: publicId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          $ref: "#/components/responses/documentActions"
+        "401":
+          $ref: "#/components/responses/error401"
+        "402":
+          $ref: "#/components/responses/error402"
+        "403":
+          $ref: "#/components/responses/error403"
+        "404":
+          $ref: "#/components/responses/error404"
+        "422":
+          $ref: "#/components/responses/error422"
+        "429":
+          $ref: "#/components/responses/error429"
+        "500":
+          $ref: "#/components/responses/error500"
+      summary: Get document actions
+      tags:
+      - Documents
+      x-code-samples:
+      - lang: Shell + Curl
+        source: |-
+          curl --request GET \
+            --url https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions \
+            --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'
+      - lang: Shell + Wget
+        source: |-
+          wget --quiet \
+            --method GET \
+            --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
+            --output-document \
+            - https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions
+      - lang: Php + Curl
+        source: |-
+          <?php
+
+          $curl = curl_init();
+
+          curl_setopt_array($curl, [
+            CURLOPT_URL => "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => [
+              "Authorization: Bearer REPLACE_BEARER_TOKEN"
+            ],
+          ]);
+
+          $response = curl_exec($curl);
+          $err = curl_error($curl);
+
+          curl_close($curl);
+
+          if ($err) {
+            echo "cURL Error #:" . $err;
+          } else {
+            echo $response;
+          }
+      - lang: Node + Native
+        source: |-
+          const http = require("https");
+
+          const options = {
+            "method": "GET",
+            "hostname": "us1.pdfgeneratorapi.com",
+            "port": null,
+            "path": "/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions",
+            "headers": {
+              "Authorization": "Bearer REPLACE_BEARER_TOKEN"
+            }
+          };
+
+          const req = http.request(options, function (res) {
+            const chunks = [];
+
+            res.on("data", function (chunk) {
+              chunks.push(chunk);
+            });
+
+            res.on("end", function () {
+              const body = Buffer.concat(chunks);
+              console.log(body.toString());
+            });
+          });
+
+          req.end();
+      - lang: Node + Request
+        source: |
+          const request = require('request');
+
+          const options = {
+            method: 'GET',
+            url: 'https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions',
+            headers: {Authorization: 'Bearer REPLACE_BEARER_TOKEN'}
+          };
+
+          request(options, function (error, response, body) {
+            if (error) throw new Error(error);
+
+            console.log(body);
+          });
+      - lang: Python + Python3
+        source: |-
+          import http.client
+
+          conn = http.client.HTTPSConnection("us1.pdfgeneratorapi.com")
+
+          headers = { 'Authorization': "Bearer REPLACE_BEARER_TOKEN" }
+
+          conn.request("GET", "/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions", headers=headers)
+
+          res = conn.getresponse()
+          data = res.read()
+
+          print(data.decode("utf-8"))
+      - lang: Ruby + Native
+        source: |-
+          require 'uri'
+          require 'net/http'
+          require 'openssl'
+
+          url = URI("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions")
+
+          http = Net::HTTP.new(url.host, url.port)
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+          request = Net::HTTP::Get.new(url)
+          request["Authorization"] = 'Bearer REPLACE_BEARER_TOKEN'
+
+          response = http.request(request)
+          puts response.read_body
+      - lang: Go + Native
+        source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\
+          \n)\n\nfunc main() {\n\n\turl := \"https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions\"\
+          \n\n\treq, _ := http.NewRequest(\"GET\", url, nil)\n\n\treq.Header.Add(\"\
+          Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\
+          \n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\t\
+          fmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+      - lang: Csharp + Restsharp
+        source: |-
+          var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions");
+          var request = new RestRequest(Method.GET);
+          request.AddHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN");
+          IRestResponse response = client.Execute(request);
+      - lang: Csharp + Httpclient
+        source: |-
+          var client = new HttpClient();
+          var request = new HttpRequestMessage
+          {
+              Method = HttpMethod.Get,
+              RequestUri = new Uri("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions"),
+              Headers =
+              {
+                  { "Authorization", "Bearer REPLACE_BEARER_TOKEN" },
+              },
+          };
+          using (var response = await client.SendAsync(request))
+          {
+              response.EnsureSuccessStatusCode();
+              var body = await response.Content.ReadAsStringAsync();
+              Console.WriteLine(body);
+          }
+      - lang: Java + Unirest
+        source: |-
+          HttpResponse<String> response = Unirest.get("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions")
+            .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+            .asString();
+      - lang: Java + Okhttp
+        source: |-
+          OkHttpClient client = new OkHttpClient();
+
+          Request request = new Request.Builder()
+            .url("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions")
+            .get()
+            .addHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+            .build();
+
+          Response response = client.newCall(request).execute();
+      - lang: C + Libcurl
+        source: |-
+          CURL *hnd = curl_easy_init();
+
+          curl_easy_setopt(hnd, CURLOPT_CUSTOMREQUEST, "GET");
+          curl_easy_setopt(hnd, CURLOPT_URL, "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions");
 
           struct curl_slist *headers = NULL;
           headers = curl_slist_append(headers, "Authorization: Bearer REPLACE_BEARER_TOKEN");
@@ -13994,77 +14416,89 @@ components:
           schema:
             $ref: "#/components/schemas/inline_object_15"
       description: A list of generated documents
-    templateConfig:
+    documentVersions:
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/inline_object_16"
+      description: A list of document versions
+    documentActions:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/inline_object_17"
+      description: A list of document actions
+    templateConfig:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/inline_object_18"
       description: Template configuration
     formConfiguration:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_17"
+            $ref: "#/components/schemas/inline_object_19"
       description: Form configuration
     formShareConfiguration:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_18"
+            $ref: "#/components/schemas/inline_object_20"
       description: Form sharing URL
     formBuilderUrl:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_19"
+            $ref: "#/components/schemas/inline_object_21"
       description: Form Builder URL
     asyncGeneration:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_20"
+            $ref: "#/components/schemas/inline_object_22"
       description: Async job response
     error401:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_21"
+            $ref: "#/components/schemas/inline_object_23"
       description: Unauthorized
     error402:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_22"
+            $ref: "#/components/schemas/inline_object_24"
       description: Account Suspended
     error403:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_23"
+            $ref: "#/components/schemas/inline_object_25"
       description: Forbidden
     error404:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_24"
+            $ref: "#/components/schemas/inline_object_26"
       description: Not Found
     error422:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_25"
+            $ref: "#/components/schemas/inline_object_27"
       description: Unprocessable Entity
     error429:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_26"
+            $ref: "#/components/schemas/inline_object_28"
       description: Too Many Requests
     error500:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_27"
+            $ref: "#/components/schemas/inline_object_29"
       description: Internal Server Error
     deleted:
       description: The resource was deleted successfully.
@@ -14856,6 +15290,92 @@ components:
       items:
         $ref: "#/components/schemas/DataBatch_inner"
       type: array
+    DocumentUser:
+      description: The user who created the version or performed the action.
+      example:
+        ip: 203.0.113.42
+        last_name: Smith
+        first_name: John
+        id_code: "39010101010"
+        email: john@smith.com
+      properties:
+        first_name:
+          example: John
+          type: string
+        last_name:
+          example: Smith
+          type: string
+        email:
+          example: john@smith.com
+          type: string
+        id_code:
+          description: "National identification code, when provided."
+          example: "39010101010"
+          nullable: true
+          type: string
+        ip:
+          description: IP address captured when the action was performed.
+          example: 203.0.113.42
+          nullable: true
+          type: string
+      type: object
+    DocumentVersion:
+      example:
+        person:
+          ip: 203.0.113.42
+          last_name: Smith
+          first_name: John
+          id_code: "39010101010"
+          email: john@smith.com
+        name: yellow
+        created_at: 2026-06-01 10:03:11
+        version_id: 5f3c2b1a9d8e7f6a
+      properties:
+        version_id:
+          description: Version identifier (hash).
+          example: 5f3c2b1a9d8e7f6a
+          type: string
+        name:
+          description: Version name.
+          example: yellow
+          type: string
+        person:
+          $ref: "#/components/schemas/DocumentUser"
+        created_at:
+          description: Creation timestamp (Y-m-d H:i:s).
+          example: 2026-06-01 10:03:11
+          type: string
+      type: object
+    DocumentAction:
+      example:
+        person:
+          ip: 203.0.113.42
+          last_name: Smith
+          first_name: John
+          id_code: "39010101010"
+          email: john@smith.com
+        action: signed
+        created_at: 2026-06-01 10:03:11
+      properties:
+        action:
+          description: The action performed on the document.
+          enum:
+          - opened
+          - reviewed
+          - accepted
+          - declined
+          - commented
+          - signed
+          - acknowledged
+          example: signed
+          type: string
+        person:
+          $ref: "#/components/schemas/DocumentUser"
+        created_at:
+          description: Action timestamp (Y-m-d H:i:s).
+          example: 2026-06-01 10:03:11
+          type: string
+      type: object
     Document:
       example:
         public_url: https://us1.pdfgeneratorapi.com/api/v4/documents/66/6475768884cecfcd3ed4e6028be8a580/share
@@ -16775,6 +17295,58 @@ components:
     inline_object_16:
       example:
         response:
+        - person:
+            ip: 203.0.113.42
+            last_name: Smith
+            first_name: John
+            id_code: "39010101010"
+            email: john@smith.com
+          name: yellow
+          created_at: 2026-06-01 10:03:11
+          version_id: 5f3c2b1a9d8e7f6a
+        - person:
+            ip: 203.0.113.42
+            last_name: Smith
+            first_name: John
+            id_code: "39010101010"
+            email: john@smith.com
+          name: yellow
+          created_at: 2026-06-01 10:03:11
+          version_id: 5f3c2b1a9d8e7f6a
+      properties:
+        response:
+          items:
+            $ref: "#/components/schemas/DocumentVersion"
+          type: array
+      type: object
+    inline_object_17:
+      example:
+        response:
+        - person:
+            ip: 203.0.113.42
+            last_name: Smith
+            first_name: John
+            id_code: "39010101010"
+            email: john@smith.com
+          action: signed
+          created_at: 2026-06-01 10:03:11
+        - person:
+            ip: 203.0.113.42
+            last_name: Smith
+            first_name: John
+            id_code: "39010101010"
+            email: john@smith.com
+          action: signed
+          created_at: 2026-06-01 10:03:11
+      properties:
+        response:
+          items:
+            $ref: "#/components/schemas/DocumentAction"
+          type: array
+      type: object
+    inline_object_18:
+      example:
+        response:
           layout:
             margins:
               top: 0.5
@@ -16831,7 +17403,7 @@ components:
         meta:
           type: object
       type: object
-    inline_object_17:
+    inline_object_19:
       example:
         response:
           configuration:
@@ -16857,7 +17429,7 @@ components:
         response:
           $ref: "#/components/schemas/FormConfiguration"
       type: object
-    inline_object_18_meta:
+    inline_object_20_meta:
       example:
         public_id: 097475c4-dcd5-42ca-814f-b9fa3da66b5a
       properties:
@@ -16866,7 +17438,7 @@ components:
           example: 097475c4-dcd5-42ca-814f-b9fa3da66b5a
           type: string
       type: object
-    inline_object_18:
+    inline_object_20:
       example:
         response: https://app.pdfgeneratorapi.com/forms/097475c4-dcd5-42ca-814f-b9fa3da66b5a/share
         meta:
@@ -16877,9 +17449,9 @@ components:
           example: https://app.pdfgeneratorapi.com/forms/097475c4-dcd5-42ca-814f-b9fa3da66b5a/share
           type: string
         meta:
-          $ref: "#/components/schemas/inline_object_18_meta"
+          $ref: "#/components/schemas/inline_object_20_meta"
       type: object
-    inline_object_19:
+    inline_object_21:
       example:
         response: https://app.pdfgeneratorapi.com/forms/builder/097475c4-dcd5-42ca-814f-b9fa3da66b5a
       properties:
@@ -16888,7 +17460,7 @@ components:
           example: https://app.pdfgeneratorapi.com/forms/builder/097475c4-dcd5-42ca-814f-b9fa3da66b5a
           type: string
       type: object
-    inline_object_20_response:
+    inline_object_22_response:
       example:
         job_id: JeLjz9MKNyAwIG9iago8PCA
       properties:
@@ -16898,15 +17470,15 @@ components:
           example: JeLjz9MKNyAwIG9iago8PCA
           type: string
       type: object
-    inline_object_20:
+    inline_object_22:
       example:
         response:
           job_id: JeLjz9MKNyAwIG9iago8PCA
       properties:
         response:
-          $ref: "#/components/schemas/inline_object_20_response"
+          $ref: "#/components/schemas/inline_object_22_response"
       type: object
-    inline_object_21:
+    inline_object_23:
       example:
         message: Authentication failed
       properties:
@@ -16926,7 +17498,7 @@ components:
           example: Authentication failed
           type: string
       type: object
-    inline_object_22:
+    inline_object_24:
       example:
         message: Account Suspended
       properties:
@@ -16937,7 +17509,7 @@ components:
           example: Account Suspended
           type: string
       type: object
-    inline_object_23:
+    inline_object_25:
       example:
         message: Access not granted
       properties:
@@ -16948,7 +17520,7 @@ components:
           example: Access not granted
           type: string
       type: object
-    inline_object_24:
+    inline_object_26:
       example:
         message: Entity not found
       properties:
@@ -16962,7 +17534,7 @@ components:
           example: Entity not found
           type: string
       type: object
-    inline_object_25:
+    inline_object_27:
       example:
         message: Incorrect parameter value
         errors: "{}"
@@ -16975,7 +17547,7 @@ components:
           description: Details about validation errors
           type: object
       type: object
-    inline_object_26:
+    inline_object_28:
       example:
         message: You can make up to 2 requests per second and 60 requests per minute.
       properties:
@@ -16984,7 +17556,7 @@ components:
           example: You can make up to 2 requests per second and 60 requests per minute.
           type: string
       type: object
-    inline_object_27:
+    inline_object_29:
       example:
         message: Internal error
       properties:
