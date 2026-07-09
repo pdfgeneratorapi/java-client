@@ -55,6 +55,9 @@ docs/GenerateDocumentRequest.md
 docs/GenerateQRCode201Response.md
 docs/GenerateQRCode201ResponseMeta.md
 docs/GenerateQRCodeRequest.md
+docs/GenerateViewerUrl200Response.md
+docs/GenerateViewerUrl200ResponseMeta.md
+docs/GenerateViewerUrlRequest.md
 docs/GetStatus200Response.md
 docs/GetTemplateLibrary200Response.md
 docs/GetTemplateVersion422Response.md
@@ -121,6 +124,7 @@ docs/OptimizeDocumentRequest.md
 docs/OptimizeUrl.md
 docs/OutputParam.md
 docs/PaginationMeta.md
+docs/PrefillParam.md
 docs/PromoteTemplateVersion200Response.md
 docs/PublicTemplateLibraryItem.md
 docs/ServicesApi.md
@@ -239,6 +243,9 @@ src/main/java/com/pdfgeneratorapi/client/model/GenerateDocumentRequest.java
 src/main/java/com/pdfgeneratorapi/client/model/GenerateQRCode201Response.java
 src/main/java/com/pdfgeneratorapi/client/model/GenerateQRCode201ResponseMeta.java
 src/main/java/com/pdfgeneratorapi/client/model/GenerateQRCodeRequest.java
+src/main/java/com/pdfgeneratorapi/client/model/GenerateViewerUrl200Response.java
+src/main/java/com/pdfgeneratorapi/client/model/GenerateViewerUrl200ResponseMeta.java
+src/main/java/com/pdfgeneratorapi/client/model/GenerateViewerUrlRequest.java
 src/main/java/com/pdfgeneratorapi/client/model/GetStatus200Response.java
 src/main/java/com/pdfgeneratorapi/client/model/GetTemplateLibrary200Response.java
 src/main/java/com/pdfgeneratorapi/client/model/GetTemplateVersion422Response.java
@@ -304,6 +311,7 @@ src/main/java/com/pdfgeneratorapi/client/model/OptimizeDocumentRequest.java
 src/main/java/com/pdfgeneratorapi/client/model/OptimizeUrl.java
 src/main/java/com/pdfgeneratorapi/client/model/OutputParam.java
 src/main/java/com/pdfgeneratorapi/client/model/PaginationMeta.java
+src/main/java/com/pdfgeneratorapi/client/model/PrefillParam.java
 src/main/java/com/pdfgeneratorapi/client/model/PromoteTemplateVersion200Response.java
 src/main/java/com/pdfgeneratorapi/client/model/PublicTemplateLibraryItem.java
 src/main/java/com/pdfgeneratorapi/client/model/StatusParam.java
@@ -390,6 +398,9 @@ src/test/java/com/pdfgeneratorapi/client/model/GenerateDocumentRequestTest.java
 src/test/java/com/pdfgeneratorapi/client/model/GenerateQRCode201ResponseMetaTest.java
 src/test/java/com/pdfgeneratorapi/client/model/GenerateQRCode201ResponseTest.java
 src/test/java/com/pdfgeneratorapi/client/model/GenerateQRCodeRequestTest.java
+src/test/java/com/pdfgeneratorapi/client/model/GenerateViewerUrl200ResponseMetaTest.java
+src/test/java/com/pdfgeneratorapi/client/model/GenerateViewerUrl200ResponseTest.java
+src/test/java/com/pdfgeneratorapi/client/model/GenerateViewerUrlRequestTest.java
 src/test/java/com/pdfgeneratorapi/client/model/GetStatus200ResponseTest.java
 src/test/java/com/pdfgeneratorapi/client/model/GetTemplateLibrary200ResponseTest.java
 src/test/java/com/pdfgeneratorapi/client/model/GetTemplateVersion422ResponseTest.java
@@ -455,6 +466,7 @@ src/test/java/com/pdfgeneratorapi/client/model/OptimizeDocumentRequestTest.java
 src/test/java/com/pdfgeneratorapi/client/model/OptimizeUrlTest.java
 src/test/java/com/pdfgeneratorapi/client/model/OutputParamTest.java
 src/test/java/com/pdfgeneratorapi/client/model/PaginationMetaTest.java
+src/test/java/com/pdfgeneratorapi/client/model/PrefillParamTest.java
 src/test/java/com/pdfgeneratorapi/client/model/PromoteTemplateVersion200ResponseTest.java
 src/test/java/com/pdfgeneratorapi/client/model/PublicTemplateLibraryItemTest.java
 src/test/java/com/pdfgeneratorapi/client/model/StatusParamTest.java

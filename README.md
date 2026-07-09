@@ -1,8 +1,8 @@
 # pdf-generator-api
 
 PDF Generator API
-- API version: 4.0.26
-  - Build date: 2026-06-25T14:29:26.098108138Z[Etc/UTC]
+- API version: 4.0.27
+  - Build date: 2026-07-09T14:54:38.570567964Z[Etc/UTC]
   - Generator version: 7.14.0
 
 # Introduction
@@ -270,7 +270,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.pdfgeneratorapi</groupId>
   <artifactId>pdf-generator-api</artifactId>
-  <version>8.0.26</version>
+  <version>8.0.27</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -286,7 +286,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.pdfgeneratorapi:pdf-generator-api:8.0.26"
+     implementation "com.pdfgeneratorapi:pdf-generator-api:8.0.27"
   }
 ```
 
@@ -300,7 +300,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pdf-generator-api-8.0.26.jar`
+* `target/pdf-generator-api-8.0.27.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -353,11 +353,12 @@ Class | Method | HTTP request | Description
 *ConversionApi* | [**convertHTML2PDF**](docs/ConversionApi.md#convertHTML2PDF) | **POST** /conversion/html2pdf | HTML to PDF
 *ConversionApi* | [**convertPDF2Image**](docs/ConversionApi.md#convertPDF2Image) | **POST** /conversion/pdf2image | PDF to Image
 *ConversionApi* | [**convertURL2PDF**](docs/ConversionApi.md#convertURL2PDF) | **POST** /conversion/url2pdf | URL to PDF
-*DocumentsApi* | [**deleteDocument**](docs/DocumentsApi.md#deleteDocument) | **DELETE** /documents/{publicId}/actions | Delete document
+*DocumentsApi* | [**deleteDocument**](docs/DocumentsApi.md#deleteDocument) | **DELETE** /documents/{publicId} | Delete document
 *DocumentsApi* | [**generateDocument**](docs/DocumentsApi.md#generateDocument) | **POST** /documents/generate | Generate document
 *DocumentsApi* | [**generateDocumentAsynchronous**](docs/DocumentsApi.md#generateDocumentAsynchronous) | **POST** /documents/generate/async | Generate document (async)
 *DocumentsApi* | [**generateDocumentBatch**](docs/DocumentsApi.md#generateDocumentBatch) | **POST** /documents/generate/batch | Generate document (batch)
 *DocumentsApi* | [**generateDocumentBatchAsynchronous**](docs/DocumentsApi.md#generateDocumentBatchAsynchronous) | **POST** /documents/generate/batch/async | Generate document (batch + async)
+*DocumentsApi* | [**generateViewerUrl**](docs/DocumentsApi.md#generateViewerUrl) | **POST** /documents/{publicId} | Get document with prefill
 *DocumentsApi* | [**getAsyncJobStatus**](docs/DocumentsApi.md#getAsyncJobStatus) | **GET** /documents/async/{jobId} | Get job status
 *DocumentsApi* | [**getDocument**](docs/DocumentsApi.md#getDocument) | **GET** /documents/{publicId} | Get document
 *DocumentsApi* | [**getDocumentActions**](docs/DocumentsApi.md#getDocumentActions) | **GET** /documents/{publicId}/actions | Get document actions
@@ -454,6 +455,9 @@ Class | Method | HTTP request | Description
  - [GenerateQRCode201Response](docs/GenerateQRCode201Response.md)
  - [GenerateQRCode201ResponseMeta](docs/GenerateQRCode201ResponseMeta.md)
  - [GenerateQRCodeRequest](docs/GenerateQRCodeRequest.md)
+ - [GenerateViewerUrl200Response](docs/GenerateViewerUrl200Response.md)
+ - [GenerateViewerUrl200ResponseMeta](docs/GenerateViewerUrl200ResponseMeta.md)
+ - [GenerateViewerUrlRequest](docs/GenerateViewerUrlRequest.md)
  - [GetStatus200Response](docs/GetStatus200Response.md)
  - [GetTemplateLibrary200Response](docs/GetTemplateLibrary200Response.md)
  - [GetTemplateVersion422Response](docs/GetTemplateVersion422Response.md)
@@ -519,6 +523,7 @@ Class | Method | HTTP request | Description
  - [OptimizeUrl](docs/OptimizeUrl.md)
  - [OutputParam](docs/OutputParam.md)
  - [PaginationMeta](docs/PaginationMeta.md)
+ - [PrefillParam](docs/PrefillParam.md)
  - [PromoteTemplateVersion200Response](docs/PromoteTemplateVersion200Response.md)
  - [PublicTemplateLibraryItem](docs/PublicTemplateLibraryItem.md)
  - [StatusParam](docs/StatusParam.md)

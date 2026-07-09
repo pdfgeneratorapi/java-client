@@ -237,7 +237,7 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
   title: PDF Generator API
-  version: 4.0.26
+  version: 4.0.27
   x-logo:
     url: https://d2304hinatgg5e.cloudfront.net/images/logo/300X90.png
     backgroundColor: "#00d9b5"
@@ -6681,14 +6681,14 @@ paths:
             --url https://us1.pdfgeneratorapi.com/api/v4/documents \
             --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
             --header 'content-type: application/json' \
-            --data '{"file_base64":"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...","file_url":"https://example.org/document.pdf","name":"Invoice 123","output":"url"}'
+            --data '{"file_base64":"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...","file_url":"https://example.org/document.pdf","prefill":{"id_code":"string","first_name":"string","last_name":"string","email":"user@example.com","editable":true},"name":"Invoice 123","output":"url"}'
       - lang: Shell + Wget
         source: |-
           wget --quiet \
             --method POST \
             --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
             --header 'content-type: application/json' \
-            --body-data '{"file_base64":"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...","file_url":"https://example.org/document.pdf","name":"Invoice 123","output":"url"}' \
+            --body-data '{"file_base64":"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...","file_url":"https://example.org/document.pdf","prefill":{"id_code":"string","first_name":"string","last_name":"string","email":"user@example.com","editable":true},"name":"Invoice 123","output":"url"}' \
             --output-document \
             - https://us1.pdfgeneratorapi.com/api/v4/documents
       - lang: Php + Curl
@@ -6705,7 +6705,7 @@ paths:
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"name\":\"Invoice 123\",\"output\":\"url\"}",
+            CURLOPT_POSTFIELDS => "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}",
             CURLOPT_HTTPHEADER => [
               "Authorization: Bearer REPLACE_BEARER_TOKEN",
               "content-type: application/json"
@@ -6753,6 +6753,13 @@ paths:
           req.write(JSON.stringify({
             file_base64: 'JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...',
             file_url: 'https://example.org/document.pdf',
+            prefill: {
+              id_code: 'string',
+              first_name: 'string',
+              last_name: 'string',
+              email: 'user@example.com',
+              editable: true
+            },
             name: 'Invoice 123',
             output: 'url'
           }));
@@ -6771,6 +6778,13 @@ paths:
             body: {
               file_base64: 'JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...',
               file_url: 'https://example.org/document.pdf',
+              prefill: {
+                id_code: 'string',
+                first_name: 'string',
+                last_name: 'string',
+                email: 'user@example.com',
+                editable: true
+              },
               name: 'Invoice 123',
               output: 'url'
             },
@@ -6788,7 +6802,7 @@ paths:
 
           conn = http.client.HTTPSConnection("us1.pdfgeneratorapi.com")
 
-          payload = "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"name\":\"Invoice 123\",\"output\":\"url\"}"
+          payload = "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}"
 
           headers = {
               'Authorization': "Bearer REPLACE_BEARER_TOKEN",
@@ -6816,7 +6830,7 @@ paths:
           request = Net::HTTP::Post.new(url)
           request["Authorization"] = 'Bearer REPLACE_BEARER_TOKEN'
           request["content-type"] = 'application/json'
-          request.body = "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"name\":\"Invoice 123\",\"output\":\"url\"}"
+          request.body = "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}"
 
           response = http.request(request)
           puts response.read_body
@@ -6824,20 +6838,22 @@ paths:
         source: "package main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n\t\"net/http\"\
           \n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://us1.pdfgeneratorapi.com/api/v4/documents\"\
           \n\n\tpayload := strings.NewReader(\"{\\\"file_base64\\\":\\\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\\\
-          \",\\\"file_url\\\":\\\"https://example.org/document.pdf\\\",\\\"name\\\"\
-          :\\\"Invoice 123\\\",\\\"output\\\":\\\"url\\\"}\")\n\n\treq, _ := http.NewRequest(\"\
-          POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\"\
-          )\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _\
-          \ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ :=\
-          \ ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\
-          \n}"
+          \",\\\"file_url\\\":\\\"https://example.org/document.pdf\\\",\\\"prefill\\\
+          \":{\\\"id_code\\\":\\\"string\\\",\\\"first_name\\\":\\\"string\\\",\\\"\
+          last_name\\\":\\\"string\\\",\\\"email\\\":\\\"user@example.com\\\",\\\"\
+          editable\\\":true},\\\"name\\\":\\\"Invoice 123\\\",\\\"output\\\":\\\"\
+          url\\\"}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\t\
+          req.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"\
+          content-type\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\
+          \n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\t\
+          fmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
       - lang: Csharp + Restsharp
         source: |-
           var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/documents");
           var request = new RestRequest(Method.POST);
           request.AddHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN");
           request.AddHeader("content-type", "application/json");
-          request.AddParameter("application/json", "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"name\":\"Invoice 123\",\"output\":\"url\"}", ParameterType.RequestBody);
+          request.AddParameter("application/json", "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}", ParameterType.RequestBody);
           IRestResponse response = client.Execute(request);
       - lang: Csharp + Httpclient
         source: |-
@@ -6850,7 +6866,7 @@ paths:
               {
                   { "Authorization", "Bearer REPLACE_BEARER_TOKEN" },
               },
-              Content = new StringContent("{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"name\":\"Invoice 123\",\"output\":\"url\"}")
+              Content = new StringContent("{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}")
               {
                   Headers =
                   {
@@ -6869,14 +6885,14 @@ paths:
           HttpResponse<String> response = Unirest.post("https://us1.pdfgeneratorapi.com/api/v4/documents")
             .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
             .header("content-type", "application/json")
-            .body("{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"name\":\"Invoice 123\",\"output\":\"url\"}")
+            .body("{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}")
             .asString();
       - lang: Java + Okhttp
         source: |-
           OkHttpClient client = new OkHttpClient();
 
           MediaType mediaType = MediaType.parse("application/json");
-          RequestBody body = RequestBody.create(mediaType, "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"name\":\"Invoice 123\",\"output\":\"url\"}");
+          RequestBody body = RequestBody.create(mediaType, "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}");
           Request request = new Request.Builder()
             .url("https://us1.pdfgeneratorapi.com/api/v4/documents")
             .post(body)
@@ -6897,13 +6913,223 @@ paths:
           headers = curl_slist_append(headers, "content-type: application/json");
           curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
 
-          curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"name\":\"Invoice 123\",\"output\":\"url\"}");
+          curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}");
 
           CURLcode ret = curl_easy_perform(hnd);
       x-content-type: application/json
       x-accepts:
       - application/json
   /documents/{publicId}:
+    delete:
+      description: Delete document from the Document Storage
+      operationId: deleteDocument
+      parameters:
+      - description: Resource public id
+        example: bac8381bce1982e5f6957a0f52371336
+        explode: false
+        in: path
+        name: publicId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          $ref: "#/components/responses/deleted"
+        "401":
+          $ref: "#/components/responses/error401"
+        "402":
+          $ref: "#/components/responses/error402"
+        "403":
+          $ref: "#/components/responses/error403"
+        "404":
+          $ref: "#/components/responses/error404"
+        "422":
+          $ref: "#/components/responses/error422"
+        "429":
+          $ref: "#/components/responses/error429"
+        "500":
+          $ref: "#/components/responses/error500"
+      summary: Delete document
+      tags:
+      - Documents
+      x-code-samples:
+      - lang: Shell + Curl
+        source: |-
+          curl --request DELETE \
+            --url https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336 \
+            --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'
+      - lang: Shell + Wget
+        source: |-
+          wget --quiet \
+            --method DELETE \
+            --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
+            --output-document \
+            - https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336
+      - lang: Php + Curl
+        source: |-
+          <?php
+
+          $curl = curl_init();
+
+          curl_setopt_array($curl, [
+            CURLOPT_URL => "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "DELETE",
+            CURLOPT_HTTPHEADER => [
+              "Authorization: Bearer REPLACE_BEARER_TOKEN"
+            ],
+          ]);
+
+          $response = curl_exec($curl);
+          $err = curl_error($curl);
+
+          curl_close($curl);
+
+          if ($err) {
+            echo "cURL Error #:" . $err;
+          } else {
+            echo $response;
+          }
+      - lang: Node + Native
+        source: |-
+          const http = require("https");
+
+          const options = {
+            "method": "DELETE",
+            "hostname": "us1.pdfgeneratorapi.com",
+            "port": null,
+            "path": "/api/v4/documents/bac8381bce1982e5f6957a0f52371336",
+            "headers": {
+              "Authorization": "Bearer REPLACE_BEARER_TOKEN"
+            }
+          };
+
+          const req = http.request(options, function (res) {
+            const chunks = [];
+
+            res.on("data", function (chunk) {
+              chunks.push(chunk);
+            });
+
+            res.on("end", function () {
+              const body = Buffer.concat(chunks);
+              console.log(body.toString());
+            });
+          });
+
+          req.end();
+      - lang: Node + Request
+        source: |
+          const request = require('request');
+
+          const options = {
+            method: 'DELETE',
+            url: 'https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336',
+            headers: {Authorization: 'Bearer REPLACE_BEARER_TOKEN'}
+          };
+
+          request(options, function (error, response, body) {
+            if (error) throw new Error(error);
+
+            console.log(body);
+          });
+      - lang: Python + Python3
+        source: |-
+          import http.client
+
+          conn = http.client.HTTPSConnection("us1.pdfgeneratorapi.com")
+
+          headers = { 'Authorization': "Bearer REPLACE_BEARER_TOKEN" }
+
+          conn.request("DELETE", "/api/v4/documents/bac8381bce1982e5f6957a0f52371336", headers=headers)
+
+          res = conn.getresponse()
+          data = res.read()
+
+          print(data.decode("utf-8"))
+      - lang: Ruby + Native
+        source: |-
+          require 'uri'
+          require 'net/http'
+          require 'openssl'
+
+          url = URI("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336")
+
+          http = Net::HTTP.new(url.host, url.port)
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+          request = Net::HTTP::Delete.new(url)
+          request["Authorization"] = 'Bearer REPLACE_BEARER_TOKEN'
+
+          response = http.request(request)
+          puts response.read_body
+      - lang: Go + Native
+        source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\
+          \n)\n\nfunc main() {\n\n\turl := \"https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336\"\
+          \n\n\treq, _ := http.NewRequest(\"DELETE\", url, nil)\n\n\treq.Header.Add(\"\
+          Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\
+          \n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\t\
+          fmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+      - lang: Csharp + Restsharp
+        source: |-
+          var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336");
+          var request = new RestRequest(Method.DELETE);
+          request.AddHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN");
+          IRestResponse response = client.Execute(request);
+      - lang: Csharp + Httpclient
+        source: |-
+          var client = new HttpClient();
+          var request = new HttpRequestMessage
+          {
+              Method = HttpMethod.Delete,
+              RequestUri = new Uri("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336"),
+              Headers =
+              {
+                  { "Authorization", "Bearer REPLACE_BEARER_TOKEN" },
+              },
+          };
+          using (var response = await client.SendAsync(request))
+          {
+              response.EnsureSuccessStatusCode();
+              var body = await response.Content.ReadAsStringAsync();
+              Console.WriteLine(body);
+          }
+      - lang: Java + Unirest
+        source: |-
+          HttpResponse<String> response = Unirest.delete("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336")
+            .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+            .asString();
+      - lang: Java + Okhttp
+        source: |-
+          OkHttpClient client = new OkHttpClient();
+
+          Request request = new Request.Builder()
+            .url("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336")
+            .delete(null)
+            .addHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+            .build();
+
+          Response response = client.newCall(request).execute();
+      - lang: C + Libcurl
+        source: |-
+          CURL *hnd = curl_easy_init();
+
+          curl_easy_setopt(hnd, CURLOPT_CUSTOMREQUEST, "DELETE");
+          curl_easy_setopt(hnd, CURLOPT_URL, "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336");
+
+          struct curl_slist *headers = NULL;
+          headers = curl_slist_append(headers, "Authorization: Bearer REPLACE_BEARER_TOKEN");
+          curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
+
+          CURLcode ret = curl_easy_perform(hnd);
+      x-accepts:
+      - application/json
     get:
       description: Returns document stored in the Document Storage
       operationId: getDocument
@@ -7112,6 +7338,291 @@ paths:
           curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
 
           CURLcode ret = curl_easy_perform(hnd);
+      x-accepts:
+      - application/json
+    post:
+      description: |
+        Returns a URL for a stored document, optionally with viewer prefill data. The prefill is encrypted server-side and embedded in the viewer URL, so the caller does not have to handle encryption. Prefill is only applied when `output` is `viewer`.
+      operationId: generateViewerUrl
+      parameters:
+      - description: Resource public id
+        example: bac8381bce1982e5f6957a0f52371336
+        explode: false
+        in: path
+        name: publicId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/generateViewerUrl_request"
+        description: Optional response format and viewer prefill data.
+        required: false
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/generateViewerUrl_200_response"
+          description: "Viewer URL response, returned when `output` is `viewer`."
+        "201":
+          $ref: "#/components/responses/storedDocument"
+        "401":
+          $ref: "#/components/responses/error401"
+        "402":
+          $ref: "#/components/responses/error402"
+        "403":
+          $ref: "#/components/responses/error403"
+        "404":
+          $ref: "#/components/responses/error404"
+        "422":
+          $ref: "#/components/responses/error422"
+        "429":
+          $ref: "#/components/responses/error429"
+        "500":
+          $ref: "#/components/responses/error500"
+      summary: Get document with prefill
+      tags:
+      - Documents
+      x-code-samples:
+      - lang: Shell + Curl
+        source: |-
+          curl --request POST \
+            --url https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336 \
+            --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
+            --header 'content-type: application/json' \
+            --data '{"output":"viewer","prefill":{"id_code":"string","first_name":"string","last_name":"string","email":"user@example.com","editable":true}}'
+      - lang: Shell + Wget
+        source: |-
+          wget --quiet \
+            --method POST \
+            --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
+            --header 'content-type: application/json' \
+            --body-data '{"output":"viewer","prefill":{"id_code":"string","first_name":"string","last_name":"string","email":"user@example.com","editable":true}}' \
+            --output-document \
+            - https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336
+      - lang: Php + Curl
+        source: |-
+          <?php
+
+          $curl = curl_init();
+
+          curl_setopt_array($curl, [
+            CURLOPT_URL => "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true}}",
+            CURLOPT_HTTPHEADER => [
+              "Authorization: Bearer REPLACE_BEARER_TOKEN",
+              "content-type: application/json"
+            ],
+          ]);
+
+          $response = curl_exec($curl);
+          $err = curl_error($curl);
+
+          curl_close($curl);
+
+          if ($err) {
+            echo "cURL Error #:" . $err;
+          } else {
+            echo $response;
+          }
+      - lang: Node + Native
+        source: |-
+          const http = require("https");
+
+          const options = {
+            "method": "POST",
+            "hostname": "us1.pdfgeneratorapi.com",
+            "port": null,
+            "path": "/api/v4/documents/bac8381bce1982e5f6957a0f52371336",
+            "headers": {
+              "Authorization": "Bearer REPLACE_BEARER_TOKEN",
+              "content-type": "application/json"
+            }
+          };
+
+          const req = http.request(options, function (res) {
+            const chunks = [];
+
+            res.on("data", function (chunk) {
+              chunks.push(chunk);
+            });
+
+            res.on("end", function () {
+              const body = Buffer.concat(chunks);
+              console.log(body.toString());
+            });
+          });
+
+          req.write(JSON.stringify({
+            output: 'viewer',
+            prefill: {
+              id_code: 'string',
+              first_name: 'string',
+              last_name: 'string',
+              email: 'user@example.com',
+              editable: true
+            }
+          }));
+          req.end();
+      - lang: Node + Request
+        source: |
+          const request = require('request');
+
+          const options = {
+            method: 'POST',
+            url: 'https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336',
+            headers: {
+              Authorization: 'Bearer REPLACE_BEARER_TOKEN',
+              'content-type': 'application/json'
+            },
+            body: {
+              output: 'viewer',
+              prefill: {
+                id_code: 'string',
+                first_name: 'string',
+                last_name: 'string',
+                email: 'user@example.com',
+                editable: true
+              }
+            },
+            json: true
+          };
+
+          request(options, function (error, response, body) {
+            if (error) throw new Error(error);
+
+            console.log(body);
+          });
+      - lang: Python + Python3
+        source: |-
+          import http.client
+
+          conn = http.client.HTTPSConnection("us1.pdfgeneratorapi.com")
+
+          payload = "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true}}"
+
+          headers = {
+              'Authorization': "Bearer REPLACE_BEARER_TOKEN",
+              'content-type': "application/json"
+              }
+
+          conn.request("POST", "/api/v4/documents/bac8381bce1982e5f6957a0f52371336", payload, headers)
+
+          res = conn.getresponse()
+          data = res.read()
+
+          print(data.decode("utf-8"))
+      - lang: Ruby + Native
+        source: |-
+          require 'uri'
+          require 'net/http'
+          require 'openssl'
+
+          url = URI("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336")
+
+          http = Net::HTTP.new(url.host, url.port)
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+          request = Net::HTTP::Post.new(url)
+          request["Authorization"] = 'Bearer REPLACE_BEARER_TOKEN'
+          request["content-type"] = 'application/json'
+          request.body = "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true}}"
+
+          response = http.request(request)
+          puts response.read_body
+      - lang: Go + Native
+        source: "package main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n\t\"net/http\"\
+          \n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336\"\
+          \n\n\tpayload := strings.NewReader(\"{\\\"output\\\":\\\"viewer\\\",\\\"\
+          prefill\\\":{\\\"id_code\\\":\\\"string\\\",\\\"first_name\\\":\\\"string\\\
+          \",\\\"last_name\\\":\\\"string\\\",\\\"email\\\":\\\"user@example.com\\\
+          \",\\\"editable\\\":true}}\")\n\n\treq, _ := http.NewRequest(\"POST\", url,\
+          \ payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\"\
+          )\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _\
+          \ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ :=\
+          \ ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\
+          \n}"
+      - lang: Csharp + Restsharp
+        source: |-
+          var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336");
+          var request = new RestRequest(Method.POST);
+          request.AddHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN");
+          request.AddHeader("content-type", "application/json");
+          request.AddParameter("application/json", "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true}}", ParameterType.RequestBody);
+          IRestResponse response = client.Execute(request);
+      - lang: Csharp + Httpclient
+        source: |-
+          var client = new HttpClient();
+          var request = new HttpRequestMessage
+          {
+              Method = HttpMethod.Post,
+              RequestUri = new Uri("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336"),
+              Headers =
+              {
+                  { "Authorization", "Bearer REPLACE_BEARER_TOKEN" },
+              },
+              Content = new StringContent("{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true}}")
+              {
+                  Headers =
+                  {
+                      ContentType = new MediaTypeHeaderValue("application/json")
+                  }
+              }
+          };
+          using (var response = await client.SendAsync(request))
+          {
+              response.EnsureSuccessStatusCode();
+              var body = await response.Content.ReadAsStringAsync();
+              Console.WriteLine(body);
+          }
+      - lang: Java + Unirest
+        source: |-
+          HttpResponse<String> response = Unirest.post("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336")
+            .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+            .header("content-type", "application/json")
+            .body("{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true}}")
+            .asString();
+      - lang: Java + Okhttp
+        source: |-
+          OkHttpClient client = new OkHttpClient();
+
+          MediaType mediaType = MediaType.parse("application/json");
+          RequestBody body = RequestBody.create(mediaType, "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true}}");
+          Request request = new Request.Builder()
+            .url("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336")
+            .post(body)
+            .addHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+            .addHeader("content-type", "application/json")
+            .build();
+
+          Response response = client.newCall(request).execute();
+      - lang: C + Libcurl
+        source: |-
+          CURL *hnd = curl_easy_init();
+
+          curl_easy_setopt(hnd, CURLOPT_CUSTOMREQUEST, "POST");
+          curl_easy_setopt(hnd, CURLOPT_URL, "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336");
+
+          struct curl_slist *headers = NULL;
+          headers = curl_slist_append(headers, "Authorization: Bearer REPLACE_BEARER_TOKEN");
+          headers = curl_slist_append(headers, "content-type: application/json");
+          curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
+
+          curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true}}");
+
+          CURLcode ret = curl_easy_perform(hnd);
+      x-content-type: application/json
       x-accepts:
       - application/json
   /documents/{publicId}/versions:
@@ -7326,216 +7837,6 @@ paths:
       x-accepts:
       - application/json
   /documents/{publicId}/actions:
-    delete:
-      description: Delete document from the Document Storage
-      operationId: deleteDocument
-      parameters:
-      - description: Resource public id
-        example: bac8381bce1982e5f6957a0f52371336
-        explode: false
-        in: path
-        name: publicId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "204":
-          $ref: "#/components/responses/deleted"
-        "401":
-          $ref: "#/components/responses/error401"
-        "402":
-          $ref: "#/components/responses/error402"
-        "403":
-          $ref: "#/components/responses/error403"
-        "404":
-          $ref: "#/components/responses/error404"
-        "422":
-          $ref: "#/components/responses/error422"
-        "429":
-          $ref: "#/components/responses/error429"
-        "500":
-          $ref: "#/components/responses/error500"
-      summary: Delete document
-      tags:
-      - Documents
-      x-code-samples:
-      - lang: Shell + Curl
-        source: |-
-          curl --request DELETE \
-            --url https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions \
-            --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'
-      - lang: Shell + Wget
-        source: |-
-          wget --quiet \
-            --method DELETE \
-            --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
-            --output-document \
-            - https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions
-      - lang: Php + Curl
-        source: |-
-          <?php
-
-          $curl = curl_init();
-
-          curl_setopt_array($curl, [
-            CURLOPT_URL => "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "DELETE",
-            CURLOPT_HTTPHEADER => [
-              "Authorization: Bearer REPLACE_BEARER_TOKEN"
-            ],
-          ]);
-
-          $response = curl_exec($curl);
-          $err = curl_error($curl);
-
-          curl_close($curl);
-
-          if ($err) {
-            echo "cURL Error #:" . $err;
-          } else {
-            echo $response;
-          }
-      - lang: Node + Native
-        source: |-
-          const http = require("https");
-
-          const options = {
-            "method": "DELETE",
-            "hostname": "us1.pdfgeneratorapi.com",
-            "port": null,
-            "path": "/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions",
-            "headers": {
-              "Authorization": "Bearer REPLACE_BEARER_TOKEN"
-            }
-          };
-
-          const req = http.request(options, function (res) {
-            const chunks = [];
-
-            res.on("data", function (chunk) {
-              chunks.push(chunk);
-            });
-
-            res.on("end", function () {
-              const body = Buffer.concat(chunks);
-              console.log(body.toString());
-            });
-          });
-
-          req.end();
-      - lang: Node + Request
-        source: |
-          const request = require('request');
-
-          const options = {
-            method: 'DELETE',
-            url: 'https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions',
-            headers: {Authorization: 'Bearer REPLACE_BEARER_TOKEN'}
-          };
-
-          request(options, function (error, response, body) {
-            if (error) throw new Error(error);
-
-            console.log(body);
-          });
-      - lang: Python + Python3
-        source: |-
-          import http.client
-
-          conn = http.client.HTTPSConnection("us1.pdfgeneratorapi.com")
-
-          headers = { 'Authorization': "Bearer REPLACE_BEARER_TOKEN" }
-
-          conn.request("DELETE", "/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions", headers=headers)
-
-          res = conn.getresponse()
-          data = res.read()
-
-          print(data.decode("utf-8"))
-      - lang: Ruby + Native
-        source: |-
-          require 'uri'
-          require 'net/http'
-          require 'openssl'
-
-          url = URI("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions")
-
-          http = Net::HTTP.new(url.host, url.port)
-          http.use_ssl = true
-          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-          request = Net::HTTP::Delete.new(url)
-          request["Authorization"] = 'Bearer REPLACE_BEARER_TOKEN'
-
-          response = http.request(request)
-          puts response.read_body
-      - lang: Go + Native
-        source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\
-          \n)\n\nfunc main() {\n\n\turl := \"https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions\"\
-          \n\n\treq, _ := http.NewRequest(\"DELETE\", url, nil)\n\n\treq.Header.Add(\"\
-          Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\
-          \n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\t\
-          fmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
-      - lang: Csharp + Restsharp
-        source: |-
-          var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions");
-          var request = new RestRequest(Method.DELETE);
-          request.AddHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN");
-          IRestResponse response = client.Execute(request);
-      - lang: Csharp + Httpclient
-        source: |-
-          var client = new HttpClient();
-          var request = new HttpRequestMessage
-          {
-              Method = HttpMethod.Delete,
-              RequestUri = new Uri("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions"),
-              Headers =
-              {
-                  { "Authorization", "Bearer REPLACE_BEARER_TOKEN" },
-              },
-          };
-          using (var response = await client.SendAsync(request))
-          {
-              response.EnsureSuccessStatusCode();
-              var body = await response.Content.ReadAsStringAsync();
-              Console.WriteLine(body);
-          }
-      - lang: Java + Unirest
-        source: |-
-          HttpResponse<String> response = Unirest.delete("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions")
-            .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
-            .asString();
-      - lang: Java + Okhttp
-        source: |-
-          OkHttpClient client = new OkHttpClient();
-
-          Request request = new Request.Builder()
-            .url("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions")
-            .delete(null)
-            .addHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN")
-            .build();
-
-          Response response = client.newCall(request).execute();
-      - lang: C + Libcurl
-        source: |-
-          CURL *hnd = curl_easy_init();
-
-          curl_easy_setopt(hnd, CURLOPT_CUSTOMREQUEST, "DELETE");
-          curl_easy_setopt(hnd, CURLOPT_URL, "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/actions");
-
-          struct curl_slist *headers = NULL;
-          headers = curl_slist_append(headers, "Authorization: Bearer REPLACE_BEARER_TOKEN");
-          curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
-
-          CURLcode ret = curl_easy_perform(hnd);
-      x-accepts:
-      - application/json
     get:
       description: Returns a list of actions performed on a stored document
       operationId: getDocumentActions
@@ -14503,6 +14804,27 @@ components:
     deleted:
       description: The resource was deleted successfully.
   schemas:
+    prefillParam:
+      description: "Viewer prefill data, encrypted into the viewer URL. Only applied\
+        \ when `output` is `viewer`."
+      properties:
+        id_code:
+          maxLength: 128
+          type: string
+        first_name:
+          maxLength: 128
+          type: string
+        last_name:
+          maxLength: 128
+          type: string
+        email:
+          format: email
+          maxLength: 120
+          type: string
+        editable:
+          default: true
+          type: boolean
+      type: object
     statusParam:
       default: ok
       enum:
@@ -15916,6 +16238,8 @@ components:
             not provided.
           example: https://example.org/document.pdf
           type: string
+        prefill:
+          $ref: "#/components/schemas/prefillParam"
         name:
           default: ""
           description: Generated document name (optional)
@@ -15930,6 +16254,48 @@ components:
           - viewer
           example: url
           type: string
+      type: object
+    generateViewerUrl_request:
+      properties:
+        output:
+          default: url
+          description: Response format. `url` returns a public URL to the stored document;
+            `viewer` returns a public URL to the PDF viewer (with encrypted prefill
+            when provided).
+          enum:
+          - url
+          - viewer
+          example: viewer
+          type: string
+        prefill:
+          $ref: "#/components/schemas/prefillParam"
+      type: object
+    generateViewerUrl_200_response_meta:
+      example:
+        name: name
+        display_name: display_name
+        public_id: public_id
+      properties:
+        name:
+          type: string
+        display_name:
+          type: string
+        public_id:
+          type: string
+      type: object
+    generateViewerUrl_200_response:
+      example:
+        response: response
+        meta:
+          name: name
+          display_name: display_name
+          public_id: public_id
+      properties:
+        response:
+          description: Public URL to the PDF viewer.
+          type: string
+        meta:
+          $ref: "#/components/schemas/generateViewerUrl_200_response_meta"
       type: object
     generateDocument_request:
       properties:
