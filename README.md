@@ -1,8 +1,8 @@
 # pdf-generator-api
 
 PDF Generator API
-- API version: 4.0.27
-  - Build date: 2026-07-09T14:54:38.570567964Z[Etc/UTC]
+- API version: 4.0.28
+  - Build date: 2026-07-23T13:52:29.914992477Z[Etc/UTC]
   - Generator version: 7.14.0
 
 # Introduction
@@ -270,7 +270,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.pdfgeneratorapi</groupId>
   <artifactId>pdf-generator-api</artifactId>
-  <version>8.0.27</version>
+  <version>8.0.28</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -286,7 +286,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.pdfgeneratorapi:pdf-generator-api:8.0.27"
+     implementation "com.pdfgeneratorapi:pdf-generator-api:8.0.28"
   }
 ```
 
@@ -300,7 +300,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pdf-generator-api-8.0.27.jar`
+* `target/pdf-generator-api-8.0.28.jar`
 * `target/lib/*.jar`
 
 ## Getting Started

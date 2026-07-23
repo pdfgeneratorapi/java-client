@@ -12,6 +12,7 @@ Viewer prefill data, encrypted into the viewer URL. Only applied when `output` i
 |**firstName** | **String** |  |  [optional] |
 |**lastName** | **String** |  |  [optional] |
 |**email** | **String** |  |  [optional] |
+|**signatureId** | **String** |  |  [optional] |
 |**editable** | **Boolean** |  |  [optional] |
 
 

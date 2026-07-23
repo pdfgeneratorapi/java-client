@@ -237,7 +237,7 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
   title: PDF Generator API
-  version: 4.0.27
+  version: 4.0.28
   x-logo:
     url: https://d2304hinatgg5e.cloudfront.net/images/logo/300X90.png
     backgroundColor: "#00d9b5"
@@ -6681,14 +6681,14 @@ paths:
             --url https://us1.pdfgeneratorapi.com/api/v4/documents \
             --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
             --header 'content-type: application/json' \
-            --data '{"file_base64":"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...","file_url":"https://example.org/document.pdf","prefill":{"id_code":"string","first_name":"string","last_name":"string","email":"user@example.com","editable":true},"name":"Invoice 123","output":"url"}'
+            --data '{"file_base64":"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...","file_url":"https://example.org/document.pdf","prefill":{"id_code":"string","first_name":"string","last_name":"string","email":"user@example.com","signature_id":"string","editable":true},"name":"Invoice 123","output":"url"}'
       - lang: Shell + Wget
         source: |-
           wget --quiet \
             --method POST \
             --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
             --header 'content-type: application/json' \
-            --body-data '{"file_base64":"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...","file_url":"https://example.org/document.pdf","prefill":{"id_code":"string","first_name":"string","last_name":"string","email":"user@example.com","editable":true},"name":"Invoice 123","output":"url"}' \
+            --body-data '{"file_base64":"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...","file_url":"https://example.org/document.pdf","prefill":{"id_code":"string","first_name":"string","last_name":"string","email":"user@example.com","signature_id":"string","editable":true},"name":"Invoice 123","output":"url"}' \
             --output-document \
             - https://us1.pdfgeneratorapi.com/api/v4/documents
       - lang: Php + Curl
@@ -6705,7 +6705,7 @@ paths:
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}",
+            CURLOPT_POSTFIELDS => "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"signature_id\":\"string\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}",
             CURLOPT_HTTPHEADER => [
               "Authorization: Bearer REPLACE_BEARER_TOKEN",
               "content-type: application/json"
@@ -6758,6 +6758,7 @@ paths:
               first_name: 'string',
               last_name: 'string',
               email: 'user@example.com',
+              signature_id: 'string',
               editable: true
             },
             name: 'Invoice 123',
@@ -6783,6 +6784,7 @@ paths:
                 first_name: 'string',
                 last_name: 'string',
                 email: 'user@example.com',
+                signature_id: 'string',
                 editable: true
               },
               name: 'Invoice 123',
@@ -6802,7 +6804,7 @@ paths:
 
           conn = http.client.HTTPSConnection("us1.pdfgeneratorapi.com")
 
-          payload = "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}"
+          payload = "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"signature_id\":\"string\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}"
 
           headers = {
               'Authorization': "Bearer REPLACE_BEARER_TOKEN",
@@ -6830,7 +6832,7 @@ paths:
           request = Net::HTTP::Post.new(url)
           request["Authorization"] = 'Bearer REPLACE_BEARER_TOKEN'
           request["content-type"] = 'application/json'
-          request.body = "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}"
+          request.body = "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"signature_id\":\"string\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}"
 
           response = http.request(request)
           puts response.read_body
@@ -6841,19 +6843,20 @@ paths:
           \",\\\"file_url\\\":\\\"https://example.org/document.pdf\\\",\\\"prefill\\\
           \":{\\\"id_code\\\":\\\"string\\\",\\\"first_name\\\":\\\"string\\\",\\\"\
           last_name\\\":\\\"string\\\",\\\"email\\\":\\\"user@example.com\\\",\\\"\
-          editable\\\":true},\\\"name\\\":\\\"Invoice 123\\\",\\\"output\\\":\\\"\
-          url\\\"}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\t\
-          req.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"\
-          content-type\", \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\
-          \n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\t\
-          fmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+          signature_id\\\":\\\"string\\\",\\\"editable\\\":true},\\\"name\\\":\\\"\
+          Invoice 123\\\",\\\"output\\\":\\\"url\\\"}\")\n\n\treq, _ := http.NewRequest(\"\
+          POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\"\
+          )\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _\
+          \ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ :=\
+          \ ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\
+          \n}"
       - lang: Csharp + Restsharp
         source: |-
           var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/documents");
           var request = new RestRequest(Method.POST);
           request.AddHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN");
           request.AddHeader("content-type", "application/json");
-          request.AddParameter("application/json", "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}", ParameterType.RequestBody);
+          request.AddParameter("application/json", "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"signature_id\":\"string\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}", ParameterType.RequestBody);
           IRestResponse response = client.Execute(request);
       - lang: Csharp + Httpclient
         source: |-
@@ -6866,7 +6869,7 @@ paths:
               {
                   { "Authorization", "Bearer REPLACE_BEARER_TOKEN" },
               },
-              Content = new StringContent("{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}")
+              Content = new StringContent("{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"signature_id\":\"string\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}")
               {
                   Headers =
                   {
@@ -6885,14 +6888,14 @@ paths:
           HttpResponse<String> response = Unirest.post("https://us1.pdfgeneratorapi.com/api/v4/documents")
             .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
             .header("content-type", "application/json")
-            .body("{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}")
+            .body("{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"signature_id\":\"string\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}")
             .asString();
       - lang: Java + Okhttp
         source: |-
           OkHttpClient client = new OkHttpClient();
 
           MediaType mediaType = MediaType.parse("application/json");
-          RequestBody body = RequestBody.create(mediaType, "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}");
+          RequestBody body = RequestBody.create(mediaType, "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"signature_id\":\"string\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}");
           Request request = new Request.Builder()
             .url("https://us1.pdfgeneratorapi.com/api/v4/documents")
             .post(body)
@@ -6913,7 +6916,7 @@ paths:
           headers = curl_slist_append(headers, "content-type: application/json");
           curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
 
-          curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}");
+          curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"file_base64\":\"JVBERi0xLjcKJeLjz9MKNyAwIG9iago8...\",\"file_url\":\"https://example.org/document.pdf\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"signature_id\":\"string\",\"editable\":true},\"name\":\"Invoice 123\",\"output\":\"url\"}");
 
           CURLcode ret = curl_easy_perform(hnd);
       x-content-type: application/json
@@ -7394,14 +7397,14 @@ paths:
             --url https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336 \
             --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
             --header 'content-type: application/json' \
-            --data '{"output":"viewer","prefill":{"id_code":"string","first_name":"string","last_name":"string","email":"user@example.com","editable":true}}'
+            --data '{"output":"viewer","prefill":{"id_code":"string","first_name":"string","last_name":"string","email":"user@example.com","signature_id":"string","editable":true}}'
       - lang: Shell + Wget
         source: |-
           wget --quiet \
             --method POST \
             --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
             --header 'content-type: application/json' \
-            --body-data '{"output":"viewer","prefill":{"id_code":"string","first_name":"string","last_name":"string","email":"user@example.com","editable":true}}' \
+            --body-data '{"output":"viewer","prefill":{"id_code":"string","first_name":"string","last_name":"string","email":"user@example.com","signature_id":"string","editable":true}}' \
             --output-document \
             - https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336
       - lang: Php + Curl
@@ -7418,7 +7421,7 @@ paths:
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true}}",
+            CURLOPT_POSTFIELDS => "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"signature_id\":\"string\",\"editable\":true}}",
             CURLOPT_HTTPHEADER => [
               "Authorization: Bearer REPLACE_BEARER_TOKEN",
               "content-type: application/json"
@@ -7470,6 +7473,7 @@ paths:
               first_name: 'string',
               last_name: 'string',
               email: 'user@example.com',
+              signature_id: 'string',
               editable: true
             }
           }));
@@ -7492,6 +7496,7 @@ paths:
                 first_name: 'string',
                 last_name: 'string',
                 email: 'user@example.com',
+                signature_id: 'string',
                 editable: true
               }
             },
@@ -7509,7 +7514,7 @@ paths:
 
           conn = http.client.HTTPSConnection("us1.pdfgeneratorapi.com")
 
-          payload = "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true}}"
+          payload = "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"signature_id\":\"string\",\"editable\":true}}"
 
           headers = {
               'Authorization': "Bearer REPLACE_BEARER_TOKEN",
@@ -7537,7 +7542,7 @@ paths:
           request = Net::HTTP::Post.new(url)
           request["Authorization"] = 'Bearer REPLACE_BEARER_TOKEN'
           request["content-type"] = 'application/json'
-          request.body = "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true}}"
+          request.body = "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"signature_id\":\"string\",\"editable\":true}}"
 
           response = http.request(request)
           puts response.read_body
@@ -7547,19 +7552,19 @@ paths:
           \n\n\tpayload := strings.NewReader(\"{\\\"output\\\":\\\"viewer\\\",\\\"\
           prefill\\\":{\\\"id_code\\\":\\\"string\\\",\\\"first_name\\\":\\\"string\\\
           \",\\\"last_name\\\":\\\"string\\\",\\\"email\\\":\\\"user@example.com\\\
-          \",\\\"editable\\\":true}}\")\n\n\treq, _ := http.NewRequest(\"POST\", url,\
-          \ payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\"\
-          )\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _\
-          \ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ :=\
-          \ ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\
-          \n}"
+          \",\\\"signature_id\\\":\\\"string\\\",\\\"editable\\\":true}}\")\n\n\t\
+          req, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"\
+          Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"content-type\"\
+          , \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\t\
+          defer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\
+          \tfmt.Println(string(body))\n\n}"
       - lang: Csharp + Restsharp
         source: |-
           var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336");
           var request = new RestRequest(Method.POST);
           request.AddHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN");
           request.AddHeader("content-type", "application/json");
-          request.AddParameter("application/json", "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true}}", ParameterType.RequestBody);
+          request.AddParameter("application/json", "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"signature_id\":\"string\",\"editable\":true}}", ParameterType.RequestBody);
           IRestResponse response = client.Execute(request);
       - lang: Csharp + Httpclient
         source: |-
@@ -7572,7 +7577,7 @@ paths:
               {
                   { "Authorization", "Bearer REPLACE_BEARER_TOKEN" },
               },
-              Content = new StringContent("{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true}}")
+              Content = new StringContent("{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"signature_id\":\"string\",\"editable\":true}}")
               {
                   Headers =
                   {
@@ -7591,14 +7596,14 @@ paths:
           HttpResponse<String> response = Unirest.post("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336")
             .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
             .header("content-type", "application/json")
-            .body("{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true}}")
+            .body("{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"signature_id\":\"string\",\"editable\":true}}")
             .asString();
       - lang: Java + Okhttp
         source: |-
           OkHttpClient client = new OkHttpClient();
 
           MediaType mediaType = MediaType.parse("application/json");
-          RequestBody body = RequestBody.create(mediaType, "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true}}");
+          RequestBody body = RequestBody.create(mediaType, "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"signature_id\":\"string\",\"editable\":true}}");
           Request request = new Request.Builder()
             .url("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336")
             .post(body)
@@ -7619,7 +7624,7 @@ paths:
           headers = curl_slist_append(headers, "content-type: application/json");
           curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
 
-          curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"editable\":true}}");
+          curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"output\":\"viewer\",\"prefill\":{\"id_code\":\"string\",\"first_name\":\"string\",\"last_name\":\"string\",\"email\":\"user@example.com\",\"signature_id\":\"string\",\"editable\":true}}");
 
           CURLcode ret = curl_easy_perform(hnd);
       x-content-type: application/json
@@ -14820,6 +14825,9 @@ components:
         email:
           format: email
           maxLength: 120
+          type: string
+        signature_id:
+          maxLength: 128
           type: string
         editable:
           default: true
