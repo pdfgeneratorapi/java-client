@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**response** | [**List&lt;DocumentAction&gt;**](DocumentAction.md) |  |  [optional] |
+|**response** | [**DocumentSignatures**](DocumentSignatures.md) |  |  [optional] |
 
 
 

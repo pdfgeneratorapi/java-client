@@ -24,6 +24,8 @@ docs/CreateWorkspaceRequest.md
 docs/DataBatchInner.md
 docs/Document.md
 docs/DocumentAction.md
+docs/DocumentSignature.md
+docs/DocumentSignatures.md
 docs/DocumentUser.md
 docs/DocumentVersion.md
 docs/DocumentsApi.md
@@ -90,11 +92,11 @@ docs/InlineObject19.md
 docs/InlineObject1Response.md
 docs/InlineObject2.md
 docs/InlineObject20.md
-docs/InlineObject20Meta.md
 docs/InlineObject21.md
+docs/InlineObject21Meta.md
 docs/InlineObject22.md
-docs/InlineObject22Response.md
 docs/InlineObject23.md
+docs/InlineObject23Response.md
 docs/InlineObject24.md
 docs/InlineObject25.md
 docs/InlineObject26.md
@@ -102,6 +104,8 @@ docs/InlineObject27.md
 docs/InlineObject28.md
 docs/InlineObject29.md
 docs/InlineObject3.md
+docs/InlineObject30.md
+docs/InlineObject31.md
 docs/InlineObject4.md
 docs/InlineObject5.md
 docs/InlineObject6.md
@@ -215,6 +219,8 @@ src/main/java/com/pdfgeneratorapi/client/model/CreateWorkspaceRequest.java
 src/main/java/com/pdfgeneratorapi/client/model/DataBatchInner.java
 src/main/java/com/pdfgeneratorapi/client/model/Document.java
 src/main/java/com/pdfgeneratorapi/client/model/DocumentAction.java
+src/main/java/com/pdfgeneratorapi/client/model/DocumentSignature.java
+src/main/java/com/pdfgeneratorapi/client/model/DocumentSignatures.java
 src/main/java/com/pdfgeneratorapi/client/model/DocumentUser.java
 src/main/java/com/pdfgeneratorapi/client/model/DocumentVersion.java
 src/main/java/com/pdfgeneratorapi/client/model/EncryptAndDecryptBase64.java
@@ -278,11 +284,11 @@ src/main/java/com/pdfgeneratorapi/client/model/InlineObject19.java
 src/main/java/com/pdfgeneratorapi/client/model/InlineObject1Response.java
 src/main/java/com/pdfgeneratorapi/client/model/InlineObject2.java
 src/main/java/com/pdfgeneratorapi/client/model/InlineObject20.java
-src/main/java/com/pdfgeneratorapi/client/model/InlineObject20Meta.java
 src/main/java/com/pdfgeneratorapi/client/model/InlineObject21.java
+src/main/java/com/pdfgeneratorapi/client/model/InlineObject21Meta.java
 src/main/java/com/pdfgeneratorapi/client/model/InlineObject22.java
-src/main/java/com/pdfgeneratorapi/client/model/InlineObject22Response.java
 src/main/java/com/pdfgeneratorapi/client/model/InlineObject23.java
+src/main/java/com/pdfgeneratorapi/client/model/InlineObject23Response.java
 src/main/java/com/pdfgeneratorapi/client/model/InlineObject24.java
 src/main/java/com/pdfgeneratorapi/client/model/InlineObject25.java
 src/main/java/com/pdfgeneratorapi/client/model/InlineObject26.java
@@ -290,6 +296,8 @@ src/main/java/com/pdfgeneratorapi/client/model/InlineObject27.java
 src/main/java/com/pdfgeneratorapi/client/model/InlineObject28.java
 src/main/java/com/pdfgeneratorapi/client/model/InlineObject29.java
 src/main/java/com/pdfgeneratorapi/client/model/InlineObject3.java
+src/main/java/com/pdfgeneratorapi/client/model/InlineObject30.java
+src/main/java/com/pdfgeneratorapi/client/model/InlineObject31.java
 src/main/java/com/pdfgeneratorapi/client/model/InlineObject4.java
 src/main/java/com/pdfgeneratorapi/client/model/InlineObject5.java
 src/main/java/com/pdfgeneratorapi/client/model/InlineObject6.java
@@ -369,6 +377,8 @@ src/test/java/com/pdfgeneratorapi/client/model/CreateFacturXEInvoiceRequestTest.
 src/test/java/com/pdfgeneratorapi/client/model/CreateWorkspaceRequestTest.java
 src/test/java/com/pdfgeneratorapi/client/model/DataBatchInnerTest.java
 src/test/java/com/pdfgeneratorapi/client/model/DocumentActionTest.java
+src/test/java/com/pdfgeneratorapi/client/model/DocumentSignatureTest.java
+src/test/java/com/pdfgeneratorapi/client/model/DocumentSignaturesTest.java
 src/test/java/com/pdfgeneratorapi/client/model/DocumentTest.java
 src/test/java/com/pdfgeneratorapi/client/model/DocumentUserTest.java
 src/test/java/com/pdfgeneratorapi/client/model/DocumentVersionTest.java
@@ -430,11 +440,11 @@ src/test/java/com/pdfgeneratorapi/client/model/InlineObject18Test.java
 src/test/java/com/pdfgeneratorapi/client/model/InlineObject19Test.java
 src/test/java/com/pdfgeneratorapi/client/model/InlineObject1ResponseTest.java
 src/test/java/com/pdfgeneratorapi/client/model/InlineObject1Test.java
-src/test/java/com/pdfgeneratorapi/client/model/InlineObject20MetaTest.java
 src/test/java/com/pdfgeneratorapi/client/model/InlineObject20Test.java
+src/test/java/com/pdfgeneratorapi/client/model/InlineObject21MetaTest.java
 src/test/java/com/pdfgeneratorapi/client/model/InlineObject21Test.java
-src/test/java/com/pdfgeneratorapi/client/model/InlineObject22ResponseTest.java
 src/test/java/com/pdfgeneratorapi/client/model/InlineObject22Test.java
+src/test/java/com/pdfgeneratorapi/client/model/InlineObject23ResponseTest.java
 src/test/java/com/pdfgeneratorapi/client/model/InlineObject23Test.java
 src/test/java/com/pdfgeneratorapi/client/model/InlineObject24Test.java
 src/test/java/com/pdfgeneratorapi/client/model/InlineObject25Test.java
@@ -443,6 +453,8 @@ src/test/java/com/pdfgeneratorapi/client/model/InlineObject27Test.java
 src/test/java/com/pdfgeneratorapi/client/model/InlineObject28Test.java
 src/test/java/com/pdfgeneratorapi/client/model/InlineObject29Test.java
 src/test/java/com/pdfgeneratorapi/client/model/InlineObject2Test.java
+src/test/java/com/pdfgeneratorapi/client/model/InlineObject30Test.java
+src/test/java/com/pdfgeneratorapi/client/model/InlineObject31Test.java
 src/test/java/com/pdfgeneratorapi/client/model/InlineObject3Test.java
 src/test/java/com/pdfgeneratorapi/client/model/InlineObject4Test.java
 src/test/java/com/pdfgeneratorapi/client/model/InlineObject5Test.java

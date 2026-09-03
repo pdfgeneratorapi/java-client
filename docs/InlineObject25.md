@@ -15,7 +15,7 @@
 
 | Name | Value |
 |---- | -----|
-| YOUR_ACCOUNT_HAS_EXCEEDED_THE_MONTHLY_DOCUMENT_GENERATION_LIMIT_ | &quot;Your account has exceeded the monthly document generation limit.&quot; |
+| YOUR_ACCOUNT_IS_SUSPENDED_PLEASE_UPGRADE_YOUR_ACCOUNT_OR_CONTACT_SUPPORT_PDFGENERATORAPI_COM | &quot;Your account is suspended, please upgrade your account or contact support@pdfgeneratorapi.com&quot; |
 
 
 

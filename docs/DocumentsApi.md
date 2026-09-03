@@ -13,6 +13,7 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 | [**getAsyncJobStatus**](DocumentsApi.md#getAsyncJobStatus) | **GET** /documents/async/{jobId} | Get job status |
 | [**getDocument**](DocumentsApi.md#getDocument) | **GET** /documents/{publicId} | Get document |
 | [**getDocumentActions**](DocumentsApi.md#getDocumentActions) | **GET** /documents/{publicId}/actions | Get document actions |
+| [**getDocumentSignatures**](DocumentsApi.md#getDocumentSignatures) | **GET** /documents/{publicId}/signatures | Validate document signatures |
 | [**getDocumentVersions**](DocumentsApi.md#getDocumentVersions) | **GET** /documents/{publicId}/versions | Get document versions |
 | [**getDocuments**](DocumentsApi.md#getDocuments) | **GET** /documents | Get documents |
 | [**storeDocument**](DocumentsApi.md#storeDocument) | **POST** /documents | Store document |
@@ -167,7 +168,7 @@ public class Example {
 
 <a id="generateDocumentAsynchronous"></a>
 # **generateDocumentAsynchronous**
-> InlineObject22 generateDocumentAsynchronous(generateDocumentAsynchronousRequest)
+> InlineObject23 generateDocumentAsynchronous(generateDocumentAsynchronousRequest)
 
 Generate document (async)
 
@@ -195,7 +196,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     GenerateDocumentAsynchronousRequest generateDocumentAsynchronousRequest = new GenerateDocumentAsynchronousRequest(); // GenerateDocumentAsynchronousRequest | Request parameters, including template id, data and formats.
     try {
-      InlineObject22 result = apiInstance.generateDocumentAsynchronous(generateDocumentAsynchronousRequest);
+      InlineObject23 result = apiInstance.generateDocumentAsynchronous(generateDocumentAsynchronousRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#generateDocumentAsynchronous");
@@ -216,7 +217,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject22**](InlineObject22.md)
+[**InlineObject23**](InlineObject23.md)
 
 ### Authorization
 
@@ -315,7 +316,7 @@ public class Example {
 
 <a id="generateDocumentBatchAsynchronous"></a>
 # **generateDocumentBatchAsynchronous**
-> InlineObject22 generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest)
+> InlineObject23 generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest)
 
 Generate document (batch + async)
 
@@ -343,7 +344,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     GenerateDocumentBatchAsynchronousRequest generateDocumentBatchAsynchronousRequest = new GenerateDocumentBatchAsynchronousRequest(); // GenerateDocumentBatchAsynchronousRequest | Request parameters, including template id, data and formats.
     try {
-      InlineObject22 result = apiInstance.generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest);
+      InlineObject23 result = apiInstance.generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#generateDocumentBatchAsynchronous");
@@ -364,7 +365,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject22**](InlineObject22.md)
+[**InlineObject23**](InlineObject23.md)
 
 ### Authorization
 
@@ -614,7 +615,7 @@ public class Example {
 
 <a id="getDocumentActions"></a>
 # **getDocumentActions**
-> InlineObject17 getDocumentActions(publicId)
+> InlineObject18 getDocumentActions(publicId)
 
 Get document actions
 
@@ -642,7 +643,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     String publicId = "bac8381bce1982e5f6957a0f52371336"; // String | Resource public id
     try {
-      InlineObject17 result = apiInstance.getDocumentActions(publicId);
+      InlineObject18 result = apiInstance.getDocumentActions(publicId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#getDocumentActions");
@@ -663,7 +664,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject17**](InlineObject17.md)
+[**InlineObject18**](InlineObject18.md)
 
 ### Authorization
 
@@ -682,6 +683,83 @@ public class Example {
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
+
+<a id="getDocumentSignatures"></a>
+# **getDocumentSignatures**
+> InlineObject17 getDocumentSignatures(publicId, version)
+
+Validate document signatures
+
+Reports on every digital signature a stored document carries: who signed, when a timestamp authority attested it, whether the signed bytes are unchanged and whether the certificate chains to a trusted root.  Facts are reported separately from the verdict, because a reader and a validation library can disagree in both directions. &#x60;status&#x60; reduces them to one answer, worst case first.  Each request consumes one credit. A request that reports &#x60;unavailable&#x60; — signature validation not being enabled on the deployment — validates nothing and is not charged. 
+
+### Example
+```java
+// Import classes:
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.DocumentsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
+    
+    // Configure HTTP bearer authorization: JSONWebTokenAuth
+    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
+    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
+
+    DocumentsApi apiInstance = new DocumentsApi(defaultClient);
+    String publicId = "bac8381bce1982e5f6957a0f52371336"; // String | Resource public id
+    String version = "5f3c2b1a9d8e7f6a"; // String | Which stored version to report on. A version identifier reports on that version, `initial` on the document as first generated. Defaults to the latest version. A version is always reported on as itself: reporting the latest would describe bytes the caller is not holding. 
+    try {
+      InlineObject17 result = apiInstance.getDocumentSignatures(publicId, version);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DocumentsApi#getDocumentSignatures");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **publicId** | **String**| Resource public id | |
+| **version** | **String**| Which stored version to report on. A version identifier reports on that version, &#x60;initial&#x60; on the document as first generated. Defaults to the latest version. A version is always reported on as itself: reporting the latest would describe bytes the caller is not holding.  | [optional] |
+
+### Return type
+
+[**InlineObject17**](InlineObject17.md)
+
+### Authorization
+
+[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | What the document&#39;s signatures say |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **410** | Gone |  -  |
 | **422** | Unprocessable Entity |  -  |
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |

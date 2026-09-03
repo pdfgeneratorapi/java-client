@@ -1,8 +1,8 @@
 # pdf-generator-api
 
 PDF Generator API
-- API version: 4.0.28
-  - Build date: 2026-07-23T13:52:29.914992477Z[Etc/UTC]
+- API version: 4.0.29
+  - Build date: 2026-09-03T15:46:46.510218631Z[Etc/UTC]
   - Generator version: 7.14.0
 
 # Introduction
@@ -270,7 +270,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.pdfgeneratorapi</groupId>
   <artifactId>pdf-generator-api</artifactId>
-  <version>8.0.28</version>
+  <version>8.0.29</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -286,7 +286,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.pdfgeneratorapi:pdf-generator-api:8.0.28"
+     implementation "com.pdfgeneratorapi:pdf-generator-api:8.0.29"
   }
 ```
 
@@ -300,7 +300,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pdf-generator-api-8.0.28.jar`
+* `target/pdf-generator-api-8.0.29.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -362,6 +362,7 @@ Class | Method | HTTP request | Description
 *DocumentsApi* | [**getAsyncJobStatus**](docs/DocumentsApi.md#getAsyncJobStatus) | **GET** /documents/async/{jobId} | Get job status
 *DocumentsApi* | [**getDocument**](docs/DocumentsApi.md#getDocument) | **GET** /documents/{publicId} | Get document
 *DocumentsApi* | [**getDocumentActions**](docs/DocumentsApi.md#getDocumentActions) | **GET** /documents/{publicId}/actions | Get document actions
+*DocumentsApi* | [**getDocumentSignatures**](docs/DocumentsApi.md#getDocumentSignatures) | **GET** /documents/{publicId}/signatures | Validate document signatures
 *DocumentsApi* | [**getDocumentVersions**](docs/DocumentsApi.md#getDocumentVersions) | **GET** /documents/{publicId}/versions | Get document versions
 *DocumentsApi* | [**getDocuments**](docs/DocumentsApi.md#getDocuments) | **GET** /documents | Get documents
 *DocumentsApi* | [**storeDocument**](docs/DocumentsApi.md#storeDocument) | **POST** /documents | Store document
@@ -427,6 +428,8 @@ Class | Method | HTTP request | Description
  - [DataBatchInner](docs/DataBatchInner.md)
  - [Document](docs/Document.md)
  - [DocumentAction](docs/DocumentAction.md)
+ - [DocumentSignature](docs/DocumentSignature.md)
+ - [DocumentSignatures](docs/DocumentSignatures.md)
  - [DocumentUser](docs/DocumentUser.md)
  - [DocumentVersion](docs/DocumentVersion.md)
  - [EncryptAndDecryptBase64](docs/EncryptAndDecryptBase64.md)
@@ -490,11 +493,11 @@ Class | Method | HTTP request | Description
  - [InlineObject1Response](docs/InlineObject1Response.md)
  - [InlineObject2](docs/InlineObject2.md)
  - [InlineObject20](docs/InlineObject20.md)
- - [InlineObject20Meta](docs/InlineObject20Meta.md)
  - [InlineObject21](docs/InlineObject21.md)
+ - [InlineObject21Meta](docs/InlineObject21Meta.md)
  - [InlineObject22](docs/InlineObject22.md)
- - [InlineObject22Response](docs/InlineObject22Response.md)
  - [InlineObject23](docs/InlineObject23.md)
+ - [InlineObject23Response](docs/InlineObject23Response.md)
  - [InlineObject24](docs/InlineObject24.md)
  - [InlineObject25](docs/InlineObject25.md)
  - [InlineObject26](docs/InlineObject26.md)
@@ -502,6 +505,8 @@ Class | Method | HTTP request | Description
  - [InlineObject28](docs/InlineObject28.md)
  - [InlineObject29](docs/InlineObject29.md)
  - [InlineObject3](docs/InlineObject3.md)
+ - [InlineObject30](docs/InlineObject30.md)
+ - [InlineObject31](docs/InlineObject31.md)
  - [InlineObject4](docs/InlineObject4.md)
  - [InlineObject5](docs/InlineObject5.md)
  - [InlineObject6](docs/InlineObject6.md)

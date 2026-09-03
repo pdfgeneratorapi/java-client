@@ -17,7 +17,7 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 
 <a id="createForm"></a>
 # **createForm**
-> InlineObject19 createForm(formConfigurationNew)
+> InlineObject20 createForm(formConfigurationNew)
 
 Create form
 
@@ -45,7 +45,7 @@ public class Example {
     FormsApi apiInstance = new FormsApi(defaultClient);
     FormConfigurationNew formConfigurationNew = new FormConfigurationNew(); // FormConfigurationNew | Form configuration
     try {
-      InlineObject19 result = apiInstance.createForm(formConfigurationNew);
+      InlineObject20 result = apiInstance.createForm(formConfigurationNew);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#createForm");
@@ -66,7 +66,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject19**](InlineObject19.md)
+[**InlineObject20**](InlineObject20.md)
 
 ### Authorization
 
@@ -164,7 +164,7 @@ null (empty response body)
 
 <a id="getForm"></a>
 # **getForm**
-> InlineObject19 getForm(formId)
+> InlineObject20 getForm(formId)
 
 Get form
 
@@ -192,7 +192,7 @@ public class Example {
     FormsApi apiInstance = new FormsApi(defaultClient);
     Integer formId = 1; // Integer | Form unique identifier
     try {
-      InlineObject19 result = apiInstance.getForm(formId);
+      InlineObject20 result = apiInstance.getForm(formId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#getForm");
@@ -213,7 +213,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject19**](InlineObject19.md)
+[**InlineObject20**](InlineObject20.md)
 
 ### Authorization
 
@@ -314,7 +314,7 @@ public class Example {
 
 <a id="importForm"></a>
 # **importForm**
-> InlineObject19 importForm(importFormRequest)
+> InlineObject20 importForm(importFormRequest)
 
 Import Form
 
@@ -342,7 +342,7 @@ public class Example {
     FormsApi apiInstance = new FormsApi(defaultClient);
     ImportFormRequest importFormRequest = new ImportFormRequest(); // ImportFormRequest | Import editable PDF via URL or base64 string as form
     try {
-      InlineObject19 result = apiInstance.importForm(importFormRequest);
+      InlineObject20 result = apiInstance.importForm(importFormRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#importForm");
@@ -363,7 +363,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject19**](InlineObject19.md)
+[**InlineObject20**](InlineObject20.md)
 
 ### Authorization
 
@@ -388,7 +388,7 @@ public class Example {
 
 <a id="openFormBuilder"></a>
 # **openFormBuilder**
-> InlineObject21 openFormBuilder()
+> InlineObject22 openFormBuilder()
 
 Open new form builder
 
@@ -415,7 +415,7 @@ public class Example {
 
     FormsApi apiInstance = new FormsApi(defaultClient);
     try {
-      InlineObject21 result = apiInstance.openFormBuilder();
+      InlineObject22 result = apiInstance.openFormBuilder();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#openFormBuilder");
@@ -433,7 +433,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**InlineObject21**](InlineObject21.md)
+[**InlineObject22**](InlineObject22.md)
 
 ### Authorization
 
@@ -458,7 +458,7 @@ This endpoint does not need any parameter.
 
 <a id="openFormBuilderForExistingForm"></a>
 # **openFormBuilderForExistingForm**
-> InlineObject21 openFormBuilderForExistingForm(formId)
+> InlineObject22 openFormBuilderForExistingForm(formId)
 
 Open existing form builder
 
@@ -486,10 +486,84 @@ public class Example {
     FormsApi apiInstance = new FormsApi(defaultClient);
     Integer formId = 1; // Integer | Form unique identifier
     try {
-      InlineObject21 result = apiInstance.openFormBuilderForExistingForm(formId);
+      InlineObject22 result = apiInstance.openFormBuilderForExistingForm(formId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#openFormBuilderForExistingForm");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **formId** | **Integer**| Form unique identifier | |
+
+### Return type
+
+[**InlineObject22**](InlineObject22.md)
+
+### Authorization
+
+[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Form Builder URL |  -  |
+| **401** | Unauthorized |  -  |
+| **402** | Account Suspended |  -  |
+| **403** | Forbidden |  -  |
+| **404** | Not Found |  -  |
+| **422** | Unprocessable Entity |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
+
+<a id="shareForm"></a>
+# **shareForm**
+> InlineObject21 shareForm(formId)
+
+Share form
+
+Creates an unique sharing URL to collect form data
+
+### Example
+```java
+// Import classes:
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.FormsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
+    
+    // Configure HTTP bearer authorization: JSONWebTokenAuth
+    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
+    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
+
+    FormsApi apiInstance = new FormsApi(defaultClient);
+    Integer formId = 1; // Integer | Form unique identifier
+    try {
+      InlineObject21 result = apiInstance.shareForm(formId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling FormsApi#shareForm");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -521,80 +595,6 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **201** | Form Builder URL |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
-| **500** | Internal Server Error |  -  |
-
-<a id="shareForm"></a>
-# **shareForm**
-> InlineObject20 shareForm(formId)
-
-Share form
-
-Creates an unique sharing URL to collect form data
-
-### Example
-```java
-// Import classes:
-import com.pdfgeneratorapi.client.ApiClient;
-import com.pdfgeneratorapi.client.ApiException;
-import com.pdfgeneratorapi.client.Configuration;
-import com.pdfgeneratorapi.client.auth.*;
-import com.pdfgeneratorapi.client.models.*;
-import com.pdfgeneratorapi.client.api.FormsApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
-    
-    // Configure HTTP bearer authorization: JSONWebTokenAuth
-    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
-    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
-
-    FormsApi apiInstance = new FormsApi(defaultClient);
-    Integer formId = 1; // Integer | Form unique identifier
-    try {
-      InlineObject20 result = apiInstance.shareForm(formId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling FormsApi#shareForm");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **formId** | **Integer**| Form unique identifier | |
-
-### Return type
-
-[**InlineObject20**](InlineObject20.md)
-
-### Authorization
-
-[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
 | **201** | Form sharing URL |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
@@ -606,7 +606,7 @@ public class Example {
 
 <a id="updateForm"></a>
 # **updateForm**
-> InlineObject19 updateForm(formId, formConfigurationNew)
+> InlineObject20 updateForm(formId, formConfigurationNew)
 
 Update form
 
@@ -635,7 +635,7 @@ public class Example {
     Integer formId = 1; // Integer | Form unique identifier
     FormConfigurationNew formConfigurationNew = new FormConfigurationNew(); // FormConfigurationNew | Form configuration
     try {
-      InlineObject19 result = apiInstance.updateForm(formId, formConfigurationNew);
+      InlineObject20 result = apiInstance.updateForm(formId, formConfigurationNew);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#updateForm");
@@ -657,7 +657,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject19**](InlineObject19.md)
+[**InlineObject20**](InlineObject20.md)
 
 ### Authorization
 

@@ -86,7 +86,7 @@ null (empty response body)
 
 <a id="getTemplateVersion"></a>
 # **getTemplateVersion**
-> InlineObject18 getTemplateVersion(templateId, templateVersion)
+> InlineObject19 getTemplateVersion(templateId, templateVersion)
 
 Get template version
 
@@ -115,7 +115,7 @@ public class Example {
     Integer templateId = 19375; // Integer | Template unique identifier
     Integer templateVersion = 56; // Integer | Unique ID of the template version.
     try {
-      InlineObject18 result = apiInstance.getTemplateVersion(templateId, templateVersion);
+      InlineObject19 result = apiInstance.getTemplateVersion(templateId, templateVersion);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling TemplateVersionsApi#getTemplateVersion");
@@ -137,7 +137,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject18**](InlineObject18.md)
+[**InlineObject19**](InlineObject19.md)
 
 ### Authorization
 

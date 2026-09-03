@@ -237,7 +237,7 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
   title: PDF Generator API
-  version: 4.0.28
+  version: 4.0.29
   x-logo:
     url: https://d2304hinatgg5e.cloudfront.net/images/logo/300X90.png
     backgroundColor: "#00d9b5"
@@ -8052,6 +8052,244 @@ paths:
           CURLcode ret = curl_easy_perform(hnd);
       x-accepts:
       - application/json
+  /documents/{publicId}/signatures:
+    get:
+      description: |
+        Reports on every digital signature a stored document carries: who signed,
+        when a timestamp authority attested it, whether the signed bytes are
+        unchanged and whether the certificate chains to a trusted root.
+
+        Facts are reported separately from the verdict, because a reader and a
+        validation library can disagree in both directions. `status` reduces them
+        to one answer, worst case first.
+
+        Each request consumes one credit. A request that reports `unavailable` —
+        signature validation not being enabled on the deployment — validates
+        nothing and is not charged.
+      operationId: getDocumentSignatures
+      parameters:
+      - description: Resource public id
+        example: bac8381bce1982e5f6957a0f52371336
+        explode: false
+        in: path
+        name: publicId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: |
+          Which stored version to report on. A version identifier reports on that
+          version, `initial` on the document as first generated. Defaults to the
+          latest version. A version is always reported on as itself: reporting the
+          latest would describe bytes the caller is not holding.
+        example: 5f3c2b1a9d8e7f6a
+        explode: true
+        in: query
+        name: version
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          $ref: "#/components/responses/documentSignatures"
+        "401":
+          $ref: "#/components/responses/error401"
+        "402":
+          $ref: "#/components/responses/error402"
+        "403":
+          $ref: "#/components/responses/error403"
+        "404":
+          $ref: "#/components/responses/error404"
+        "410":
+          $ref: "#/components/responses/error410"
+        "422":
+          $ref: "#/components/responses/error422"
+        "429":
+          $ref: "#/components/responses/error429"
+        "500":
+          $ref: "#/components/responses/error500"
+      summary: Validate document signatures
+      tags:
+      - Documents
+      x-code-samples:
+      - lang: Shell + Curl
+        source: |-
+          curl --request GET \
+            --url 'https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/signatures?version=5f3c2b1a9d8e7f6a' \
+            --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'
+      - lang: Shell + Wget
+        source: |-
+          wget --quiet \
+            --method GET \
+            --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
+            --output-document \
+            - 'https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/signatures?version=5f3c2b1a9d8e7f6a'
+      - lang: Php + Curl
+        source: |-
+          <?php
+
+          $curl = curl_init();
+
+          curl_setopt_array($curl, [
+            CURLOPT_URL => "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/signatures?version=5f3c2b1a9d8e7f6a",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => [
+              "Authorization: Bearer REPLACE_BEARER_TOKEN"
+            ],
+          ]);
+
+          $response = curl_exec($curl);
+          $err = curl_error($curl);
+
+          curl_close($curl);
+
+          if ($err) {
+            echo "cURL Error #:" . $err;
+          } else {
+            echo $response;
+          }
+      - lang: Node + Native
+        source: |-
+          const http = require("https");
+
+          const options = {
+            "method": "GET",
+            "hostname": "us1.pdfgeneratorapi.com",
+            "port": null,
+            "path": "/api/v4/documents/bac8381bce1982e5f6957a0f52371336/signatures?version=5f3c2b1a9d8e7f6a",
+            "headers": {
+              "Authorization": "Bearer REPLACE_BEARER_TOKEN"
+            }
+          };
+
+          const req = http.request(options, function (res) {
+            const chunks = [];
+
+            res.on("data", function (chunk) {
+              chunks.push(chunk);
+            });
+
+            res.on("end", function () {
+              const body = Buffer.concat(chunks);
+              console.log(body.toString());
+            });
+          });
+
+          req.end();
+      - lang: Node + Request
+        source: |
+          const request = require('request');
+
+          const options = {
+            method: 'GET',
+            url: 'https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/signatures',
+            qs: {version: '5f3c2b1a9d8e7f6a'},
+            headers: {Authorization: 'Bearer REPLACE_BEARER_TOKEN'}
+          };
+
+          request(options, function (error, response, body) {
+            if (error) throw new Error(error);
+
+            console.log(body);
+          });
+      - lang: Python + Python3
+        source: |-
+          import http.client
+
+          conn = http.client.HTTPSConnection("us1.pdfgeneratorapi.com")
+
+          headers = { 'Authorization': "Bearer REPLACE_BEARER_TOKEN" }
+
+          conn.request("GET", "/api/v4/documents/bac8381bce1982e5f6957a0f52371336/signatures?version=5f3c2b1a9d8e7f6a", headers=headers)
+
+          res = conn.getresponse()
+          data = res.read()
+
+          print(data.decode("utf-8"))
+      - lang: Ruby + Native
+        source: |-
+          require 'uri'
+          require 'net/http'
+          require 'openssl'
+
+          url = URI("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/signatures?version=5f3c2b1a9d8e7f6a")
+
+          http = Net::HTTP.new(url.host, url.port)
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+          request = Net::HTTP::Get.new(url)
+          request["Authorization"] = 'Bearer REPLACE_BEARER_TOKEN'
+
+          response = http.request(request)
+          puts response.read_body
+      - lang: Go + Native
+        source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\
+          \n)\n\nfunc main() {\n\n\turl := \"https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/signatures?version=5f3c2b1a9d8e7f6a\"\
+          \n\n\treq, _ := http.NewRequest(\"GET\", url, nil)\n\n\treq.Header.Add(\"\
+          Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\
+          \n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\t\
+          fmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+      - lang: Csharp + Restsharp
+        source: |-
+          var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/signatures?version=5f3c2b1a9d8e7f6a");
+          var request = new RestRequest(Method.GET);
+          request.AddHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN");
+          IRestResponse response = client.Execute(request);
+      - lang: Csharp + Httpclient
+        source: |-
+          var client = new HttpClient();
+          var request = new HttpRequestMessage
+          {
+              Method = HttpMethod.Get,
+              RequestUri = new Uri("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/signatures?version=5f3c2b1a9d8e7f6a"),
+              Headers =
+              {
+                  { "Authorization", "Bearer REPLACE_BEARER_TOKEN" },
+              },
+          };
+          using (var response = await client.SendAsync(request))
+          {
+              response.EnsureSuccessStatusCode();
+              var body = await response.Content.ReadAsStringAsync();
+              Console.WriteLine(body);
+          }
+      - lang: Java + Unirest
+        source: |-
+          HttpResponse<String> response = Unirest.get("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/signatures?version=5f3c2b1a9d8e7f6a")
+            .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+            .asString();
+      - lang: Java + Okhttp
+        source: |-
+          OkHttpClient client = new OkHttpClient();
+
+          Request request = new Request.Builder()
+            .url("https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/signatures?version=5f3c2b1a9d8e7f6a")
+            .get()
+            .addHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN")
+            .build();
+
+          Response response = client.newCall(request).execute();
+      - lang: C + Libcurl
+        source: |-
+          CURL *hnd = curl_easy_init();
+
+          curl_easy_setopt(hnd, CURLOPT_CUSTOMREQUEST, "GET");
+          curl_easy_setopt(hnd, CURLOPT_URL, "https://us1.pdfgeneratorapi.com/api/v4/documents/bac8381bce1982e5f6957a0f52371336/signatures?version=5f3c2b1a9d8e7f6a");
+
+          struct curl_slist *headers = NULL;
+          headers = curl_slist_append(headers, "Authorization: Bearer REPLACE_BEARER_TOKEN");
+          curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
+
+          CURLcode ret = curl_easy_perform(hnd);
+      x-accepts:
+      - application/json
   /documents/generate:
     post:
       description: "Merges template with data and returns base64 encoded document\
@@ -14728,83 +14966,95 @@ components:
           schema:
             $ref: "#/components/schemas/inline_object_16"
       description: A list of document versions
-    documentActions:
+    documentSignatures:
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/inline_object_17"
+      description: What the document's signatures say
+    documentActions:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/inline_object_18"
       description: A list of document actions
     templateConfig:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_18"
+            $ref: "#/components/schemas/inline_object_19"
       description: Template configuration
     formConfiguration:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_19"
+            $ref: "#/components/schemas/inline_object_20"
       description: Form configuration
     formShareConfiguration:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_20"
+            $ref: "#/components/schemas/inline_object_21"
       description: Form sharing URL
     formBuilderUrl:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_21"
+            $ref: "#/components/schemas/inline_object_22"
       description: Form Builder URL
     asyncGeneration:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_22"
+            $ref: "#/components/schemas/inline_object_23"
       description: Async job response
     error401:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_23"
+            $ref: "#/components/schemas/inline_object_24"
       description: Unauthorized
     error402:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_24"
+            $ref: "#/components/schemas/inline_object_25"
       description: Account Suspended
     error403:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_25"
+            $ref: "#/components/schemas/inline_object_26"
       description: Forbidden
     error404:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_26"
+            $ref: "#/components/schemas/inline_object_27"
       description: Not Found
+    error410:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/inline_object_28"
+      description: Gone
     error422:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_27"
+            $ref: "#/components/schemas/inline_object_29"
       description: Unprocessable Entity
     error429:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_28"
+            $ref: "#/components/schemas/inline_object_30"
       description: Too Many Requests
     error500:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/inline_object_29"
+            $ref: "#/components/schemas/inline_object_31"
       description: Internal Server Error
     deleted:
       description: The resource was deleted successfully.
@@ -15674,6 +15924,189 @@ components:
         created_at:
           description: Creation timestamp (Y-m-d H:i:s).
           example: 2026-06-01 10:03:11
+          type: string
+      type: object
+    DocumentSignatures:
+      example:
+        status_label: "Signed, and every signature is valid"
+        covers_whole_document: true
+        document_timestamps: 2
+        signatures:
+        - coverage: ENTIRE_FILE
+          ades_indication: PASSED
+          ades_sub_indication: OK
+          claimed_signed_at: 2026-08-21T09:17:06+00:00
+          issuer: "Common Name: SSL.com Client Certificate Intermediate CA RSA R2,\
+            \ Country: US"
+          field_name: disclosing_party_signature
+          valid: true
+          signer_name: Jane Doe
+          intact: true
+          trusted: true
+          signed_at: 2026-08-21T09:17:08+00:00
+          timestamp_authority: "Common Name: SSL.com Timestamping Unit 2025 E1, Country:\
+            \ US"
+          signer: "Common Name: Actual Reports OÜ, Organization: Actual Reports OÜ\
+            , Country: EE"
+        - coverage: ENTIRE_FILE
+          ades_indication: PASSED
+          ades_sub_indication: OK
+          claimed_signed_at: 2026-08-21T09:17:06+00:00
+          issuer: "Common Name: SSL.com Client Certificate Intermediate CA RSA R2,\
+            \ Country: US"
+          field_name: disclosing_party_signature
+          valid: true
+          signer_name: Jane Doe
+          intact: true
+          trusted: true
+          signed_at: 2026-08-21T09:17:08+00:00
+          timestamp_authority: "Common Name: SSL.com Timestamping Unit 2025 E1, Country:\
+            \ US"
+          signer: "Common Name: Actual Reports OÜ, Organization: Actual Reports OÜ\
+            , Country: EE"
+        status: valid
+        has_long_term_validation: true
+      properties:
+        status:
+          description: |
+            The one-line answer, reduced from every signature worst case first.
+            `unavailable` means signature validation is not enabled on this
+            deployment — it says nothing about the document.
+          enum:
+          - unavailable
+          - unsigned
+          - invalid
+          - indeterminate
+          - valid
+          example: valid
+          type: string
+        status_label:
+          description: "The status in words, ready to display."
+          example: "Signed, and every signature is valid"
+          type: string
+        has_long_term_validation:
+          description: |
+            The document carries the certificate and revocation data needed to
+            verify it after the signing certificates expire.
+          example: true
+          type: boolean
+        covers_whole_document:
+          description: "The last signature covers every byte, so nothing was appended\
+            \ after it."
+          example: true
+          type: boolean
+        document_timestamps:
+          description: |
+            Timestamp-only signatures, counted rather than listed: they are
+            machinery, not people, and would double every signer.
+          example: 2
+          type: integer
+        signatures:
+          description: "One entry per signature, excluding document timestamps."
+          items:
+            $ref: "#/components/schemas/DocumentSignature"
+          type: array
+      type: object
+    DocumentSignature:
+      example:
+        coverage: ENTIRE_FILE
+        ades_indication: PASSED
+        ades_sub_indication: OK
+        claimed_signed_at: 2026-08-21T09:17:06+00:00
+        issuer: "Common Name: SSL.com Client Certificate Intermediate CA RSA R2, Country:\
+          \ US"
+        field_name: disclosing_party_signature
+        valid: true
+        signer_name: Jane Doe
+        intact: true
+        trusted: true
+        signed_at: 2026-08-21T09:17:08+00:00
+        timestamp_authority: "Common Name: SSL.com Timestamping Unit 2025 E1, Country:\
+          \ US"
+        signer: "Common Name: Actual Reports OÜ, Organization: Actual Reports OÜ,\
+          \ Country: EE"
+      properties:
+        field_name:
+          description: Name of the signature field in the document.
+          example: disclosing_party_signature
+          type: string
+        signer_name:
+          description: The name the signer signed under.
+          example: Jane Doe
+          nullable: true
+          type: string
+        signer:
+          description: "Subject of the certificate that sealed it — an organization,\
+            \ not a person."
+          example: "Common Name: Actual Reports OÜ, Organization: Actual Reports OÜ\
+            , Country: EE"
+          nullable: true
+          type: string
+        issuer:
+          description: Subject of the certificate authority that issued it.
+          example: "Common Name: SSL.com Client Certificate Intermediate CA RSA R2,\
+            \ Country: US"
+          nullable: true
+          type: string
+        signed_at:
+          description: |
+            When a timestamp authority attested the signature (ISO-8601). This is
+            the defensible time; the signer's own clock proves nothing.
+          example: 2026-08-21T09:17:08+00:00
+          nullable: true
+          type: string
+        claimed_signed_at:
+          description: The time the signer's own software recorded (ISO-8601).
+          example: 2026-08-21T09:17:06+00:00
+          nullable: true
+          type: string
+        timestamp_authority:
+          description: The timestamp authority that attested the signature.
+          example: "Common Name: SSL.com Timestamping Unit 2025 E1, Country: US"
+          nullable: true
+          type: string
+        intact:
+          description: The bytes this signature covers are unchanged.
+          example: true
+          nullable: true
+          type: boolean
+        valid:
+          description: |
+            The signature block itself adds up. On its own this does NOT mean the
+            document is unchanged: a tampered file reports `valid` true with
+            `intact` false, so a verdict needs intact AND valid AND trusted.
+          example: true
+          nullable: true
+          type: boolean
+        trusted:
+          description: The certificate chains to a trusted root.
+          example: true
+          nullable: true
+          type: boolean
+        coverage:
+          description: How much of the file this signature protects.
+          enum:
+          - ENTIRE_FILE
+          - ENTIRE_REVISION
+          - CONTIGUOUS_BLOCK_FROM_START
+          - OTHER
+          example: ENTIRE_FILE
+          nullable: true
+          type: string
+        ades_indication:
+          description: "The ETSI EN 319 102-1 indication, when the AdES engine could\
+            \ run."
+          enum:
+          - PASSED
+          - INDETERMINATE
+          - FAILED
+          example: PASSED
+          nullable: true
+          type: string
+        ades_sub_indication:
+          description: "The AdES sub-indication, naming why an indication is not PASSED."
+          example: OK
+          nullable: true
           type: string
       type: object
     DocumentAction:
@@ -17696,6 +18129,51 @@ components:
     inline_object_17:
       example:
         response:
+          status_label: "Signed, and every signature is valid"
+          covers_whole_document: true
+          document_timestamps: 2
+          signatures:
+          - coverage: ENTIRE_FILE
+            ades_indication: PASSED
+            ades_sub_indication: OK
+            claimed_signed_at: 2026-08-21T09:17:06+00:00
+            issuer: "Common Name: SSL.com Client Certificate Intermediate CA RSA R2,\
+              \ Country: US"
+            field_name: disclosing_party_signature
+            valid: true
+            signer_name: Jane Doe
+            intact: true
+            trusted: true
+            signed_at: 2026-08-21T09:17:08+00:00
+            timestamp_authority: "Common Name: SSL.com Timestamping Unit 2025 E1,\
+              \ Country: US"
+            signer: "Common Name: Actual Reports OÜ, Organization: Actual Reports\
+              \ OÜ, Country: EE"
+          - coverage: ENTIRE_FILE
+            ades_indication: PASSED
+            ades_sub_indication: OK
+            claimed_signed_at: 2026-08-21T09:17:06+00:00
+            issuer: "Common Name: SSL.com Client Certificate Intermediate CA RSA R2,\
+              \ Country: US"
+            field_name: disclosing_party_signature
+            valid: true
+            signer_name: Jane Doe
+            intact: true
+            trusted: true
+            signed_at: 2026-08-21T09:17:08+00:00
+            timestamp_authority: "Common Name: SSL.com Timestamping Unit 2025 E1,\
+              \ Country: US"
+            signer: "Common Name: Actual Reports OÜ, Organization: Actual Reports\
+              \ OÜ, Country: EE"
+          status: valid
+          has_long_term_validation: true
+      properties:
+        response:
+          $ref: "#/components/schemas/DocumentSignatures"
+      type: object
+    inline_object_18:
+      example:
+        response:
         - person:
             ip: 203.0.113.42
             last_name: Smith
@@ -17718,7 +18196,7 @@ components:
             $ref: "#/components/schemas/DocumentAction"
           type: array
       type: object
-    inline_object_18:
+    inline_object_19:
       example:
         response:
           layout:
@@ -17777,7 +18255,7 @@ components:
         meta:
           type: object
       type: object
-    inline_object_19:
+    inline_object_20:
       example:
         response:
           configuration:
@@ -17803,7 +18281,7 @@ components:
         response:
           $ref: "#/components/schemas/FormConfiguration"
       type: object
-    inline_object_20_meta:
+    inline_object_21_meta:
       example:
         public_id: 097475c4-dcd5-42ca-814f-b9fa3da66b5a
       properties:
@@ -17812,7 +18290,7 @@ components:
           example: 097475c4-dcd5-42ca-814f-b9fa3da66b5a
           type: string
       type: object
-    inline_object_20:
+    inline_object_21:
       example:
         response: https://app.pdfgeneratorapi.com/forms/097475c4-dcd5-42ca-814f-b9fa3da66b5a/share
         meta:
@@ -17823,9 +18301,9 @@ components:
           example: https://app.pdfgeneratorapi.com/forms/097475c4-dcd5-42ca-814f-b9fa3da66b5a/share
           type: string
         meta:
-          $ref: "#/components/schemas/inline_object_20_meta"
+          $ref: "#/components/schemas/inline_object_21_meta"
       type: object
-    inline_object_21:
+    inline_object_22:
       example:
         response: https://app.pdfgeneratorapi.com/forms/builder/097475c4-dcd5-42ca-814f-b9fa3da66b5a
       properties:
@@ -17834,7 +18312,7 @@ components:
           example: https://app.pdfgeneratorapi.com/forms/builder/097475c4-dcd5-42ca-814f-b9fa3da66b5a
           type: string
       type: object
-    inline_object_22_response:
+    inline_object_23_response:
       example:
         job_id: JeLjz9MKNyAwIG9iago8PCA
       properties:
@@ -17844,15 +18322,15 @@ components:
           example: JeLjz9MKNyAwIG9iago8PCA
           type: string
       type: object
-    inline_object_22:
+    inline_object_23:
       example:
         response:
           job_id: JeLjz9MKNyAwIG9iago8PCA
       properties:
         response:
-          $ref: "#/components/schemas/inline_object_22_response"
+          $ref: "#/components/schemas/inline_object_23_response"
       type: object
-    inline_object_23:
+    inline_object_24:
       example:
         message: Authentication failed
       properties:
@@ -17872,7 +18350,7 @@ components:
           example: Authentication failed
           type: string
       type: object
-    inline_object_24:
+    inline_object_25:
       example:
         message: Account Suspended
       properties:
@@ -17883,7 +18361,7 @@ components:
           example: Account Suspended
           type: string
       type: object
-    inline_object_25:
+    inline_object_26:
       example:
         message: Access not granted
       properties:
@@ -17894,7 +18372,7 @@ components:
           example: Access not granted
           type: string
       type: object
-    inline_object_26:
+    inline_object_27:
       example:
         message: Entity not found
       properties:
@@ -17908,7 +18386,16 @@ components:
           example: Entity not found
           type: string
       type: object
-    inline_object_27:
+    inline_object_28:
+      example:
+        message: The document is no longer available
+      properties:
+        message:
+          description: Error description
+          example: The document is no longer available
+          type: string
+      type: object
+    inline_object_29:
       example:
         message: Incorrect parameter value
         errors: "{}"
@@ -17921,7 +18408,7 @@ components:
           description: Details about validation errors
           type: object
       type: object
-    inline_object_28:
+    inline_object_30:
       example:
         message: You can make up to 2 requests per second and 60 requests per minute.
       properties:
@@ -17930,7 +18417,7 @@ components:
           example: You can make up to 2 requests per second and 60 requests per minute.
           type: string
       type: object
-    inline_object_29:
+    inline_object_31:
       example:
         message: Internal error
       properties:
