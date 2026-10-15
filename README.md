@@ -1,8 +1,8 @@
 # pdf-generator-api
 
 PDF Generator API
-- API version: 4.0.29
-  - Build date: 2026-09-03T15:46:46.510218631Z[Etc/UTC]
+- API version: 4.0.31
+  - Build date: 2026-10-15T16:18:47.253223069Z[Etc/UTC]
   - Generator version: 7.14.0
 
 # Introduction
@@ -270,7 +270,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.pdfgeneratorapi</groupId>
   <artifactId>pdf-generator-api</artifactId>
-  <version>8.0.29</version>
+  <version>8.0.31</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -286,7 +286,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.pdfgeneratorapi:pdf-generator-api:8.0.29"
+     implementation "com.pdfgeneratorapi:pdf-generator-api:8.0.31"
   }
 ```
 
@@ -300,7 +300,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pdf-generator-api-8.0.29.jar`
+* `target/pdf-generator-api-8.0.31.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -373,6 +373,7 @@ Class | Method | HTTP request | Description
 *FormsApi* | [**createForm**](docs/FormsApi.md#createForm) | **POST** /forms | Create form
 *FormsApi* | [**deleteForm**](docs/FormsApi.md#deleteForm) | **DELETE** /forms/{formId} | Delete form
 *FormsApi* | [**getForm**](docs/FormsApi.md#getForm) | **GET** /forms/{formId} | Get form
+*FormsApi* | [**getFormSchema**](docs/FormsApi.md#getFormSchema) | **GET** /forms/schema | Get schema
 *FormsApi* | [**getForms**](docs/FormsApi.md#getForms) | **GET** /forms | Get forms
 *FormsApi* | [**importForm**](docs/FormsApi.md#importForm) | **POST** /forms/import | Import Form
 *FormsApi* | [**openFormBuilder**](docs/FormsApi.md#openFormBuilder) | **POST** /forms/open | Open new form builder
@@ -441,15 +442,20 @@ Class | Method | HTTP request | Description
  - [FormActionSend](docs/FormActionSend.md)
  - [FormActionSendSendDocument](docs/FormActionSendSendDocument.md)
  - [FormActionSendSendDocumentHeadersInner](docs/FormActionSendSendDocumentHeadersInner.md)
+ - [FormActionSign](docs/FormActionSign.md)
  - [FormActionStore](docs/FormActionStore.md)
  - [FormConfiguration](docs/FormConfiguration.md)
+ - [FormConfigurationImport](docs/FormConfigurationImport.md)
  - [FormConfigurationNew](docs/FormConfigurationNew.md)
  - [FormConfigurationNewActionsInner](docs/FormConfigurationNewActionsInner.md)
+ - [FormField](docs/FormField.md)
+ - [FormFieldOptions](docs/FormFieldOptions.md)
+ - [FormFieldSubRowsInner](docs/FormFieldSubRowsInner.md)
  - [FormFieldsBase64](docs/FormFieldsBase64.md)
- - [FormFieldsInner](docs/FormFieldsInner.md)
  - [FormFieldsUrl](docs/FormFieldsUrl.md)
  - [FormFillBase64](docs/FormFillBase64.md)
  - [FormFillUrl](docs/FormFillUrl.md)
+ - [FormTableColumn](docs/FormTableColumn.md)
  - [FormatParam](docs/FormatParam.md)
  - [GenerateDocumentAsynchronousRequest](docs/GenerateDocumentAsynchronousRequest.md)
  - [GenerateDocumentBatchAsynchronousRequest](docs/GenerateDocumentBatchAsynchronousRequest.md)

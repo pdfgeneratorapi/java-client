@@ -237,7 +237,7 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
   title: PDF Generator API
-  version: 4.0.29
+  version: 4.0.31
   x-logo:
     url: https://d2304hinatgg5e.cloudfront.net/images/logo/300X90.png
     backgroundColor: "#00d9b5"
@@ -10822,7 +10822,10 @@ paths:
       - application/json
   /conversion/url2pdf:
     post:
-      description: Converts public URL to PDF
+      description: |
+        Converts public URL to PDF.
+
+        By default the page is printed once its network activity settles. Pages that keep making background requests (e.g. single-page applications) can signal when they have finished rendering with `wait_for_css` and/or `wait_for_js`; the page is then printed as soon as the signal is met. When both are given, both must be met.
       operationId: convertURL2PDF
       requestBody:
         content:
@@ -10857,14 +10860,14 @@ paths:
             --url https://us1.pdfgeneratorapi.com/api/v4/conversion/url2pdf \
             --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
             --header 'content-type: application/json' \
-            --data '{"url":"https://example.org","paper_size":"a4","orientation":"portrait","output":"base64","filename":"Invoice 12345"}'
+            --data '{"url":"https://example.org","paper_size":"a4","orientation":"portrait","output":"base64","filename":"Invoice 12345","wait_for_css":"#report-ready","wait_for_css_state":"present","wait_for_js":"window.renderComplete === true","wait_timeout":30,"on_wait_timeout":"error"}'
       - lang: Shell + Wget
         source: |-
           wget --quiet \
             --method POST \
             --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
             --header 'content-type: application/json' \
-            --body-data '{"url":"https://example.org","paper_size":"a4","orientation":"portrait","output":"base64","filename":"Invoice 12345"}' \
+            --body-data '{"url":"https://example.org","paper_size":"a4","orientation":"portrait","output":"base64","filename":"Invoice 12345","wait_for_css":"#report-ready","wait_for_css_state":"present","wait_for_js":"window.renderComplete === true","wait_timeout":30,"on_wait_timeout":"error"}' \
             --output-document \
             - https://us1.pdfgeneratorapi.com/api/v4/conversion/url2pdf
       - lang: Php + Curl
@@ -10881,7 +10884,7 @@ paths:
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\"url\":\"https://example.org\",\"paper_size\":\"a4\",\"orientation\":\"portrait\",\"output\":\"base64\",\"filename\":\"Invoice 12345\"}",
+            CURLOPT_POSTFIELDS => "{\"url\":\"https://example.org\",\"paper_size\":\"a4\",\"orientation\":\"portrait\",\"output\":\"base64\",\"filename\":\"Invoice 12345\",\"wait_for_css\":\"#report-ready\",\"wait_for_css_state\":\"present\",\"wait_for_js\":\"window.renderComplete === true\",\"wait_timeout\":30,\"on_wait_timeout\":\"error\"}",
             CURLOPT_HTTPHEADER => [
               "Authorization: Bearer REPLACE_BEARER_TOKEN",
               "content-type: application/json"
@@ -10931,7 +10934,12 @@ paths:
             paper_size: 'a4',
             orientation: 'portrait',
             output: 'base64',
-            filename: 'Invoice 12345'
+            filename: 'Invoice 12345',
+            wait_for_css: '#report-ready',
+            wait_for_css_state: 'present',
+            wait_for_js: 'window.renderComplete === true',
+            wait_timeout: 30,
+            on_wait_timeout: 'error'
           }));
           req.end();
       - lang: Node + Request
@@ -10950,7 +10958,12 @@ paths:
               paper_size: 'a4',
               orientation: 'portrait',
               output: 'base64',
-              filename: 'Invoice 12345'
+              filename: 'Invoice 12345',
+              wait_for_css: '#report-ready',
+              wait_for_css_state: 'present',
+              wait_for_js: 'window.renderComplete === true',
+              wait_timeout: 30,
+              on_wait_timeout: 'error'
             },
             json: true
           };
@@ -10966,7 +10979,7 @@ paths:
 
           conn = http.client.HTTPSConnection("us1.pdfgeneratorapi.com")
 
-          payload = "{\"url\":\"https://example.org\",\"paper_size\":\"a4\",\"orientation\":\"portrait\",\"output\":\"base64\",\"filename\":\"Invoice 12345\"}"
+          payload = "{\"url\":\"https://example.org\",\"paper_size\":\"a4\",\"orientation\":\"portrait\",\"output\":\"base64\",\"filename\":\"Invoice 12345\",\"wait_for_css\":\"#report-ready\",\"wait_for_css_state\":\"present\",\"wait_for_js\":\"window.renderComplete === true\",\"wait_timeout\":30,\"on_wait_timeout\":\"error\"}"
 
           headers = {
               'Authorization': "Bearer REPLACE_BEARER_TOKEN",
@@ -10994,7 +11007,7 @@ paths:
           request = Net::HTTP::Post.new(url)
           request["Authorization"] = 'Bearer REPLACE_BEARER_TOKEN'
           request["content-type"] = 'application/json'
-          request.body = "{\"url\":\"https://example.org\",\"paper_size\":\"a4\",\"orientation\":\"portrait\",\"output\":\"base64\",\"filename\":\"Invoice 12345\"}"
+          request.body = "{\"url\":\"https://example.org\",\"paper_size\":\"a4\",\"orientation\":\"portrait\",\"output\":\"base64\",\"filename\":\"Invoice 12345\",\"wait_for_css\":\"#report-ready\",\"wait_for_css_state\":\"present\",\"wait_for_js\":\"window.renderComplete === true\",\"wait_timeout\":30,\"on_wait_timeout\":\"error\"}"
 
           response = http.request(request)
           puts response.read_body
@@ -11003,19 +11016,22 @@ paths:
           \n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://us1.pdfgeneratorapi.com/api/v4/conversion/url2pdf\"\
           \n\n\tpayload := strings.NewReader(\"{\\\"url\\\":\\\"https://example.org\\\
           \",\\\"paper_size\\\":\\\"a4\\\",\\\"orientation\\\":\\\"portrait\\\",\\\
-          \"output\\\":\\\"base64\\\",\\\"filename\\\":\\\"Invoice 12345\\\"}\")\n\
-          \n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"\
-          Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"content-type\"\
-          , \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\t\
-          defer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\
-          \tfmt.Println(string(body))\n\n}"
+          \"output\\\":\\\"base64\\\",\\\"filename\\\":\\\"Invoice 12345\\\",\\\"\
+          wait_for_css\\\":\\\"#report-ready\\\",\\\"wait_for_css_state\\\":\\\"present\\\
+          \",\\\"wait_for_js\\\":\\\"window.renderComplete === true\\\",\\\"wait_timeout\\\
+          \":30,\\\"on_wait_timeout\\\":\\\"error\\\"}\")\n\n\treq, _ := http.NewRequest(\"\
+          POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\"\
+          )\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _\
+          \ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ :=\
+          \ ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\
+          \n}"
       - lang: Csharp + Restsharp
         source: |-
           var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/conversion/url2pdf");
           var request = new RestRequest(Method.POST);
           request.AddHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN");
           request.AddHeader("content-type", "application/json");
-          request.AddParameter("application/json", "{\"url\":\"https://example.org\",\"paper_size\":\"a4\",\"orientation\":\"portrait\",\"output\":\"base64\",\"filename\":\"Invoice 12345\"}", ParameterType.RequestBody);
+          request.AddParameter("application/json", "{\"url\":\"https://example.org\",\"paper_size\":\"a4\",\"orientation\":\"portrait\",\"output\":\"base64\",\"filename\":\"Invoice 12345\",\"wait_for_css\":\"#report-ready\",\"wait_for_css_state\":\"present\",\"wait_for_js\":\"window.renderComplete === true\",\"wait_timeout\":30,\"on_wait_timeout\":\"error\"}", ParameterType.RequestBody);
           IRestResponse response = client.Execute(request);
       - lang: Csharp + Httpclient
         source: |-
@@ -11028,7 +11044,7 @@ paths:
               {
                   { "Authorization", "Bearer REPLACE_BEARER_TOKEN" },
               },
-              Content = new StringContent("{\"url\":\"https://example.org\",\"paper_size\":\"a4\",\"orientation\":\"portrait\",\"output\":\"base64\",\"filename\":\"Invoice 12345\"}")
+              Content = new StringContent("{\"url\":\"https://example.org\",\"paper_size\":\"a4\",\"orientation\":\"portrait\",\"output\":\"base64\",\"filename\":\"Invoice 12345\",\"wait_for_css\":\"#report-ready\",\"wait_for_css_state\":\"present\",\"wait_for_js\":\"window.renderComplete === true\",\"wait_timeout\":30,\"on_wait_timeout\":\"error\"}")
               {
                   Headers =
                   {
@@ -11047,14 +11063,14 @@ paths:
           HttpResponse<String> response = Unirest.post("https://us1.pdfgeneratorapi.com/api/v4/conversion/url2pdf")
             .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
             .header("content-type", "application/json")
-            .body("{\"url\":\"https://example.org\",\"paper_size\":\"a4\",\"orientation\":\"portrait\",\"output\":\"base64\",\"filename\":\"Invoice 12345\"}")
+            .body("{\"url\":\"https://example.org\",\"paper_size\":\"a4\",\"orientation\":\"portrait\",\"output\":\"base64\",\"filename\":\"Invoice 12345\",\"wait_for_css\":\"#report-ready\",\"wait_for_css_state\":\"present\",\"wait_for_js\":\"window.renderComplete === true\",\"wait_timeout\":30,\"on_wait_timeout\":\"error\"}")
             .asString();
       - lang: Java + Okhttp
         source: |-
           OkHttpClient client = new OkHttpClient();
 
           MediaType mediaType = MediaType.parse("application/json");
-          RequestBody body = RequestBody.create(mediaType, "{\"url\":\"https://example.org\",\"paper_size\":\"a4\",\"orientation\":\"portrait\",\"output\":\"base64\",\"filename\":\"Invoice 12345\"}");
+          RequestBody body = RequestBody.create(mediaType, "{\"url\":\"https://example.org\",\"paper_size\":\"a4\",\"orientation\":\"portrait\",\"output\":\"base64\",\"filename\":\"Invoice 12345\",\"wait_for_css\":\"#report-ready\",\"wait_for_css_state\":\"present\",\"wait_for_js\":\"window.renderComplete === true\",\"wait_timeout\":30,\"on_wait_timeout\":\"error\"}");
           Request request = new Request.Builder()
             .url("https://us1.pdfgeneratorapi.com/api/v4/conversion/url2pdf")
             .post(body)
@@ -11075,7 +11091,7 @@ paths:
           headers = curl_slist_append(headers, "content-type: application/json");
           curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
 
-          curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"url\":\"https://example.org\",\"paper_size\":\"a4\",\"orientation\":\"portrait\",\"output\":\"base64\",\"filename\":\"Invoice 12345\"}");
+          curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"url\":\"https://example.org\",\"paper_size\":\"a4\",\"orientation\":\"portrait\",\"output\":\"base64\",\"filename\":\"Invoice 12345\",\"wait_for_css\":\"#report-ready\",\"wait_for_css_state\":\"present\",\"wait_for_js\":\"window.renderComplete === true\",\"wait_timeout\":30,\"on_wait_timeout\":\"error\"}");
 
           CURLcode ret = curl_easy_perform(hnd);
       x-content-type: application/json
@@ -11375,6 +11391,43 @@ paths:
           example: 20
           type: integer
         style: form
+      - description: Field to sort the forms by
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          default: id
+          enum:
+          - id
+          - name
+          - created_at
+          - updated_at
+          example: name
+          type: string
+        style: form
+      - description: Sort direction
+        explode: true
+        in: query
+        name: order_direction
+        required: false
+        schema:
+          default: desc
+          enum:
+          - asc
+          - desc
+          example: asc
+          type: string
+        style: form
+      - description: Returns forms whose name or ID contains the search value
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          example: Certificate
+          type: string
+        style: form
       responses:
         "200":
           $ref: "#/components/responses/listOfForms"
@@ -11399,7 +11452,7 @@ paths:
       - lang: Shell + Curl
         source: |-
           curl --request GET \
-            --url 'https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20' \
+            --url 'https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20&order_by=name&order_direction=asc&search=Certificate' \
             --header 'Authorization: Bearer REPLACE_BEARER_TOKEN'
       - lang: Shell + Wget
         source: |-
@@ -11407,7 +11460,7 @@ paths:
             --method GET \
             --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
             --output-document \
-            - 'https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20'
+            - 'https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20&order_by=name&order_direction=asc&search=Certificate'
       - lang: Php + Curl
         source: |-
           <?php
@@ -11415,7 +11468,7 @@ paths:
           $curl = curl_init();
 
           curl_setopt_array($curl, [
-            CURLOPT_URL => "https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20",
+            CURLOPT_URL => "https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20&order_by=name&order_direction=asc&search=Certificate",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -11445,7 +11498,7 @@ paths:
             "method": "GET",
             "hostname": "us1.pdfgeneratorapi.com",
             "port": null,
-            "path": "/api/v4/forms?page=1&per_page=20",
+            "path": "/api/v4/forms?page=1&per_page=20&order_by=name&order_direction=asc&search=Certificate",
             "headers": {
               "Authorization": "Bearer REPLACE_BEARER_TOKEN"
             }
@@ -11472,7 +11525,13 @@ paths:
           const options = {
             method: 'GET',
             url: 'https://us1.pdfgeneratorapi.com/api/v4/forms',
-            qs: {page: '1', per_page: '20'},
+            qs: {
+              page: '1',
+              per_page: '20',
+              order_by: 'name',
+              order_direction: 'asc',
+              search: 'Certificate'
+            },
             headers: {Authorization: 'Bearer REPLACE_BEARER_TOKEN'}
           };
 
@@ -11489,7 +11548,7 @@ paths:
 
           headers = { 'Authorization': "Bearer REPLACE_BEARER_TOKEN" }
 
-          conn.request("GET", "/api/v4/forms?page=1&per_page=20", headers=headers)
+          conn.request("GET", "/api/v4/forms?page=1&per_page=20&order_by=name&order_direction=asc&search=Certificate", headers=headers)
 
           res = conn.getresponse()
           data = res.read()
@@ -11501,7 +11560,7 @@ paths:
           require 'net/http'
           require 'openssl'
 
-          url = URI("https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20")
+          url = URI("https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20&order_by=name&order_direction=asc&search=Certificate")
 
           http = Net::HTTP.new(url.host, url.port)
           http.use_ssl = true
@@ -11514,14 +11573,14 @@ paths:
           puts response.read_body
       - lang: Go + Native
         source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\
-          \n)\n\nfunc main() {\n\n\turl := \"https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20\"\
+          \n)\n\nfunc main() {\n\n\turl := \"https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20&order_by=name&order_direction=asc&search=Certificate\"\
           \n\n\treq, _ := http.NewRequest(\"GET\", url, nil)\n\n\treq.Header.Add(\"\
           Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\
           \n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\t\
           fmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
       - lang: Csharp + Restsharp
         source: |-
-          var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20");
+          var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20&order_by=name&order_direction=asc&search=Certificate");
           var request = new RestRequest(Method.GET);
           request.AddHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN");
           IRestResponse response = client.Execute(request);
@@ -11531,7 +11590,7 @@ paths:
           var request = new HttpRequestMessage
           {
               Method = HttpMethod.Get,
-              RequestUri = new Uri("https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20"),
+              RequestUri = new Uri("https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20&order_by=name&order_direction=asc&search=Certificate"),
               Headers =
               {
                   { "Authorization", "Bearer REPLACE_BEARER_TOKEN" },
@@ -11545,7 +11604,7 @@ paths:
           }
       - lang: Java + Unirest
         source: |-
-          HttpResponse<String> response = Unirest.get("https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20")
+          HttpResponse<String> response = Unirest.get("https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20&order_by=name&order_direction=asc&search=Certificate")
             .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
             .asString();
       - lang: Java + Okhttp
@@ -11553,7 +11612,7 @@ paths:
           OkHttpClient client = new OkHttpClient();
 
           Request request = new Request.Builder()
-            .url("https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20")
+            .url("https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20&order_by=name&order_direction=asc&search=Certificate")
             .get()
             .addHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN")
             .build();
@@ -11564,7 +11623,7 @@ paths:
           CURL *hnd = curl_easy_init();
 
           curl_easy_setopt(hnd, CURLOPT_CUSTOMREQUEST, "GET");
-          curl_easy_setopt(hnd, CURLOPT_URL, "https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20");
+          curl_easy_setopt(hnd, CURLOPT_URL, "https://us1.pdfgeneratorapi.com/api/v4/forms?page=1&per_page=20&order_by=name&order_direction=asc&search=Certificate");
 
           struct curl_slist *headers = NULL;
           headers = curl_slist_append(headers, "Authorization: Bearer REPLACE_BEARER_TOKEN");
@@ -11611,14 +11670,14 @@ paths:
             --url https://us1.pdfgeneratorapi.com/api/v4/forms \
             --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
             --header 'content-type: application/json' \
-            --data '{"template_id":123123,"name":"Certificate creator","actions":[{"store_document":true}],"fields":[{"label":"Full name","name":"name","type":"text","required":false}],"configuration":{"title":"Employment application","intro":"Please fill in all required fields.","outro":"Thank you for your submission."}}'
+            --data '{"template_id":123123,"name":"Certificate creator","actions":[{"store_document":true}],"fields":[{"label":"Full name","name":"name","type":"text","required":false,"default":"Medium","description":"Enter your name as shown in your passport","subRows":[{"options":"Small,Medium,Large"}]}],"configuration":{"title":"Employment application","intro":"Please fill in all required fields.","outro":"Thank you for your submission."}}'
       - lang: Shell + Wget
         source: |-
           wget --quiet \
             --method POST \
             --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
             --header 'content-type: application/json' \
-            --body-data '{"template_id":123123,"name":"Certificate creator","actions":[{"store_document":true}],"fields":[{"label":"Full name","name":"name","type":"text","required":false}],"configuration":{"title":"Employment application","intro":"Please fill in all required fields.","outro":"Thank you for your submission."}}' \
+            --body-data '{"template_id":123123,"name":"Certificate creator","actions":[{"store_document":true}],"fields":[{"label":"Full name","name":"name","type":"text","required":false,"default":"Medium","description":"Enter your name as shown in your passport","subRows":[{"options":"Small,Medium,Large"}]}],"configuration":{"title":"Employment application","intro":"Please fill in all required fields.","outro":"Thank you for your submission."}}' \
             --output-document \
             - https://us1.pdfgeneratorapi.com/api/v4/forms
       - lang: Php + Curl
@@ -11635,7 +11694,7 @@ paths:
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}",
+            CURLOPT_POSTFIELDS => "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false,\"default\":\"Medium\",\"description\":\"Enter your name as shown in your passport\",\"subRows\":[{\"options\":\"Small,Medium,Large\"}]}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}",
             CURLOPT_HTTPHEADER => [
               "Authorization: Bearer REPLACE_BEARER_TOKEN",
               "content-type: application/json"
@@ -11684,7 +11743,17 @@ paths:
             template_id: 123123,
             name: 'Certificate creator',
             actions: [{store_document: true}],
-            fields: [{label: 'Full name', name: 'name', type: 'text', required: false}],
+            fields: [
+              {
+                label: 'Full name',
+                name: 'name',
+                type: 'text',
+                required: false,
+                default: 'Medium',
+                description: 'Enter your name as shown in your passport',
+                subRows: [{options: 'Small,Medium,Large'}]
+              }
+            ],
             configuration: {
               title: 'Employment application',
               intro: 'Please fill in all required fields.',
@@ -11707,7 +11776,17 @@ paths:
               template_id: 123123,
               name: 'Certificate creator',
               actions: [{store_document: true}],
-              fields: [{label: 'Full name', name: 'name', type: 'text', required: false}],
+              fields: [
+                {
+                  label: 'Full name',
+                  name: 'name',
+                  type: 'text',
+                  required: false,
+                  default: 'Medium',
+                  description: 'Enter your name as shown in your passport',
+                  subRows: [{options: 'Small,Medium,Large'}]
+                }
+              ],
               configuration: {
                 title: 'Employment application',
                 intro: 'Please fill in all required fields.',
@@ -11728,7 +11807,7 @@ paths:
 
           conn = http.client.HTTPSConnection("us1.pdfgeneratorapi.com")
 
-          payload = "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}"
+          payload = "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false,\"default\":\"Medium\",\"description\":\"Enter your name as shown in your passport\",\"subRows\":[{\"options\":\"Small,Medium,Large\"}]}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}"
 
           headers = {
               'Authorization': "Bearer REPLACE_BEARER_TOKEN",
@@ -11756,7 +11835,7 @@ paths:
           request = Net::HTTP::Post.new(url)
           request["Authorization"] = 'Bearer REPLACE_BEARER_TOKEN'
           request["content-type"] = 'application/json'
-          request.body = "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}"
+          request.body = "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false,\"default\":\"Medium\",\"description\":\"Enter your name as shown in your passport\",\"subRows\":[{\"options\":\"Small,Medium,Large\"}]}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}"
 
           response = http.request(request)
           puts response.read_body
@@ -11766,21 +11845,24 @@ paths:
           \n\n\tpayload := strings.NewReader(\"{\\\"template_id\\\":123123,\\\"name\\\
           \":\\\"Certificate creator\\\",\\\"actions\\\":[{\\\"store_document\\\"\
           :true}],\\\"fields\\\":[{\\\"label\\\":\\\"Full name\\\",\\\"name\\\":\\\
-          \"name\\\",\\\"type\\\":\\\"text\\\",\\\"required\\\":false}],\\\"configuration\\\
-          \":{\\\"title\\\":\\\"Employment application\\\",\\\"intro\\\":\\\"Please\
-          \ fill in all required fields.\\\",\\\"outro\\\":\\\"Thank you for your\
-          \ submission.\\\"}}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\
-          \n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\
-          \treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ :=\
-          \ http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\
-          \n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+          \"name\\\",\\\"type\\\":\\\"text\\\",\\\"required\\\":false,\\\"default\\\
+          \":\\\"Medium\\\",\\\"description\\\":\\\"Enter your name as shown in your\
+          \ passport\\\",\\\"subRows\\\":[{\\\"options\\\":\\\"Small,Medium,Large\\\
+          \"}]}],\\\"configuration\\\":{\\\"title\\\":\\\"Employment application\\\
+          \",\\\"intro\\\":\\\"Please fill in all required fields.\\\",\\\"outro\\\
+          \":\\\"Thank you for your submission.\\\"}}\")\n\n\treq, _ := http.NewRequest(\"\
+          POST\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\"\
+          )\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _\
+          \ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ :=\
+          \ ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\
+          \n}"
       - lang: Csharp + Restsharp
         source: |-
           var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/forms");
           var request = new RestRequest(Method.POST);
           request.AddHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN");
           request.AddHeader("content-type", "application/json");
-          request.AddParameter("application/json", "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}", ParameterType.RequestBody);
+          request.AddParameter("application/json", "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false,\"default\":\"Medium\",\"description\":\"Enter your name as shown in your passport\",\"subRows\":[{\"options\":\"Small,Medium,Large\"}]}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}", ParameterType.RequestBody);
           IRestResponse response = client.Execute(request);
       - lang: Csharp + Httpclient
         source: |-
@@ -11793,7 +11875,7 @@ paths:
               {
                   { "Authorization", "Bearer REPLACE_BEARER_TOKEN" },
               },
-              Content = new StringContent("{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}")
+              Content = new StringContent("{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false,\"default\":\"Medium\",\"description\":\"Enter your name as shown in your passport\",\"subRows\":[{\"options\":\"Small,Medium,Large\"}]}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}")
               {
                   Headers =
                   {
@@ -11812,14 +11894,14 @@ paths:
           HttpResponse<String> response = Unirest.post("https://us1.pdfgeneratorapi.com/api/v4/forms")
             .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
             .header("content-type", "application/json")
-            .body("{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}")
+            .body("{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false,\"default\":\"Medium\",\"description\":\"Enter your name as shown in your passport\",\"subRows\":[{\"options\":\"Small,Medium,Large\"}]}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}")
             .asString();
       - lang: Java + Okhttp
         source: |-
           OkHttpClient client = new OkHttpClient();
 
           MediaType mediaType = MediaType.parse("application/json");
-          RequestBody body = RequestBody.create(mediaType, "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}");
+          RequestBody body = RequestBody.create(mediaType, "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false,\"default\":\"Medium\",\"description\":\"Enter your name as shown in your passport\",\"subRows\":[{\"options\":\"Small,Medium,Large\"}]}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}");
           Request request = new Request.Builder()
             .url("https://us1.pdfgeneratorapi.com/api/v4/forms")
             .post(body)
@@ -11840,15 +11922,188 @@ paths:
           headers = curl_slist_append(headers, "content-type: application/json");
           curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
 
-          curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}");
+          curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false,\"default\":\"Medium\",\"description\":\"Enter your name as shown in your passport\",\"subRows\":[{\"options\":\"Small,Medium,Large\"}]}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}");
 
           CURLcode ret = curl_easy_perform(hnd);
       x-content-type: application/json
       x-accepts:
       - application/json
+  /forms/schema:
+    get:
+      description: Returns Form JSON Schema which defines the structure of the Form
+        Definition.
+      operationId: getFormSchema
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Form JSON Schema
+        "429":
+          $ref: "#/components/responses/error429"
+        "500":
+          $ref: "#/components/responses/error500"
+      security: []
+      summary: Get schema
+      tags:
+      - Forms
+      x-code-samples:
+      - lang: Shell + Curl
+        source: |-
+          curl --request GET \
+            --url https://us1.pdfgeneratorapi.com/api/v4/forms/schema
+      - lang: Shell + Wget
+        source: |-
+          wget --quiet \
+            --method GET \
+            --output-document \
+            - https://us1.pdfgeneratorapi.com/api/v4/forms/schema
+      - lang: Php + Curl
+        source: |-
+          <?php
+
+          $curl = curl_init();
+
+          curl_setopt_array($curl, [
+            CURLOPT_URL => "https://us1.pdfgeneratorapi.com/api/v4/forms/schema",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+          ]);
+
+          $response = curl_exec($curl);
+          $err = curl_error($curl);
+
+          curl_close($curl);
+
+          if ($err) {
+            echo "cURL Error #:" . $err;
+          } else {
+            echo $response;
+          }
+      - lang: Node + Native
+        source: |-
+          const http = require("https");
+
+          const options = {
+            "method": "GET",
+            "hostname": "us1.pdfgeneratorapi.com",
+            "port": null,
+            "path": "/api/v4/forms/schema",
+            "headers": {}
+          };
+
+          const req = http.request(options, function (res) {
+            const chunks = [];
+
+            res.on("data", function (chunk) {
+              chunks.push(chunk);
+            });
+
+            res.on("end", function () {
+              const body = Buffer.concat(chunks);
+              console.log(body.toString());
+            });
+          });
+
+          req.end();
+      - lang: Node + Request
+        source: |
+          const request = require('request');
+
+          const options = {method: 'GET', url: 'https://us1.pdfgeneratorapi.com/api/v4/forms/schema'};
+
+          request(options, function (error, response, body) {
+            if (error) throw new Error(error);
+
+            console.log(body);
+          });
+      - lang: Python + Python3
+        source: |-
+          import http.client
+
+          conn = http.client.HTTPSConnection("us1.pdfgeneratorapi.com")
+
+          conn.request("GET", "/api/v4/forms/schema")
+
+          res = conn.getresponse()
+          data = res.read()
+
+          print(data.decode("utf-8"))
+      - lang: Ruby + Native
+        source: |-
+          require 'uri'
+          require 'net/http'
+          require 'openssl'
+
+          url = URI("https://us1.pdfgeneratorapi.com/api/v4/forms/schema")
+
+          http = Net::HTTP.new(url.host, url.port)
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+          request = Net::HTTP::Get.new(url)
+
+          response = http.request(request)
+          puts response.read_body
+      - lang: Go + Native
+        source: "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"io/ioutil\"\
+          \n)\n\nfunc main() {\n\n\turl := \"https://us1.pdfgeneratorapi.com/api/v4/forms/schema\"\
+          \n\n\treq, _ := http.NewRequest(\"GET\", url, nil)\n\n\tres, _ := http.DefaultClient.Do(req)\n\
+          \n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\t\
+          fmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+      - lang: Csharp + Restsharp
+        source: |-
+          var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/forms/schema");
+          var request = new RestRequest(Method.GET);
+          IRestResponse response = client.Execute(request);
+      - lang: Csharp + Httpclient
+        source: |-
+          var client = new HttpClient();
+          var request = new HttpRequestMessage
+          {
+              Method = HttpMethod.Get,
+              RequestUri = new Uri("https://us1.pdfgeneratorapi.com/api/v4/forms/schema"),
+          };
+          using (var response = await client.SendAsync(request))
+          {
+              response.EnsureSuccessStatusCode();
+              var body = await response.Content.ReadAsStringAsync();
+              Console.WriteLine(body);
+          }
+      - lang: Java + Unirest
+        source: |-
+          HttpResponse<String> response = Unirest.get("https://us1.pdfgeneratorapi.com/api/v4/forms/schema")
+            .asString();
+      - lang: Java + Okhttp
+        source: |-
+          OkHttpClient client = new OkHttpClient();
+
+          Request request = new Request.Builder()
+            .url("https://us1.pdfgeneratorapi.com/api/v4/forms/schema")
+            .get()
+            .build();
+
+          Response response = client.newCall(request).execute();
+      - lang: C + Libcurl
+        source: |-
+          CURL *hnd = curl_easy_init();
+
+          curl_easy_setopt(hnd, CURLOPT_CUSTOMREQUEST, "GET");
+          curl_easy_setopt(hnd, CURLOPT_URL, "https://us1.pdfgeneratorapi.com/api/v4/forms/schema");
+
+          CURLcode ret = curl_easy_perform(hnd);
+      x-accepts:
+      - application/json
   /forms/import:
     post:
-      description: Creates a new form based on editable PDF
+      description: "Creates a new form based on editable PDF. Form fields are created\
+        \ from the editable fields of the PDF. The optional `form` object sets the\
+        \ form name, template, actions and configuration."
       operationId: importForm
       requestBody:
         content:
@@ -11884,14 +12139,14 @@ paths:
             --url https://us1.pdfgeneratorapi.com/api/v4/forms/import \
             --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
             --header 'content-type: application/json' \
-            --data '{"file_url":"string","form":{"template_id":123123,"name":"Certificate creator","actions":[{"store_document":true}],"fields":[{"label":"Full name","name":"name","type":"text","required":false}],"configuration":{"title":"Employment application","intro":"Please fill in all required fields.","outro":"Thank you for your submission."}}}'
+            --data '{"file_url":"string","form":{"template_id":123123,"name":"Certificate creator","actions":[{"store_document":true}],"configuration":{"title":"Employment application","intro":"Please fill in all required fields.","outro":"Thank you for your submission."}}}'
       - lang: Shell + Wget
         source: |-
           wget --quiet \
             --method POST \
             --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
             --header 'content-type: application/json' \
-            --body-data '{"file_url":"string","form":{"template_id":123123,"name":"Certificate creator","actions":[{"store_document":true}],"fields":[{"label":"Full name","name":"name","type":"text","required":false}],"configuration":{"title":"Employment application","intro":"Please fill in all required fields.","outro":"Thank you for your submission."}}}' \
+            --body-data '{"file_url":"string","form":{"template_id":123123,"name":"Certificate creator","actions":[{"store_document":true}],"configuration":{"title":"Employment application","intro":"Please fill in all required fields.","outro":"Thank you for your submission."}}}' \
             --output-document \
             - https://us1.pdfgeneratorapi.com/api/v4/forms/import
       - lang: Php + Curl
@@ -11908,7 +12163,7 @@ paths:
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "{\"file_url\":\"string\",\"form\":{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}}",
+            CURLOPT_POSTFIELDS => "{\"file_url\":\"string\",\"form\":{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}}",
             CURLOPT_HTTPHEADER => [
               "Authorization: Bearer REPLACE_BEARER_TOKEN",
               "content-type: application/json"
@@ -11959,7 +12214,6 @@ paths:
               template_id: 123123,
               name: 'Certificate creator',
               actions: [{store_document: true}],
-              fields: [{label: 'Full name', name: 'name', type: 'text', required: false}],
               configuration: {
                 title: 'Employment application',
                 intro: 'Please fill in all required fields.',
@@ -11985,7 +12239,6 @@ paths:
                 template_id: 123123,
                 name: 'Certificate creator',
                 actions: [{store_document: true}],
-                fields: [{label: 'Full name', name: 'name', type: 'text', required: false}],
                 configuration: {
                   title: 'Employment application',
                   intro: 'Please fill in all required fields.',
@@ -12007,7 +12260,7 @@ paths:
 
           conn = http.client.HTTPSConnection("us1.pdfgeneratorapi.com")
 
-          payload = "{\"file_url\":\"string\",\"form\":{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}}"
+          payload = "{\"file_url\":\"string\",\"form\":{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}}"
 
           headers = {
               'Authorization': "Bearer REPLACE_BEARER_TOKEN",
@@ -12035,7 +12288,7 @@ paths:
           request = Net::HTTP::Post.new(url)
           request["Authorization"] = 'Bearer REPLACE_BEARER_TOKEN'
           request["content-type"] = 'application/json'
-          request.body = "{\"file_url\":\"string\",\"form\":{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}}"
+          request.body = "{\"file_url\":\"string\",\"form\":{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}}"
 
           response = http.request(request)
           puts response.read_body
@@ -12044,23 +12297,21 @@ paths:
           \n\t\"io/ioutil\"\n)\n\nfunc main() {\n\n\turl := \"https://us1.pdfgeneratorapi.com/api/v4/forms/import\"\
           \n\n\tpayload := strings.NewReader(\"{\\\"file_url\\\":\\\"string\\\",\\\
           \"form\\\":{\\\"template_id\\\":123123,\\\"name\\\":\\\"Certificate creator\\\
-          \",\\\"actions\\\":[{\\\"store_document\\\":true}],\\\"fields\\\":[{\\\"\
-          label\\\":\\\"Full name\\\",\\\"name\\\":\\\"name\\\",\\\"type\\\":\\\"\
-          text\\\",\\\"required\\\":false}],\\\"configuration\\\":{\\\"title\\\":\\\
-          \"Employment application\\\",\\\"intro\\\":\\\"Please fill in all required\
-          \ fields.\\\",\\\"outro\\\":\\\"Thank you for your submission.\\\"}}}\"\
-          )\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\n\treq.Header.Add(\"\
-          Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\treq.Header.Add(\"content-type\"\
-          , \"application/json\")\n\n\tres, _ := http.DefaultClient.Do(req)\n\n\t\
-          defer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\
-          \tfmt.Println(string(body))\n\n}"
+          \",\\\"actions\\\":[{\\\"store_document\\\":true}],\\\"configuration\\\"\
+          :{\\\"title\\\":\\\"Employment application\\\",\\\"intro\\\":\\\"Please\
+          \ fill in all required fields.\\\",\\\"outro\\\":\\\"Thank you for your\
+          \ submission.\\\"}}}\")\n\n\treq, _ := http.NewRequest(\"POST\", url, payload)\n\
+          \n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\
+          \treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ :=\
+          \ http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\
+          \n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
       - lang: Csharp + Restsharp
         source: |-
           var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/forms/import");
           var request = new RestRequest(Method.POST);
           request.AddHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN");
           request.AddHeader("content-type", "application/json");
-          request.AddParameter("application/json", "{\"file_url\":\"string\",\"form\":{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}}", ParameterType.RequestBody);
+          request.AddParameter("application/json", "{\"file_url\":\"string\",\"form\":{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}}", ParameterType.RequestBody);
           IRestResponse response = client.Execute(request);
       - lang: Csharp + Httpclient
         source: |-
@@ -12073,7 +12324,7 @@ paths:
               {
                   { "Authorization", "Bearer REPLACE_BEARER_TOKEN" },
               },
-              Content = new StringContent("{\"file_url\":\"string\",\"form\":{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}}")
+              Content = new StringContent("{\"file_url\":\"string\",\"form\":{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}}")
               {
                   Headers =
                   {
@@ -12092,14 +12343,14 @@ paths:
           HttpResponse<String> response = Unirest.post("https://us1.pdfgeneratorapi.com/api/v4/forms/import")
             .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
             .header("content-type", "application/json")
-            .body("{\"file_url\":\"string\",\"form\":{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}}")
+            .body("{\"file_url\":\"string\",\"form\":{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}}")
             .asString();
       - lang: Java + Okhttp
         source: |-
           OkHttpClient client = new OkHttpClient();
 
           MediaType mediaType = MediaType.parse("application/json");
-          RequestBody body = RequestBody.create(mediaType, "{\"file_url\":\"string\",\"form\":{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}}");
+          RequestBody body = RequestBody.create(mediaType, "{\"file_url\":\"string\",\"form\":{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}}");
           Request request = new Request.Builder()
             .url("https://us1.pdfgeneratorapi.com/api/v4/forms/import")
             .post(body)
@@ -12120,7 +12371,7 @@ paths:
           headers = curl_slist_append(headers, "content-type: application/json");
           curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
 
-          curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"file_url\":\"string\",\"form\":{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}}");
+          curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"file_url\":\"string\",\"form\":{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}}");
 
           CURLcode ret = curl_easy_perform(hnd);
       x-content-type: application/json
@@ -12595,14 +12846,14 @@ paths:
             --url https://us1.pdfgeneratorapi.com/api/v4/forms/1 \
             --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
             --header 'content-type: application/json' \
-            --data '{"template_id":123123,"name":"Certificate creator","actions":[{"store_document":true}],"fields":[{"label":"Full name","name":"name","type":"text","required":false}],"configuration":{"title":"Employment application","intro":"Please fill in all required fields.","outro":"Thank you for your submission."}}'
+            --data '{"template_id":123123,"name":"Certificate creator","actions":[{"store_document":true}],"fields":[{"label":"Full name","name":"name","type":"text","required":false,"default":"Medium","description":"Enter your name as shown in your passport","subRows":[{"options":"Small,Medium,Large"}]}],"configuration":{"title":"Employment application","intro":"Please fill in all required fields.","outro":"Thank you for your submission."}}'
       - lang: Shell + Wget
         source: |-
           wget --quiet \
             --method PUT \
             --header 'Authorization: Bearer REPLACE_BEARER_TOKEN' \
             --header 'content-type: application/json' \
-            --body-data '{"template_id":123123,"name":"Certificate creator","actions":[{"store_document":true}],"fields":[{"label":"Full name","name":"name","type":"text","required":false}],"configuration":{"title":"Employment application","intro":"Please fill in all required fields.","outro":"Thank you for your submission."}}' \
+            --body-data '{"template_id":123123,"name":"Certificate creator","actions":[{"store_document":true}],"fields":[{"label":"Full name","name":"name","type":"text","required":false,"default":"Medium","description":"Enter your name as shown in your passport","subRows":[{"options":"Small,Medium,Large"}]}],"configuration":{"title":"Employment application","intro":"Please fill in all required fields.","outro":"Thank you for your submission."}}' \
             --output-document \
             - https://us1.pdfgeneratorapi.com/api/v4/forms/1
       - lang: Php + Curl
@@ -12619,7 +12870,7 @@ paths:
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "PUT",
-            CURLOPT_POSTFIELDS => "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}",
+            CURLOPT_POSTFIELDS => "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false,\"default\":\"Medium\",\"description\":\"Enter your name as shown in your passport\",\"subRows\":[{\"options\":\"Small,Medium,Large\"}]}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}",
             CURLOPT_HTTPHEADER => [
               "Authorization: Bearer REPLACE_BEARER_TOKEN",
               "content-type: application/json"
@@ -12668,7 +12919,17 @@ paths:
             template_id: 123123,
             name: 'Certificate creator',
             actions: [{store_document: true}],
-            fields: [{label: 'Full name', name: 'name', type: 'text', required: false}],
+            fields: [
+              {
+                label: 'Full name',
+                name: 'name',
+                type: 'text',
+                required: false,
+                default: 'Medium',
+                description: 'Enter your name as shown in your passport',
+                subRows: [{options: 'Small,Medium,Large'}]
+              }
+            ],
             configuration: {
               title: 'Employment application',
               intro: 'Please fill in all required fields.',
@@ -12691,7 +12952,17 @@ paths:
               template_id: 123123,
               name: 'Certificate creator',
               actions: [{store_document: true}],
-              fields: [{label: 'Full name', name: 'name', type: 'text', required: false}],
+              fields: [
+                {
+                  label: 'Full name',
+                  name: 'name',
+                  type: 'text',
+                  required: false,
+                  default: 'Medium',
+                  description: 'Enter your name as shown in your passport',
+                  subRows: [{options: 'Small,Medium,Large'}]
+                }
+              ],
               configuration: {
                 title: 'Employment application',
                 intro: 'Please fill in all required fields.',
@@ -12712,7 +12983,7 @@ paths:
 
           conn = http.client.HTTPSConnection("us1.pdfgeneratorapi.com")
 
-          payload = "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}"
+          payload = "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false,\"default\":\"Medium\",\"description\":\"Enter your name as shown in your passport\",\"subRows\":[{\"options\":\"Small,Medium,Large\"}]}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}"
 
           headers = {
               'Authorization': "Bearer REPLACE_BEARER_TOKEN",
@@ -12740,7 +13011,7 @@ paths:
           request = Net::HTTP::Put.new(url)
           request["Authorization"] = 'Bearer REPLACE_BEARER_TOKEN'
           request["content-type"] = 'application/json'
-          request.body = "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}"
+          request.body = "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false,\"default\":\"Medium\",\"description\":\"Enter your name as shown in your passport\",\"subRows\":[{\"options\":\"Small,Medium,Large\"}]}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}"
 
           response = http.request(request)
           puts response.read_body
@@ -12750,21 +13021,24 @@ paths:
           \n\n\tpayload := strings.NewReader(\"{\\\"template_id\\\":123123,\\\"name\\\
           \":\\\"Certificate creator\\\",\\\"actions\\\":[{\\\"store_document\\\"\
           :true}],\\\"fields\\\":[{\\\"label\\\":\\\"Full name\\\",\\\"name\\\":\\\
-          \"name\\\",\\\"type\\\":\\\"text\\\",\\\"required\\\":false}],\\\"configuration\\\
-          \":{\\\"title\\\":\\\"Employment application\\\",\\\"intro\\\":\\\"Please\
-          \ fill in all required fields.\\\",\\\"outro\\\":\\\"Thank you for your\
-          \ submission.\\\"}}\")\n\n\treq, _ := http.NewRequest(\"PUT\", url, payload)\n\
-          \n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\")\n\
-          \treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _ :=\
-          \ http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ := ioutil.ReadAll(res.Body)\n\
-          \n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\n}"
+          \"name\\\",\\\"type\\\":\\\"text\\\",\\\"required\\\":false,\\\"default\\\
+          \":\\\"Medium\\\",\\\"description\\\":\\\"Enter your name as shown in your\
+          \ passport\\\",\\\"subRows\\\":[{\\\"options\\\":\\\"Small,Medium,Large\\\
+          \"}]}],\\\"configuration\\\":{\\\"title\\\":\\\"Employment application\\\
+          \",\\\"intro\\\":\\\"Please fill in all required fields.\\\",\\\"outro\\\
+          \":\\\"Thank you for your submission.\\\"}}\")\n\n\treq, _ := http.NewRequest(\"\
+          PUT\", url, payload)\n\n\treq.Header.Add(\"Authorization\", \"Bearer REPLACE_BEARER_TOKEN\"\
+          )\n\treq.Header.Add(\"content-type\", \"application/json\")\n\n\tres, _\
+          \ := http.DefaultClient.Do(req)\n\n\tdefer res.Body.Close()\n\tbody, _ :=\
+          \ ioutil.ReadAll(res.Body)\n\n\tfmt.Println(res)\n\tfmt.Println(string(body))\n\
+          \n}"
       - lang: Csharp + Restsharp
         source: |-
           var client = new RestClient("https://us1.pdfgeneratorapi.com/api/v4/forms/1");
           var request = new RestRequest(Method.PUT);
           request.AddHeader("Authorization", "Bearer REPLACE_BEARER_TOKEN");
           request.AddHeader("content-type", "application/json");
-          request.AddParameter("application/json", "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}", ParameterType.RequestBody);
+          request.AddParameter("application/json", "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false,\"default\":\"Medium\",\"description\":\"Enter your name as shown in your passport\",\"subRows\":[{\"options\":\"Small,Medium,Large\"}]}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}", ParameterType.RequestBody);
           IRestResponse response = client.Execute(request);
       - lang: Csharp + Httpclient
         source: |-
@@ -12777,7 +13051,7 @@ paths:
               {
                   { "Authorization", "Bearer REPLACE_BEARER_TOKEN" },
               },
-              Content = new StringContent("{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}")
+              Content = new StringContent("{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false,\"default\":\"Medium\",\"description\":\"Enter your name as shown in your passport\",\"subRows\":[{\"options\":\"Small,Medium,Large\"}]}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}")
               {
                   Headers =
                   {
@@ -12796,14 +13070,14 @@ paths:
           HttpResponse<String> response = Unirest.put("https://us1.pdfgeneratorapi.com/api/v4/forms/1")
             .header("Authorization", "Bearer REPLACE_BEARER_TOKEN")
             .header("content-type", "application/json")
-            .body("{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}")
+            .body("{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false,\"default\":\"Medium\",\"description\":\"Enter your name as shown in your passport\",\"subRows\":[{\"options\":\"Small,Medium,Large\"}]}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}")
             .asString();
       - lang: Java + Okhttp
         source: |-
           OkHttpClient client = new OkHttpClient();
 
           MediaType mediaType = MediaType.parse("application/json");
-          RequestBody body = RequestBody.create(mediaType, "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}");
+          RequestBody body = RequestBody.create(mediaType, "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false,\"default\":\"Medium\",\"description\":\"Enter your name as shown in your passport\",\"subRows\":[{\"options\":\"Small,Medium,Large\"}]}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}");
           Request request = new Request.Builder()
             .url("https://us1.pdfgeneratorapi.com/api/v4/forms/1")
             .put(body)
@@ -12824,7 +13098,7 @@ paths:
           headers = curl_slist_append(headers, "content-type: application/json");
           curl_easy_setopt(hnd, CURLOPT_HTTPHEADER, headers);
 
-          curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}");
+          curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"template_id\":123123,\"name\":\"Certificate creator\",\"actions\":[{\"store_document\":true}],\"fields\":[{\"label\":\"Full name\",\"name\":\"name\",\"type\":\"text\",\"required\":false,\"default\":\"Medium\",\"description\":\"Enter your name as shown in your passport\",\"subRows\":[{\"options\":\"Small,Medium,Large\"}]}],\"configuration\":{\"title\":\"Employment application\",\"intro\":\"Please fill in all required fields.\",\"outro\":\"Thank you for your submission.\"}}");
 
           CURLcode ret = curl_easy_perform(hnd);
       x-content-type: application/json
@@ -13047,7 +13321,7 @@ paths:
         used to open the embeddable Form Builder for creating a new form.
       operationId: openFormBuilder
       responses:
-        "201":
+        "200":
           $ref: "#/components/responses/formBuilderUrl"
         "401":
           $ref: "#/components/responses/error401"
@@ -13259,7 +13533,7 @@ paths:
           type: integer
         style: simple
       responses:
-        "201":
+        "200":
           $ref: "#/components/responses/formBuilderUrl"
         "401":
           $ref: "#/components/responses/error401"
@@ -15117,7 +15391,7 @@ components:
           description: PDF file from remote URL to import
           type: string
         form:
-          $ref: "#/components/schemas/FormConfigurationNew"
+          $ref: "#/components/schemas/FormConfigurationImport"
       required:
       - file_url
       type: object
@@ -15127,7 +15401,7 @@ components:
           description: PDF file from base64 string to import
           type: string
         form:
-          $ref: "#/components/schemas/FormConfigurationNew"
+          $ref: "#/components/schemas/FormConfigurationImport"
       required:
       - file_base64
       type: object
@@ -16178,11 +16452,21 @@ components:
         name: Certificate creator
         template_id: 123123
         fields:
-        - name: name
+        - default: Medium
+          subRows:
+          - options: "Small,Medium,Large"
+          - options: "Small,Medium,Large"
+          name: name
+          description: Enter your name as shown in your passport
           label: Full name
           type: text
           required: false
-        - name: name
+        - default: Medium
+          subRows:
+          - options: "Small,Medium,Large"
+          - options: "Small,Medium,Large"
+          name: name
+          description: Enter your name as shown in your passport
           label: Full name
           type: text
           required: false
@@ -16193,20 +16477,56 @@ components:
         template_id:
           description: Template ID which is connected to the form
           example: 123123
+          nullable: true
           type: integer
         name:
           description: Form name
           example: Certificate creator
+          maxLength: 255
+          minLength: 1
           type: string
         actions:
-          description: Array of action configurations
+          description: Array of action configurations. Each action is a separate object
+            with a single key; leave an action out to disable it.
           items:
             $ref: "#/components/schemas/FormConfigurationNew_actions_inner"
+          minItems: 1
           type: array
         fields:
-          description: A list of form field objects
+          description: "Input fields shown on the form, in display order. Field names\
+            \ must be unique within the form."
           items:
-            $ref: "#/components/schemas/formFields_inner"
+            $ref: "#/components/schemas/formField"
+          minItems: 1
+          type: array
+        configuration:
+          $ref: "#/components/schemas/formConfiguration"
+      required:
+      - actions
+      - fields
+      - name
+      type: object
+    FormConfigurationImport:
+      description: Optional form settings applied to the imported form. Form fields
+        are created from the editable fields of the PDF.
+      properties:
+        template_id:
+          description: Template ID which is connected to the form
+          example: 123123
+          nullable: true
+          type: integer
+        name:
+          description: Form name
+          example: Certificate creator
+          maxLength: 255
+          minLength: 1
+          type: string
+        actions:
+          description: Array of action configurations. Each action is a separate object
+            with a single key; leave an action out to disable it.
+          items:
+            $ref: "#/components/schemas/FormConfigurationNew_actions_inner"
+          minItems: 1
           type: array
         configuration:
           $ref: "#/components/schemas/formConfiguration"
@@ -16221,11 +16541,21 @@ components:
         template_id: 123123
         id: 1
         fields:
-        - name: name
+        - default: Medium
+          subRows:
+          - options: "Small,Medium,Large"
+          - options: "Small,Medium,Large"
+          name: name
+          description: Enter your name as shown in your passport
           label: Full name
           type: text
           required: false
-        - name: name
+        - default: Medium
+          subRows:
+          - options: "Small,Medium,Large"
+          - options: "Small,Medium,Large"
+          name: name
+          description: Enter your name as shown in your passport
           label: Full name
           type: text
           required: false
@@ -16238,7 +16568,8 @@ components:
           example: 1
           type: integer
         template_id:
-          description: Template ID which is connected to the form
+          description: Template ID which is connected to the form. Omitted when the
+            form has no template.
           example: 123123
           type: integer
         name:
@@ -16246,23 +16577,180 @@ components:
           example: Certificate creator
           type: string
         actions:
-          description: Array of action configurations
+          description: Array of action configurations. Forms imported from a PDF may
+            have `send_document` set to `true` until a callback URL is configured.
           items:
             $ref: "#/components/schemas/FormConfigurationNew_actions_inner"
           type: array
         fields:
-          description: A list of form field objects
+          description: "Input fields shown on the form, in display order. Field names\
+            \ must be unique within the form."
           items:
-            $ref: "#/components/schemas/formFields_inner"
+            $ref: "#/components/schemas/formField"
+          minItems: 1
           type: array
         configuration:
           $ref: "#/components/schemas/formConfiguration"
       type: object
     formFields:
-      description: A list of form field objects
+      description: "Input fields shown on the form, in display order. Field names\
+        \ must be unique within the form."
       items:
-        $ref: "#/components/schemas/formFields_inner"
+        $ref: "#/components/schemas/formField"
+      minItems: 1
       type: array
+    formField:
+      description: Form field definition
+      example:
+        default: Medium
+        subRows:
+        - options: "Small,Medium,Large"
+        - options: "Small,Medium,Large"
+        name: name
+        description: Enter your name as shown in your passport
+        label: Full name
+        type: text
+        required: false
+      properties:
+        label:
+          description: Field label displayed in the form
+          example: Full name
+          maxLength: 128
+          minLength: 1
+          type: string
+        name:
+          description: "Data field name. For example \"name\" can be used as \"{name}\"\
+            \ in the document as placeholder."
+          example: name
+          maxLength: 128
+          minLength: 1
+          type: string
+        type:
+          description: |
+            Field type
+            * `text` - Free text input
+            * `integer` - Whole number input
+            * `number` - Decimal number input
+            * `date` - Date picker
+            * `signature` - Hand-drawn signature, stored as an image
+            * `select` - Dropdown with a single choice. Requires `subRows` with options and a `default` value
+            * `multi-select` - Dropdown with multiple choices. Requires `subRows` with options
+            * `table` - Repeating rows of values. Its columns are defined in `subRows`
+            * `image` - Image upload
+            * `pdf` - PDF file upload
+          enum:
+          - text
+          - integer
+          - number
+          - date
+          - signature
+          - select
+          - multi-select
+          - table
+          - image
+          - pdf
+          example: text
+          type: string
+        required:
+          description: Specifies if the field is required or not
+          example: false
+          type: boolean
+        default:
+          description: Value pre-filled in the field. Required for `select` fields
+            and must be one of the options. Not used by `table` fields.
+          example: Medium
+          maxLength: 255
+          minLength: 1
+          nullable: true
+          type: string
+        description:
+          description: Help text shown with the field
+          example: Enter your name as shown in your passport
+          maxLength: 1024
+          minLength: 1
+          nullable: true
+          type: string
+        subRows:
+          description: "Options for `select` and `multi-select` fields (a single object),\
+            \ columns for `table` fields. Not used by other field types."
+          items:
+            $ref: "#/components/schemas/formField_subRows_inner"
+          type: array
+      required:
+      - label
+      - name
+      - required
+      - type
+      type: object
+    formTableColumn:
+      description: Table column definition. Column names must be unique within the
+        table.
+      properties:
+        label:
+          description: Column label displayed in the form
+          example: Product
+          maxLength: 128
+          minLength: 1
+          type: string
+        name:
+          description: Data field name of the column
+          example: product
+          maxLength: 128
+          minLength: 1
+          type: string
+        type:
+          description: Column type. `select` columns require `subRows` with options
+            and a `default` value.
+          enum:
+          - text
+          - integer
+          - number
+          - date
+          - select
+          - image
+          - pdf
+          example: text
+          type: string
+        required:
+          description: Specifies if the column is required or not
+          example: false
+          type: boolean
+        default:
+          description: Value pre-filled in the column. Required for `select` columns
+            and must be one of the options.
+          example: Medium
+          maxLength: 255
+          minLength: 1
+          nullable: true
+          type: string
+        subRows:
+          description: Options for `select` columns (a single object). Not used by
+            other column types.
+          items:
+            $ref: "#/components/schemas/formFieldOptions"
+          maxItems: 1
+          type: array
+      required:
+      - label
+      - name
+      - required
+      - type
+      type: object
+    formFieldOptions:
+      description: Choices of a `select` or `multi-select` field
+      example:
+        options: "Small,Medium,Large"
+      properties:
+        options:
+          description: Comma-separated list of choices. Whitespace around each choice
+            is trimmed and choices must be unique.
+          example: "Small,Medium,Large"
+          maxLength: 1275
+          minLength: 1
+          type: string
+      required:
+      - options
+      type: object
     formActionStore:
       description: Key-value pair of action configuration.
       example:
@@ -16276,6 +16764,13 @@ components:
       description: Key-value pair of action configuration.
       properties:
         download_document:
+          example: true
+          type: boolean
+      type: object
+    formActionSign:
+      description: Asks the person who submitted the form to sign the generated document.
+      properties:
+        sign_document:
           example: true
           type: boolean
       type: object
@@ -16298,6 +16793,7 @@ components:
           description: Form title displayed above the form
           example: Employment application
           maxLength: 255
+          minLength: 1
           nullable: true
           type: string
         intro:
@@ -16305,6 +16801,7 @@ components:
             rich text.
           example: Please fill in all required fields.
           maxLength: 1275
+          minLength: 1
           nullable: true
           type: string
         outro:
@@ -16312,6 +16809,7 @@ components:
             text.
           example: Thank you for your submission.
           maxLength: 1275
+          minLength: 1
           nullable: true
           type: string
       type: object
@@ -16933,6 +17431,47 @@ components:
           description: Document name
           example: Invoice 12345
           type: string
+        wait_for_css:
+          description: CSS selector of an element to wait for before the page is printed;
+            see `wait_for_css_state`
+          example: "#report-ready"
+          maxLength: 100
+          type: string
+        wait_for_css_state:
+          default: present
+          description: "How `wait_for_css` matches. `present` waits until the element\
+            \ exists, even if it is empty or hidden (e.g. a `<div id=\"report-ready\"\
+            ></div>` marker); `visible` waits until it is also visible with a non-empty\
+            \ size (e.g. a chart that appears when data has loaded)."
+          enum:
+          - present
+          - visible
+          example: present
+          type: string
+        wait_for_js:
+          description: "JavaScript expression evaluated in the page every 100ms; the\
+            \ page is printed once it is truthy. Promises are awaited, and an expression\
+            \ that throws counts as not ready yet."
+          example: window.renderComplete === true
+          maxLength: 200
+          type: string
+        wait_timeout:
+          default: 30
+          description: Seconds to wait for `wait_for_css` / `wait_for_js` before applying
+            `on_wait_timeout`
+          example: 30
+          maximum: 60
+          minimum: 1
+          type: integer
+        on_wait_timeout:
+          default: error
+          description: What to do when the wait signal is not met within `wait_timeout`.
+            `error` returns a 422 response; `print` prints the page as it is.
+          enum:
+          - error
+          - print
+          example: error
+          type: string
       type: object
     convertPDF2Image_request:
       properties:
@@ -17435,49 +17974,24 @@ components:
       - $ref: "#/components/schemas/formActionStore"
       - $ref: "#/components/schemas/formActionDownload"
       - $ref: "#/components/schemas/formActionSend"
-    formFields_inner:
-      description: Form field definition
-      example:
-        name: name
-        label: Full name
-        type: text
-        required: false
-      properties:
-        label:
-          description: Field label displayed in the form
-          example: Full name
-          type: string
-        name:
-          description: "Data field name. For example \"name\" can be used as \"{name}\"\
-            \ in the document as placeholder."
-          example: name
-          type: string
-        type:
-          description: Field type
-          enum:
-          - text
-          - integer
-          - number
-          - date
-          - signature
-          example: text
-          type: string
-        required:
-          description: Specifies if the field is required or not
-          example: false
-          type: boolean
-      type: object
+      - $ref: "#/components/schemas/formActionSign"
+    formField_subRows_inner:
+      anyOf:
+      - $ref: "#/components/schemas/formFieldOptions"
+      - $ref: "#/components/schemas/formTableColumn"
     formActionSend_send_document_headers_inner:
       properties:
         name:
           description: Header name
           example: Authorization
           maxLength: 255
+          minLength: 1
           type: string
         value:
           description: Header value
           example: Bearer your-token-here
           maxLength: 255
+          minLength: 1
           type: string
       required:
       - name
@@ -17486,7 +18000,8 @@ components:
     formActionSend_send_document:
       properties:
         url:
-          description: HTTPS URL where the generated document will be delivered.
+          description: URL where the generated document will be delivered. Must use
+            HTTPS.
           example: https://example.com/webhook
           format: uri
           type: string
@@ -17634,11 +18149,21 @@ components:
           template_id: 123123
           id: 1
           fields:
-          - name: name
+          - default: Medium
+            subRows:
+            - options: "Small,Medium,Large"
+            - options: "Small,Medium,Large"
+            name: name
+            description: Enter your name as shown in your passport
             label: Full name
             type: text
             required: false
-          - name: name
+          - default: Medium
+            subRows:
+            - options: "Small,Medium,Large"
+            - options: "Small,Medium,Large"
+            name: name
+            description: Enter your name as shown in your passport
             label: Full name
             type: text
             required: false
@@ -17653,11 +18178,21 @@ components:
           template_id: 123123
           id: 1
           fields:
-          - name: name
+          - default: Medium
+            subRows:
+            - options: "Small,Medium,Large"
+            - options: "Small,Medium,Large"
+            name: name
+            description: Enter your name as shown in your passport
             label: Full name
             type: text
             required: false
-          - name: name
+          - default: Medium
+            subRows:
+            - options: "Small,Medium,Large"
+            - options: "Small,Medium,Large"
+            name: name
+            description: Enter your name as shown in your passport
             label: Full name
             type: text
             required: false
@@ -18266,11 +18801,21 @@ components:
           template_id: 123123
           id: 1
           fields:
-          - name: name
+          - default: Medium
+            subRows:
+            - options: "Small,Medium,Large"
+            - options: "Small,Medium,Large"
+            name: name
+            description: Enter your name as shown in your passport
             label: Full name
             type: text
             required: false
-          - name: name
+          - default: Medium
+            subRows:
+            - options: "Small,Medium,Large"
+            - options: "Small,Medium,Large"
+            name: name
+            description: Enter your name as shown in your passport
             label: Full name
             type: text
             required: false

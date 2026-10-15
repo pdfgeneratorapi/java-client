@@ -7,6 +7,7 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 | [**createForm**](FormsApi.md#createForm) | **POST** /forms | Create form |
 | [**deleteForm**](FormsApi.md#deleteForm) | **DELETE** /forms/{formId} | Delete form |
 | [**getForm**](FormsApi.md#getForm) | **GET** /forms/{formId} | Get form |
+| [**getFormSchema**](FormsApi.md#getFormSchema) | **GET** /forms/schema | Get schema |
 | [**getForms**](FormsApi.md#getForms) | **GET** /forms | Get forms |
 | [**importForm**](FormsApi.md#importForm) | **POST** /forms/import | Import Form |
 | [**openFormBuilder**](FormsApi.md#openFormBuilder) | **POST** /forms/open | Open new form builder |
@@ -236,9 +237,69 @@ public class Example {
 | **429** | Too Many Requests |  -  |
 | **500** | Internal Server Error |  -  |
 
+<a id="getFormSchema"></a>
+# **getFormSchema**
+> Object getFormSchema()
+
+Get schema
+
+Returns Form JSON Schema which defines the structure of the Form Definition.
+
+### Example
+```java
+// Import classes:
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.FormsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
+
+    FormsApi apiInstance = new FormsApi(defaultClient);
+    try {
+      Object result = apiInstance.getFormSchema();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling FormsApi#getFormSchema");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**Object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Form JSON Schema |  -  |
+| **429** | Too Many Requests |  -  |
+| **500** | Internal Server Error |  -  |
+
 <a id="getForms"></a>
 # **getForms**
-> InlineObject6 getForms(page, perPage)
+> InlineObject6 getForms(page, perPage, orderBy, orderDirection, search)
 
 Get forms
 
@@ -266,8 +327,11 @@ public class Example {
     FormsApi apiInstance = new FormsApi(defaultClient);
     Integer page = 1; // Integer | Pagination: page to return
     Integer perPage = 15; // Integer | Pagination: How many records to return per page
+    String orderBy = "id"; // String | Field to sort the forms by
+    String orderDirection = "asc"; // String | Sort direction
+    String search = "Certificate"; // String | Returns forms whose name or ID contains the search value
     try {
-      InlineObject6 result = apiInstance.getForms(page, perPage);
+      InlineObject6 result = apiInstance.getForms(page, perPage, orderBy, orderDirection, search);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#getForms");
@@ -286,6 +350,9 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **page** | **Integer**| Pagination: page to return | [optional] [default to 1] |
 | **perPage** | **Integer**| Pagination: How many records to return per page | [optional] [default to 15] |
+| **orderBy** | **String**| Field to sort the forms by | [optional] [default to id] [enum: id, name, created_at, updated_at] |
+| **orderDirection** | **String**| Sort direction | [optional] [default to desc] [enum: asc, desc] |
+| **search** | **String**| Returns forms whose name or ID contains the search value | [optional] |
 
 ### Return type
 
@@ -318,7 +385,7 @@ public class Example {
 
 Import Form
 
-Creates a new form based on editable PDF
+Creates a new form based on editable PDF. Form fields are created from the editable fields of the PDF. The optional &#x60;form&#x60; object sets the form name, template, actions and configuration.
 
 ### Example
 ```java
@@ -447,7 +514,7 @@ This endpoint does not need any parameter.
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **201** | Form Builder URL |  -  |
+| **200** | Form Builder URL |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
@@ -521,7 +588,7 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **201** | Form Builder URL |  -  |
+| **200** | Form Builder URL |  -  |
 | **401** | Unauthorized |  -  |
 | **402** | Account Suspended |  -  |
 | **403** | Forbidden |  -  |
