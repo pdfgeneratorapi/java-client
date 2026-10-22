@@ -52,7 +52,7 @@ import com.pdfgeneratorapi.client.JSON;
 /**
  * FormActionSendSendDocument
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-15T16:18:47.253223069Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-22T16:38:17.286469013Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class FormActionSendSendDocument {
   public static final String SERIALIZED_NAME_URL = "url";
   @SerializedName(SERIALIZED_NAME_URL)
@@ -73,7 +73,7 @@ public class FormActionSendSendDocument {
   }
 
   /**
-   * URL where the generated document will be delivered. Must use HTTPS.
+   * URL that receives the submitted answers as JSON, and the generated document when the form also stores it. Must use HTTPS.
    * @return url
    */
   @javax.annotation.Nonnull

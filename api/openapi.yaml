@@ -16752,7 +16752,7 @@ components:
       - options
       type: object
     formActionStore:
-      description: Key-value pair of action configuration.
+      description: Saves the generated document to Document Storage.
       example:
         store_document: true
       properties:
@@ -16761,22 +16761,25 @@ components:
           type: boolean
       type: object
     formActionDownload:
-      description: Key-value pair of action configuration.
+      description: Lets the person who fills in the form download the generated document.
       properties:
         download_document:
           example: true
           type: boolean
       type: object
     formActionSign:
-      description: Asks the person who submitted the form to sign the generated document.
+      description: Lets the person who fills in the form view and sign the generated
+        document.
       properties:
         sign_document:
           example: true
           type: boolean
       type: object
     formActionSend:
-      description: Sends the generated document via HTTP POST request to the specified
-        URL.
+      description: "Posts the submitted answers as JSON to the specified HTTPS URL.\
+        \ When the form also stores the document (store_document) and has a template,\
+        \ the request includes the generated document as well; otherwise only the\
+        \ answers are sent."
       properties:
         send_document:
           $ref: "#/components/schemas/formActionSend_send_document"
@@ -18000,8 +18003,8 @@ components:
     formActionSend_send_document:
       properties:
         url:
-          description: URL where the generated document will be delivered. Must use
-            HTTPS.
+          description: "URL that receives the submitted answers as JSON, and the generated\
+            \ document when the form also stores it. Must use HTTPS."
           example: https://example.com/webhook
           format: uri
           type: string

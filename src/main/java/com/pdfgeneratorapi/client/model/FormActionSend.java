@@ -47,9 +47,9 @@ import java.util.Set;
 import com.pdfgeneratorapi.client.JSON;
 
 /**
- * Sends the generated document via HTTP POST request to the specified URL.
+ * Posts the submitted answers as JSON to the specified HTTPS URL. When the form also stores the document (store_document) and has a template, the request includes the generated document as well; otherwise only the answers are sent.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-15T16:18:47.253223069Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-22T16:38:17.286469013Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class FormActionSend {
   public static final String SERIALIZED_NAME_SEND_DOCUMENT = "send_document";
   @SerializedName(SERIALIZED_NAME_SEND_DOCUMENT)

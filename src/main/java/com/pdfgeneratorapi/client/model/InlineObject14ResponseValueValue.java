@@ -51,7 +51,7 @@ import com.google.gson.JsonParseException;
 
 import com.pdfgeneratorapi.client.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-15T16:18:47.253223069Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-22T16:38:17.286469013Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class InlineObject14ResponseValueValue extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(InlineObject14ResponseValueValue.class.getName());
 

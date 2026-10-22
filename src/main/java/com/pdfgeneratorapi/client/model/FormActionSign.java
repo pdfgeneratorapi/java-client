@@ -46,9 +46,9 @@ import java.util.Set;
 import com.pdfgeneratorapi.client.JSON;
 
 /**
- * Asks the person who submitted the form to sign the generated document.
+ * Lets the person who fills in the form view and sign the generated document.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-15T16:18:47.253223069Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-22T16:38:17.286469013Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class FormActionSign {
   public static final String SERIALIZED_NAME_SIGN_DOCUMENT = "sign_document";
   @SerializedName(SERIALIZED_NAME_SIGN_DOCUMENT)

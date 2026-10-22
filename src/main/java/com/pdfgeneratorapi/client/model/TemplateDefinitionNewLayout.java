@@ -52,7 +52,7 @@ import com.pdfgeneratorapi.client.JSON;
 /**
  * Defines template layout (e.g page format, margins).
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-15T16:18:47.253223069Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-22T16:38:17.286469013Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class TemplateDefinitionNewLayout {
   /**
    * Defines template page size
