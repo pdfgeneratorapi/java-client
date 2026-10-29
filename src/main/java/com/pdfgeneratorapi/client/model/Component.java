@@ -49,7 +49,7 @@ import com.pdfgeneratorapi.client.JSON;
 /**
  * Template component definition
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-22T16:38:17.286469013Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-10-29T18:00:58.110704113Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class Component {
   /**
    * Defines component class/type
@@ -83,6 +83,8 @@ public class Component {
     FOOTER_COMPONENT("footerComponent"),
     
     RECTANGLE_COMPONENT("rectangleComponent"),
+    
+    ELLIPSE_COMPONENT("ellipseComponent"),
     
     VLINE_COMPONENT("vlineComponent"),
     

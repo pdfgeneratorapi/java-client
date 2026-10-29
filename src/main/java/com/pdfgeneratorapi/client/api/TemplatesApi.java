@@ -1578,7 +1578,7 @@ public class TemplatesApi {
 
     /**
      * Update template
-     * Updates template configuration. The template configuration for pages and layout must be complete as the entire configuration is replaced and not merged.
+     * Updates template configuration. Each top-level field sent (name, layout, pages and the rest) replaces the stored one, so pages must be complete, with every component.
      * @param templateId Template unique identifier (required)
      * @param templateDefinitionNew Template configuration (required)
      * @return InlineObject19
@@ -1604,7 +1604,7 @@ public class TemplatesApi {
 
     /**
      * Update template
-     * Updates template configuration. The template configuration for pages and layout must be complete as the entire configuration is replaced and not merged.
+     * Updates template configuration. Each top-level field sent (name, layout, pages and the rest) replaces the stored one, so pages must be complete, with every component.
      * @param templateId Template unique identifier (required)
      * @param templateDefinitionNew Template configuration (required)
      * @return ApiResponse&lt;InlineObject19&gt;
@@ -1631,7 +1631,7 @@ public class TemplatesApi {
 
     /**
      * Update template (asynchronously)
-     * Updates template configuration. The template configuration for pages and layout must be complete as the entire configuration is replaced and not merged.
+     * Updates template configuration. Each top-level field sent (name, layout, pages and the rest) replaces the stored one, so pages must be complete, with every component.
      * @param templateId Template unique identifier (required)
      * @param templateDefinitionNew Template configuration (required)
      * @param _callback The callback to be executed when the API call finishes

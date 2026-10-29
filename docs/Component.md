@@ -38,6 +38,7 @@ Template component definition
 | HEADER_COMPONENT | &quot;headerComponent&quot; |
 | FOOTER_COMPONENT | &quot;footerComponent&quot; |
 | RECTANGLE_COMPONENT | &quot;rectangleComponent&quot; |
+| ELLIPSE_COMPONENT | &quot;ellipseComponent&quot; |
 | VLINE_COMPONENT | &quot;vlineComponent&quot; |
 | HLINE_COMPONENT | &quot;hlineComponent&quot; |
 | PAGENUMBER_COMPONENT | &quot;pagenumberComponent&quot; |
