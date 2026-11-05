@@ -21,7 +21,6 @@ Returns service status / health
 import com.pdfgeneratorapi.client.ApiClient;
 import com.pdfgeneratorapi.client.ApiException;
 import com.pdfgeneratorapi.client.Configuration;
-import com.pdfgeneratorapi.client.auth.*;
 import com.pdfgeneratorapi.client.models.*;
 import com.pdfgeneratorapi.client.api.MiscApi;
 
@@ -29,10 +28,6 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
-    
-    // Configure HTTP bearer authorization: JSONWebTokenAuth
-    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
-    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
     MiscApi apiInstance = new MiscApi(defaultClient);
     try {
@@ -58,7 +53,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -69,4 +64,5 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Returns service status |  -  |
+| **500** | At least one check failed |  -  |
 

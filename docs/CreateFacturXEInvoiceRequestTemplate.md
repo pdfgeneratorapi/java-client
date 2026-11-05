@@ -2,15 +2,15 @@
 
 # CreateFacturXEInvoiceRequestTemplate
 
-Template id, version, version id and data
+Template id, version id and data
 
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **Integer** | Template ID |  [optional] |
+|**id** | [**CreateFacturXEInvoiceRequestTemplateId**](CreateFacturXEInvoiceRequestTemplateId.md) |  |  |
 |**versionId** | **Integer** | Template version ID |  [optional] |
-|**data** | **Object** | JSON payload that represents the Peppol BIS Billing 3.0 UBL Invoice (https://docs.peppol.eu/poacc/billing/3.0/) Use the Get schema endpoint to see the detailed payload structure. |  [optional] |
+|**data** | **Object** | JSON payload that represents the Peppol BIS Billing 3.0 UBL Invoice (https://docs.peppol.eu/poacc/billing/3.0/) Use the Get schema endpoint to see the detailed payload structure. |  |
 
 
 

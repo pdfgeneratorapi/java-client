@@ -76,21 +76,21 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | XML-based e-invoice response |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="createFacturXEInvoice"></a>
 # **createFacturXEInvoice**
-> InlineObject9 createFacturXEInvoice(createFacturXEInvoiceRequest)
+> InlineObject8 createFacturXEInvoice(createFacturXEInvoiceRequest)
 
 Create Factur-X eInvoice
 
-This endpoint transforms a JSON payload a Factur-X e-invoice that is fully compliant with the European EN 16931 standard. The generated output is always a PDF document, embedding a structured CII (Cross-Industry Invoice) XML according to the Factur-X format into a human-readable invoice, ensuring interoperability across B2B and B2G platforms. The JSON payload follows Peppol BIS Billing 3.0 UBL Invoice described here: https://docs.peppol.eu/poacc/billing/3.0/
+This endpoint transforms a JSON payload a Factur-X e-invoice that is fully compliant with the European EN 16931 standard. The generated output is always a PDF document, embedding a structured CII (Cross-Industry Invoice) XML according to the Factur-X format into a human-readable invoice, ensuring interoperability across B2B and B2G platforms. The JSON payload follows Peppol BIS Billing 3.0 UBL Invoice described here: https://docs.peppol.eu/poacc/billing/3.0/ Preview mode (&#x60;testing: true&#x60;) is not available for Factur-X.
 
 ### Example
 ```java
@@ -114,7 +114,7 @@ public class Example {
     EInvoicesApi apiInstance = new EInvoicesApi(defaultClient);
     CreateFacturXEInvoiceRequest createFacturXEInvoiceRequest = new CreateFacturXEInvoiceRequest(); // CreateFacturXEInvoiceRequest | eInvoice conversion
     try {
-      InlineObject9 result = apiInstance.createFacturXEInvoice(createFacturXEInvoiceRequest);
+      InlineObject8 result = apiInstance.createFacturXEInvoice(createFacturXEInvoiceRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling EInvoicesApi#createFacturXEInvoice");
@@ -135,7 +135,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject9**](InlineObject9.md)
+[**InlineObject8**](InlineObject8.md)
 
 ### Authorization
 
@@ -150,17 +150,17 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Document data |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="createXRechnungEInvoice"></a>
 # **createXRechnungEInvoice**
-> InlineObject createXRechnungEInvoice(createEInvoiceRequest)
+> InlineObject createXRechnungEInvoice(createXRechnungEInvoiceRequest)
 
 Create XRechnung eInvoice
 
@@ -186,9 +186,9 @@ public class Example {
     JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
     EInvoicesApi apiInstance = new EInvoicesApi(defaultClient);
-    CreateEInvoiceRequest createEInvoiceRequest = new CreateEInvoiceRequest(); // CreateEInvoiceRequest | eInvoice conversion
+    CreateXRechnungEInvoiceRequest createXRechnungEInvoiceRequest = new CreateXRechnungEInvoiceRequest(); // CreateXRechnungEInvoiceRequest | eInvoice conversion
     try {
-      InlineObject result = apiInstance.createXRechnungEInvoice(createEInvoiceRequest);
+      InlineObject result = apiInstance.createXRechnungEInvoice(createXRechnungEInvoiceRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling EInvoicesApi#createXRechnungEInvoice");
@@ -205,7 +205,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **createEInvoiceRequest** | [**CreateEInvoiceRequest**](CreateEInvoiceRequest.md)| eInvoice conversion | |
+| **createXRechnungEInvoiceRequest** | [**CreateXRechnungEInvoiceRequest**](CreateXRechnungEInvoiceRequest.md)| eInvoice conversion | |
 
 ### Return type
 
@@ -224,17 +224,17 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | XML-based e-invoice response |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="getEInvoiceSchema"></a>
 # **getEInvoiceSchema**
-> Object getEInvoiceSchema()
+> GetEInvoiceSchema200Response getEInvoiceSchema()
 
 Get schema
 
@@ -246,7 +246,6 @@ Returns e-invoice JSON schema which defines the structure of the e-invoice.
 import com.pdfgeneratorapi.client.ApiClient;
 import com.pdfgeneratorapi.client.ApiException;
 import com.pdfgeneratorapi.client.Configuration;
-import com.pdfgeneratorapi.client.auth.*;
 import com.pdfgeneratorapi.client.models.*;
 import com.pdfgeneratorapi.client.api.EInvoicesApi;
 
@@ -254,14 +253,10 @@ public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
-    
-    // Configure HTTP bearer authorization: JSONWebTokenAuth
-    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
-    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
     EInvoicesApi apiInstance = new EInvoicesApi(defaultClient);
     try {
-      Object result = apiInstance.getEInvoiceSchema();
+      GetEInvoiceSchema200Response result = apiInstance.getEInvoiceSchema();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling EInvoicesApi#getEInvoiceSchema");
@@ -279,11 +274,11 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**Object**
+[**GetEInvoiceSchema200Response**](GetEInvoiceSchema200Response.md)
 
 ### Authorization
 
-[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
+No authorization required
 
 ### HTTP request headers
 
@@ -293,7 +288,7 @@ This endpoint does not need any parameter.
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Template JSON Schema |  -  |
-| **429** | Too Many Requests |  -  |
+| **200** | e-invoice JSON Schema |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 

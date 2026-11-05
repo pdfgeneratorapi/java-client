@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**response** | [**List&lt;DocumentVersion&gt;**](DocumentVersion.md) |  |  [optional] |
+|**response** | [**DocumentSignatures**](DocumentSignatures.md) |  |  [optional] |
 
 
 

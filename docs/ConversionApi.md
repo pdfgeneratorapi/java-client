@@ -11,7 +11,7 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 
 <a id="convertHTML2PDF"></a>
 # **convertHTML2PDF**
-> InlineObject9 convertHTML2PDF(convertHTML2PDFRequest)
+> InlineObject8 convertHTML2PDF(convertHTML2PDFRequest)
 
 HTML to PDF
 
@@ -39,7 +39,7 @@ public class Example {
     ConversionApi apiInstance = new ConversionApi(defaultClient);
     ConvertHTML2PDFRequest convertHTML2PDFRequest = new ConvertHTML2PDFRequest(); // ConvertHTML2PDFRequest | 
     try {
-      InlineObject9 result = apiInstance.convertHTML2PDF(convertHTML2PDFRequest);
+      InlineObject8 result = apiInstance.convertHTML2PDF(convertHTML2PDFRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConversionApi#convertHTML2PDF");
@@ -60,7 +60,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject9**](InlineObject9.md)
+[**InlineObject8**](InlineObject8.md)
 
 ### Authorization
 
@@ -75,17 +75,17 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Document data |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="convertPDF2Image"></a>
 # **convertPDF2Image**
-> InlineObject10 convertPDF2Image(convertPDF2ImageRequest)
+> File convertPDF2Image(convertPDF2ImageRequest)
 
 PDF to Image
 
@@ -113,7 +113,7 @@ public class Example {
     ConversionApi apiInstance = new ConversionApi(defaultClient);
     ConvertPDF2ImageRequest convertPDF2ImageRequest = new ConvertPDF2ImageRequest(); // ConvertPDF2ImageRequest | 
     try {
-      InlineObject10 result = apiInstance.convertPDF2Image(convertPDF2ImageRequest);
+      File result = apiInstance.convertPDF2Image(convertPDF2ImageRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConversionApi#convertPDF2Image");
@@ -134,7 +134,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject10**](InlineObject10.md)
+[**File**](File.md)
 
 ### Authorization
 
@@ -143,23 +143,24 @@ public class Example {
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: application/zip, application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **201** | PDF to image conversion result |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **201** | PDF to image conversion result. &#x60;output&#x3D;file&#x60; returns a ZIP archive with one image per page. |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
+| **503** | Service Unavailable. PDF Services is not available on this deployment. |  -  |
 
 <a id="convertURL2PDF"></a>
 # **convertURL2PDF**
-> InlineObject9 convertURL2PDF(convertURL2PDFRequest)
+> InlineObject8 convertURL2PDF(convertURL2PDFRequest)
 
 URL to PDF
 
@@ -187,7 +188,7 @@ public class Example {
     ConversionApi apiInstance = new ConversionApi(defaultClient);
     ConvertURL2PDFRequest convertURL2PDFRequest = new ConvertURL2PDFRequest(); // ConvertURL2PDFRequest | 
     try {
-      InlineObject9 result = apiInstance.convertURL2PDF(convertURL2PDFRequest);
+      InlineObject8 result = apiInstance.convertURL2PDF(convertURL2PDFRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ConversionApi#convertURL2PDF");
@@ -208,7 +209,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject9**](InlineObject9.md)
+[**InlineObject8**](InlineObject8.md)
 
 ### Authorization
 
@@ -223,11 +224,12 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Document data |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **400** | Bad Request. The page at the URL could not be converted to PDF.  |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 

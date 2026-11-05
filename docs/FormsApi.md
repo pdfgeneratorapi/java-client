@@ -18,7 +18,7 @@ All URIs are relative to *https://us1.pdfgeneratorapi.com/api/v4*
 
 <a id="createForm"></a>
 # **createForm**
-> InlineObject20 createForm(formConfigurationNew)
+> InlineObject19 createForm(formConfigurationNew)
 
 Create form
 
@@ -46,7 +46,7 @@ public class Example {
     FormsApi apiInstance = new FormsApi(defaultClient);
     FormConfigurationNew formConfigurationNew = new FormConfigurationNew(); // FormConfigurationNew | Form configuration
     try {
-      InlineObject20 result = apiInstance.createForm(formConfigurationNew);
+      InlineObject19 result = apiInstance.createForm(formConfigurationNew);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#createForm");
@@ -67,7 +67,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject20**](InlineObject20.md)
+[**InlineObject19**](InlineObject19.md)
 
 ### Authorization
 
@@ -82,12 +82,12 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Form configuration |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="deleteForm"></a>
@@ -155,17 +155,17 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **204** | The resource was deleted successfully. |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="getForm"></a>
 # **getForm**
-> InlineObject20 getForm(formId)
+> InlineObject19 getForm(formId)
 
 Get form
 
@@ -193,7 +193,7 @@ public class Example {
     FormsApi apiInstance = new FormsApi(defaultClient);
     Integer formId = 1; // Integer | Form unique identifier
     try {
-      InlineObject20 result = apiInstance.getForm(formId);
+      InlineObject19 result = apiInstance.getForm(formId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#getForm");
@@ -214,7 +214,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject20**](InlineObject20.md)
+[**InlineObject19**](InlineObject19.md)
 
 ### Authorization
 
@@ -229,17 +229,17 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Form configuration |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="getFormSchema"></a>
 # **getFormSchema**
-> Object getFormSchema()
+> GetFormSchema200Response getFormSchema()
 
 Get schema
 
@@ -261,7 +261,7 @@ public class Example {
 
     FormsApi apiInstance = new FormsApi(defaultClient);
     try {
-      Object result = apiInstance.getFormSchema();
+      GetFormSchema200Response result = apiInstance.getFormSchema();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#getFormSchema");
@@ -279,7 +279,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**Object**
+[**GetFormSchema200Response**](GetFormSchema200Response.md)
 
 ### Authorization
 
@@ -294,7 +294,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Form JSON Schema |  -  |
-| **429** | Too Many Requests |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="getForms"></a>
@@ -371,17 +371,17 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | An array of form objects |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="importForm"></a>
 # **importForm**
-> InlineObject20 importForm(importFormRequest)
+> InlineObject19 importForm(importFormRequest)
 
 Import Form
 
@@ -409,7 +409,7 @@ public class Example {
     FormsApi apiInstance = new FormsApi(defaultClient);
     ImportFormRequest importFormRequest = new ImportFormRequest(); // ImportFormRequest | Import editable PDF via URL or base64 string as form
     try {
-      InlineObject20 result = apiInstance.importForm(importFormRequest);
+      InlineObject19 result = apiInstance.importForm(importFormRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#importForm");
@@ -430,7 +430,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject20**](InlineObject20.md)
+[**InlineObject19**](InlineObject19.md)
 
 ### Authorization
 
@@ -445,17 +445,17 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Form configuration |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="openFormBuilder"></a>
 # **openFormBuilder**
-> InlineObject22 openFormBuilder()
+> InlineObject21 openFormBuilder()
 
 Open new form builder
 
@@ -482,7 +482,7 @@ public class Example {
 
     FormsApi apiInstance = new FormsApi(defaultClient);
     try {
-      InlineObject22 result = apiInstance.openFormBuilder();
+      InlineObject21 result = apiInstance.openFormBuilder();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#openFormBuilder");
@@ -500,7 +500,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**InlineObject22**](InlineObject22.md)
+[**InlineObject21**](InlineObject21.md)
 
 ### Authorization
 
@@ -515,17 +515,17 @@ This endpoint does not need any parameter.
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Form Builder URL |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="openFormBuilderForExistingForm"></a>
 # **openFormBuilderForExistingForm**
-> InlineObject22 openFormBuilderForExistingForm(formId)
+> InlineObject21 openFormBuilderForExistingForm(formId)
 
 Open existing form builder
 
@@ -553,84 +553,10 @@ public class Example {
     FormsApi apiInstance = new FormsApi(defaultClient);
     Integer formId = 1; // Integer | Form unique identifier
     try {
-      InlineObject22 result = apiInstance.openFormBuilderForExistingForm(formId);
+      InlineObject21 result = apiInstance.openFormBuilderForExistingForm(formId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#openFormBuilderForExistingForm");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **formId** | **Integer**| Form unique identifier | |
-
-### Return type
-
-[**InlineObject22**](InlineObject22.md)
-
-### Authorization
-
-[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Form Builder URL |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
-| **500** | Internal Server Error |  -  |
-
-<a id="shareForm"></a>
-# **shareForm**
-> InlineObject21 shareForm(formId)
-
-Share form
-
-Creates an unique sharing URL to collect form data
-
-### Example
-```java
-// Import classes:
-import com.pdfgeneratorapi.client.ApiClient;
-import com.pdfgeneratorapi.client.ApiException;
-import com.pdfgeneratorapi.client.Configuration;
-import com.pdfgeneratorapi.client.auth.*;
-import com.pdfgeneratorapi.client.models.*;
-import com.pdfgeneratorapi.client.api.FormsApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
-    
-    // Configure HTTP bearer authorization: JSONWebTokenAuth
-    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
-    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
-
-    FormsApi apiInstance = new FormsApi(defaultClient);
-    Integer formId = 1; // Integer | Form unique identifier
-    try {
-      InlineObject21 result = apiInstance.shareForm(formId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling FormsApi#shareForm");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -662,18 +588,92 @@ public class Example {
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+| **200** | Form Builder URL |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
+| **500** | Internal Server Error |  -  |
+
+<a id="shareForm"></a>
+# **shareForm**
+> InlineObject20 shareForm(formId)
+
+Share form
+
+Creates an unique sharing URL to collect form data
+
+### Example
+```java
+// Import classes:
+import com.pdfgeneratorapi.client.ApiClient;
+import com.pdfgeneratorapi.client.ApiException;
+import com.pdfgeneratorapi.client.Configuration;
+import com.pdfgeneratorapi.client.auth.*;
+import com.pdfgeneratorapi.client.models.*;
+import com.pdfgeneratorapi.client.api.FormsApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://us1.pdfgeneratorapi.com/api/v4");
+    
+    // Configure HTTP bearer authorization: JSONWebTokenAuth
+    HttpBearerAuth JSONWebTokenAuth = (HttpBearerAuth) defaultClient.getAuthentication("JSONWebTokenAuth");
+    JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
+
+    FormsApi apiInstance = new FormsApi(defaultClient);
+    Integer formId = 1; // Integer | Form unique identifier
+    try {
+      InlineObject20 result = apiInstance.shareForm(formId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling FormsApi#shareForm");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **formId** | **Integer**| Form unique identifier | |
+
+### Return type
+
+[**InlineObject20**](InlineObject20.md)
+
+### Authorization
+
+[JSONWebTokenAuth](../README.md#JSONWebTokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
 | **201** | Form sharing URL |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="updateForm"></a>
 # **updateForm**
-> InlineObject20 updateForm(formId, formConfigurationNew)
+> InlineObject19 updateForm(formId, formConfigurationNew)
 
 Update form
 
@@ -702,7 +702,7 @@ public class Example {
     Integer formId = 1; // Integer | Form unique identifier
     FormConfigurationNew formConfigurationNew = new FormConfigurationNew(); // FormConfigurationNew | Form configuration
     try {
-      InlineObject20 result = apiInstance.updateForm(formId, formConfigurationNew);
+      InlineObject19 result = apiInstance.updateForm(formId, formConfigurationNew);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling FormsApi#updateForm");
@@ -724,7 +724,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject20**](InlineObject20.md)
+[**InlineObject19**](InlineObject19.md)
 
 ### Authorization
 
@@ -739,11 +739,11 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Form configuration |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 

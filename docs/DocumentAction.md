@@ -24,6 +24,7 @@
 | COMMENTED | &quot;commented&quot; |
 | SIGNED | &quot;signed&quot; |
 | ACKNOWLEDGED | &quot;acknowledged&quot; |
+| STORAGE_DELETE | &quot;storage_delete&quot; |
 
 
 

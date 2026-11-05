@@ -1,8 +1,8 @@
 /*
  * PDF Generator API
- * # Introduction [PDF Generator API](https://pdfgeneratorapi.com) allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.  The PDF Generator API features a web API architecture, allowing you to code in the language of your choice. This API supports the JSON media type, and uses UTF-8 character encoding.  ## Base URL The base URL for all the API endpoints is `https://us1.pdfgeneratorapi.com/api/v4`  For example * `https://us1.pdfgeneratorapi.com/api/v4/templates` * `https://us1.pdfgeneratorapi.com/api/v4/workspaces` * `https://us1.pdfgeneratorapi.com/api/v4/templates/123123`  ## Editor PDF Generator API comes with a powerful drag & drop editor that allows to create any kind of document templates, from barcode labels to invoices, quotes and reports. You can find tutorials and videos from our [Support Portal](https://support.pdfgeneratorapi.com). * [Component specification](https://support.pdfgeneratorapi.com/en/category/components-1ffseaj/) * [Expression Language documentation](https://support.pdfgeneratorapi.com/en/category/expression-language-q203pa/) * [Frequently asked questions and answers](https://support.pdfgeneratorapi.com/en/category/qanda-1ov519d/)  ## Definitions  ### Organization Organization is a group of workspaces owned by your account.  ### Workspace Workspace contains templates. Each workspace has access to their own templates and organization default templates.  ### Master Workspace Master Workspace is the main/default workspace of your Organization. The Master Workspace identifier is the email you signed up with.  ### Default Template Default template is a template that is available for all workspaces by default. You can set the template access type under Page Setup. If template has \"Organization\" access then your users can use them from the \"New\" menu in the Editor.  ### Data Field Data Field is a placeholder for the specific data in your JSON data set. In this example JSON you can access the buyer name using Data Field `{paymentDetails::buyerName}`. The separator between depth levels is :: (two colons). When designing the template you don’t have to know every Data Field, our editor automatically extracts all the available fields from your data set and provides an easy way to insert them into the template. ``` {     \"documentNumber\": 1,     \"paymentDetails\": {         \"method\": \"Credit Card\",         \"buyerName\": \"John Smith\"     },     \"items\": [         {             \"id\": 1,             \"name\": \"Item one\"         }     ] } ```  ## Rate limiting Our API endpoints use IP-based rate limiting and allow you to make up to 2 requests per second and 60 requests per minute. If you make more requests, you will receive a response with HTTP code 429.  Response headers contain additional values:  | Header   | Description                    | |--------|--------------------------------| | X-RateLimit-Limit    | Maximum requests per minute                   | | X-RateLimit-Remaining    | The requests remaining in the current minute               | | Retry-After     | How many seconds you need to wait until you are allowed to make requests |  *  *  *  *  *  # Libraries and SDKs ## Postman Collection We have created a [Postman Collection](https://www.postman.com/pdfgeneratorapi/workspace/pdf-generator-api-public-workspace/overview) so you can easily test all the API endpoints without developing and code.   ## Client Libraries All our Client Libraries are auto-generated using [OpenAPI Generator](https://openapi-generator.tech/) which uses the OpenAPI v3 specification to automatically generate a client library in specific programming language.  * [PHP Client](https://github.com/pdfgeneratorapi/php-client) * [Java Client](https://github.com/pdfgeneratorapi/java-client) * [Ruby Client](https://github.com/pdfgeneratorapi/ruby-client) * [Python Client](https://github.com/pdfgeneratorapi/python-client) * [Javascript Client](https://github.com/pdfgeneratorapi/javascript-client)  We have validated the generated libraries, but let us know if you find any anomalies in the client code.  ## Model Context Protocol (MCP) Server Integrate document generation directly into your AI agents and LLM applications using our official Model Context Protocol (MCP) Server.  The MCP server provides a standardized interface that allows AI assistants (like Claude Desktop and other MCP-compatible clients) to securely interact with the PDF Generator API. With it, your AI applications can automatically fetch workspaces, retrieve templates, merge data, and generate PDF documents on the fly.  [Get PDF Generator API MCP Server](https://github.com/pdfgeneratorapi/mcp-server) *  *  *  *  *   # Authentication The PDF Generator API uses __JSON Web Tokens (JWT)__ to authenticate all API requests. These tokens offer a method to establish secure server-to-server authentication by transferring a compact JSON object with a signed payload of your account’s API Key and Secret. When authenticating to the PDF Generator API, a JWT should be generated uniquely by a __server-side application__ and included as a __Bearer Token__ in the header of each request.   <SecurityDefinitions />  ## Accessing your API Key and Secret You can find your __API Key__ and __API Secret__ from the __Account Settings__ page after you login to PDF Generator API [here](https://pdfgeneratorapi.com/login).  ## Creating a JWT JSON Web Tokens are composed of three sections: a header, a payload (containing a claim set), and a signature. The header and payload are JSON objects, which are serialized to UTF-8 bytes, then encoded using base64url encoding.  The JWT's header, payload, and signature are concatenated with periods (.). As a result, a JWT typically takes the following form: ``` {Base64url encoded header}.{Base64url encoded payload}.{Base64url encoded signature} ```  We recommend and support libraries provided on [jwt.io](https://jwt.io/). While other libraries can create JWT, these recommended libraries are the most robust.  ### Header Property `alg` defines which signing algorithm is being used. PDF Generator API users HS256. Property `typ` defines the type of token and it is always JWT. ``` {   \"alg\": \"HS256\",   \"typ\": \"JWT\" } ```  ### Payload The second part of the token is the payload, which contains the claims  or the pieces of information being passed about the user and any metadata required. It is mandatory to specify the following claims: * issuer (`iss`): Your API key * subject (`sub`): Workspace identifier * expiration time (`exp`): Timestamp (unix epoch time) until the token is valid. It is highly recommended to set the exp timestamp for a short period, i.e. a matter of seconds. This way, if a token is intercepted or shared, the token will only be valid for a short period of time.  ``` {   \"iss\": \"ad54aaff89ffdfeff178bb8a8f359b29fcb20edb56250b9f584aa2cb0162ed4a\",   \"sub\": \"demo.example@actualreports.com\",   \"exp\": 1586112639 } ```  ### Payload for Partners Our partners can send their unique identifier (provided by us) in JWT's partner_id claim. If the `partner_id` value is specified in the JWT, the organization making the request is automatically connected to the partner account. * Partner ID (`partner_id`): Unique identifier provide by PDF Generator API team  ``` {   \"iss\": \"ad54aaff89ffdfeff178bb8a8f359b29fcb20edb56250b9f584aa2cb0162ed4a\",   \"sub\": \"demo.example@actualreports.com\",   \"partner_id\": \"my-partner-identifier\",   \"exp\": 1586112639 } ```  ### Signature To create the signature part you have to take the encoded header, the encoded payload, a secret, the algorithm specified in the header, and sign that. The signature is used to verify the message wasn't changed along the way, and, in the case of tokens signed with a private key, it can also verify that the sender of the JWT is who it says it is. ``` HMACSHA256(     base64UrlEncode(header) + \".\" +     base64UrlEncode(payload),     API_SECRET) ```  ### Putting all together The output is three Base64-URL strings separated by dots. The following shows a JWT that has the previous header and payload encoded, and it is signed with a secret. ``` eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhZDU0YWFmZjg5ZmZkZmVmZjE3OGJiOGE4ZjM1OWIyOWZjYjIwZWRiNTYyNTBiOWY1ODRhYTJjYjAxNjJlZDRhIiwic3ViIjoiZGVtby5leGFtcGxlQGFjdHVhbHJlcG9ydHMuY29tIn0.SxO-H7UYYYsclS8RGWO1qf0z1cB1m73wF9FLl9RCc1Q  // Base64 encoded header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 // Base64 encoded payload: eyJpc3MiOiJhZDU0YWFmZjg5ZmZkZmVmZjE3OGJiOGE4ZjM1OWIyOWZjYjIwZWRiNTYyNTBiOWY1ODRhYTJjYjAxNjJlZDRhIiwic3ViIjoiZGVtby5leGFtcGxlQGFjdHVhbHJlcG9ydHMuY29tIn0 // Signature: SxO-H7UYYYsclS8RGWO1qf0z1cB1m73wF9FLl9RCc1Q ```  ## Temporary JWTs You can create a temporary token in [Account Settings](https://pdfgeneratorapi.com/account/organization) page after you login to PDF Generator API. The generated token uses your email address as the subject (`sub`) value and is valid for __15 minutes__. You can also use [jwt.io](https://jwt.io/) to generate test tokens for your API calls. These test tokens should never be used in production applications. *  *  *  *  *  # Error codes  | Code   | Description                    | |--------|--------------------------------| | 401    | Unauthorized                   | | 402    | Payment Required               | | 403    | Forbidden                      | | 404    | Not Found                      | | 422    | Unprocessable Entity           | | 429    | Too Many Requests              | | 500    | Internal Server Error          |  ## 401 Unauthorized | Description                                                             | |-------------------------------------------------------------------------| | Authentication failed: request expired                                  | | Authentication failed: workspace missing                                | | Authentication failed: key missing                                      | | Authentication failed: property 'iss' (issuer) missing in JWT           | | Authentication failed: property 'sub' (subject) missing in JWT          | | Authentication failed: property 'exp' (expiration time) missing in JWT  | | Authentication failed: incorrect signature                              |  ## 402 Payment Required | Description                                                             | |-------------------------------------------------------------------------| | Your account is suspended, please upgrade your account                  |  ## 403 Forbidden | Description                                                             | |-------------------------------------------------------------------------| | Your account has exceeded the monthly document generation limit.        | | Access not granted: You cannot delete master workspace via API          | | Access not granted: Template is not accessible by this organization     | | Your session has expired, please close and reopen the editor.           |  ## 404 Entity not found | Description                                                             | |-------------------------------------------------------------------------| | Entity not found                                                        | | Resource not found                                                      | | None of the templates is available for the workspace.                   |  ## 422 Unprocessable Entity | Description                                                             | |-------------------------------------------------------------------------| | Unable to parse JSON, please check formatting                           | | Required parameter missing                                              | | Required parameter missing: template definition not defined             | | Required parameter missing: template not defined                        |  ## 429 Too Many Requests | Description                                                             | |-------------------------------------------------------------------------| | You can make up to 2 requests per second and 60 requests per minute.   |  *  *  *  *  * 
+ * # Introduction [PDF Generator API](https://pdfgeneratorapi.com) allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.  The PDF Generator API features a web API architecture, allowing you to code in the language of your choice. This API supports the JSON media type, and uses UTF-8 character encoding.  ## Base URL The base URL for all the API endpoints is `https://us1.pdfgeneratorapi.com/api/v4`  For example * `https://us1.pdfgeneratorapi.com/api/v4/templates` * `https://us1.pdfgeneratorapi.com/api/v4/workspaces` * `https://us1.pdfgeneratorapi.com/api/v4/templates/123123`  ## Editor PDF Generator API comes with a powerful drag & drop editor that allows to create any kind of document templates, from barcode labels to invoices, quotes and reports. You can find tutorials and videos from our [Support Portal](https://support.pdfgeneratorapi.com). * [Component specification](https://support.pdfgeneratorapi.com/en/category/components-1ffseaj/) * [Expression Language documentation](https://support.pdfgeneratorapi.com/en/category/expression-language-q203pa/) * [Frequently asked questions and answers](https://support.pdfgeneratorapi.com/en/category/qanda-1ov519d/)  ## Definitions  ### Organization Organization is a group of workspaces owned by your account.  ### Workspace Workspace contains templates. Each workspace has access to their own templates and organization default templates.  ### Master Workspace Master Workspace is the main/default workspace of your Organization. The Master Workspace identifier is the email you signed up with.  ### Default Template Default template is a template that is available for all workspaces by default. You can set the template access type under Page Setup. If template has \"Organization\" access then your users can use them from the \"New\" menu in the Editor.  ### Data Field Data Field is a placeholder for the specific data in your JSON data set. In this example JSON you can access the buyer name using Data Field `{paymentDetails::buyerName}`. The separator between depth levels is :: (two colons). When designing the template you don’t have to know every Data Field, our editor automatically extracts all the available fields from your data set and provides an easy way to insert them into the template. ``` {     \"documentNumber\": 1,     \"paymentDetails\": {         \"method\": \"Credit Card\",         \"buyerName\": \"John Smith\"     },     \"items\": [         {             \"id\": 1,             \"name\": \"Item one\"         }     ] } ```  ## Rate limiting Our API endpoints use IP-based rate limiting and allow you to make up to 2 requests per second and 60 requests per minute. If you make more requests, you will receive a response with HTTP code 429.  Response headers contain additional values:  | Header   | Description                    | |--------|--------------------------------| | X-RateLimit-Limit    | Maximum requests per minute                   | | X-RateLimit-Remaining    | The requests remaining in the current minute               | | Retry-After     | How many seconds you need to wait until you are allowed to make requests |  *  *  *  *  *  # Libraries and SDKs ## Postman Collection We have created a [Postman Collection](https://www.postman.com/pdfgeneratorapi/workspace/pdf-generator-api-public-workspace/overview) so you can easily test all the API endpoints without developing and code.   ## Client Libraries All our Client Libraries are auto-generated using [OpenAPI Generator](https://openapi-generator.tech/) which uses the OpenAPI v3 specification to automatically generate a client library in specific programming language.  * [PHP Client](https://github.com/pdfgeneratorapi/php-client) * [Java Client](https://github.com/pdfgeneratorapi/java-client) * [Ruby Client](https://github.com/pdfgeneratorapi/ruby-client) * [Python Client](https://github.com/pdfgeneratorapi/python-client) * [Javascript Client](https://github.com/pdfgeneratorapi/javascript-client)  We have validated the generated libraries, but let us know if you find any anomalies in the client code.  ## Model Context Protocol (MCP) Server Integrate document generation directly into your AI agents and LLM applications using our official Model Context Protocol (MCP) Server.  The MCP server provides a standardized interface that allows AI assistants (like Claude Desktop and other MCP-compatible clients) to securely interact with the PDF Generator API. With it, your AI applications can automatically fetch workspaces, retrieve templates, merge data, and generate PDF documents on the fly.  [Get PDF Generator API MCP Server](https://github.com/pdfgeneratorapi/mcp-server) *  *  *  *  *   # Authentication The PDF Generator API uses __JSON Web Tokens (JWT)__ to authenticate all API requests. These tokens offer a method to establish secure server-to-server authentication by transferring a compact JSON object with a signed payload of your account’s API Key and Secret. When authenticating to the PDF Generator API, a JWT should be generated uniquely by a __server-side application__ and included as a __Bearer Token__ in the header of each request.   <SecurityDefinitions />  ## Accessing your API Key and Secret You can find your __API Key__ and __API Secret__ from the __Account Settings__ page after you login to PDF Generator API [here](https://pdfgeneratorapi.com/login).  ## Creating a JWT JSON Web Tokens are composed of three sections: a header, a payload (containing a claim set), and a signature. The header and payload are JSON objects, which are serialized to UTF-8 bytes, then encoded using base64url encoding.  The JWT's header, payload, and signature are concatenated with periods (.). As a result, a JWT typically takes the following form: ``` {Base64url encoded header}.{Base64url encoded payload}.{Base64url encoded signature} ```  We recommend and support libraries provided on [jwt.io](https://jwt.io/). While other libraries can create JWT, these recommended libraries are the most robust.  ### Header Property `alg` defines which signing algorithm is being used. PDF Generator API users HS256. Property `typ` defines the type of token and it is always JWT. ``` {   \"alg\": \"HS256\",   \"typ\": \"JWT\" } ```  ### Payload The second part of the token is the payload, which contains the claims  or the pieces of information being passed about the user and any metadata required. It is mandatory to specify the following claims: * issuer (`iss`): Your API key * subject (`sub`): Workspace identifier * expiration time (`exp`): Timestamp (unix epoch time) until the token is valid. It is highly recommended to set the exp timestamp for a short period, i.e. a matter of seconds. This way, if a token is intercepted or shared, the token will only be valid for a short period of time.  ``` {   \"iss\": \"ad54aaff89ffdfeff178bb8a8f359b29fcb20edb56250b9f584aa2cb0162ed4a\",   \"sub\": \"demo.example@actualreports.com\",   \"exp\": 1586112639 } ```  ### Payload for Partners Our partners can send their unique identifier (provided by us) in JWT's partner_id claim. If the `partner_id` value is specified in the JWT, the organization making the request is automatically connected to the partner account. * Partner ID (`partner_id`): Unique identifier provide by PDF Generator API team  ``` {   \"iss\": \"ad54aaff89ffdfeff178bb8a8f359b29fcb20edb56250b9f584aa2cb0162ed4a\",   \"sub\": \"demo.example@actualreports.com\",   \"partner_id\": \"my-partner-identifier\",   \"exp\": 1586112639 } ```  ### Signature To create the signature part you have to take the encoded header, the encoded payload, a secret, the algorithm specified in the header, and sign that. The signature is used to verify the message wasn't changed along the way, and, in the case of tokens signed with a private key, it can also verify that the sender of the JWT is who it says it is. ``` HMACSHA256(     base64UrlEncode(header) + \".\" +     base64UrlEncode(payload),     API_SECRET) ```  ### Putting all together The output is three Base64-URL strings separated by dots. The following shows a JWT that has the previous header and payload encoded, and it is signed with a secret. ``` eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhZDU0YWFmZjg5ZmZkZmVmZjE3OGJiOGE4ZjM1OWIyOWZjYjIwZWRiNTYyNTBiOWY1ODRhYTJjYjAxNjJlZDRhIiwic3ViIjoiZGVtby5leGFtcGxlQGFjdHVhbHJlcG9ydHMuY29tIn0.SxO-H7UYYYsclS8RGWO1qf0z1cB1m73wF9FLl9RCc1Q  // Base64 encoded header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 // Base64 encoded payload: eyJpc3MiOiJhZDU0YWFmZjg5ZmZkZmVmZjE3OGJiOGE4ZjM1OWIyOWZjYjIwZWRiNTYyNTBiOWY1ODRhYTJjYjAxNjJlZDRhIiwic3ViIjoiZGVtby5leGFtcGxlQGFjdHVhbHJlcG9ydHMuY29tIn0 // Signature: SxO-H7UYYYsclS8RGWO1qf0z1cB1m73wF9FLl9RCc1Q ```  ## Temporary JWTs You can create a temporary token in [Account Settings](https://pdfgeneratorapi.com/account/organization) page after you login to PDF Generator API. The generated token uses your email address as the subject (`sub`) value and is valid for __15 minutes__. You can also use [jwt.io](https://jwt.io/) to generate test tokens for your API calls. These test tokens should never be used in production applications. *  *  *  *  *  # Error codes  Every error response is a JSON object with a `message` string. Request validation failures (422) also include an `errors` object keyed by the field that failed.  ```json {   \"message\": \"The identifier field is required.\",   \"errors\": {     \"identifier\": [\"The identifier field is required.\"]   } } ```  | Code   | Description                    | |--------|--------------------------------| | 400    | Bad Request                    | | 401    | Unauthorized                   | | 402    | Payment Required               | | 403    | Forbidden                      | | 404    | Not Found                      | | 405    | Method Not Allowed             | | 409    | Conflict                       | | 410    | Gone                           | | 422    | Unprocessable Entity           | | 429    | Too Many Requests              | | 500    | Internal Server Error          | | 503    | Service Unavailable            |  ## 401 Unauthorized | Description                                                                       | |-----------------------------------------------------------------------------------| | Authentication failed: JWT Token missing.                                         | | Authentication failed: Malformed JWT Token.                                       | | Authentication failed: Expired JWT Token.                                         | | Authentication failed: Invalid workspace.                                         | | Authentication failed: Invalid organization.                                      | | Authentication failed: This application no longer has access to the workspace.   | | Authentication failed: The sub field is required. (also `iss` and `exp`)          |  ## 402 Payment Required | Description                                                                       | |-----------------------------------------------------------------------------------| | Your account is suspended, please upgrade your account or contact support@pdfgeneratorapi.com. |  ## 403 Forbidden | Description                                                                       | |-----------------------------------------------------------------------------------| | You don't have permission to access this content. Please get in touch with your organization administrator to update your access permissions. | | This application was not granted permission for this request.                    | | Deleting own user is not allowed.                                                 | | Deleting organization owner is not allowed.                                       |  ## 404 Not Found | Description                                                                       | |-----------------------------------------------------------------------------------| | Entity not found.                                                                 | | Route not found.                                                                  | | Workspace doesn’t have access to read the template.                               |  ## 422 Unprocessable Entity | Description                                                                       | |-----------------------------------------------------------------------------------| | Unable to parse JSON, please check formatting.                                    | | Template id should be a numeric value.                                            | | The per page must be at least 1. (with `errors.per_page`)                         |  ## 429 Too Many Requests | Description                                                                       | |-----------------------------------------------------------------------------------| | Per-second rate limit exceeded. Please slow down your requests.                   | | Per-minute rate limit exceeded. Please try again in a minute.                     | | Global per-second rate limit exceeded. Please slow down your requests.            | | Global per-minute rate limit exceeded. Please try again in a minute.              |  *  *  *  *  * 
  *
- * The version of the OpenAPI document: 4.0.31
+ * The version of the OpenAPI document: 4.0.34
  * Contact: support@pdfgeneratorapi.com
  *
  * NOTE: This class is auto generated by OpenAPI Generator (https://openapi-generator.tech).
@@ -28,21 +28,18 @@ import java.io.IOException;
 
 
 import com.pdfgeneratorapi.client.model.CopyTemplateRequest;
+import com.pdfgeneratorapi.client.model.Error;
+import com.pdfgeneratorapi.client.model.GetTemplateSchema200Response;
 import com.pdfgeneratorapi.client.model.ImportTemplateRequest;
 import com.pdfgeneratorapi.client.model.InlineObject1;
-import com.pdfgeneratorapi.client.model.InlineObject19;
+import com.pdfgeneratorapi.client.model.InlineObject18;
 import com.pdfgeneratorapi.client.model.InlineObject2;
-import com.pdfgeneratorapi.client.model.InlineObject24;
-import com.pdfgeneratorapi.client.model.InlineObject25;
-import com.pdfgeneratorapi.client.model.InlineObject26;
-import com.pdfgeneratorapi.client.model.InlineObject27;
-import com.pdfgeneratorapi.client.model.InlineObject29;
 import com.pdfgeneratorapi.client.model.InlineObject3;
-import com.pdfgeneratorapi.client.model.InlineObject30;
-import com.pdfgeneratorapi.client.model.InlineObject31;
 import com.pdfgeneratorapi.client.model.InlineObject4;
 import com.pdfgeneratorapi.client.model.OpenEditorRequest;
 import com.pdfgeneratorapi.client.model.TemplateDefinitionNew;
+import com.pdfgeneratorapi.client.model.TemplateDefinitionUpdate;
+import com.pdfgeneratorapi.client.model.ValidationError;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -99,12 +96,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 201 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -170,24 +167,24 @@ public class TemplatesApi {
      * Creates a copy of a template to the workspace specified in authentication parameters.
      * @param templateId Template unique identifier (required)
      * @param copyTemplateRequest  (optional)
-     * @return InlineObject19
+     * @return InlineObject18
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 201 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public InlineObject19 copyTemplate(@javax.annotation.Nonnull Integer templateId, @javax.annotation.Nullable CopyTemplateRequest copyTemplateRequest) throws ApiException {
-        ApiResponse<InlineObject19> localVarResp = copyTemplateWithHttpInfo(templateId, copyTemplateRequest);
+    public InlineObject18 copyTemplate(@javax.annotation.Nonnull Integer templateId, @javax.annotation.Nullable CopyTemplateRequest copyTemplateRequest) throws ApiException {
+        ApiResponse<InlineObject18> localVarResp = copyTemplateWithHttpInfo(templateId, copyTemplateRequest);
         return localVarResp.getData();
     }
 
@@ -196,25 +193,25 @@ public class TemplatesApi {
      * Creates a copy of a template to the workspace specified in authentication parameters.
      * @param templateId Template unique identifier (required)
      * @param copyTemplateRequest  (optional)
-     * @return ApiResponse&lt;InlineObject19&gt;
+     * @return ApiResponse&lt;InlineObject18&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 201 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<InlineObject19> copyTemplateWithHttpInfo(@javax.annotation.Nonnull Integer templateId, @javax.annotation.Nullable CopyTemplateRequest copyTemplateRequest) throws ApiException {
+    public ApiResponse<InlineObject18> copyTemplateWithHttpInfo(@javax.annotation.Nonnull Integer templateId, @javax.annotation.Nullable CopyTemplateRequest copyTemplateRequest) throws ApiException {
         okhttp3.Call localVarCall = copyTemplateValidateBeforeCall(templateId, copyTemplateRequest, null);
-        Type localVarReturnType = new TypeToken<InlineObject19>(){}.getType();
+        Type localVarReturnType = new TypeToken<InlineObject18>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -231,19 +228,19 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 201 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call copyTemplateAsync(@javax.annotation.Nonnull Integer templateId, @javax.annotation.Nullable CopyTemplateRequest copyTemplateRequest, final ApiCallback<InlineObject19> _callback) throws ApiException {
+    public okhttp3.Call copyTemplateAsync(@javax.annotation.Nonnull Integer templateId, @javax.annotation.Nullable CopyTemplateRequest copyTemplateRequest, final ApiCallback<InlineObject18> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = copyTemplateValidateBeforeCall(templateId, copyTemplateRequest, _callback);
-        Type localVarReturnType = new TypeToken<InlineObject19>(){}.getType();
+        Type localVarReturnType = new TypeToken<InlineObject18>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -258,12 +255,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 201 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -327,24 +324,24 @@ public class TemplatesApi {
      * Create template
      * Creates a new template. If template configuration is not specified in the request body then an empty template is created. Template is placed to the workspace specified in authentication params. Template configuration must be sent in the request body.
      * @param templateDefinitionNew Template configuration (required)
-     * @return InlineObject19
+     * @return InlineObject18
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 201 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public InlineObject19 createTemplate(@javax.annotation.Nonnull TemplateDefinitionNew templateDefinitionNew) throws ApiException {
-        ApiResponse<InlineObject19> localVarResp = createTemplateWithHttpInfo(templateDefinitionNew);
+    public InlineObject18 createTemplate(@javax.annotation.Nonnull TemplateDefinitionNew templateDefinitionNew) throws ApiException {
+        ApiResponse<InlineObject18> localVarResp = createTemplateWithHttpInfo(templateDefinitionNew);
         return localVarResp.getData();
     }
 
@@ -352,25 +349,25 @@ public class TemplatesApi {
      * Create template
      * Creates a new template. If template configuration is not specified in the request body then an empty template is created. Template is placed to the workspace specified in authentication params. Template configuration must be sent in the request body.
      * @param templateDefinitionNew Template configuration (required)
-     * @return ApiResponse&lt;InlineObject19&gt;
+     * @return ApiResponse&lt;InlineObject18&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 201 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<InlineObject19> createTemplateWithHttpInfo(@javax.annotation.Nonnull TemplateDefinitionNew templateDefinitionNew) throws ApiException {
+    public ApiResponse<InlineObject18> createTemplateWithHttpInfo(@javax.annotation.Nonnull TemplateDefinitionNew templateDefinitionNew) throws ApiException {
         okhttp3.Call localVarCall = createTemplateValidateBeforeCall(templateDefinitionNew, null);
-        Type localVarReturnType = new TypeToken<InlineObject19>(){}.getType();
+        Type localVarReturnType = new TypeToken<InlineObject18>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -386,19 +383,19 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 201 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createTemplateAsync(@javax.annotation.Nonnull TemplateDefinitionNew templateDefinitionNew, final ApiCallback<InlineObject19> _callback) throws ApiException {
+    public okhttp3.Call createTemplateAsync(@javax.annotation.Nonnull TemplateDefinitionNew templateDefinitionNew, final ApiCallback<InlineObject18> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createTemplateValidateBeforeCall(templateDefinitionNew, _callback);
-        Type localVarReturnType = new TypeToken<InlineObject19>(){}.getType();
+        Type localVarReturnType = new TypeToken<InlineObject18>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -413,12 +410,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 204 </td><td> The resource was deleted successfully. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -488,12 +485,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 204 </td><td> The resource was deleted successfully. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -512,12 +509,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 204 </td><td> The resource was deleted successfully. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -538,12 +535,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 204 </td><td> The resource was deleted successfully. </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -564,12 +561,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -633,24 +630,24 @@ public class TemplatesApi {
      * Get template
      * Returns template configuration
      * @param templateId Template unique identifier (required)
-     * @return InlineObject19
+     * @return InlineObject18
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public InlineObject19 getTemplate(@javax.annotation.Nonnull Integer templateId) throws ApiException {
-        ApiResponse<InlineObject19> localVarResp = getTemplateWithHttpInfo(templateId);
+    public InlineObject18 getTemplate(@javax.annotation.Nonnull Integer templateId) throws ApiException {
+        ApiResponse<InlineObject18> localVarResp = getTemplateWithHttpInfo(templateId);
         return localVarResp.getData();
     }
 
@@ -658,25 +655,25 @@ public class TemplatesApi {
      * Get template
      * Returns template configuration
      * @param templateId Template unique identifier (required)
-     * @return ApiResponse&lt;InlineObject19&gt;
+     * @return ApiResponse&lt;InlineObject18&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<InlineObject19> getTemplateWithHttpInfo(@javax.annotation.Nonnull Integer templateId) throws ApiException {
+    public ApiResponse<InlineObject18> getTemplateWithHttpInfo(@javax.annotation.Nonnull Integer templateId) throws ApiException {
         okhttp3.Call localVarCall = getTemplateValidateBeforeCall(templateId, null);
-        Type localVarReturnType = new TypeToken<InlineObject19>(){}.getType();
+        Type localVarReturnType = new TypeToken<InlineObject18>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -692,19 +689,19 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getTemplateAsync(@javax.annotation.Nonnull Integer templateId, final ApiCallback<InlineObject19> _callback) throws ApiException {
+    public okhttp3.Call getTemplateAsync(@javax.annotation.Nonnull Integer templateId, final ApiCallback<InlineObject18> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getTemplateValidateBeforeCall(templateId, _callback);
-        Type localVarReturnType = new TypeToken<InlineObject19>(){}.getType();
+        Type localVarReturnType = new TypeToken<InlineObject18>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -719,12 +716,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template data structure </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -795,12 +792,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template data structure </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -820,12 +817,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template data structure </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -847,12 +844,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template data structure </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -873,7 +870,7 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template JSON Schema </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -917,7 +914,7 @@ public class TemplatesApi {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "JSONWebTokenAuth" };
+        String[] localVarAuthNames = new String[] {  };
         return localVarApiClient.buildCall(basePath, localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -930,39 +927,39 @@ public class TemplatesApi {
     /**
      * Get schema
      * Returns Template JSON Schema which defines the structure of the Template Definition.
-     * @return Object
+     * @return GetTemplateSchema200Response
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template JSON Schema </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public Object getTemplateSchema() throws ApiException {
-        ApiResponse<Object> localVarResp = getTemplateSchemaWithHttpInfo();
+    public GetTemplateSchema200Response getTemplateSchema() throws ApiException {
+        ApiResponse<GetTemplateSchema200Response> localVarResp = getTemplateSchemaWithHttpInfo();
         return localVarResp.getData();
     }
 
     /**
      * Get schema
      * Returns Template JSON Schema which defines the structure of the Template Definition.
-     * @return ApiResponse&lt;Object&gt;
+     * @return ApiResponse&lt;GetTemplateSchema200Response&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template JSON Schema </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Object> getTemplateSchemaWithHttpInfo() throws ApiException {
+    public ApiResponse<GetTemplateSchema200Response> getTemplateSchemaWithHttpInfo() throws ApiException {
         okhttp3.Call localVarCall = getTemplateSchemaValidateBeforeCall(null);
-        Type localVarReturnType = new TypeToken<Object>(){}.getType();
+        Type localVarReturnType = new TypeToken<GetTemplateSchema200Response>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -977,14 +974,14 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template JSON Schema </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getTemplateSchemaAsync(final ApiCallback<Object> _callback) throws ApiException {
+    public okhttp3.Call getTemplateSchemaAsync(final ApiCallback<GetTemplateSchema200Response> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getTemplateSchemaValidateBeforeCall(_callback);
-        Type localVarReturnType = new TypeToken<Object>(){}.getType();
+        Type localVarReturnType = new TypeToken<GetTemplateSchema200Response>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -995,6 +992,9 @@ public class TemplatesApi {
      * @param access Filter template by access type. No values returns all templates. private - returns only private templates, organization - returns only organization templates. (optional, default to )
      * @param page Pagination: page to return (optional, default to 1)
      * @param perPage Pagination: How many records to return per page (optional, default to 15)
+     * @param orderBy Field to sort the templates by. Ignored when &#x60;name&#x60; or &#x60;tags&#x60; is set. (optional, default to updated_at)
+     * @param orderDirection Sort direction. Ignored when &#x60;name&#x60; or &#x60;tags&#x60; is set. (optional, default to desc)
+     * @param search Returns templates whose ID, name, tags, creation date or modification date contains the search value. Ignored when &#x60;name&#x60; or &#x60;tags&#x60; is set. (optional)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -1003,16 +1003,16 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> An array of template objects </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getTemplatesCall(@javax.annotation.Nullable String name, @javax.annotation.Nullable String tags, @javax.annotation.Nullable String access, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer perPage, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getTemplatesCall(@javax.annotation.Nullable String name, @javax.annotation.Nullable String tags, @javax.annotation.Nullable String access, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer perPage, @javax.annotation.Nullable String orderBy, @javax.annotation.Nullable String orderDirection, @javax.annotation.Nullable String search, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1057,6 +1057,18 @@ public class TemplatesApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("per_page", perPage));
         }
 
+        if (orderBy != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("order_by", orderBy));
+        }
+
+        if (orderDirection != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("order_direction", orderDirection));
+        }
+
+        if (search != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("search", search));
+        }
+
         final String[] localVarAccepts = {
             "application/json"
         };
@@ -1077,8 +1089,8 @@ public class TemplatesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getTemplatesValidateBeforeCall(@javax.annotation.Nullable String name, @javax.annotation.Nullable String tags, @javax.annotation.Nullable String access, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer perPage, final ApiCallback _callback) throws ApiException {
-        return getTemplatesCall(name, tags, access, page, perPage, _callback);
+    private okhttp3.Call getTemplatesValidateBeforeCall(@javax.annotation.Nullable String name, @javax.annotation.Nullable String tags, @javax.annotation.Nullable String access, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer perPage, @javax.annotation.Nullable String orderBy, @javax.annotation.Nullable String orderDirection, @javax.annotation.Nullable String search, final ApiCallback _callback) throws ApiException {
+        return getTemplatesCall(name, tags, access, page, perPage, orderBy, orderDirection, search, _callback);
 
     }
 
@@ -1090,6 +1102,9 @@ public class TemplatesApi {
      * @param access Filter template by access type. No values returns all templates. private - returns only private templates, organization - returns only organization templates. (optional, default to )
      * @param page Pagination: page to return (optional, default to 1)
      * @param perPage Pagination: How many records to return per page (optional, default to 15)
+     * @param orderBy Field to sort the templates by. Ignored when &#x60;name&#x60; or &#x60;tags&#x60; is set. (optional, default to updated_at)
+     * @param orderDirection Sort direction. Ignored when &#x60;name&#x60; or &#x60;tags&#x60; is set. (optional, default to desc)
+     * @param search Returns templates whose ID, name, tags, creation date or modification date contains the search value. Ignored when &#x60;name&#x60; or &#x60;tags&#x60; is set. (optional)
      * @return InlineObject4
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1097,17 +1112,17 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> An array of template objects </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public InlineObject4 getTemplates(@javax.annotation.Nullable String name, @javax.annotation.Nullable String tags, @javax.annotation.Nullable String access, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer perPage) throws ApiException {
-        ApiResponse<InlineObject4> localVarResp = getTemplatesWithHttpInfo(name, tags, access, page, perPage);
+    public InlineObject4 getTemplates(@javax.annotation.Nullable String name, @javax.annotation.Nullable String tags, @javax.annotation.Nullable String access, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer perPage, @javax.annotation.Nullable String orderBy, @javax.annotation.Nullable String orderDirection, @javax.annotation.Nullable String search) throws ApiException {
+        ApiResponse<InlineObject4> localVarResp = getTemplatesWithHttpInfo(name, tags, access, page, perPage, orderBy, orderDirection, search);
         return localVarResp.getData();
     }
 
@@ -1119,6 +1134,9 @@ public class TemplatesApi {
      * @param access Filter template by access type. No values returns all templates. private - returns only private templates, organization - returns only organization templates. (optional, default to )
      * @param page Pagination: page to return (optional, default to 1)
      * @param perPage Pagination: How many records to return per page (optional, default to 15)
+     * @param orderBy Field to sort the templates by. Ignored when &#x60;name&#x60; or &#x60;tags&#x60; is set. (optional, default to updated_at)
+     * @param orderDirection Sort direction. Ignored when &#x60;name&#x60; or &#x60;tags&#x60; is set. (optional, default to desc)
+     * @param search Returns templates whose ID, name, tags, creation date or modification date contains the search value. Ignored when &#x60;name&#x60; or &#x60;tags&#x60; is set. (optional)
      * @return ApiResponse&lt;InlineObject4&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1126,17 +1144,17 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> An array of template objects </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<InlineObject4> getTemplatesWithHttpInfo(@javax.annotation.Nullable String name, @javax.annotation.Nullable String tags, @javax.annotation.Nullable String access, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer perPage) throws ApiException {
-        okhttp3.Call localVarCall = getTemplatesValidateBeforeCall(name, tags, access, page, perPage, null);
+    public ApiResponse<InlineObject4> getTemplatesWithHttpInfo(@javax.annotation.Nullable String name, @javax.annotation.Nullable String tags, @javax.annotation.Nullable String access, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer perPage, @javax.annotation.Nullable String orderBy, @javax.annotation.Nullable String orderDirection, @javax.annotation.Nullable String search) throws ApiException {
+        okhttp3.Call localVarCall = getTemplatesValidateBeforeCall(name, tags, access, page, perPage, orderBy, orderDirection, search, null);
         Type localVarReturnType = new TypeToken<InlineObject4>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -1149,6 +1167,9 @@ public class TemplatesApi {
      * @param access Filter template by access type. No values returns all templates. private - returns only private templates, organization - returns only organization templates. (optional, default to )
      * @param page Pagination: page to return (optional, default to 1)
      * @param perPage Pagination: How many records to return per page (optional, default to 15)
+     * @param orderBy Field to sort the templates by. Ignored when &#x60;name&#x60; or &#x60;tags&#x60; is set. (optional, default to updated_at)
+     * @param orderDirection Sort direction. Ignored when &#x60;name&#x60; or &#x60;tags&#x60; is set. (optional, default to desc)
+     * @param search Returns templates whose ID, name, tags, creation date or modification date contains the search value. Ignored when &#x60;name&#x60; or &#x60;tags&#x60; is set. (optional)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1157,18 +1178,18 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> An array of template objects </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getTemplatesAsync(@javax.annotation.Nullable String name, @javax.annotation.Nullable String tags, @javax.annotation.Nullable String access, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer perPage, final ApiCallback<InlineObject4> _callback) throws ApiException {
+    public okhttp3.Call getTemplatesAsync(@javax.annotation.Nullable String name, @javax.annotation.Nullable String tags, @javax.annotation.Nullable String access, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer perPage, @javax.annotation.Nullable String orderBy, @javax.annotation.Nullable String orderDirection, @javax.annotation.Nullable String search, final ApiCallback<InlineObject4> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getTemplatesValidateBeforeCall(name, tags, access, page, perPage, _callback);
+        okhttp3.Call localVarCall = getTemplatesValidateBeforeCall(name, tags, access, page, perPage, orderBy, orderDirection, search, _callback);
         Type localVarReturnType = new TypeToken<InlineObject4>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1184,12 +1205,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 201 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -1253,24 +1274,24 @@ public class TemplatesApi {
      * Import template
      * Creates a template from existing PDF
      * @param importTemplateRequest Import a PDF via URL or base64 string as template (required)
-     * @return InlineObject19
+     * @return InlineObject18
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 201 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public InlineObject19 importTemplate(@javax.annotation.Nonnull ImportTemplateRequest importTemplateRequest) throws ApiException {
-        ApiResponse<InlineObject19> localVarResp = importTemplateWithHttpInfo(importTemplateRequest);
+    public InlineObject18 importTemplate(@javax.annotation.Nonnull ImportTemplateRequest importTemplateRequest) throws ApiException {
+        ApiResponse<InlineObject18> localVarResp = importTemplateWithHttpInfo(importTemplateRequest);
         return localVarResp.getData();
     }
 
@@ -1278,25 +1299,25 @@ public class TemplatesApi {
      * Import template
      * Creates a template from existing PDF
      * @param importTemplateRequest Import a PDF via URL or base64 string as template (required)
-     * @return ApiResponse&lt;InlineObject19&gt;
+     * @return ApiResponse&lt;InlineObject18&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 201 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<InlineObject19> importTemplateWithHttpInfo(@javax.annotation.Nonnull ImportTemplateRequest importTemplateRequest) throws ApiException {
+    public ApiResponse<InlineObject18> importTemplateWithHttpInfo(@javax.annotation.Nonnull ImportTemplateRequest importTemplateRequest) throws ApiException {
         okhttp3.Call localVarCall = importTemplateValidateBeforeCall(importTemplateRequest, null);
-        Type localVarReturnType = new TypeToken<InlineObject19>(){}.getType();
+        Type localVarReturnType = new TypeToken<InlineObject18>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -1312,19 +1333,19 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 201 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call importTemplateAsync(@javax.annotation.Nonnull ImportTemplateRequest importTemplateRequest, final ApiCallback<InlineObject19> _callback) throws ApiException {
+    public okhttp3.Call importTemplateAsync(@javax.annotation.Nonnull ImportTemplateRequest importTemplateRequest, final ApiCallback<InlineObject18> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = importTemplateValidateBeforeCall(importTemplateRequest, _callback);
-        Type localVarReturnType = new TypeToken<InlineObject19>(){}.getType();
+        Type localVarReturnType = new TypeToken<InlineObject18>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -1340,12 +1361,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Returns an URL which you can use to redirect your user to the editor or use as iframe source </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -1423,12 +1444,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Returns an URL which you can use to redirect your user to the editor or use as iframe source </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -1449,12 +1470,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Returns an URL which you can use to redirect your user to the editor or use as iframe source </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -1477,12 +1498,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Returns an URL which you can use to redirect your user to the editor or use as iframe source </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -1496,7 +1517,7 @@ public class TemplatesApi {
     /**
      * Build call for updateTemplate
      * @param templateId Template unique identifier (required)
-     * @param templateDefinitionNew Template configuration (required)
+     * @param templateDefinitionUpdate The template configuration to change (required)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -1505,16 +1526,16 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateTemplateCall(@javax.annotation.Nonnull Integer templateId, @javax.annotation.Nonnull TemplateDefinitionNew templateDefinitionNew, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call updateTemplateCall(@javax.annotation.Nonnull Integer templateId, @javax.annotation.Nonnull TemplateDefinitionUpdate templateDefinitionUpdate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -1528,7 +1549,7 @@ public class TemplatesApi {
             basePath = null;
         }
 
-        Object localVarPostBody = templateDefinitionNew;
+        Object localVarPostBody = templateDefinitionUpdate;
 
         // create path and map variables
         String localVarPath = "/templates/{templateId}"
@@ -1561,79 +1582,79 @@ public class TemplatesApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call updateTemplateValidateBeforeCall(@javax.annotation.Nonnull Integer templateId, @javax.annotation.Nonnull TemplateDefinitionNew templateDefinitionNew, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call updateTemplateValidateBeforeCall(@javax.annotation.Nonnull Integer templateId, @javax.annotation.Nonnull TemplateDefinitionUpdate templateDefinitionUpdate, final ApiCallback _callback) throws ApiException {
         // verify the required parameter 'templateId' is set
         if (templateId == null) {
             throw new ApiException("Missing the required parameter 'templateId' when calling updateTemplate(Async)");
         }
 
-        // verify the required parameter 'templateDefinitionNew' is set
-        if (templateDefinitionNew == null) {
-            throw new ApiException("Missing the required parameter 'templateDefinitionNew' when calling updateTemplate(Async)");
+        // verify the required parameter 'templateDefinitionUpdate' is set
+        if (templateDefinitionUpdate == null) {
+            throw new ApiException("Missing the required parameter 'templateDefinitionUpdate' when calling updateTemplate(Async)");
         }
 
-        return updateTemplateCall(templateId, templateDefinitionNew, _callback);
+        return updateTemplateCall(templateId, templateDefinitionUpdate, _callback);
 
     }
 
     /**
      * Update template
-     * Updates template configuration. Each top-level field sent (name, layout, pages and the rest) replaces the stored one, so pages must be complete, with every component.
+     * Updates template configuration. Each top-level field sent (name, layout, pages and the rest) replaces the stored one, so pages must be complete, with every component. A field left out keeps its stored value, the name included.
      * @param templateId Template unique identifier (required)
-     * @param templateDefinitionNew Template configuration (required)
-     * @return InlineObject19
+     * @param templateDefinitionUpdate The template configuration to change (required)
+     * @return InlineObject18
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public InlineObject19 updateTemplate(@javax.annotation.Nonnull Integer templateId, @javax.annotation.Nonnull TemplateDefinitionNew templateDefinitionNew) throws ApiException {
-        ApiResponse<InlineObject19> localVarResp = updateTemplateWithHttpInfo(templateId, templateDefinitionNew);
+    public InlineObject18 updateTemplate(@javax.annotation.Nonnull Integer templateId, @javax.annotation.Nonnull TemplateDefinitionUpdate templateDefinitionUpdate) throws ApiException {
+        ApiResponse<InlineObject18> localVarResp = updateTemplateWithHttpInfo(templateId, templateDefinitionUpdate);
         return localVarResp.getData();
     }
 
     /**
      * Update template
-     * Updates template configuration. Each top-level field sent (name, layout, pages and the rest) replaces the stored one, so pages must be complete, with every component.
+     * Updates template configuration. Each top-level field sent (name, layout, pages and the rest) replaces the stored one, so pages must be complete, with every component. A field left out keeps its stored value, the name included.
      * @param templateId Template unique identifier (required)
-     * @param templateDefinitionNew Template configuration (required)
-     * @return ApiResponse&lt;InlineObject19&gt;
+     * @param templateDefinitionUpdate The template configuration to change (required)
+     * @return ApiResponse&lt;InlineObject18&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<InlineObject19> updateTemplateWithHttpInfo(@javax.annotation.Nonnull Integer templateId, @javax.annotation.Nonnull TemplateDefinitionNew templateDefinitionNew) throws ApiException {
-        okhttp3.Call localVarCall = updateTemplateValidateBeforeCall(templateId, templateDefinitionNew, null);
-        Type localVarReturnType = new TypeToken<InlineObject19>(){}.getType();
+    public ApiResponse<InlineObject18> updateTemplateWithHttpInfo(@javax.annotation.Nonnull Integer templateId, @javax.annotation.Nonnull TemplateDefinitionUpdate templateDefinitionUpdate) throws ApiException {
+        okhttp3.Call localVarCall = updateTemplateValidateBeforeCall(templateId, templateDefinitionUpdate, null);
+        Type localVarReturnType = new TypeToken<InlineObject18>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
     /**
      * Update template (asynchronously)
-     * Updates template configuration. Each top-level field sent (name, layout, pages and the rest) replaces the stored one, so pages must be complete, with every component.
+     * Updates template configuration. Each top-level field sent (name, layout, pages and the rest) replaces the stored one, so pages must be complete, with every component. A field left out keeps its stored value, the name included.
      * @param templateId Template unique identifier (required)
-     * @param templateDefinitionNew Template configuration (required)
+     * @param templateDefinitionUpdate The template configuration to change (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1642,19 +1663,19 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template configuration </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateTemplateAsync(@javax.annotation.Nonnull Integer templateId, @javax.annotation.Nonnull TemplateDefinitionNew templateDefinitionNew, final ApiCallback<InlineObject19> _callback) throws ApiException {
+    public okhttp3.Call updateTemplateAsync(@javax.annotation.Nonnull Integer templateId, @javax.annotation.Nonnull TemplateDefinitionUpdate templateDefinitionUpdate, final ApiCallback<InlineObject18> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = updateTemplateValidateBeforeCall(templateId, templateDefinitionNew, _callback);
-        Type localVarReturnType = new TypeToken<InlineObject19>(){}.getType();
+        okhttp3.Call localVarCall = updateTemplateValidateBeforeCall(templateId, templateDefinitionUpdate, _callback);
+        Type localVarReturnType = new TypeToken<InlineObject18>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -1669,12 +1690,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template validation response </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -1719,7 +1740,7 @@ public class TemplatesApi {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
-        String[] localVarAuthNames = new String[] { "JSONWebTokenAuth" };
+        String[] localVarAuthNames = new String[] {  };
         return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
     }
 
@@ -1745,12 +1766,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template validation response </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -1770,12 +1791,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template validation response </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */
@@ -1797,12 +1818,12 @@ public class TemplatesApi {
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td> Template validation response </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 402 </td><td> Account Suspended </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Not Found </td><td>  -  </td></tr>
-        <tr><td> 422 </td><td> Unprocessable Entity </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Too Many Requests </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  </td><td>  -  </td></tr>
+        <tr><td> 402 </td><td> Payment Required. The account is suspended. </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  </td><td>  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  </td></tr>
+        <tr><td> 404 </td><td> Not Found. The resource does not exist or the workspace cannot access it. </td><td>  -  </td></tr>
+        <tr><td> 422 </td><td> Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. </td><td>  * Retry-After - Seconds to wait before the next request is allowed. <br>  </td></tr>
         <tr><td> 500 </td><td> Internal Server Error </td><td>  -  </td></tr>
      </table>
      */

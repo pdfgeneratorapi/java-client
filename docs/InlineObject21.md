@@ -7,8 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**response** | **String** | Public URL for form data collection |  [optional] |
-|**meta** | [**InlineObject21Meta**](InlineObject21Meta.md) |  |  [optional] |
+|**response** | **String** | URL to open the embeddable Form Builder |  [optional] |
 
 
 

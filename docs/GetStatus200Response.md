@@ -12,6 +12,7 @@
 |**conversionApi** | **StatusParam** |  |  [optional] |
 |**generatorApiSync** | **StatusParam** |  |  [optional] |
 |**generatorApiAsync** | **StatusParam** |  |  [optional] |
+|**pdfServices** | **StatusParam** |  |  [optional] |
 |**eInvoice** | **StatusParam** |  |  [optional] |
 
 

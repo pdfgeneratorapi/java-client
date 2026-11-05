@@ -84,17 +84,17 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **204** | The resource was deleted successfully. |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="generateDocument"></a>
 # **generateDocument**
-> InlineObject9 generateDocument(generateDocumentRequest)
+> InlineObject8 generateDocument(generateDocumentRequest)
 
 Generate document
 
@@ -122,7 +122,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     GenerateDocumentRequest generateDocumentRequest = new GenerateDocumentRequest(); // GenerateDocumentRequest | Request parameters, including template id, data and formats.
     try {
-      InlineObject9 result = apiInstance.generateDocument(generateDocumentRequest);
+      InlineObject8 result = apiInstance.generateDocument(generateDocumentRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#generateDocument");
@@ -143,7 +143,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject9**](InlineObject9.md)
+[**InlineObject8**](InlineObject8.md)
 
 ### Authorization
 
@@ -158,17 +158,17 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Document data |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="generateDocumentAsynchronous"></a>
 # **generateDocumentAsynchronous**
-> InlineObject23 generateDocumentAsynchronous(generateDocumentAsynchronousRequest)
+> InlineObject22 generateDocumentAsynchronous(generateDocumentAsynchronousRequest)
 
 Generate document (async)
 
@@ -196,7 +196,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     GenerateDocumentAsynchronousRequest generateDocumentAsynchronousRequest = new GenerateDocumentAsynchronousRequest(); // GenerateDocumentAsynchronousRequest | Request parameters, including template id, data and formats.
     try {
-      InlineObject23 result = apiInstance.generateDocumentAsynchronous(generateDocumentAsynchronousRequest);
+      InlineObject22 result = apiInstance.generateDocumentAsynchronous(generateDocumentAsynchronousRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#generateDocumentAsynchronous");
@@ -217,7 +217,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject23**](InlineObject23.md)
+[**InlineObject22**](InlineObject22.md)
 
 ### Authorization
 
@@ -232,17 +232,17 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Async job response |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="generateDocumentBatch"></a>
 # **generateDocumentBatch**
-> InlineObject9 generateDocumentBatch(generateDocumentBatchRequest)
+> InlineObject8 generateDocumentBatch(generateDocumentBatchRequest)
 
 Generate document (batch)
 
@@ -270,7 +270,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     GenerateDocumentBatchRequest generateDocumentBatchRequest = new GenerateDocumentBatchRequest(); // GenerateDocumentBatchRequest | Request parameters, including template id, data and formats.
     try {
-      InlineObject9 result = apiInstance.generateDocumentBatch(generateDocumentBatchRequest);
+      InlineObject8 result = apiInstance.generateDocumentBatch(generateDocumentBatchRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#generateDocumentBatch");
@@ -291,7 +291,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject9**](InlineObject9.md)
+[**InlineObject8**](InlineObject8.md)
 
 ### Authorization
 
@@ -306,17 +306,17 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Document data |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="generateDocumentBatchAsynchronous"></a>
 # **generateDocumentBatchAsynchronous**
-> InlineObject23 generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest)
+> InlineObject22 generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest)
 
 Generate document (batch + async)
 
@@ -344,7 +344,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     GenerateDocumentBatchAsynchronousRequest generateDocumentBatchAsynchronousRequest = new GenerateDocumentBatchAsynchronousRequest(); // GenerateDocumentBatchAsynchronousRequest | Request parameters, including template id, data and formats.
     try {
-      InlineObject23 result = apiInstance.generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest);
+      InlineObject22 result = apiInstance.generateDocumentBatchAsynchronous(generateDocumentBatchAsynchronousRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#generateDocumentBatchAsynchronous");
@@ -365,7 +365,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject23**](InlineObject23.md)
+[**InlineObject22**](InlineObject22.md)
 
 ### Authorization
 
@@ -380,12 +380,12 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Async job response |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="generateViewerUrl"></a>
@@ -457,17 +457,17 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | Viewer URL response, returned when &#x60;output&#x60; is &#x60;viewer&#x60;. |  -  |
 | **201** | Document data |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="getAsyncJobStatus"></a>
 # **getAsyncJobStatus**
-> InlineObject13 getAsyncJobStatus(jobId)
+> InlineObject12 getAsyncJobStatus(jobId)
 
 Get job status
 
@@ -493,9 +493,9 @@ public class Example {
     JSONWebTokenAuth.setBearerToken("BEARER TOKEN");
 
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
-    String jobId = "968b8a3a-e8ac-49cc-a670-25db545813ed"; // String | Job id
+    UUID jobId = UUID.fromString("968b8a3a-e8ac-49cc-a670-25db545813ed"); // UUID | Job id
     try {
-      InlineObject13 result = apiInstance.getAsyncJobStatus(jobId);
+      InlineObject12 result = apiInstance.getAsyncJobStatus(jobId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#getAsyncJobStatus");
@@ -512,11 +512,11 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **jobId** | **String**| Job id | |
+| **jobId** | **UUID**| Job id | |
 
 ### Return type
 
-[**InlineObject13**](InlineObject13.md)
+[**InlineObject12**](InlineObject12.md)
 
 ### Authorization
 
@@ -531,17 +531,17 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Async job status |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="getDocument"></a>
 # **getDocument**
-> InlineObject11 getDocument(publicId)
+> InlineObject10 getDocument(publicId)
 
 Get document
 
@@ -569,7 +569,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     String publicId = "bac8381bce1982e5f6957a0f52371336"; // String | Resource public id
     try {
-      InlineObject11 result = apiInstance.getDocument(publicId);
+      InlineObject10 result = apiInstance.getDocument(publicId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#getDocument");
@@ -590,7 +590,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject11**](InlineObject11.md)
+[**InlineObject10**](InlineObject10.md)
 
 ### Authorization
 
@@ -605,17 +605,17 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Document data |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="getDocumentActions"></a>
 # **getDocumentActions**
-> InlineObject18 getDocumentActions(publicId)
+> InlineObject17 getDocumentActions(publicId)
 
 Get document actions
 
@@ -643,7 +643,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     String publicId = "bac8381bce1982e5f6957a0f52371336"; // String | Resource public id
     try {
-      InlineObject18 result = apiInstance.getDocumentActions(publicId);
+      InlineObject17 result = apiInstance.getDocumentActions(publicId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#getDocumentActions");
@@ -664,7 +664,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject18**](InlineObject18.md)
+[**InlineObject17**](InlineObject17.md)
 
 ### Authorization
 
@@ -679,17 +679,17 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | A list of document actions |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="getDocumentSignatures"></a>
 # **getDocumentSignatures**
-> InlineObject17 getDocumentSignatures(publicId, version)
+> InlineObject16 getDocumentSignatures(publicId, version)
 
 Validate document signatures
 
@@ -718,7 +718,7 @@ public class Example {
     String publicId = "bac8381bce1982e5f6957a0f52371336"; // String | Resource public id
     String version = "5f3c2b1a9d8e7f6a"; // String | Which stored version to report on. A version identifier reports on that version, `initial` on the document as first generated. Defaults to the latest version. A version is always reported on as itself: reporting the latest would describe bytes the caller is not holding. 
     try {
-      InlineObject17 result = apiInstance.getDocumentSignatures(publicId, version);
+      InlineObject16 result = apiInstance.getDocumentSignatures(publicId, version);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#getDocumentSignatures");
@@ -740,7 +740,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject17**](InlineObject17.md)
+[**InlineObject16**](InlineObject16.md)
 
 ### Authorization
 
@@ -755,18 +755,18 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | What the document&#39;s signatures say |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **410** | Gone |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **410** | Gone. The document has expired and its file was removed. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="getDocumentVersions"></a>
 # **getDocumentVersions**
-> InlineObject16 getDocumentVersions(publicId)
+> InlineObject15 getDocumentVersions(publicId)
 
 Get document versions
 
@@ -794,7 +794,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     String publicId = "bac8381bce1982e5f6957a0f52371336"; // String | Resource public id
     try {
-      InlineObject16 result = apiInstance.getDocumentVersions(publicId);
+      InlineObject15 result = apiInstance.getDocumentVersions(publicId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#getDocumentVersions");
@@ -815,7 +815,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject16**](InlineObject16.md)
+[**InlineObject15**](InlineObject15.md)
 
 ### Authorization
 
@@ -830,17 +830,17 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | A list of document versions |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="getDocuments"></a>
 # **getDocuments**
-> InlineObject15 getDocuments(templateId, startDate, endDate, page, perPage)
+> InlineObject14 getDocuments(templateId, startDate, endDate, page, perPage, search, format)
 
 Get documents
 
@@ -871,8 +871,10 @@ public class Example {
     String endDate = "2022-08-05 12:00:00"; // String | End date. Format: Y-m-d H:i:s. Defaults to current timestamp
     Integer page = 1; // Integer | Pagination: page to return
     Integer perPage = 15; // Integer | Pagination: How many records to return per page
+    String search = "Invoice"; // String | Returns documents whose name contains the search value. A numeric value also matches the template ID.
+    String format = "pdf"; // String | Returns only documents in this format
     try {
-      InlineObject15 result = apiInstance.getDocuments(templateId, startDate, endDate, page, perPage);
+      InlineObject14 result = apiInstance.getDocuments(templateId, startDate, endDate, page, perPage, search, format);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#getDocuments");
@@ -894,10 +896,12 @@ public class Example {
 | **endDate** | **String**| End date. Format: Y-m-d H:i:s. Defaults to current timestamp | [optional] |
 | **page** | **Integer**| Pagination: page to return | [optional] [default to 1] |
 | **perPage** | **Integer**| Pagination: How many records to return per page | [optional] [default to 15] |
+| **search** | **String**| Returns documents whose name contains the search value. A numeric value also matches the template ID. | [optional] |
+| **format** | **String**| Returns only documents in this format | [optional] [enum: pdf, html] |
 
 ### Return type
 
-[**InlineObject15**](InlineObject15.md)
+[**InlineObject14**](InlineObject14.md)
 
 ### Authorization
 
@@ -912,17 +916,17 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | A list of generated documents |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 
 <a id="storeDocument"></a>
 # **storeDocument**
-> InlineObject11 storeDocument(storeDocumentRequest)
+> InlineObject10 storeDocument(storeDocumentRequest)
 
 Store document
 
@@ -950,7 +954,7 @@ public class Example {
     DocumentsApi apiInstance = new DocumentsApi(defaultClient);
     StoreDocumentRequest storeDocumentRequest = new StoreDocumentRequest(); // StoreDocumentRequest | Document source and optional metadata. Exactly one of `file_base64` or `file_url` is required.
     try {
-      InlineObject11 result = apiInstance.storeDocument(storeDocumentRequest);
+      InlineObject10 result = apiInstance.storeDocument(storeDocumentRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DocumentsApi#storeDocument");
@@ -971,7 +975,7 @@ public class Example {
 
 ### Return type
 
-[**InlineObject11**](InlineObject11.md)
+[**InlineObject10**](InlineObject10.md)
 
 ### Authorization
 
@@ -986,11 +990,11 @@ public class Example {
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **201** | Document data |  -  |
-| **401** | Unauthorized |  -  |
-| **402** | Account Suspended |  -  |
-| **403** | Forbidden |  -  |
-| **404** | Not Found |  -  |
-| **422** | Unprocessable Entity |  -  |
-| **429** | Too Many Requests |  -  |
+| **401** | Unauthorized. The message starts with &#x60;Authentication failed:&#x60; followed by the reason: * &#x60;JWT Token missing.&#x60; * &#x60;Malformed JWT Token.&#x60; * &#x60;Expired JWT Token.&#x60; * &#x60;Invalid workspace.&#x60; * &#x60;Invalid organization.&#x60; * &#x60;This application no longer has access to the workspace.&#x60; * a missing &#x60;iss&#x60;, &#x60;sub&#x60; or &#x60;exp&#x60; claim, e.g. &#x60;The sub field is required.&#x60;  |  -  |
+| **402** | Payment Required. The account is suspended. |  -  |
+| **403** | Forbidden. The workspace is not allowed to perform the request, for example a regular workspace calling an endpoint reserved for the master workspace. Requests made with an OAuth application credential that lacks the scope for the endpoint also get a &#x60;WWW-Authenticate&#x60; header.  |  * WWW-Authenticate - Sent only when an OAuth application credential lacks the required scope. <br>  |
+| **404** | Not Found. The resource does not exist or the workspace cannot access it. |  -  |
+| **422** | Unprocessable Entity. Request validation failures, including an invalid &#x60;page&#x60; or &#x60;per_page&#x60;, return an &#x60;errors&#x60; object keyed by field. Other 422 errors, such as a malformed JSON body or a failed conversion, return only &#x60;message&#x60;.  |  -  |
+| **429** | Too Many Requests. Wait for the number of seconds in the &#x60;Retry-After&#x60; header before retrying. |  * Retry-After - Seconds to wait before the next request is allowed. <br>  |
 | **500** | Internal Server Error |  -  |
 

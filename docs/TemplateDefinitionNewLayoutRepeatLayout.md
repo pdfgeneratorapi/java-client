@@ -18,9 +18,13 @@ Defines page size if layout is repeated on the page e.g sheet labels
 
 | Name | Value |
 |---- | -----|
+| A2 | &quot;A2&quot; |
+| A3 | &quot;A3&quot; |
 | A4 | &quot;A4&quot; |
+| A5 | &quot;A5&quot; |
 | LETTER | &quot;letter&quot; |
 | CUSTOM | &quot;custom&quot; |
+| LABEL | &quot;label&quot; |
 
 
 

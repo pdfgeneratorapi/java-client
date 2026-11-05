@@ -14,6 +14,7 @@
 |**checksum** | **String** |  |  [optional] |
 |**userId** | **Integer** |  |  [optional] |
 |**userName** | **String** |  |  [optional] |
+|**userEmail** | **String** | Identifier of the workspace that created the version |  [optional] |
 |**isProduction** | **Boolean** |  |  [optional] |
 |**createdAt** | **String** |  |  [optional] |
 |**updatedAt** | **String** |  |  [optional] |

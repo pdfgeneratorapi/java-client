@@ -7,11 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**content** | **String** | HTML content |  [optional] |
+|**content** | **String** | HTML content |  |
 |**paperSize** | [**PaperSizeEnum**](#PaperSizeEnum) | PDF page size |  [optional] |
 |**orientation** | [**OrientationEnum**](#OrientationEnum) |  |  [optional] |
 |**output** | [**OutputEnum**](#OutputEnum) | Output |  [optional] |
-|**filename** | **String** | Document name |  [optional] |
+|**filename** | **String** | Document name. Left out, the document gets a generated name. |  [optional] |
 
 
 

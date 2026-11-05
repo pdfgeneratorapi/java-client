@@ -22,6 +22,7 @@
 | SK | &quot;sk&quot; |
 | RU | &quot;ru&quot; |
 | DE | &quot;de&quot; |
+| JA | &quot;ja&quot; |
 
 
 

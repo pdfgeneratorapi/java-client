@@ -7,7 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**response** | [**List&lt;DocumentAction&gt;**](DocumentAction.md) |  |  [optional] |
+|**response** | [**TemplateDefinition**](TemplateDefinition.md) |  |  [optional] |
+|**meta** | **Object** |  |  [optional] |
 
 
 

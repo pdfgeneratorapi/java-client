@@ -14,6 +14,7 @@ Template object. Use the Get schema endpoint to see the detailed payload structu
 |**createdAt** | **String** | Timestamp when the template was created |  [optional] |
 |**updatedAt** | **String** | Timestamp when the template was updated |  [optional] |
 |**tags** | **List&lt;String&gt;** | A list of tags assigned to a template |  [optional] |
+|**isDraft** | **Boolean** | True if the template is a draft |  [optional] |
 
 
 

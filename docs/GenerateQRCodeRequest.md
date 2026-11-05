@@ -8,9 +8,9 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**content** | **String** | The content which is used to generate QR code |  |
-|**color** | **String** | QR code in hexadecimal format |  [optional] |
-|**logoBase64** | **String** | A logo as a base64 image string to add on the QR code |  [optional] |
-|**logoUrl** | **String** | A logo URL to an image to add on the QR code |  [optional] |
+|**color** | **String** | QR code color as a hex color code |  [optional] |
+|**logoBase64** | **String** | A logo as a base64 image string to add on the QR code. Cannot be combined with &#x60;logo_url&#x60;. |  [optional] |
+|**logoUrl** | **String** | Public HTTPS URL of a logo image to add on the QR code. Cannot be combined with &#x60;logo_base64&#x60;. |  [optional] |
 |**output** | [**OutputEnum**](#OutputEnum) | Response format |  [optional] |
 
 
