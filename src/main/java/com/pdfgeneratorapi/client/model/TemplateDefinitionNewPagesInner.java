@@ -2,7 +2,7 @@
  * PDF Generator API
  * # Introduction [PDF Generator API](https://pdfgeneratorapi.com) allows you easily generate transactional PDF documents and reduce the development and support costs by enabling your users to create and manage their document templates using a browser-based drag-and-drop document editor.  The PDF Generator API features a web API architecture, allowing you to code in the language of your choice. This API supports the JSON media type, and uses UTF-8 character encoding.  ## Base URL The base URL for all the API endpoints is `https://us1.pdfgeneratorapi.com/api/v4`  For example * `https://us1.pdfgeneratorapi.com/api/v4/templates` * `https://us1.pdfgeneratorapi.com/api/v4/workspaces` * `https://us1.pdfgeneratorapi.com/api/v4/templates/123123`  ## Editor PDF Generator API comes with a powerful drag & drop editor that allows to create any kind of document templates, from barcode labels to invoices, quotes and reports. You can find tutorials and videos from our [Support Portal](https://support.pdfgeneratorapi.com). * [Component specification](https://support.pdfgeneratorapi.com/en/category/components-1ffseaj/) * [Expression Language documentation](https://support.pdfgeneratorapi.com/en/category/expression-language-q203pa/) * [Frequently asked questions and answers](https://support.pdfgeneratorapi.com/en/category/qanda-1ov519d/)  ## Definitions  ### Organization Organization is a group of workspaces owned by your account.  ### Workspace Workspace contains templates. Each workspace has access to their own templates and organization default templates.  ### Master Workspace Master Workspace is the main/default workspace of your Organization. The Master Workspace identifier is the email you signed up with.  ### Default Template Default template is a template that is available for all workspaces by default. You can set the template access type under Page Setup. If template has \"Organization\" access then your users can use them from the \"New\" menu in the Editor.  ### Data Field Data Field is a placeholder for the specific data in your JSON data set. In this example JSON you can access the buyer name using Data Field `{paymentDetails::buyerName}`. The separator between depth levels is :: (two colons). When designing the template you don’t have to know every Data Field, our editor automatically extracts all the available fields from your data set and provides an easy way to insert them into the template. ``` {     \"documentNumber\": 1,     \"paymentDetails\": {         \"method\": \"Credit Card\",         \"buyerName\": \"John Smith\"     },     \"items\": [         {             \"id\": 1,             \"name\": \"Item one\"         }     ] } ```  ## Rate limiting Our API endpoints use IP-based rate limiting and allow you to make up to 2 requests per second and 60 requests per minute. If you make more requests, you will receive a response with HTTP code 429.  Response headers contain additional values:  | Header   | Description                    | |--------|--------------------------------| | X-RateLimit-Limit    | Maximum requests per minute                   | | X-RateLimit-Remaining    | The requests remaining in the current minute               | | Retry-After     | How many seconds you need to wait until you are allowed to make requests |  *  *  *  *  *  # Libraries and SDKs ## Postman Collection We have created a [Postman Collection](https://www.postman.com/pdfgeneratorapi/workspace/pdf-generator-api-public-workspace/overview) so you can easily test all the API endpoints without developing and code.   ## Client Libraries All our Client Libraries are auto-generated using [OpenAPI Generator](https://openapi-generator.tech/) which uses the OpenAPI v3 specification to automatically generate a client library in specific programming language.  * [PHP Client](https://github.com/pdfgeneratorapi/php-client) * [Java Client](https://github.com/pdfgeneratorapi/java-client) * [Ruby Client](https://github.com/pdfgeneratorapi/ruby-client) * [Python Client](https://github.com/pdfgeneratorapi/python-client) * [Javascript Client](https://github.com/pdfgeneratorapi/javascript-client)  We have validated the generated libraries, but let us know if you find any anomalies in the client code.  ## Model Context Protocol (MCP) Server Integrate document generation directly into your AI agents and LLM applications using our official Model Context Protocol (MCP) Server.  The MCP server provides a standardized interface that allows AI assistants (like Claude Desktop and other MCP-compatible clients) to securely interact with the PDF Generator API. With it, your AI applications can automatically fetch workspaces, retrieve templates, merge data, and generate PDF documents on the fly.  [Get PDF Generator API MCP Server](https://github.com/pdfgeneratorapi/mcp-server) *  *  *  *  *   # Authentication The PDF Generator API uses __JSON Web Tokens (JWT)__ to authenticate all API requests. These tokens offer a method to establish secure server-to-server authentication by transferring a compact JSON object with a signed payload of your account’s API Key and Secret. When authenticating to the PDF Generator API, a JWT should be generated uniquely by a __server-side application__ and included as a __Bearer Token__ in the header of each request.   <SecurityDefinitions />  ## Accessing your API Key and Secret You can find your __API Key__ and __API Secret__ from the __Account Settings__ page after you login to PDF Generator API [here](https://pdfgeneratorapi.com/login).  ## Creating a JWT JSON Web Tokens are composed of three sections: a header, a payload (containing a claim set), and a signature. The header and payload are JSON objects, which are serialized to UTF-8 bytes, then encoded using base64url encoding.  The JWT's header, payload, and signature are concatenated with periods (.). As a result, a JWT typically takes the following form: ``` {Base64url encoded header}.{Base64url encoded payload}.{Base64url encoded signature} ```  We recommend and support libraries provided on [jwt.io](https://jwt.io/). While other libraries can create JWT, these recommended libraries are the most robust.  ### Header Property `alg` defines which signing algorithm is being used. PDF Generator API users HS256. Property `typ` defines the type of token and it is always JWT. ``` {   \"alg\": \"HS256\",   \"typ\": \"JWT\" } ```  ### Payload The second part of the token is the payload, which contains the claims  or the pieces of information being passed about the user and any metadata required. It is mandatory to specify the following claims: * issuer (`iss`): Your API key * subject (`sub`): Workspace identifier * expiration time (`exp`): Timestamp (unix epoch time) until the token is valid. It is highly recommended to set the exp timestamp for a short period, i.e. a matter of seconds. This way, if a token is intercepted or shared, the token will only be valid for a short period of time.  ``` {   \"iss\": \"ad54aaff89ffdfeff178bb8a8f359b29fcb20edb56250b9f584aa2cb0162ed4a\",   \"sub\": \"demo.example@actualreports.com\",   \"exp\": 1586112639 } ```  ### Payload for Partners Our partners can send their unique identifier (provided by us) in JWT's partner_id claim. If the `partner_id` value is specified in the JWT, the organization making the request is automatically connected to the partner account. * Partner ID (`partner_id`): Unique identifier provide by PDF Generator API team  ``` {   \"iss\": \"ad54aaff89ffdfeff178bb8a8f359b29fcb20edb56250b9f584aa2cb0162ed4a\",   \"sub\": \"demo.example@actualreports.com\",   \"partner_id\": \"my-partner-identifier\",   \"exp\": 1586112639 } ```  ### Signature To create the signature part you have to take the encoded header, the encoded payload, a secret, the algorithm specified in the header, and sign that. The signature is used to verify the message wasn't changed along the way, and, in the case of tokens signed with a private key, it can also verify that the sender of the JWT is who it says it is. ``` HMACSHA256(     base64UrlEncode(header) + \".\" +     base64UrlEncode(payload),     API_SECRET) ```  ### Putting all together The output is three Base64-URL strings separated by dots. The following shows a JWT that has the previous header and payload encoded, and it is signed with a secret. ``` eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhZDU0YWFmZjg5ZmZkZmVmZjE3OGJiOGE4ZjM1OWIyOWZjYjIwZWRiNTYyNTBiOWY1ODRhYTJjYjAxNjJlZDRhIiwic3ViIjoiZGVtby5leGFtcGxlQGFjdHVhbHJlcG9ydHMuY29tIn0.SxO-H7UYYYsclS8RGWO1qf0z1cB1m73wF9FLl9RCc1Q  // Base64 encoded header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 // Base64 encoded payload: eyJpc3MiOiJhZDU0YWFmZjg5ZmZkZmVmZjE3OGJiOGE4ZjM1OWIyOWZjYjIwZWRiNTYyNTBiOWY1ODRhYTJjYjAxNjJlZDRhIiwic3ViIjoiZGVtby5leGFtcGxlQGFjdHVhbHJlcG9ydHMuY29tIn0 // Signature: SxO-H7UYYYsclS8RGWO1qf0z1cB1m73wF9FLl9RCc1Q ```  ## Temporary JWTs You can create a temporary token in [Account Settings](https://pdfgeneratorapi.com/account/organization) page after you login to PDF Generator API. The generated token uses your email address as the subject (`sub`) value and is valid for __15 minutes__. You can also use [jwt.io](https://jwt.io/) to generate test tokens for your API calls. These test tokens should never be used in production applications. *  *  *  *  *  # Error codes  Every error response is a JSON object with a `message` string. Request validation failures (422) also include an `errors` object keyed by the field that failed.  ```json {   \"message\": \"The identifier field is required.\",   \"errors\": {     \"identifier\": [\"The identifier field is required.\"]   } } ```  | Code   | Description                    | |--------|--------------------------------| | 400    | Bad Request                    | | 401    | Unauthorized                   | | 402    | Payment Required               | | 403    | Forbidden                      | | 404    | Not Found                      | | 405    | Method Not Allowed             | | 409    | Conflict                       | | 410    | Gone                           | | 422    | Unprocessable Entity           | | 429    | Too Many Requests              | | 500    | Internal Server Error          | | 503    | Service Unavailable            |  ## 401 Unauthorized | Description                                                                       | |-----------------------------------------------------------------------------------| | Authentication failed: JWT Token missing.                                         | | Authentication failed: Malformed JWT Token.                                       | | Authentication failed: Expired JWT Token.                                         | | Authentication failed: Invalid workspace.                                         | | Authentication failed: Invalid organization.                                      | | Authentication failed: This application no longer has access to the workspace.   | | Authentication failed: The sub field is required. (also `iss` and `exp`)          |  ## 402 Payment Required | Description                                                                       | |-----------------------------------------------------------------------------------| | Your account is suspended, please upgrade your account or contact support@pdfgeneratorapi.com. |  ## 403 Forbidden | Description                                                                       | |-----------------------------------------------------------------------------------| | You don't have permission to access this content. Please get in touch with your organization administrator to update your access permissions. | | This application was not granted permission for this request.                    | | Deleting own user is not allowed.                                                 | | Deleting organization owner is not allowed.                                       |  ## 404 Not Found | Description                                                                       | |-----------------------------------------------------------------------------------| | Entity not found.                                                                 | | Route not found.                                                                  | | Workspace doesn’t have access to read the template.                               |  ## 422 Unprocessable Entity | Description                                                                       | |-----------------------------------------------------------------------------------| | Unable to parse JSON, please check formatting.                                    | | Template id should be a numeric value.                                            | | The per page must be at least 1. (with `errors.per_page`)                         |  ## 429 Too Many Requests | Description                                                                       | |-----------------------------------------------------------------------------------| | Per-second rate limit exceeded. Please slow down your requests.                   | | Per-minute rate limit exceeded. Please try again in a minute.                     | | Global per-second rate limit exceeded. Please slow down your requests.            | | Global per-minute rate limit exceeded. Please try again in a minute.              |  *  *  *  *  * 
  *
- * The version of the OpenAPI document: 4.0.34
+ * The version of the OpenAPI document: 4.0.35
  * Contact: support@pdfgeneratorapi.com
  *
  * NOTE: This class is auto generated by OpenAPI Generator (https://openapi-generator.tech).
@@ -54,7 +54,7 @@ import com.pdfgeneratorapi.client.JSON;
 /**
  * TemplateDefinitionNewPagesInner
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-05T19:29:12.403641222Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-12T19:31:37.345782748Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class TemplateDefinitionNewPagesInner {
   public static final String SERIALIZED_NAME_WIDTH = "width";
   @SerializedName(SERIALIZED_NAME_WIDTH)
@@ -95,6 +95,70 @@ public class TemplateDefinitionNewPagesInner {
   @SerializedName(SERIALIZED_NAME_BACKGROUND_IMAGE)
   @javax.annotation.Nullable
   private String backgroundImage;
+
+  public static final String SERIALIZED_NAME_BACKGROUND_COLOR = "backgroundColor";
+  @SerializedName(SERIALIZED_NAME_BACKGROUND_COLOR)
+  @javax.annotation.Nullable
+  private String backgroundColor;
+
+  /**
+   * How the background image covers the page, centred: &#x60;stretch&#x60;, stretched to the page, as when none is set; &#x60;contain&#x60;, fitted inside the page, keeping its proportions; &#x60;cover&#x60;, filling the page, keeping its proportions, with what overflows cut off. Null for stretch.
+   */
+  @JsonAdapter(BackgroundImageFitEnum.Adapter.class)
+  public enum BackgroundImageFitEnum {
+    STRETCH("stretch"),
+    
+    CONTAIN("contain"),
+    
+    COVER("cover");
+
+    private String value;
+
+    BackgroundImageFitEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static BackgroundImageFitEnum fromValue(String value) {
+      for (BackgroundImageFitEnum b : BackgroundImageFitEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<BackgroundImageFitEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final BackgroundImageFitEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public BackgroundImageFitEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return BackgroundImageFitEnum.fromValue(value);
+      }
+    }
+
+    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      String value = jsonElement.getAsString();
+      BackgroundImageFitEnum.fromValue(value);
+    }
+  }
+
+  public static final String SERIALIZED_NAME_BACKGROUND_IMAGE_FIT = "backgroundImageFit";
+  @SerializedName(SERIALIZED_NAME_BACKGROUND_IMAGE_FIT)
+  @javax.annotation.Nullable
+  private BackgroundImageFitEnum backgroundImageFit;
 
   public TemplateDefinitionNewPagesInner() {
   }
@@ -254,7 +318,7 @@ public class TemplateDefinitionNewPagesInner {
   }
 
   /**
-   * Defines background image for the page.
+   * The page&#39;s background image: an image URL, a data URI or a {data field} placeholder, PNG, JPEG, GIF or SVG. It is drawn over the background color and under everything else on the page, as backgroundImageFit says. A template with a background PDF does not draw it. Empty or null for none.
    * @return backgroundImage
    */
   @javax.annotation.Nullable
@@ -264,6 +328,44 @@ public class TemplateDefinitionNewPagesInner {
 
   public void setBackgroundImage(@javax.annotation.Nullable String backgroundImage) {
     this.backgroundImage = backgroundImage;
+  }
+
+
+  public TemplateDefinitionNewPagesInner backgroundColor(@javax.annotation.Nullable String backgroundColor) {
+    this.backgroundColor = backgroundColor;
+    return this;
+  }
+
+  /**
+   * The page&#39;s background color in hex color code, #RRGGBB or #RGB, or with an alpha, #RRGGBBAA, #RGBA or rgba(r, g, b, a); a translucent one is lighter, the white of the paper showing through. It fills every sheet the page runs onto, edge to edge, under everything on it, the background image included; on a sheet of labels it fills each label. A template with a background PDF is not filled. Empty or null for none.
+   * @return backgroundColor
+   */
+  @javax.annotation.Nullable
+  public String getBackgroundColor() {
+    return backgroundColor;
+  }
+
+  public void setBackgroundColor(@javax.annotation.Nullable String backgroundColor) {
+    this.backgroundColor = backgroundColor;
+  }
+
+
+  public TemplateDefinitionNewPagesInner backgroundImageFit(@javax.annotation.Nullable BackgroundImageFitEnum backgroundImageFit) {
+    this.backgroundImageFit = backgroundImageFit;
+    return this;
+  }
+
+  /**
+   * How the background image covers the page, centred: &#x60;stretch&#x60;, stretched to the page, as when none is set; &#x60;contain&#x60;, fitted inside the page, keeping its proportions; &#x60;cover&#x60;, filling the page, keeping its proportions, with what overflows cut off. Null for stretch.
+   * @return backgroundImageFit
+   */
+  @javax.annotation.Nullable
+  public BackgroundImageFitEnum getBackgroundImageFit() {
+    return backgroundImageFit;
+  }
+
+  public void setBackgroundImageFit(@javax.annotation.Nullable BackgroundImageFitEnum backgroundImageFit) {
+    this.backgroundImageFit = backgroundImageFit;
   }
 
 
@@ -284,7 +386,9 @@ public class TemplateDefinitionNewPagesInner {
         Objects.equals(this.components, templateDefinitionNewPagesInner.components) &&
         Objects.equals(this.layout, templateDefinitionNewPagesInner.layout) &&
         Objects.equals(this.conditionalFormats, templateDefinitionNewPagesInner.conditionalFormats) &&
-        Objects.equals(this.backgroundImage, templateDefinitionNewPagesInner.backgroundImage);
+        Objects.equals(this.backgroundImage, templateDefinitionNewPagesInner.backgroundImage) &&
+        Objects.equals(this.backgroundColor, templateDefinitionNewPagesInner.backgroundColor) &&
+        Objects.equals(this.backgroundImageFit, templateDefinitionNewPagesInner.backgroundImageFit);
   }
 
   private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -293,7 +397,7 @@ public class TemplateDefinitionNewPagesInner {
 
   @Override
   public int hashCode() {
-    return Objects.hash(width, height, margins, border, components, layout, conditionalFormats, backgroundImage);
+    return Objects.hash(width, height, margins, border, components, layout, conditionalFormats, backgroundImage, backgroundColor, backgroundImageFit);
   }
 
   private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -315,6 +419,8 @@ public class TemplateDefinitionNewPagesInner {
     sb.append("    layout: ").append(toIndentedString(layout)).append("\n");
     sb.append("    conditionalFormats: ").append(toIndentedString(conditionalFormats)).append("\n");
     sb.append("    backgroundImage: ").append(toIndentedString(backgroundImage)).append("\n");
+    sb.append("    backgroundColor: ").append(toIndentedString(backgroundColor)).append("\n");
+    sb.append("    backgroundImageFit: ").append(toIndentedString(backgroundImageFit)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -336,7 +442,7 @@ public class TemplateDefinitionNewPagesInner {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("width", "height", "margins", "border", "components", "layout", "conditionalFormats", "backgroundImage"));
+    openapiFields = new HashSet<String>(Arrays.asList("width", "height", "margins", "border", "components", "layout", "conditionalFormats", "backgroundImage", "backgroundColor", "backgroundImageFit"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(0);
@@ -381,6 +487,16 @@ public class TemplateDefinitionNewPagesInner {
       }
       if ((jsonObj.get("backgroundImage") != null && !jsonObj.get("backgroundImage").isJsonNull()) && !jsonObj.get("backgroundImage").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `backgroundImage` to be a primitive type in the JSON string but got `%s`", jsonObj.get("backgroundImage").toString()));
+      }
+      if ((jsonObj.get("backgroundColor") != null && !jsonObj.get("backgroundColor").isJsonNull()) && !jsonObj.get("backgroundColor").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `backgroundColor` to be a primitive type in the JSON string but got `%s`", jsonObj.get("backgroundColor").toString()));
+      }
+      if ((jsonObj.get("backgroundImageFit") != null && !jsonObj.get("backgroundImageFit").isJsonNull()) && !jsonObj.get("backgroundImageFit").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `backgroundImageFit` to be a primitive type in the JSON string but got `%s`", jsonObj.get("backgroundImageFit").toString()));
+      }
+      // validate the optional field `backgroundImageFit`
+      if (jsonObj.get("backgroundImageFit") != null && !jsonObj.get("backgroundImageFit").isJsonNull()) {
+        BackgroundImageFitEnum.validateJsonElement(jsonObj.get("backgroundImageFit"));
       }
   }
 

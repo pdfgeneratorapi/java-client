@@ -23,6 +23,7 @@
 | RU | &quot;ru&quot; |
 | DE | &quot;de&quot; |
 | JA | &quot;ja&quot; |
+| PT | &quot;pt&quot; |
 
 
 
