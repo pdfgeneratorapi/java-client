@@ -51,7 +51,7 @@ import com.pdfgeneratorapi.client.JSON;
 /**
  * DocumentSignatures
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-12T19:31:37.345782748Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-19T19:56:50.729379022Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class DocumentSignatures {
   /**
    * The one-line answer, reduced from every signature worst case first. &#x60;unavailable&#x60; means signature validation is not enabled on this deployment — it says nothing about the document. 

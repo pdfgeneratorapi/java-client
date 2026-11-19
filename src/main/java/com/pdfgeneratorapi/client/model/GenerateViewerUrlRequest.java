@@ -49,7 +49,7 @@ import com.pdfgeneratorapi.client.JSON;
 /**
  * GenerateViewerUrlRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-12T19:31:37.345782748Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-19T19:56:50.729379022Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class GenerateViewerUrlRequest {
   /**
    * Response format. &#x60;url&#x60; returns a public URL to the stored document; &#x60;viewer&#x60; returns a public URL to the PDF viewer (with encrypted prefill when provided).

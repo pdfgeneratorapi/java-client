@@ -52,7 +52,7 @@ import com.pdfgeneratorapi.client.JSON;
 /**
  * Defines template layout (e.g page format, margins). A layout needs a format, an orientation and margins with all four sides.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-12T19:31:37.345782748Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-19T19:56:50.729379022Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class TemplateDefinitionNewLayout {
   /**
    * Defines template page size. For any other size, use custom with width and height.

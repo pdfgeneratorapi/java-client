@@ -17,6 +17,7 @@
 |**emptyLabels** | **Integer** | Number of label positions to leave empty at the start of the first sheet. Only applies to label templates. |  [optional] |
 |**attachments** | [**List&lt;AttachmentsParamInner&gt;**](AttachmentsParamInner.md) | Files embedded into the generated PDF as attachments. Only PDF and XML files are accepted. |  [optional] |
 |**metadata** | [**MetadataParam**](MetadataParam.md) |  |  [optional] |
+|**displayMode** | [**DisplayModeParam**](DisplayModeParam.md) |  |  [optional] |
 
 
 

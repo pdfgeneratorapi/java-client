@@ -19,6 +19,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.pdfgeneratorapi.client.model.AttachmentsParamInner;
+import com.pdfgeneratorapi.client.model.DisplayModeParam;
 import com.pdfgeneratorapi.client.model.FormatParam;
 import com.pdfgeneratorapi.client.model.MetadataParam;
 import com.pdfgeneratorapi.client.model.OutputParam;
@@ -114,6 +115,14 @@ public class GenerateDocumentBatchRequestTest {
     @Test
     public void metadataTest() {
         // TODO: test metadata
+    }
+
+    /**
+     * Test the property 'displayMode'
+     */
+    @Test
+    public void displayModeTest() {
+        // TODO: test displayMode
     }
 
 }

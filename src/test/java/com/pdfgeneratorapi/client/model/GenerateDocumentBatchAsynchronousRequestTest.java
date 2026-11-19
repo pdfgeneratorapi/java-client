@@ -21,6 +21,7 @@ import com.google.gson.stream.JsonWriter;
 import com.pdfgeneratorapi.client.model.AsyncOutputParam;
 import com.pdfgeneratorapi.client.model.AttachmentsParamInner;
 import com.pdfgeneratorapi.client.model.CallbackParam;
+import com.pdfgeneratorapi.client.model.DisplayModeParam;
 import com.pdfgeneratorapi.client.model.FormatParam;
 import com.pdfgeneratorapi.client.model.MetadataParam;
 import com.pdfgeneratorapi.client.model.TemplateParam;
@@ -123,6 +124,14 @@ public class GenerateDocumentBatchAsynchronousRequestTest {
     @Test
     public void metadataTest() {
         // TODO: test metadata
+    }
+
+    /**
+     * Test the property 'displayMode'
+     */
+    @Test
+    public void displayModeTest() {
+        // TODO: test displayMode
     }
 
 }

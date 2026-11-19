@@ -49,7 +49,7 @@ import com.pdfgeneratorapi.client.JSON;
 /**
  * InlineObject12Response
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-12T19:31:37.345782748Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-19T19:56:50.729379022Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class InlineObject12Response {
   public static final String SERIALIZED_NAME_JOB_ID = "job_id";
   @SerializedName(SERIALIZED_NAME_JOB_ID)

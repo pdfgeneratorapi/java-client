@@ -53,7 +53,7 @@ import com.pdfgeneratorapi.client.JSON;
 /**
  * Optional form settings applied to the imported form. Form fields are created from the editable fields of the PDF. When &#x60;form&#x60; is sent, &#x60;name&#x60; and &#x60;actions&#x60; are required.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-12T19:31:37.345782748Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-19T19:56:50.729379022Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class FormConfigurationImport {
   public static final String SERIALIZED_NAME_TEMPLATE_ID = "template_id";
   @SerializedName(SERIALIZED_NAME_TEMPLATE_ID)

@@ -20,6 +20,7 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.pdfgeneratorapi.client.model.AttachmentsParamInner;
+import com.pdfgeneratorapi.client.model.DisplayModeParam;
 import com.pdfgeneratorapi.client.model.FormatParam;
 import com.pdfgeneratorapi.client.model.MetadataParam;
 import com.pdfgeneratorapi.client.model.OutputParam;
@@ -55,7 +56,7 @@ import com.pdfgeneratorapi.client.JSON;
 /**
  * GenerateDocumentBatchRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-12T19:31:37.345782748Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-19T19:56:50.729379022Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class GenerateDocumentBatchRequest {
   public static final String SERIALIZED_NAME_TEMPLATE = "template";
   @SerializedName(SERIALIZED_NAME_TEMPLATE)
@@ -101,6 +102,11 @@ public class GenerateDocumentBatchRequest {
   @SerializedName(SERIALIZED_NAME_METADATA)
   @javax.annotation.Nullable
   private MetadataParam metadata;
+
+  public static final String SERIALIZED_NAME_DISPLAY_MODE = "display_mode";
+  @SerializedName(SERIALIZED_NAME_DISPLAY_MODE)
+  @javax.annotation.Nullable
+  private DisplayModeParam displayMode;
 
   public GenerateDocumentBatchRequest() {
   }
@@ -293,6 +299,25 @@ public class GenerateDocumentBatchRequest {
   }
 
 
+  public GenerateDocumentBatchRequest displayMode(@javax.annotation.Nullable DisplayModeParam displayMode) {
+    this.displayMode = displayMode;
+    return this;
+  }
+
+  /**
+   * Get displayMode
+   * @return displayMode
+   */
+  @javax.annotation.Nullable
+  public DisplayModeParam getDisplayMode() {
+    return displayMode;
+  }
+
+  public void setDisplayMode(@javax.annotation.Nullable DisplayModeParam displayMode) {
+    this.displayMode = displayMode;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -311,12 +336,13 @@ public class GenerateDocumentBatchRequest {
         Objects.equals(this.print, generateDocumentBatchRequest.print) &&
         Objects.equals(this.emptyLabels, generateDocumentBatchRequest.emptyLabels) &&
         Objects.equals(this.attachments, generateDocumentBatchRequest.attachments) &&
-        Objects.equals(this.metadata, generateDocumentBatchRequest.metadata);
+        Objects.equals(this.metadata, generateDocumentBatchRequest.metadata) &&
+        Objects.equals(this.displayMode, generateDocumentBatchRequest.displayMode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(template, format, output, name, testing, print, emptyLabels, attachments, metadata);
+    return Objects.hash(template, format, output, name, testing, print, emptyLabels, attachments, metadata, displayMode);
   }
 
   @Override
@@ -332,6 +358,7 @@ public class GenerateDocumentBatchRequest {
     sb.append("    emptyLabels: ").append(toIndentedString(emptyLabels)).append("\n");
     sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
+    sb.append("    displayMode: ").append(toIndentedString(displayMode)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -353,7 +380,7 @@ public class GenerateDocumentBatchRequest {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("template", "format", "output", "name", "testing", "print", "empty_labels", "attachments", "metadata"));
+    openapiFields = new HashSet<String>(Arrays.asList("template", "format", "output", "name", "testing", "print", "empty_labels", "attachments", "metadata", "display_mode"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(Arrays.asList("template"));
@@ -425,6 +452,10 @@ public class GenerateDocumentBatchRequest {
       // validate the optional field `metadata`
       if (jsonObj.get("metadata") != null && !jsonObj.get("metadata").isJsonNull()) {
         MetadataParam.validateJsonElement(jsonObj.get("metadata"));
+      }
+      // validate the optional field `display_mode`
+      if (jsonObj.get("display_mode") != null && !jsonObj.get("display_mode").isJsonNull()) {
+        DisplayModeParam.validateJsonElement(jsonObj.get("display_mode"));
       }
   }
 

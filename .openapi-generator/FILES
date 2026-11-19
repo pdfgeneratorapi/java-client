@@ -23,6 +23,7 @@ docs/CreateFacturXEInvoiceRequestTemplate.md
 docs/CreateFacturXEInvoiceRequestTemplateId.md
 docs/CreateWorkspaceRequest.md
 docs/CreateXRechnungEInvoiceRequest.md
+docs/DisplayModeParam.md
 docs/Document.md
 docs/DocumentAction.md
 docs/DocumentSignature.md
@@ -223,6 +224,7 @@ src/main/java/com/pdfgeneratorapi/client/model/CreateFacturXEInvoiceRequestTempl
 src/main/java/com/pdfgeneratorapi/client/model/CreateFacturXEInvoiceRequestTemplateId.java
 src/main/java/com/pdfgeneratorapi/client/model/CreateWorkspaceRequest.java
 src/main/java/com/pdfgeneratorapi/client/model/CreateXRechnungEInvoiceRequest.java
+src/main/java/com/pdfgeneratorapi/client/model/DisplayModeParam.java
 src/main/java/com/pdfgeneratorapi/client/model/Document.java
 src/main/java/com/pdfgeneratorapi/client/model/DocumentAction.java
 src/main/java/com/pdfgeneratorapi/client/model/DocumentSignature.java
@@ -386,6 +388,7 @@ src/test/java/com/pdfgeneratorapi/client/model/CreateFacturXEInvoiceRequestTempl
 src/test/java/com/pdfgeneratorapi/client/model/CreateFacturXEInvoiceRequestTest.java
 src/test/java/com/pdfgeneratorapi/client/model/CreateWorkspaceRequestTest.java
 src/test/java/com/pdfgeneratorapi/client/model/CreateXRechnungEInvoiceRequestTest.java
+src/test/java/com/pdfgeneratorapi/client/model/DisplayModeParamTest.java
 src/test/java/com/pdfgeneratorapi/client/model/DocumentActionTest.java
 src/test/java/com/pdfgeneratorapi/client/model/DocumentSignatureTest.java
 src/test/java/com/pdfgeneratorapi/client/model/DocumentSignaturesTest.java
