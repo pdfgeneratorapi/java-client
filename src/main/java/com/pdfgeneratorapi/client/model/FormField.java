@@ -52,7 +52,7 @@ import com.pdfgeneratorapi.client.JSON;
 /**
  * Form field definition
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-19T19:56:50.729379022Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-26T20:55:03.855101145Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class FormField {
   public static final String SERIALIZED_NAME_LABEL = "label";
   @SerializedName(SERIALIZED_NAME_LABEL)

@@ -56,7 +56,7 @@ import com.pdfgeneratorapi.client.JSON;
 /**
  * GenerateDocumentBatchRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-19T19:56:50.729379022Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-26T20:55:03.855101145Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class GenerateDocumentBatchRequest {
   public static final String SERIALIZED_NAME_TEMPLATE = "template";
   @SerializedName(SERIALIZED_NAME_TEMPLATE)

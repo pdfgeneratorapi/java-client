@@ -54,7 +54,7 @@ import com.pdfgeneratorapi.client.JSON;
 /**
  * Template configuration. Use the Get schema endpoint to see the detailed payload structure.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-19T19:56:50.729379022Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-26T20:55:03.855101145Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class TemplateDefinitionNew {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)

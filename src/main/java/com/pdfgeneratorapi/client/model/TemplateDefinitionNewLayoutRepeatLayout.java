@@ -49,7 +49,7 @@ import com.pdfgeneratorapi.client.JSON;
 /**
  * Defines page size if layout is repeated on the page e.g sheet labels
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-19T19:56:50.729379022Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-26T20:55:03.855101145Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class TemplateDefinitionNewLayoutRepeatLayout {
   /**
    * Defines template page size

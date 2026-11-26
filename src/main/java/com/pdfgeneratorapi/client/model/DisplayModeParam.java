@@ -48,7 +48,7 @@ import com.pdfgeneratorapi.client.JSON;
 /**
  * How a PDF viewer opens the document (optional). Applies to PDF output. Any value left out keeps its default.
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-19T19:56:50.729379022Z[Etc/UTC]", comments = "Generator version: 7.14.0")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-11-26T20:55:03.855101145Z[Etc/UTC]", comments = "Generator version: 7.14.0")
 public class DisplayModeParam {
   /**
    * Initial zoom * &#x60;fullpage&#x60; - Fits the whole page in the window * &#x60;fullwidth&#x60; - Fits the page width to the window * &#x60;real&#x60; - Actual size (100%) * &#x60;default&#x60; - Leaves the zoom to the viewer. The PDF gets no open action, which some e-invoice validators require 
